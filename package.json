@@ -1,8 +1,33 @@
 {
+  "name": "kingdom-design-house-rag-api",
+  "version": "1.0.0",
+  "description": "RAG API for Kingdom Design House chat system",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "cd rag-api && nodemon server.js",
+    "test": "jest",
+    "populate": "cd rag-api && node scripts/populate-index.js"
+  },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^7.0.1",
-    "@fortawesome/free-solid-svg-icons": "^7.0.1",
-    "@fortawesome/react-fontawesome": "^3.0.2",
-    "@heroicons/react": "^2.2.0"
-  }
+    "@pinecone-database/pinecone": "^6.1.2",
+    "axios": "^1.12.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "openai": "^4.20.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "rag",
+    "ai",
+    "chatbot",
+    "pinecone",
+    "openai"
+  ],
+  "author": "Kingdom Design House",
+  "license": "MIT"
 }
