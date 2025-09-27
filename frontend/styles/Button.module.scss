@@ -1,0 +1,67 @@
+@import 'variables';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: $spacing-lg $spacing-lg;
+  background-color: $primary-yellow;
+  color: $primary-black;
+  border: none;
+  border-radius: $radius-md;
+  font-weight: $font-semibold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+  font-size: $font-base;
+  
+  &:hover {
+    background-color: darken($primary-yellow, 10%);
+    transform: translateY(-2px);
+  }
+  
+  &--primary {
+    background-color: $primary-yellow;
+    color: $primary-black;
+    
+    &:hover {
+      background-color: darken($primary-yellow, 10%);
+    }
+  }
+  
+  &--secondary {
+    background-color: transparent;
+    color: $primary-white;
+    border: 2px solid $primary-white;
+    
+    &:hover {
+      background-color: $primary-white;
+      color: $primary-black;
+    }
+  }
+
+  &--tertiary {
+    background-color: $primary-black;
+    color: $primary-white;
+    border: 2px solid $primary-white;
+    
+    &:hover {
+      background-color: $primary-white;
+      color: $primary-black;
+    }
+  }
+  
+  &--large {
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-lg;
+  }
+  
+  &__arrow {
+    transition: transform $transition-fast;
+  }
+  
+  &:hover &__arrow {
+    transform: translateX(2px);
+  }
+}

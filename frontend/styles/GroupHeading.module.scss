@@ -1,0 +1,78 @@
+@import './variables.scss';
+
+.groupHeading {
+  background-color: $primary-beige;
+  padding: $spacing-3xl 0;
+  text-align: center;
+  padding: 6rem 0;
+  position: relative;
+
+  &__container {
+    max-width: $breakpoint-lg;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+  }
+
+  &__title {
+    font-size: $font-5xl;
+    font-weight: $font-regular;
+    color: $primary-black;
+    margin: 0 0 $spacing-xl 0;
+    line-height: 1.2;
+
+    .groupHeading__highlight {
+      display: inline-block;
+      background-color: $primary-yellow;
+      color: $primary-black;
+      padding: $spacing-lg $spacing-lg;
+      margin: 0 $spacing-xs;
+      transform: skewX(-5deg);
+      border-radius: $radius-sm;
+      position: relative;
+      
+    }
+  }
+
+  &__content {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: $radius-md;
+    font-size: $font-base;
+    font-weight: $font-regular;
+    color: $primary-black;
+    line-height: 1.6;
+    text-align: left;
+    max-width: 80%;
+    margin: 0 auto;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: $spacing-lg;
+  }
+
+  // Responsive design
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-xl 0;
+
+    &__title {
+      font-size: $font-xl;
+      margin-bottom: $spacing-lg;
+    }
+
+    &__content {
+      font-size: $font-sm;
+      max-width: 90%;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-lg 0;
+
+    &__title {
+      font-size: $font-lg;
+      margin-bottom: $spacing-md;
+    }
+
+    &__content {
+      font-size: $font-xs;
+      max-width: 95%;
+    }
+  }
+}

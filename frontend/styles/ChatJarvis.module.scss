@@ -1,0 +1,188 @@
+@import 'variables';
+
+.chatJarvis {
+  background-color: $primary-beige;
+  padding: $spacing-4xl 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 400px;
+  box-shadow: inset 1px 16px 65px -36px #000000;
+
+  > p{
+    color: $primary-black;
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    line-height: 1.5rem;;
+    font-style: italic;
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: left;
+    box-shadow: $shadow-lg;
+    margin: 20px auto;
+    background: $primary-yellow;
+    padding: 20px;
+    border-radius: 30px;
+  }
+
+  &__container {
+    position: relative;
+    border-radius: 5%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: $primary-black;
+    
+    img{
+      border-radius: 20%;
+      object-fit: contain;
+      padding: 10px;
+      position: relative;
+    }
+  }
+
+  &__button {
+    background-color: $primary-black;
+    color: $primary-white;
+    border: none;
+    padding: $spacing-lg $spacing-3xl;
+    font-size: $font-xl;
+    font-weight: $font-bold;
+    border-radius: $radius-lg;
+    cursor: pointer;
+    transition: all $transition-base;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: $shadow-lg;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba($primary-yellow, 0.2), transparent);
+      transition: left $transition-slow;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-xl;
+      background-color: lighten($primary-black, 10%);
+
+      &::before {
+        left: 100%;
+      }
+    }
+
+    &:active {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: $breakpoint-md) {
+      padding: $spacing-md $spacing-2xl;
+      font-size: $font-lg;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-sm $spacing-xl;
+      font-size: $font-base;
+    }
+  }
+
+  &__decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &__splash {
+    position: absolute;
+
+    &--left,
+    &--right {
+      opacity: 0.2;
+      width: 50%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &--left {
+      left: 0;
+      top: 40%;
+      background-image: url('/images/splash_left.png');
+    }
+
+    &--right {
+      right: -0;
+      top: 40%;
+      background-image: url('/images/splash_right.png');
+    }
+
+    svg {
+      width: 200px;
+      height: 200px;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+
+      @media (max-width: $breakpoint-md) {
+        width: 150px;
+        height: 150px;
+      }
+
+      @media (max-width: $breakpoint-sm) {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}
+
+
+// Responsive adjustments
+@media (max-width: $breakpoint-md) {
+  .chatJarvis {
+    padding: $spacing-3xl 0;
+    min-height: 300px;
+
+    &__splash {
+      &--left {
+        left: -30px;
+      }
+
+      &--right {
+        right: -30px;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .chatJarvis {
+    padding: $spacing-2xl 0;
+    min-height: 250px;
+
+    &__splash {
+      &--left {
+        left: -20px;
+      }
+
+      &--right {
+        right: -20px;
+      }
+    }
+  }
+}

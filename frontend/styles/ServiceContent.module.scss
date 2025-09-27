@@ -1,0 +1,203 @@
+@import './variables.scss';
+
+.serviceContent {
+  background-color: $primary-white;
+  padding: $spacing-4xl 0;
+  position: relative;
+  font-family: $font-primary;
+
+  &__container {
+    max-width: $breakpoint-xl;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+  }
+
+  // Main Content Section
+  &__main {
+    margin-bottom: $spacing-5xl;
+  }
+
+  &__mainTitle {
+    font-family: $font-primary;
+    font-size: $font-5xl;
+    font-weight: $font-regular;
+    color: $primary-black;
+    margin-bottom: $spacing-xl;
+    text-align: left;
+  }
+
+  &__mainText {
+    margin: 0 auto;
+  }
+
+  &__paragraph {
+    font-size: $font-base;
+    line-height: 1.6;
+    color: $primary-dark-gray;
+    margin-bottom: $spacing-lg;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      font-weight: $font-bold;
+      color: $primary-black;
+    }
+  }
+
+  // Approach Section
+  &__approach {
+    margin-bottom: $spacing-5xl;
+  }
+
+  &__approachTitle {
+    font-family: $font-primary;
+    font-size: $font-4xl;
+    font-weight: $font-regular;
+    color: $primary-black;
+    margin-bottom: $spacing-2xl;
+    text-align: left;
+  }
+
+  &__approachSteps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-3xl;
+    max-width: $breakpoint-xl;
+    margin: 0 auto;
+  }
+
+  &__step {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-lg;
+    padding: $spacing-xl;
+    background-color: $primary-faded-yellow;
+    border-radius: $radius-md;
+    box-shadow: $shadow-xl;
+    transition: transform $transition-fast, box-shadow $transition-fast;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &__stepContent {
+    flex: 1;
+  }
+
+  &__stepTitle {
+    font-size: $font-2xl;
+    font-weight: $font-regular;
+    font-style: italic;
+    color: $primary-black;
+    margin-bottom: $spacing-md;
+  }
+
+  &__stepDescription {
+    font-size: $font-sm;
+    line-height: 1.5;
+    color: $primary-dark-gray;
+    margin: 0;
+
+    strong {
+      font-weight: $font-bold;
+      color: $primary-black;
+    }
+  }
+
+  // Expertise Section
+  &__expertise {
+    margin-bottom: $spacing-3xl;
+  }
+
+  &__expertiseTitle {
+    font-family: $font-primary;
+    font-size: $font-4xl;
+    font-weight: $font-regular;
+    color: $primary-black;
+    margin-bottom: $spacing-xl;
+    text-align: center;
+  }
+
+  &__expertiseList {
+    max-width: 450px;
+    margin: 0 auto;
+    list-style: none;
+    border-radius: $radius-lg;
+    padding: $spacing-2xl;
+    background-color: $primary-black;
+  }
+
+  &__expertiseItem {
+    font-size: $font-base;
+    line-height: 1.6;
+    color: $primary-white;
+    margin-bottom: $spacing-md;
+    padding-left: $spacing-lg;
+    position: relative;
+
+    &:before {
+      content: "•";
+      color: $primary-yellow;
+      font-weight: $font-bold;
+      font-size: $font-lg;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // CTA Section
+  &__cta {
+    text-align: center;
+  }
+
+  // Responsive Design
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-3xl 0;
+
+    &__mainTitle,
+    &__approachTitle {
+      font-size: $font-2xl;
+    }
+
+    &__expertiseTitle {
+      font-size: $font-2xl;
+    }
+
+    &__approachSteps {
+      grid-template-columns: 1fr;
+      gap: $spacing-2xl;
+    }
+
+    &__step {
+      flex-direction: column;
+      text-align: center;
+      gap: $spacing-md;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-2xl 0;
+
+    &__mainTitle,
+    &__approachTitle {
+      font-size: $font-xl;
+    }
+
+    &__expertiseTitle {
+      font-size: $font-xl;
+    }
+
+    &__step {
+      padding: $spacing-lg;
+    }
+  }
+}

@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap&family=Anton:wght@400;500;600;700&family=Rock+Salt:wght@300;400;500;700&display=swap');
+@import 'variables';
+
+// Reset and Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: $font-base;
+  line-height: 1.6;
+  color: $primary-white;
+  background-color: $primary-black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-bold;
+  line-height: 1.2;
+  margin-bottom: $spacing-md;
+  font-family: $font-secondary;
+}
+
+h1 { font-size: $font-5xl; }
+h2 { font-size: $font-4xl; }
+h3 { font-size: $font-3xl; }
+h4 { font-size: $font-2xl; }
+h5 { font-size: $font-xl; }
+h6 { font-size: $font-lg; }
+
+p {
+  margin-bottom: $spacing-md;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color $transition-fast;
+}
+
+// Button Base Styles
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-lg;
+  border: none;
+  border-radius: $radius-md;
+  font-weight: $font-semibold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+  font-size: $font-base;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  &--primary {
+    background-color: $primary-yellow;
+    color: $primary-black;
+    
+    &:hover {
+      background-color: darken($primary-yellow, 10%);
+    }
+  }
+  
+  &--secondary {
+    background-color: transparent;
+    color: $primary-white;
+    border: 2px solid $primary-white;
+    
+    &:hover {
+      background-color: $primary-white;
+      color: $primary-black;
+    }
+  }
+  
+  &--large {
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-lg;
+  }
+}
+
+// Flexbox Grid System
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 (-$grid-gap / 2);
+  
+  &__item {
+    flex: 0 0 auto;
+    padding: 0 ($grid-gap / 2);
+    margin-bottom: $grid-gap;
+  }
+  
+  // Column Classes
+  @for $i from 1 through $grid-columns {
+    &__item--#{$i} {
+      flex: 0 0 percentage($i / $grid-columns);
+    }
+  }
+  
+  // Responsive Grid
+  @media (max-width: $breakpoint-md) {
+    &__item {
+      flex: 0 0 100%;
+    }
+  }
+  
+  @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+    &__item--md-6 {
+      flex: 0 0 50%;
+    }
+  }
+}
+
+// Container
+.container {
+  max-width: $breakpoint-xl;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+  
+  @media (max-width: $breakpoint-sm) {
+    padding: 0 $spacing-md;
+  }
+}
+
+// Section Spacing
+.section {
+  padding: $spacing-4xl 0;
+  
+  &--small {
+    padding: $spacing-3xl 0;
+  }
+  
+  &--large {
+    padding: $spacing-4xl 0;
+  }
+}
+
+// Utility Classes
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-yellow { color: $primary-yellow; }
+.text-white { color: $primary-white; }
+.text-black { color: $primary-black; }
+
+.bg-black { background-color: $primary-black; }
+.bg-dark-gray { background-color: $primary-dark-gray; }
+.bg-yellow { background-color: $primary-yellow; }
+.bg-cream { background-color: $primary-cream; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: $spacing-xs; }
+.mb-2 { margin-bottom: $spacing-sm; }
+.mb-3 { margin-bottom: $spacing-md; }
+.mb-4 { margin-bottom: $spacing-lg; }
+.mb-5 { margin-bottom: $spacing-xl; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: $spacing-xs; }
+.mt-2 { margin-top: $spacing-sm; }
+.mt-3 { margin-top: $spacing-md; }
+.mt-4 { margin-top: $spacing-lg; }
+.mt-5 { margin-top: $spacing-xl; }
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}

@@ -1,0 +1,186 @@
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           RAG API COMPLETE FLOW DIAGRAM                         │
+│                                                                                 │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                            ENTRY POINT                                     │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │ │
+│  │  │   HTTP Request  │  │   Netlify       │  │   Health Check  │            │ │
+│  │  │   /api/chat     │  │   Function      │  │   /health       │            │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────┘            │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                            │
+│                                    ▼                                            │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        SERVER.JS - MAIN HANDLER                            │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │ │
+│  │  │   Initialize    │  │   Middleware    │  │   Error         │            │ │
+│  │  │   Services      │  │   Setup         │  │   Handling      │            │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────┘            │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                            │
+│                                    ▼                                            │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        ROUTES/CHAT.JS                                       │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │ │
+│  │  │   chatHandler   │  │   getAIResponse │  │   getStructured │            │ │
+│  │  │   (Main Route)  │  │   (AI Logic)    │  │   Info (Lead)   │            │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────┘            │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │ │
+│  │  │   extractBasic  │  │   extractConv   │  │   createLeadIf  │            │ │
+│  │  │   LeadInfo      │  │   Keywords      │  │   Possible     │            │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────┘            │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                            │
+│                                    ▼                                            │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        SERVICES LAYER                                      │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │ │
+│  │  │   PINECONE.JS   │  │   OPENAI.JS      │  │   HUBSPOT.JS    │            │ │
+│  │  │                 │  │                   │  │                 │            │ │
+│  │  │ ┌─────────────┐ │  │ ┌─────────────┐  │  │ ┌─────────────┐ │            │ │
+│  │  │ │initialize   │ │  │ │initialize   │  │  │ │initialize   │ │            │ │
+│  │  │ │Pinecone     │ │  │ │OpenAI       │  │  │ │HubSpot      │ │            │ │
+│  │  │ └─────────────┘ │  │ └─────────────┘  │  │ └─────────────┘ │            │ │
+│  │  │ ┌─────────────┐ │  │ ┌─────────────┐  │  │ ┌─────────────┐ │            │ │
+│  │  │ │searchSimilar│ │  │ │generateEmbed│  │  │ │createContact │ │            │ │
+│  │  │ │Documents    │ │  │ │ding         │  │  │ └─────────────┘ │            │ │
+│  │  │ └─────────────┘ │  │ └─────────────┘  │  │ ┌─────────────┐ │            │ │
+│  │  │ ┌─────────────┐ │  │ ┌─────────────┐  │  │ │createDeal   │ │            │ │
+│  │  │ │upsertDocument│ │  │ │generateResp │  │  │ └─────────────┘ │            │ │
+│  │  │ └─────────────┘ │  │ │onse         │  │  │ ┌─────────────┐ │            │ │
+│  │  │                 │  │ └─────────────┘  │  │ │createTicket │ │            │ │
+│  │  │                 │  │ ┌─────────────┐  │  │ └─────────────┘ │            │ │
+│  │  │                 │  │ │extractStruct│  │  │                 │            │ │
+│  │  │                 │  │ │uredInfo     │  │  │                 │            │ │
+│  │  │                 │  │ └─────────────┘  │  │                 │            │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────┘            │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                            │
+│                                    ▼                                            │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        DATA LAYER                                          │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │ │
+│  │  │   SAMPLE        │  │   CONFIG.JS     │  │   SCRIPTS       │            │ │
+│  │  │   DOCUMENTS     │  │   (Environment) │  │   (Setup)       │            │ │
+│  │  │   .JSON         │  │                 │  │                 │            │ │
+│  │  │                 │  │ ┌─────────────┐ │  │ ┌─────────────┐ │            │ │
+│  │  │ ┌─────────────┐ │  │ │validateConfig│ │  │ │populateIndex│ │            │ │
+│  │  │ │Web Dev Docs │ │  │ └─────────────┘ │  │ └─────────────┘ │            │ │
+│  │  │ │IT Services  │ │  │ ┌─────────────┐ │  │                 │            │ │
+│  │  │ │AI Solutions │ │  │ │getServiceUrls│ │  │                 │            │ │
+│  │  │ │Pricing Info │ │  │ └─────────────┘ │  │                 │            │ │
+│  │  │ │Company Info │ │  │                 │  │                 │            │ │
+│  │  │ └─────────────┘ │  │                 │  │                 │            │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────┘            │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           DETAILED REQUEST FLOW                                 │
+│                                                                                 │
+│  User Query → /api/chat → chatHandler()                                         │
+│      │                                                                           │
+│      ▼                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                    AI RESPONSE GENERATION                                   │ │
+│  │                                                                             │ │
+│  │  1. searchSimilarDocuments(query, 5)                                      │ │
+│  │     └─ Pinecone Vector Search                                              │ │
+│  │     └─ Returns: [{id, score, metadata.text}]                              │ │
+│  │                                                                             │ │
+│  │  2. createSystemPrompt(context, history)                                   │ │
+│  │     └─ Builds context from search results                                  │ │
+│  │     └─ Includes conversation history                                        │ │
+│  │                                                                             │ │
+│  │  3. generateResponse(messages, systemPrompt)                               │ │
+│  │     └─ OpenAI GPT-4o call                                                  │ │
+│  │     └─ Returns: AI-generated response                                      │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+│      │                                                                           │
+│      ▼                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                    LEAD EXTRACTION & CRM                                   │ │
+│  │                                                                             │ │
+│  │  1. extractStructuredInfo(query)                                           │ │
+│  │     └─ AI-powered extraction                                               │ │
+│  │     └─ Returns: {email, name, service, budget, timeline}                   │ │
+│  │                                                                             │ │
+│  │  2. extractBasicLeadInfo(query) [Fallback]                                │ │
+│  │     └─ Regex-based extraction                                              │ │
+│  │     └─ Returns: {email, phone, first_name, service_requested}             │ │
+│  │                                                                             │ │
+│  │  3. createLeadIfPossible(structuredInfo, query)                           │ │
+│  │     └─ createContact() → HubSpot Contact                                   │ │
+│  │     └─ createDeal() → HubSpot Deal                                        │ │
+│  │     └─ createTicket() → HubSpot Ticket                                    │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+│      │                                                                           │
+│      ▼                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        RESPONSE ASSEMBLY                                   │ │
+│  │                                                                             │ │
+│  │  {                                                                          │ │
+│  │    "response": "AI-generated response",                                    │ │
+│  │    "structuredInfo": { /* extracted lead data */ },                       │ │
+│  │    "hubspotLead": {                                                        │ │
+│  │      "contactId": "123456789",                                             │ │
+│  │      "dealId": "987654321",                                                │ │
+│  │      "ticketId": "456789123",                                               │ │
+│  │      "success": true                                                       │ │
+│  │    },                                                                       │ │
+│  │    "relevantDocs": [ /* Pinecone search results */ ],                       │ │
+│  │    "timestamp": "2025-09-27T14:50:01.853Z"                                 │ │
+│  │  }                                                                          │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           ERROR HANDLING & FALLBACKS                           │
+│                                                                                 │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        AI SERVICE FAILURES                                │ │
+│  │                                                                             │ │
+│  │  OpenAI Quota Exceeded → Fallback Response                                 │ │
+│  │  Pinecone Unavailable → Continue without context                           │ │
+│  │  Network Issues → Graceful degradation                                    │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                 │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        HUBSPOT INTEGRATION FAILURES                        │ │
+│  │                                                                             │ │
+│  │  Contact Already Exists → Log conflict, continue                           │ │
+│  │  Invalid Properties → Log validation errors                               │ │
+│  │  API Rate Limits → Retry with exponential backoff                         │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                 │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        RESPONSE FALLBACKS                                 │ │
+│  │                                                                             │ │
+│  │  AI Unavailable → "I'm experiencing technical difficulties..."             │ │
+│  │  No Context → Generic helpful response                                     │ │
+│  │  Lead Capture Failed → Continue with AI response                          │ │
+│  └─────────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           FUNCTION DEPENDENCY MAP                              │
+│                                                                                 │
+│  server.js                                                                     │
+│  ├── routes/chat.js                                                            │
+│  │   ├── services/pinecone.js                                                  │
+│  │   │   └── services/openai.js (generateEmbedding)                           │
+│  │   ├── services/openai.js                                                   │
+│  │   │   ├── generateResponse()                                               │
+│  │   │   └── extractStructuredInfo()                                          │
+│  │   └── services/hubspot.js                                                   │
+│  │       ├── createContact()                                                  │
+│  │       ├── createDeal()                                                     │
+│  │       └── createTicket()                                                   │
+│  ├── lib/config.js                                                            │
+│  └── data/sample-documents.json                                               │
+│                                                                                 │
+│  scripts/populate-index.js                                                     │
+│  ├── services/pinecone.js (upsertDocument)                                    │
+│  ├── services/openai.js (generateEmbedding)                                   │
+│  └── data/sample-documents.json                                               │
+└─────────────────────────────────────────────────────────────────────────────────┘

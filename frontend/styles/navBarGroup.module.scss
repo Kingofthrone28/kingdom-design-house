@@ -1,0 +1,278 @@
+@import 'variables';
+
+.navBarGroup {
+  background-color: rgba(45, 45, 45, 0.4);
+  backdrop-filter: blur(100px);
+  padding: $spacing-md 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-fixed;
+  box-shadow: $shadow-md;
+  border-bottom: 1px solid rgba($primary-white, 0.1);
+
+  &__container {
+    max-width: $breakpoint-2xl;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-xl;
+  }
+
+  // Logo Section
+  &__logo {
+    flex-shrink: 0;
+
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      cursor: pointer;
+      transition: opacity $transition-fast;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &__crown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    &__kingdom {
+      font-family: $font-tertiary;
+      font-size: $font-2xl;
+      color: $primary-white;
+      font-weight: $font-bold;
+      margin-bottom: -5px;
+    }
+
+    &__designhouse {
+      font-size: $font-sm;
+      color: $primary-yellow;
+      font-weight: $font-semibold;
+      letter-spacing: 0.1em;
+      margin-bottom: 2px;
+    }
+
+    &__group {
+      font-family: $font-tertiary;
+      font-size: $font-xs;
+      color: $primary-yellow;
+      font-weight: $font-medium;
+    }
+
+    &__groupLogo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: $spacing-sm;
+      
+      img {
+        border-radius: $radius-sm;
+        transition: transform $transition-fast;
+      }
+
+      &:hover img {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  // Navigation Links
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xl;
+    flex: 1;
+    justify-content: center;
+
+    &__item {
+      position: relative;
+
+      &__hasSubmenu {
+        &:hover {
+          .navBarGroup__nav__submenu {          
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+          }
+          .navBarGroup__nav__link::after {   
+            display: none;
+          }
+        }
+      }
+    }
+
+    &__link {
+      color: $primary-white;
+      font-size: $font-sm;
+      font-weight: $font-medium;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      padding: $spacing-sm $spacing-sm;
+      border-radius: $radius-sm;
+      transition: all $transition-fast;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+
+      &:hover {
+        color: $primary-yellow;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $primary-yellow;
+        transition: width $transition-fast;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+
+    &__chevron {
+      font-size: $font-xs;
+      transition: transform $transition-fast;
+    }
+
+    &__submenu {
+      position: absolute;
+      top: 100%;
+      background-color: $primary-dark-gray;
+      border-radius: $radius-md;
+      box-shadow: $shadow-lg;
+      padding: $spacing-sm 0;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all $transition-fast;
+      border: 1px solid rgba($primary-white, 0.1);
+      z-index: $z-dropdown;
+
+      &__link {
+        display: block;
+        color: $primary-white;
+        font-size: $font-sm;
+        font-weight: $font-medium;
+        text-decoration: none;
+        padding: $spacing-sm $spacing-md;
+        transition: all $transition-fast;
+
+        &:hover {
+          color: $primary-yellow;
+          background-color: rgba($primary-yellow, 0.1);
+        }
+      }
+    }
+  }
+
+  // Contact Information
+  &__contact {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-xs;
+    flex-shrink: 0;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      margin-right: $spacing-lg;
+      gap: $spacing-xs;
+    }
+
+    &__text {
+      color: $primary-white;
+      font-size: $font-sm;
+      font-weight: $font-medium;
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: $breakpoint-lg) {
+    &__container {
+      gap: $spacing-md;
+    }
+
+    &__nav {
+      gap: $spacing-md;
+    }
+
+    &__logo {
+      &__kingdom {
+        font-size: $font-xl;
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    &__container {
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+    }
+
+    &__nav {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      margin-top: $spacing-sm;
+      display: none;
+    }
+
+    &__contact {
+      flex-direction: row;
+      gap: $spacing-md;
+      display: none;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    &__logo {
+      &__kingdom {
+        font-size: $font-lg;
+      }
+
+      &__designhouse {
+        font-size: $font-xs;
+      }
+
+      &__group {
+        font-size: 0.6rem;
+      }
+    }
+
+    &__nav {
+      &__link {
+        font-size: $font-sm;
+        padding: $spacing-xs $spacing-sm;
+      }
+    }
+
+    &__contact {
+      &__text {
+        font-size: $font-xs;
+      }
+    }
+  }
+}

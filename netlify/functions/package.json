@@ -1,0 +1,16 @@
+{
+  "name": "kingdom-design-house-netlify-functions",
+  "version": "1.0.0",
+  "description": "Netlify functions for Kingdom Design House",
+  "main": "index.js",
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  },
+  "keywords": [
+    "netlify",
+    "functions",
+    "api"
+  ],
+  "author": "Kingdom Design House",
+  "license": "MIT"
+}

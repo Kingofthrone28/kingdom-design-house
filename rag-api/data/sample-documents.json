@@ -1,0 +1,72 @@
+[
+  {
+    "id": "web-development-1",
+    "title": "Web Development Services",
+    "content": "Kingdom Design House offers comprehensive web development services including custom website design, e-commerce solutions, content management systems, and responsive web applications. Our team specializes in modern frameworks like React, Next.js, and Node.js to create scalable and performant web solutions.",
+    "category": "web-development",
+    "tags": ["web development", "website design", "e-commerce", "cms", "react", "nextjs"]
+  },
+  {
+    "id": "it-services-1",
+    "title": "IT Services & Networking",
+    "content": "Our IT services include network setup and maintenance, server management, cybersecurity solutions, cloud migration, and technical support. We help businesses optimize their IT infrastructure for better performance, security, and scalability.",
+    "category": "it-services",
+    "tags": ["it services", "networking", "cybersecurity", "cloud migration", "server management"]
+  },
+  {
+    "id": "ai-solutions-1",
+    "title": "AI Integration & Tools",
+    "content": "We provide AI integration services including chatbot development, machine learning solutions, automation tools, and AI-powered business intelligence. Our AI solutions help businesses streamline operations and gain valuable insights from their data.",
+    "category": "ai-solutions",
+    "tags": ["ai integration", "chatbot", "machine learning", "automation", "business intelligence"]
+  },
+  {
+    "id": "pricing-1",
+    "title": "Pricing Information",
+    "content": "Our pricing varies based on project scope and requirements. Web development projects typically range from $5,000 to $50,000+. IT services are available on a monthly retainer basis starting at $2,000/month. AI solutions are custom quoted based on complexity. We offer free consultations to discuss your specific needs and provide accurate pricing.",
+    "category": "pricing",
+    "tags": ["pricing", "cost", "budget", "consultation", "quote"]
+  },
+  {
+    "id": "process-1",
+    "title": "Our Development Process",
+    "content": "Our process includes: 1) Discovery - understanding your needs and goals, 2) Planning - creating a detailed project roadmap, 3) Implementation - building your solution, 4) Optimization - fine-tuning for performance, 5) Launch - deploying your project, 6) Maintenance - ongoing support and updates.",
+    "category": "process",
+    "tags": ["process", "development", "discovery", "planning", "implementation", "launch", "maintenance"]
+  },
+  {
+    "id": "company-info-1",
+    "title": "About Kingdom Design House",
+    "content": "Kingdom Design House has over 10 years of experience in web development and software engineering. We are your all-in-one partner for web development, IT services, networking, and AI solutions. Our team is dedicated to solving business problems so you don't have to.",
+    "category": "company",
+    "tags": ["about", "company", "experience", "team", "mission"]
+  },
+  {
+    "id": "contact-1",
+    "title": "Contact Information",
+    "content": "You can reach us at info@kingdomdesignhouse.com or call us at 347.927.8846. We're available Monday through Friday, 9 AM to 6 PM EST. For urgent matters, please call our business phone number.",
+    "category": "contact",
+    "tags": ["contact", "email", "phone", "hours", "support"]
+  },
+  {
+    "id": "seo-1",
+    "title": "SEO Optimization Services",
+    "content": "We provide comprehensive SEO optimization services including keyword research, on-page optimization, technical SEO, content strategy, and performance monitoring. Our SEO services help improve your website's visibility and drive organic traffic.",
+    "category": "seo",
+    "tags": ["seo", "search engine optimization", "keywords", "traffic", "visibility"]
+  },
+  {
+    "id": "maintenance-1",
+    "title": "Website Maintenance & Support",
+    "content": "We offer ongoing website maintenance and support services including security updates, performance monitoring, content updates, backup management, and technical support. Our maintenance plans ensure your website stays secure, fast, and up-to-date.",
+    "category": "maintenance",
+    "tags": ["maintenance", "support", "updates", "security", "backup", "monitoring"]
+  },
+  {
+    "id": "consultation-1",
+    "title": "Free Consultation",
+    "content": "We offer free consultations to discuss your project needs, provide recommendations, and give you an accurate quote. During the consultation, we'll understand your goals, assess your current situation, and propose the best solution for your business.",
+    "category": "consultation",
+    "tags": ["consultation", "free", "quote", "recommendations", "assessment"]
+  }
+]

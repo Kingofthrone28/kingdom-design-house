@@ -1,0 +1,231 @@
+@import './variables.scss';
+
+.webStrategy {
+  background-color: $primary-beige;
+  padding: $spacing-4xl 0;
+  position: relative;
+
+  &__container {
+    max-width: $breakpoint-xl;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+    position: relative;
+  }
+
+  &__timeline {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, 
+      transparent 0%, 
+      $primary-yellow 20%, 
+      $primary-yellow 80%, 
+      transparent 100%
+    );
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  &__steps {
+    position: relative;
+    z-index: 2;
+  }
+
+  &__step {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-4xl;
+    position: relative;
+
+    img {
+      width: 230px;
+      height: 230px;
+    }
+
+    .webStrategy__step__content {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: $radius-lg;
+      padding: $spacing-xl $spacing-xl;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    &__left {
+      flex-direction: row;
+      
+      .webStrategy__step__content {
+        margin-right: $spacing-2xl;
+        text-align: right;
+      }
+      
+      .webStrategy__step__icon {
+        margin-left: $spacing-2xl;
+      }
+    }
+
+    &__right {
+      flex-direction: row-reverse;
+      
+      .webStrategy__step__content {
+        margin-left: $spacing-2xl;
+        text-align: left;
+      }
+      
+      .webStrategy__step__icon {
+        margin-right: $spacing-2xl;
+      }
+    }
+
+    &__content {
+      flex: 1;
+      max-width: 45%;
+    }
+
+    &__number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background-color: $primary-yellow;
+      color: $primary-black;
+      border-radius: 50%;
+      font-weight: $font-bold;
+      font-family: $font-tertiary;
+      font-size: $font-2xl;
+      margin-bottom: $spacing-md;
+      position: relative;
+      z-index: 3;
+    }
+
+    &__title {
+      font-size: $font-4xl;
+      font-weight: $font-regular;
+      border-bottom: 2px solid $primary-dark-gray;
+      color: $primary-dark-gray;
+      margin: 0 0 $spacing-sm 0;
+      padding: $spacing-md 0;
+      line-height: 1.3;
+    }
+
+    &__description {
+      font-size: $font-base;
+      font-weight: $font-regular;
+      color: $primary-dark-gray;
+      margin: 0;
+      padding: $spacing-lg 0;
+      line-height: 1.5;
+    }
+  }
+
+
+  &__cta {
+    text-align: center;
+    margin-top: $spacing-4xl;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__cta__button {
+    background-color: $primary-yellow;
+    color: $primary-dark-gray;
+    border: none;
+    border-radius: $radius-lg;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-lg;
+    font-weight: $font-bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+    transition: all $transition-fast;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background-color: darken($primary-yellow, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &__cta__arrow {
+    font-size: $font-xl;
+    transition: transform $transition-fast;
+  }
+
+  &__cta__button:hover &__cta__arrow {
+    transform: translateX(4px);
+  }
+
+  // Responsive design
+  @media (max-width: $breakpoint-lg) {
+    &__timeline {
+        background: none;
+        z-index: 1;
+    }
+    &__step {
+      &__left,
+      &__right {
+        flex-direction: column-reverse;
+        text-align: center;
+        
+        .webStrategy__step__content {
+          margin: 0 0 $spacing-lg 0;
+          max-width: 100%;
+          text-align: center;
+        }
+        
+        .webStrategy__step__icon {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-2xl 0;
+
+    &__step {
+      margin-bottom: $spacing-2xl;
+
+      &__number {
+        width: 32px;
+        height: 32px;
+        font-size: $font-base;
+      }
+
+      &__title {
+        font-size: $font-lg;
+      }
+
+      &__description {
+        font-size: $font-sm;
+      }
+
+    }
+
+    &__cta__button {
+      font-size: $font-base;
+      padding: $spacing-sm $spacing-lg;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    &__timeline {
+      display: none;
+    }
+
+    &__step {
+      &__number {
+        width: 28px;
+        height: 28px;
+        font-size: $font-sm;
+      }
+
+      &__title {
+        font-size: $font-base;
+      }
+    }
+  }
+}

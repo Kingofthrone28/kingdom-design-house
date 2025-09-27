@@ -1,0 +1,156 @@
+@import 'variables';
+
+.footer {
+  background-color: $primary-dark-gray;
+  padding: $spacing-3xl 0;
+  color: $primary-white;
+
+  &__container {
+    max-width: $breakpoint-2xl;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-3xl;
+    align-items: start;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: 1fr;
+      gap: $spacing-2xl;
+    }
+  }
+
+  &__contact {
+    &__item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: $spacing-lg;
+
+      @media (min-width: $breakpoint-sm) {
+        flex-direction: row;
+        align-items: center;
+        gap: $spacing-sm;
+      }
+    }
+
+    &__label {
+      font-weight: $font-semibold;
+      color: $primary-white;
+      margin-bottom: $spacing-xs;
+
+      @media (min-width: $breakpoint-sm) {
+        margin-bottom: 0;
+      }
+    }
+
+    &__link {
+      color: $primary-white;
+      text-decoration: none;
+      transition: color $transition-fast;
+
+      &:hover {
+        color: $primary-yellow;
+      }
+    }
+
+    &__copyright {
+      margin-top: $spacing-xl;
+      font-size: $font-sm;
+      color: $primary-white;
+      border-top: 1px solid rgba($primary-black, 0.2);
+      padding-top: $spacing-md;
+    }
+  }
+
+  &__links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-2xl;
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+      gap: $spacing-xl;
+    }
+
+    &__section {
+      text-align: left;
+    }
+
+    &__title {
+      font-size: $font-lg;
+      font-weight: $font-semibold;
+      color: $primary-yellow;
+      margin-bottom: $spacing-md;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    &__item {
+      margin-bottom: $spacing-sm;
+    }
+
+    &__link {
+      color: $primary-white;
+      text-decoration: none;
+      font-size: $font-base;
+      transition: all $transition-fast;
+      position: relative;
+
+      &:hover {
+        color: $primary-yellow;
+        transform: translateX(4px);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $primary-yellow;
+        transition: width $transition-fast;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $breakpoint-md) {
+  .footer {
+    padding: $spacing-2xl 0;
+
+    &__content {
+      text-align: center;
+    }
+
+    &__links {
+      &__section {
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .footer {
+    &__contact {
+      &__item {
+        text-align: center;
+      }
+    }
+  }
+}

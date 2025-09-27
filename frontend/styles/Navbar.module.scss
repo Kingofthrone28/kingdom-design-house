@@ -1,0 +1,203 @@
+@import 'variables';
+
+.navbar {
+  background-color: rgba(45, 45, 45, 0.4);
+  backdrop-filter: blur(100px);
+  padding: $spacing-md 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-fixed;
+  box-shadow: $shadow-md;
+
+  &__container {
+    max-width: $breakpoint-2xl;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  &__contact {
+    display: flex;
+    gap: $spacing-xl;
+    align-items: center;
+
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+    }
+
+    &__phone,
+    &__email {
+      color: $primary-white;
+      font-size: $font-sm;
+      font-weight: $font-medium;
+    }
+  }
+
+  &__groups {
+    display: flex;
+    gap: $spacing-lg;
+    align-items: center;
+
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
+
+    &__link {
+      color: $primary-white;
+      text-decoration: none;
+      font-size: $font-sm;
+      transition: all $transition-fast;
+      padding: $spacing-xs $spacing-xs;
+      position: relative;
+
+      &:hover {
+        color: $primary-yellow;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $primary-yellow;
+        transition: width $transition-fast;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+  }
+
+  &__cta {
+    &__button {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      padding: $spacing-sm $spacing-lg;
+      background-color: $primary-yellow;
+      color: $primary-black;
+      border: none;
+      border-radius: $radius-md;
+      font-weight: $font-semibold;
+      cursor: pointer;
+      transition: all $transition-fast;
+
+      &:hover {
+        background-color: darken($primary-yellow, 10%);
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: $breakpoint-md) {
+        display: none;
+      }
+    }
+
+    &__arrow {
+      transition: transform $transition-fast;
+    }
+
+    &__button:hover &__arrow {
+      transform: translateX(2px);
+    }
+  }
+
+  &__mobile {
+    &__toggle {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: $spacing-sm;
+
+      @media (max-width: $breakpoint-md) {
+        display: flex;
+      }
+    }
+
+    &__hamburger {
+      width: 25px;
+      height: 3px;
+      background-color: $primary-white;
+      margin: 2px 0;
+      transition: all $transition-fast;
+      border-radius: 2px;
+    }
+
+    &__menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: $primary-dark-gray;
+      padding: $spacing-lg;
+      box-shadow: $shadow-lg;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-lg;
+      border-top: 1px solid rgba($primary-white, 0.1);
+    }
+
+    &__contact {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-sm;
+
+      &__item {
+        color: $primary-white;
+        font-size: $font-sm;
+        font-weight: $font-medium;
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+      }
+    }
+
+    &__groups {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-sm;
+
+      &__link {
+        color: $primary-white;
+        font-size: $font-sm;
+        font-weight: $font-medium;
+        text-decoration: none;
+        transition: color $transition-fast;
+        padding: $spacing-xs $spacing-sm;
+        border-radius: $radius-sm;
+
+        &:hover {
+          color: $primary-yellow;
+          background-color: rgba($primary-yellow, 0.1);
+        }
+      }
+    }
+
+    &__cta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+// Mobile menu animation
+.navbar__mobile__toggle {
+  &:hover .navbar__mobile__hamburger {
+    background-color: $primary-yellow;
+  }
+}
