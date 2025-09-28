@@ -46,11 +46,11 @@ const getRagApiPath = () => {
 
 /**
  * Sends a chat message to the RAG API.
- * @param {string} query - User's message.
+ * @param {string} message - User's message.
  * @param {Array<object>} conversationHistory - Previous messages.
  * @returns {Promise<object>} RAG API response.
  */
-export const sendRagChatMessage = async (query, conversationHistory = []) => {
+export const sendRagChatMessage = async (message, conversationHistory = []) => {
   const baseUrl = getRagApiUrl();
   const path = getRagApiPath();
   const url = `${baseUrl}${path}`;
@@ -63,7 +63,7 @@ export const sendRagChatMessage = async (query, conversationHistory = []) => {
     fullUrl: url
   });
   
-  const payload = { query, conversationHistory };
+  const payload = { message, conversationHistory };
   return await httpClient(url, {
     method: 'POST',
     body: payload,

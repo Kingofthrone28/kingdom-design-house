@@ -13,13 +13,13 @@ const getRagApiUrl = () => {
 
 /**
  * Sends a chat message to the RAG API.
- * @param {string} query - User's message.
+ * @param {string} message - User's message.
  * @param {Array<object>} conversationHistory - Previous messages.
  * @returns {Promise<object>} RAG API response.
  */
-const sendRagChatMessage = async (query, conversationHistory = []) => {
+const sendRagChatMessage = async (message, conversationHistory = []) => {
   const url = `${getRagApiUrl()}/api/chat`;
-  const payload = { query, conversationHistory };
+  const payload = { message, conversationHistory };
   return await httpClient(url, {
     method: 'POST',
     body: payload,

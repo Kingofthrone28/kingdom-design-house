@@ -39,6 +39,18 @@ async function httpClient(url, options = {}, retries = 0) {
     }
 
     const data = await response.json();
+    
+    // Handle direct response format (Netlify functions return data directly)
+    if (data.response || data.structuredInfo !== undefined) {
+      return { success: true, data, status: response.status };
+    }
+    
+    // Handle wrapped response format (some APIs wrap in success/data)
+    if (data.success !== undefined) {
+      return data;
+    }
+    
+    // Default: assume direct response
     return { success: true, data, status: response.status };
   } catch (error) {
     console.error(`HTTP request failed for ${url} (${method}):`, error.message);
