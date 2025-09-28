@@ -330,4 +330,4 @@ MIT License - see LICENSE file for details.
 - **HubSpot CRM Integration**: Full pipeline management
 - **Group-Specific Pages**: Dynamic routing for service groups
 - **Mobile-First Design**: Responsive component architecture
-- **AI Fallback Handling**: Graceful degradation when services unavailable
+- **AI Fallback Handling**: Graceful degradation when services unavailable# Trigger deployment Sun Sep 28 00:36:38 EDT 2025
