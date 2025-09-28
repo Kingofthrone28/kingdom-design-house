@@ -14,9 +14,9 @@ const getRagApiUrl = () => {
     ['localhost', 'http://localhost:3001'],
     ['127.0.0.1', 'http://localhost:3001'],
     
-    // Netlify patterns
-    ['netlify.app', window.location.origin],
-    ['netlify.com', window.location.origin],
+    // Netlify patterns - use custom domain for functions
+    ['netlify.app', 'https://kingdomdesignhouse.com'],
+    ['netlify.com', 'https://kingdomdesignhouse.com'],
     
     // Railway patterns
     ['railway.app', 'https://kingdom-design-house-production.up.railway.app']
