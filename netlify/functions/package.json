@@ -4,7 +4,8 @@
   "description": "Netlify functions for Kingdom Design House",
   "main": "index.js",
   "dependencies": {
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^2.7.0",
+    "axios": "^1.12.2"
   },
   "keywords": [
     "netlify",
