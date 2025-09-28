@@ -14,9 +14,9 @@ const getRagApiUrl = () => {
     ['localhost', 'http://localhost:3001'],
     ['127.0.0.1', 'http://localhost:3001'],
     
-    // Netlify patterns - use custom domain for functions
-    ['netlify.app', 'https://kingdomdesignhouse.com'],
-    ['netlify.com', 'https://kingdomdesignhouse.com'],
+    // Netlify patterns - use current origin for functions
+    ['netlify.app', window.location.origin],
+    ['netlify.com', window.location.origin],
     
     // Railway patterns
     ['railway.app', 'https://kingdom-design-house-production.up.railway.app']
@@ -54,6 +54,14 @@ export const sendRagChatMessage = async (query, conversationHistory = []) => {
   const baseUrl = getRagApiUrl();
   const path = getRagApiPath();
   const url = `${baseUrl}${path}`;
+  
+  // Debug logging for troubleshooting
+  console.log('RAG API Debug:', {
+    hostname: window.location.hostname,
+    baseUrl,
+    path,
+    fullUrl: url
+  });
   
   const payload = { query, conversationHistory };
   return await httpClient(url, {
