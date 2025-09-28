@@ -22,9 +22,23 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  
+
   // Navigation links from siteData
-  const { navLinks, servicesSubmenu } = navBarGroupData;
+  const { navLinks, webServicesSubmenu, networkServicesSubmenu, aiServicesSubmenu } = navBarGroupData;
+
+  const getCurrentSubmenu = () => {
+    // Determine which submenu to show based on the current group
+    if (groupName === 'webgroup' || groupName === 'web-group') {
+      return webServicesSubmenu;
+    } else if (groupName === 'networkgroup' || groupName === 'network-group') {
+      return networkServicesSubmenu;
+    } else if (groupName === 'aigroup' || groupName === 'ai-group') {
+      return aiServicesSubmenu;
+    }
+    
+    // Default fallback
+    return webServicesSubmenu;
+  };
 
   return (
     <nav className={styles.navBarGroup}>
@@ -54,9 +68,8 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
                   <div className={`${styles.navBarGroup__nav__link}`}>
                     {link.name}
                     <span className={styles.navBarGroup__nav__chevron}>▼</span>
-                    
-                      <div className={styles.navBarGroup__nav__submenu}>
-                        {servicesSubmenu.map((service, serviceIndex) => (
+                    <div className={styles.navBarGroup__nav__submenu}>
+                      {getCurrentSubmenu().map((service, serviceIndex) => (
                         <Link 
                           key={serviceIndex} 
                           href={service.route}
