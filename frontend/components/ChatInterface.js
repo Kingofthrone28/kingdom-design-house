@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from '../styles/ChatInterface.module.scss';
 import Image from 'next/image';
+import { sendRagChatMessage } from '../utils/index.js';
 
 const ChatInterface = ({ isOpen, onClose }) => {
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: 'Hello! I\'m Jarvis, your AI assistant from Kingdom Design House. How can I help you today?'
-    }
-  ]);
+  const initMessage = {
+    role: 'assistant',
+    content: 'Hello! I\'m Jarvis, your AI assistant from Kingdom Design House. How can I help you today?'
+  };
+  const [messages, setMessages] = useState([initMessage]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -33,31 +33,24 @@ const ChatInterface = ({ isOpen, onClose }) => {
     setInputMessage('');
     setIsLoading(true);
 
+    const assistantMessage = (data) => {
+      return {
+        role: 'assistant',
+        content: data.response,
+        structuredInfo: data.structuredInfo,
+        leadCreated: data.leadCreated
+      };
+    }
+
+
     try {
-      const response = await fetch('/.netlify/functions/chat-jarvis', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: inputMessage.trim(),
-          conversationHistory: messages
-        }),
-      });
+      // Use centralized HTTP client
+      const result = await sendRagChatMessage(inputMessage.trim(), messages);
 
-      const data = await response.json();
-
-      if (response.ok) {
-        const assistantMessage = {
-          role: 'assistant',
-          content: data.response,
-          structuredInfo: data.structuredInfo,
-          leadCreated: data.leadCreated
-        };
-
-        setMessages(prev => [...prev, assistantMessage]);
+      if (result.success) {
+        setMessages(prev => [...prev, assistantMessage(result.data)]);
       } else {
-        throw new Error(data.error || 'Failed to send message');
+        throw new Error(result.error?.message || 'Failed to send message');
       }
     } catch (error) {
       console.error('Chat error:', error);

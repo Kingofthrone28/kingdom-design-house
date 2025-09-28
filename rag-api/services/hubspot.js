@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { createHubSpotContact, createHubSpotDeal, createHubSpotTicket } = require('../utils/index.cjs');
 
 let hubspotClient = null;
 
@@ -73,16 +74,16 @@ const createContact = async (contactData) => {
   }
 
   try {
-    const response = await axios.post(
-      `${hubspotClient.baseUrl}/crm/v3/objects/contacts`,
-      buildContactPayload(contactData),
-      { headers: buildRequestHeaders() }
-    );
-
-    console.log(`Contact created successfully: ${response.data.id}`);
-    return response.data;
+    const result = await createHubSpotContact(buildContactPayload(contactData).properties);
+    
+    if (result.success) {
+      console.log(`Contact created successfully: ${result.data.id}`);
+      return result.data;
+    } else {
+      throw new Error(result.error?.message || 'Contact creation failed');
+    }
   } catch (error) {
-    console.error('Error creating contact:', error.response?.data || error.message);
+    console.error('Error creating contact:', error.message);
     throw error;
   }
 };
@@ -94,16 +95,16 @@ const createDeal = async (dealData) => {
   }
 
   try {
-    const response = await axios.post(
-      `${hubspotClient.baseUrl}/crm/v3/objects/deals`,
-      buildDealPayload(dealData),
-      { headers: buildRequestHeaders() }
-    );
-
-    console.log(`Deal created successfully: ${response.data.id}`);
-    return response.data;
+    const result = await createHubSpotDeal(buildDealPayload(dealData).properties);
+    
+    if (result.success) {
+      console.log(`Deal created successfully: ${result.data.id}`);
+      return result.data;
+    } else {
+      throw new Error(result.error?.message || 'Deal creation failed');
+    }
   } catch (error) {
-    console.error('Error creating deal:', error.response?.data || error.message);
+    console.error('Error creating deal:', error.message);
     throw error;
   }
 };
@@ -115,14 +116,16 @@ const createTicket = async (ticketData) => {
   }
 
   try {
-    const response = await axios.post(
-      `${hubspotClient.baseUrl}/crm/v3/objects/tickets`,
-      buildTicketPayload(ticketData),
-      { headers: buildRequestHeaders() }
-    );
-    return response.data;
+    const result = await createHubSpotTicket(buildTicketPayload(ticketData).properties);
+    
+    if (result.success) {
+      console.log(`Ticket created successfully: ${result.data.id}`);
+      return result.data;
+    } else {
+      throw new Error(result.error?.message || 'Ticket creation failed');
+    }
   } catch (error) {
-    console.error('Error creating ticket:', error.response?.data || error.message);
+    console.error('Error creating ticket:', error.message);
     throw error;
   }
 };
@@ -196,24 +199,30 @@ const testConnection = async () => {
   if (!hubspotClient) initializeHubSpot();
 
   try {
-    const response = await axios.get(
+    // Use the centralized HTTP client for testing
+    const { httpClient } = require('../utils/index.cjs');
+    const result = await httpClient(
       `${hubspotClient.baseUrl}/crm/v3/objects/contacts`,
       {
+        method: 'GET',
         headers: {
           'Authorization': `Bearer ${hubspotClient.accessToken}`,
           'Content-Type': 'application/json'
         },
-        params: {
-          limit: 1
-        }
+        params: { limit: 1 }
       }
     );
 
-    console.log('HubSpot connection successful!');
-    console.log(`Found ${response.data.total} contacts in your account`);
-    return true;
+    if (result.success) {
+      console.log('HubSpot connection successful!');
+      console.log(`Found ${result.data.total} contacts in your account`);
+      return true;
+    } else {
+      console.error('HubSpot connection failed:', result.error);
+      return false;
+    }
   } catch (error) {
-    console.error('HubSpot connection failed:', error.response?.data || error.message);
+    console.error('HubSpot connection failed:', error.message);
     return false;
   }
 };

@@ -18,6 +18,9 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
+// Import HTTP client utilities
+const { sendRagChatMessage, callNetlifyFunction } = require('./utils/index.cjs');
+
 /**
  * Creates a standardized HTTP response
  * @param {number} statusCode - HTTP status code
@@ -90,28 +93,21 @@ const validateRequest = (event) => {
  * @throws {Error} If RAG API call fails
  */
 const callRagApi = async (message, conversationHistory, userId) => {
-  const ragApiUrl = process.env.RAG_API_URL || 'http://localhost:3001';
+  console.log(`Calling RAG API with message: ${message}`);
   
-  console.log(`Calling RAG API at: ${ragApiUrl}/api/chat`);
-  
-  const ragResponse = await fetch(`${ragApiUrl}/api/chat`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      query: message,
-      conversationHistory,
-      userId,
-    }),
-  });
-
-  if (!ragResponse.ok) {
-    const errorText = await ragResponse.text();
-    throw new Error(`RAG API error: ${ragResponse.status} - ${errorText}`);
+  try {
+    // Use centralized HTTP client
+    const result = await sendRagChatMessage(message, conversationHistory);
+    
+    if (result.success) {
+      return result.data;
+    } else {
+      throw new Error(`RAG API error: ${result.error?.message || 'Unknown error'}`);
+    }
+  } catch (error) {
+    console.error('RAG API call failed:', error.message);
+    throw error;
   }
-
-  return await ragResponse.json();
 };
 
 /**
@@ -199,22 +195,16 @@ const handleLeadCreation = async (ragData, originalMessage) => {
     const transformedLeadData = transformLeadData(ragData.structuredInfo, originalMessage);
     console.log('Transformed lead data for HubSpot:', transformedLeadData);
     
-    const leadResponse = await fetch(`${process.env.URL || 'http://localhost:8888'}/.netlify/functions/send-lead`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(transformedLeadData),
-    });
-
-    if (leadResponse.ok) {
+    // Use centralized HTTP client to call send-lead function
+    const leadResult = await callNetlifyFunction('send-lead', transformedLeadData);
+    
+    if (leadResult.success) {
       console.log('Lead created successfully');
       ragData.leadCreated = true;
     } else {
-      const errorData = await leadResponse.json();
-      console.warn('Lead creation failed:', leadResponse.status, errorData);
+      console.warn('Lead creation failed:', leadResult.error);
       ragData.leadCreated = false;
-      ragData.leadError = errorData.message || 'Lead creation failed';
+      ragData.leadError = leadResult.error?.message || 'Lead creation failed';
     }
   } catch (leadError) {
     console.error('Error creating lead:', leadError);

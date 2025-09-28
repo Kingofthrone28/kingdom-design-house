@@ -1,3 +1,6 @@
+// Import HTTP client utilities
+const { createHubSpotContact, createHubSpotDeal, createHubSpotTicket } = require('./utils/index.cjs');
+
 exports.handler = async (event, context) => {
   // Handle CORS
   if (event.httpMethod === 'OPTIONS') {
@@ -73,26 +76,15 @@ exports.handler = async (event, context) => {
       }
     };
 
-    // Create contact in HubSpot
-    const hubspotResponse = await fetch(
-      `https://api.hubapi.com/crm/v3/objects/contacts`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${hubspotApiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contactData),
-      }
-    );
-
-    if (!hubspotResponse.ok) {
-      const errorData = await hubspotResponse.text();
-      console.error('HubSpot API error:', errorData);
+    // Create contact in HubSpot using centralized client
+    const contactResult = await createHubSpotContact(contactData);
+    
+    if (!contactResult.success) {
+      console.error('HubSpot API error:', contactResult.error);
       throw new Error('Failed to create contact in HubSpot');
     }
 
-    const hubspotData = await hubspotResponse.json();
+    const hubspotData = contactResult.data;
 
     // Create a deal if we have service information
     if (leadData.service_requested || leadData.budget_range) {
@@ -112,20 +104,11 @@ exports.handler = async (event, context) => {
           }
         };
 
-        const dealResponse = await fetch(
-          `https://api.hubapi.com/crm/v3/objects/deals`,
-          {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${hubspotApiKey}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dealData),
-          }
-        );
-
-        if (dealResponse.ok) {
-          const dealData = await dealResponse.json();
+        // Create deal using centralized client
+        const dealResult = await createHubSpotDeal(dealData);
+        
+        if (dealResult.success) {
+          const dealData = dealResult.data;
           
           // Associate the deal with the contact
           await fetch(

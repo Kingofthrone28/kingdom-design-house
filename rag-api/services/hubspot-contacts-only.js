@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { createHubSpotContact } = require('../utils/index.cjs');
 
 let hubspotClient = null;
 
@@ -30,31 +31,24 @@ async function createContact(contactData) {
   if (!hubspotClient) { initializeHubSpot();}
 
   try {
-    // Use only the most basic properties that are guaranteed to exist
-    const response = await axios.post(
-      `${hubspotClient.baseUrl}/crm/v3/objects/contacts`,
-      {
-        properties: {
-          email: contactData.email,
-          firstname: contactData.first_name,
-          lastname: contactData.last_name,
-          phone: contactData.phone,
-          company: contactData.company,
-          website: contactData.website
-        }
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${hubspotClient.accessToken}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+    // Use centralized HTTP client
+    const result = await createHubSpotContact({
+      email: contactData.email,
+      firstname: contactData.first_name,
+      lastname: contactData.last_name,
+      phone: contactData.phone,
+      company: contactData.company,
+      website: contactData.website
+    });
 
-    console.log(`✅ Contact created successfully: ${response.data.id}`);
-    return response.data;
+    if (result.success) {
+      console.log(`✅ Contact created successfully: ${result.data.id}`);
+      return result.data;
+    } else {
+      throw new Error(result.error?.message || 'Contact creation failed');
+    }
   } catch (error) {
-    console.error('❌ Error creating contact:', error.response?.data || error.message);
+    console.error('❌ Error creating contact:', error.message);
     throw error;
   }
 }
@@ -92,24 +86,29 @@ async function testConnection() {
   }
 
   try {
-    const response = await axios.get(
+    const { httpClient } = require('../utils/index.cjs');
+    const result = await httpClient(
       `${hubspotClient.baseUrl}/crm/v3/objects/contacts`,
       {
+        method: 'GET',
         headers: {
           'Authorization': `Bearer ${hubspotClient.accessToken}`,
           'Content-Type': 'application/json'
         },
-        params: {
-          limit: 1
-        }
+        params: { limit: 1 }
       }
     );
 
-    console.log('✅ HubSpot connection successful!');
-    console.log(`Found ${response.data.total} contacts in your account`);
-    return true;
+    if (result.success) {
+      console.log('✅ HubSpot connection successful!');
+      console.log(`Found ${result.data.total} contacts in your account`);
+      return true;
+    } else {
+      console.error('❌ HubSpot connection failed:', result.error);
+      return false;
+    }
   } catch (error) {
-    console.error('❌ HubSpot connection failed:', error.response?.data || error.message);
+    console.error('❌ HubSpot connection failed:', error.message);
     return false;
   }
 }
