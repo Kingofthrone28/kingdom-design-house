@@ -18,9 +18,6 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
-// Import HTTP client utilities
-const { sendRagChatMessage, callNetlifyFunction } = require('./utils/index.cjs');
-
 /**
  * Creates a standardized HTTP response
  * @param {number} statusCode - HTTP status code
@@ -93,25 +90,35 @@ const validateRequest = (event) => {
  * @throws {Error} If RAG API call fails
  */
 const callRagApi = async (message, conversationHistory, userId) => {
-  console.log(`Calling RAG API with message: ${message}`);
-  console.log(`RAG_API_URL: ${process.env.RAG_API_URL}`);
+  const ragApiUrl = process.env.RAG_API_URL || 'http://localhost:3001';
   
-  try {
-    // Use centralized HTTP client
-    const result = await sendRagChatMessage(message, conversationHistory);
-    
-    if (result.success) {
-      console.log('RAG API call successful:', result.data);
-      return result.data;
-    } else {
-      console.error('RAG API call failed:', result.error);
-      throw new Error(`RAG API error: ${result.error?.message || 'Unknown error'}`);
-    }
-  } catch (error) {
-    console.error('RAG API call failed:', error.message);
-    console.error('Full error:', error);
-    throw error;
+  console.log(`Calling RAG API at: ${ragApiUrl}/api/chat`);
+  
+  const requestBody = {
+    query: message,
+    conversationHistory,
+    userId,
+  };
+  
+  console.log('Sending request to RAG API:', {
+    url: `${ragApiUrl}/api/chat`,
+    body: requestBody
+  });
+  
+  const ragResponse = await fetch(`${ragApiUrl}/api/chat`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  if (!ragResponse.ok) {
+    const errorText = await ragResponse.text();
+    throw new Error(`RAG API error: ${ragResponse.status} - ${errorText}`);
   }
+
+  return await ragResponse.json();
 };
 
 /**
@@ -199,16 +206,22 @@ const handleLeadCreation = async (ragData, originalMessage) => {
     const transformedLeadData = transformLeadData(ragData.structuredInfo, originalMessage);
     console.log('Transformed lead data for HubSpot:', transformedLeadData);
     
-    // Use centralized HTTP client to call send-lead function
-    const leadResult = await callNetlifyFunction('send-lead', transformedLeadData);
-    
-    if (leadResult.success) {
+    const leadResponse = await fetch(`${process.env.URL || 'http://localhost:8888'}/.netlify/functions/send-lead`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(transformedLeadData),
+    });
+
+    if (leadResponse.ok) {
       console.log('Lead created successfully');
       ragData.leadCreated = true;
     } else {
-      console.warn('Lead creation failed:', leadResult.error);
+      const errorData = await leadResponse.json();
+      console.warn('Lead creation failed:', leadResponse.status, errorData);
       ragData.leadCreated = false;
-      ragData.leadError = leadResult.error?.message || 'Lead creation failed';
+      ragData.leadError = errorData.message || 'Lead creation failed';
     }
   } catch (leadError) {
     console.error('Error creating lead:', leadError);
@@ -324,10 +337,6 @@ exports.handler = async (event, context) => {
       messageLength: message.length,
       conversationHistoryLength: conversationHistory.length,
       userId,
-    });
-    console.log('Environment check:', {
-      RAG_API_URL: process.env.RAG_API_URL,
-      NODE_ENV: process.env.NODE_ENV,
     });
 
     // Call the RAG API server
