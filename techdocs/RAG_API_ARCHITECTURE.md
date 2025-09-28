@@ -57,6 +57,7 @@ The RAG API is a sophisticated Express.js application that combines Retrieval-Au
 - `routes/chat` - Main chat route handler
 - `services/pinecone` - Vector database service
 - `services/openai` - AI service integration
+- `utils/` - Centralized HTTP client utilities (cleaned up)
 
 #### `lib/config.js` - Configuration Management
 **Purpose**: Centralized environment variable management
@@ -139,6 +140,11 @@ The RAG API is a sophisticated Express.js application that combines Retrieval-Au
 - Deals: Service-based deal creation with budget tracking
 - Tickets: Lead follow-up tickets with priority levels
 
+**Utils Integration**:
+- Uses centralized HTTP client utilities from `utils/` directory
+- Refactored to use `createHubSpotContact`, `createHubSpotDeal`, `createHubSpotTicket` helpers
+- Improved error handling and request standardization
+
 ### 📊 Data Layer
 
 #### `data/sample-documents.json` - Knowledge Base
@@ -166,6 +172,36 @@ The RAG API is a sophisticated Express.js application that combines Retrieval-Au
 - `test-hubspot-simple.js` - Basic HubSpot contact creation test
 - `test-hubspot-only.js` - HubSpot-only server test
 - `test-minimal-populate.js` - Minimal Pinecone population test
+
+### 🧹 Utils Directory (Cleaned Up)
+
+#### `utils/` - Centralized HTTP Client Utilities
+**Purpose**: Centralized HTTP request helpers for consistent API interactions
+**Current Structure** (after cleanup):
+```
+rag-api/utils/
+├── index.cjs          # Main export file (used by hubspot services)
+├── httpClient.cjs     # Base HTTP client (used by hubspotClient.cjs)
+└── hubspotClient.cjs  # HubSpot functions (used by index.cjs)
+```
+
+**Removed Files** (unused):
+- ❌ `ragApiClient.cjs` - Not used by any rag-api service
+- ❌ `netlifyClient.cjs` - Not used by any rag-api service
+- ❌ All `.js` files (ES modules) - rag-api uses CommonJS
+- ❌ Documentation files (`ANALYSIS_SUMMARY.md`, `MIGRATION_GUIDE.md`)
+- ❌ `examples/` directory - Documentation/examples
+
+**Available Functions**:
+- `httpClient` - Universal HTTP client with error handling
+- `createHubSpotContact` - Contact creation helper
+- `createHubSpotDeal` - Deal creation helper
+- `createHubSpotTicket` - Ticket creation helper
+
+**Integration**:
+- Used by `services/hubspot.js`, `services/hubspot-simple.js`, `services/hubspot-contacts-only.js`
+- Provides consistent error handling and request standardization
+- Reduces code duplication across HubSpot integrations
 
 ## 🔄 Data Flow Architecture
 

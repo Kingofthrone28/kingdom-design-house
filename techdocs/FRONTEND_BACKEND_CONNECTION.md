@@ -16,55 +16,6 @@ node server.js
 # Server runs on http://localhost:3001
 ```
 
-### 🏗️ Connection Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        FRONTEND (Next.js)                      │
-│  ┌─────────────────────────────────────────────────────────────┐ │
-│  │                ChatInterface.js                            │ │
-│  │  ┌─────────────────────────────────────────────────────────┐ │ │
-│  │  │  fetch('http://localhost:3001/api/chat', {            │ │ │
-│  │  │    method: 'POST',                                    │ │ │
-│  │  │    headers: { 'Content-Type': 'application/json' },   │ │ │
-│  │  │    body: JSON.stringify({                             │ │ │
-│  │  │      query: inputMessage.trim(),                       │ │ │
-│  │  │      conversationHistory: messages                    │ │ │
-│  │  │    })                                                  │ │ │
-│  │  │  })                                                    │ │ │
-│  │  └─────────────────────────────────────────────────────────┘ │ │
-│  └─────────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                        RAG API SERVER                          │
-│  ┌─────────────────────────────────────────────────────────────┐ │
-│  │                    server.js                              │ │
-│  │  ┌─────────────────────────────────────────────────────────┐ │ │
-│  │  │  app.use('/api/chat', chatRoutes);                     │ │ │
-│  │  │  // Routes chat requests to routes/chat.js             │ │ │
-│  │  └─────────────────────────────────────────────────────────┘ │ │
-│  │  ┌─────────────────────────────────────────────────────────┐ │ │
-│  │  │  app.listen(PORT, () => {                               │ │ │
-│  │  │    console.log(`RAG API server running on port ${PORT}`);│ │ │
-│  │  │  });                                                    │ │ │
-│  │  └─────────────────────────────────────────────────────────┘ │ │
-│  └─────────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    PRODUCTION (Netlify)                         │
-│  ┌─────────────────────────────────────────────────────────────┐ │
-│  │              netlify/functions/chat-jarvis.js              │ │
-│  │  ┌─────────────────────────────────────────────────────────┐ │ │
-│  │  │  const ragResponse = await fetch(`${ragApiUrl}/api/chat`);│ │ │
-│  │  │  // Proxies requests to RAG API server                  │ │ │
-│  │  └─────────────────────────────────────────────────────────┘ │ │
-│  └─────────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-```
 
 ## 🔄 Development vs Production Flow
 
@@ -137,18 +88,27 @@ rag-api/
 │   └── app.listen(3001)        # Server on port 3001
 ├── routes/
 │   └── chat.js                  # Chat request handler
-└── services/
-    ├── pinecone.js              # Vector database
-    ├── openai.js                # AI service
-    └── hubspot.js               # CRM integration
+├── services/
+│   ├── pinecone.js              # Vector database
+│   ├── openai.js                # AI service
+│   └── hubspot.js               # CRM integration
+└── utils/                       # Centralized HTTP utilities (cleaned up)
+    ├── index.cjs               # Main export file
+    ├── httpClient.cjs          # Base HTTP client
+    └── hubspotClient.cjs       # HubSpot helpers
 ```
 
 ### Production Files
 ```
 netlify/
 └── functions/
-    └── chat-jarvis.js           # Netlify function proxy
-        └── fetch(`${ragApiUrl}/api/chat`)  # Proxies to RAG API
+    ├── chat-jarvis.js           # Netlify function proxy
+    │   └── fetch(`${ragApiUrl}/api/chat`)  # Proxies to RAG API
+    ├── send-lead.js             # HubSpot lead creation
+    └── utils/                   # Netlify function utilities (cleaned up)
+        ├── index.cjs           # Main export file
+        ├── httpClient.cjs      # Base HTTP client
+        └── hubspotClient.cjs   # HubSpot helpers
 ```
 
 ## 🔧 Setup Instructions
@@ -326,4 +286,44 @@ HUBSPOT_ACCESS_TOKEN=your_token
 HUBSPOT_PORTAL_ID=your_portal_id
 ```
 
-This architecture ensures seamless communication between the frontend ChatInterface and the RAG API server, with proper fallbacks for production deployment.
+## 🧹 Utils Directory Cleanup (Latest Updates)
+
+### Recent Changes
+The project has undergone significant cleanup of utility directories to remove unused files and improve maintainability:
+
+#### RAG API Utils (`rag-api/utils/`)
+**Before**: 13 files including unused ES modules and documentation
+**After**: 3 files - only the actively used CommonJS modules
+```
+rag-api/utils/
+├── index.cjs          # Main export (used by hubspot services)
+├── httpClient.cjs     # Base HTTP client
+└── hubspotClient.cjs  # HubSpot helpers
+```
+
+#### Netlify Functions Utils (`netlify/functions/utils/`)
+**Before**: 13 files including unused ES modules and documentation
+**After**: 3 files - only the actively used CommonJS modules
+```
+netlify/functions/utils/
+├── index.cjs          # Main export (used by send-lead.js)
+├── httpClient.cjs     # Base HTTP client
+└── hubspotClient.cjs  # HubSpot helpers
+```
+
+#### Root Utils Directory
+**Removed**: Entire `/utils/` directory (8 files) - not referenced anywhere in codebase
+**Reason**: All utility functions are properly organized in their respective subdirectories
+
+### Benefits of Cleanup
+- **Reduced bundle size**: Removed 1,225+ lines of unused code
+- **Improved maintainability**: Clear separation of concerns
+- **Better organization**: Utils are co-located with their consumers
+- **No breaking changes**: All functionality preserved
+
+### Current Utils Usage
+- **Frontend**: `frontend/utils/` (browser-compatible with fetch)
+- **RAG API**: `rag-api/utils/` (CommonJS with axios)
+- **Netlify Functions**: `netlify/functions/utils/` (CommonJS with axios)
+
+This architecture ensures seamless communication between the frontend ChatInterface and the RAG API server, with proper fallbacks for production deployment and a clean, maintainable codebase.
