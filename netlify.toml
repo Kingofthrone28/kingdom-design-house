@@ -20,6 +20,9 @@
 [functions]
   directory = "../netlify/functions"
 
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
 [dev]
   command = "npm run dev"
   port = 3000
