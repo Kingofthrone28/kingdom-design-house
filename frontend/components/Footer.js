@@ -1,13 +1,16 @@
 import React from 'react';
 import styles from '../styles/Footer.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
+import { getNavbarData } from '../data/navbarData';
 import EmailIcon from './Atoms/EmailIcon';
 import PhoneIcon from './Atoms/PhoneIcon';
+import Link from 'next/link';
             
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { getFooterData } = useSiteData();
   const footerData = getFooterData();
+  const navbarData = getNavbarData();
   const {
     companyInfo,
     companyGroups, 
@@ -50,11 +53,11 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Company Groups</h3>
               <ul className={styles.footer__links__list}>
-                {companyGroups.map((group, index) => (
+                {navbarData.navigation.map((group, index) => (
                   <li key={index} className={styles.footer__links__item}>
-                    <a href="#" className={styles.footer__links__link}>
-                      {group}
-                    </a>
+                    <Link href={group.route} className={styles.footer__links__link}>
+                      {group.name}
+                    </Link>
                   </li>
                 ))}
               </ul>

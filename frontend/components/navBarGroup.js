@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/navBarGroup.module.scss';
@@ -27,19 +27,18 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
   const { navLinks, webServicesSubmenu, networkServicesSubmenu, aiServicesSubmenu } = navBarGroupData;
 
   const getCurrentSubmenu = () => {
-    // Determine which submenu to show based on the current group
-    if (groupName === 'webgroup' || groupName === 'web-group') {
-      return webServicesSubmenu;
-    } else if (groupName === 'networkgroup' || groupName === 'network-group') {
-      return networkServicesSubmenu;
-    } else if (groupName === 'aigroup' || groupName === 'ai-group') {
-      return aiServicesSubmenu;
-    }
+    const submenuMap = {
+      'webgroup': webServicesSubmenu,
+      'web-group': webServicesSubmenu,
+      'networkgroup': networkServicesSubmenu,
+      'network-group': networkServicesSubmenu,
+      'aigroup': aiServicesSubmenu,
+      'ai-group': aiServicesSubmenu
+    };
     
-    // Default fallback
-    return webServicesSubmenu;
+    return submenuMap[groupName] || webServicesSubmenu;
   };
-
+  
   return (
     <nav className={styles.navBarGroup}>
       <div className={styles.navBarGroup__container}>

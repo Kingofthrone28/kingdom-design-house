@@ -28,11 +28,21 @@ export const navbarData = {
       { name: "Services", hasSubmenu: true },
       { name: "Pricing", route: "/pricing" }
     ],
-    servicesSubmenu: [
+    webServicesSubmenu: [
       { name: "Web Design", route: "/web-group/services/web-design" },
       { name: "Web Development", route: "/web-group/services/web-development" },
       { name: "Digital Marketing", route: "/web-group/services/digital-marketing" },
       { name: "Support", route: "/web-group/services/support" }
+    ],
+    networkServicesSubmenu: [
+      { name: "Network Design", route: "/network-group/services/network-design" },
+      { name: "Network Optimization", route: "/network-group/services/network-optimization" },
+      { name: "Network Support", route: "/network-group/services/network-support" }
+    ],
+    aiServicesSubmenu: [
+      { name: "AI Development", route: "/ai-group/services/ai-development" },
+      { name: "AI Consulting", route: "/ai-group/services/ai-consulting" },
+      { name: "AI Support", route: "/ai-group/services/ai-support" }
     ]
   }
 };

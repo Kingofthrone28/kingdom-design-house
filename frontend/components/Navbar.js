@@ -44,7 +44,7 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Button variant="primary" size="large" onClick={toggleMenu}>
+        <Button variant="primary" size="large">
           {buttonText}
         </Button>
 
