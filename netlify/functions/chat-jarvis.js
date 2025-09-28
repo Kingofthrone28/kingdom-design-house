@@ -94,18 +94,22 @@ const validateRequest = (event) => {
  */
 const callRagApi = async (message, conversationHistory, userId) => {
   console.log(`Calling RAG API with message: ${message}`);
+  console.log(`RAG_API_URL: ${process.env.RAG_API_URL}`);
   
   try {
     // Use centralized HTTP client
     const result = await sendRagChatMessage(message, conversationHistory);
     
     if (result.success) {
+      console.log('RAG API call successful:', result.data);
       return result.data;
     } else {
+      console.error('RAG API call failed:', result.error);
       throw new Error(`RAG API error: ${result.error?.message || 'Unknown error'}`);
     }
   } catch (error) {
     console.error('RAG API call failed:', error.message);
+    console.error('Full error:', error);
     throw error;
   }
 };
@@ -320,6 +324,10 @@ exports.handler = async (event, context) => {
       messageLength: message.length,
       conversationHistoryLength: conversationHistory.length,
       userId,
+    });
+    console.log('Environment check:', {
+      RAG_API_URL: process.env.RAG_API_URL,
+      NODE_ENV: process.env.NODE_ENV,
     });
 
     // Call the RAG API server
