@@ -109,12 +109,19 @@ const callRagApi = async (message, conversationHistory, userId) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
     },
     body: JSON.stringify(requestBody),
   });
 
   if (!ragResponse.ok) {
     const errorText = await ragResponse.text();
+    console.error('RAG API error details:', {
+      status: ragResponse.status,
+      statusText: ragResponse.statusText,
+      headers: Object.fromEntries(ragResponse.headers.entries()),
+      body: errorText
+    });
     throw new Error(`RAG API error: ${ragResponse.status} - ${errorText}`);
   }
 
