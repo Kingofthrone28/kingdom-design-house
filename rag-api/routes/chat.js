@@ -37,6 +37,20 @@ const extractBasicLeadInfo = (query) => {
     firstName = nameMatch3[1];
   }
   
+  // Pattern 4: "This is John" or "It's John"
+  const namePattern4 = /(?:this is|it's|its)\s+([a-zA-Z]+)/i;
+  const nameMatch4 = query.match(namePattern4);
+  if (nameMatch4 && !firstName) {
+    firstName = nameMatch4[1];
+  }
+  
+  // Pattern 5: "John from Company" or "John at Company"
+  const namePattern5 = /^([a-zA-Z]+)\s+(?:from|at)\s+/i;
+  const nameMatch5 = query.match(namePattern5);
+  if (nameMatch5 && !firstName) {
+    firstName = nameMatch5[1];
+  }
+  
   // Service keywords mapping
   const serviceKeywords = {
     'web development': ['website', 'web development', 'web design', 'site', 'online', 'web app', 'web application'],

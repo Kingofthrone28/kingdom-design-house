@@ -4,18 +4,49 @@ const { createHubSpotContact, createHubSpotDeal, createHubSpotTicket } = require
 let hubspotClient = null;
 
 // Request payload builders
-const buildContactPayload = (contactData) => ({
-  properties: {
-    email: contactData.email,
-    firstname: contactData.first_name,
-    lastname: contactData.last_name,
-    phone: contactData.phone,
-    company: contactData.company,
-    website: contactData.website,
-    // Store conversation data in jobtitle field (writable standard property)
-    jobtitle: `Service: ${contactData.service_requested || 'Not specified'} | Keywords: ${contactData.conversation_keywords || 'None'}`
+const buildContactPayload = (contactData) => {
+  // Extract and validate names
+  const firstName = contactData.first_name?.trim() || '';
+  const lastName = contactData.last_name?.trim() || '';
+  
+  // If names are missing, try to extract from email
+  let extractedFirstName = firstName;
+  let extractedLastName = lastName;
+  
+  if (!firstName && !lastName && contactData.email) {
+    const emailParts = contactData.email.split('@')[0];
+    const nameParts = emailParts.split(/[._-]/);
+    
+    if (nameParts.length >= 2) {
+      extractedFirstName = nameParts[0].charAt(0).toUpperCase() + nameParts[0].slice(1).toLowerCase();
+      extractedLastName = nameParts[1].charAt(0).toUpperCase() + nameParts[1].slice(1).toLowerCase();
+    } else if (nameParts.length === 1) {
+      extractedFirstName = nameParts[0].charAt(0).toUpperCase() + nameParts[0].slice(1).toLowerCase();
+      extractedLastName = 'User';
+    }
   }
-});
+  
+  // Fallback to generic names if still empty
+  if (!extractedFirstName) {
+    extractedFirstName = 'Prospect';
+  }
+  if (!extractedLastName) {
+    extractedLastName = 'Lead';
+  }
+
+  return {
+    properties: {
+      email: contactData.email,
+      firstname: extractedFirstName,
+      lastname: extractedLastName,
+      phone: contactData.phone,
+      company: contactData.company,
+      website: contactData.website,
+      // Store conversation data in jobtitle field (writable standard property)
+      jobtitle: `Service: ${contactData.service_requested || 'Not specified'} | Keywords: ${contactData.conversation_keywords || 'None'}`
+    }
+  };
+};
 
 const buildDealPayload = (dealData) => ({
   properties: {
