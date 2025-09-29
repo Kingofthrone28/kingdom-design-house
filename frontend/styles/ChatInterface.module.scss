@@ -160,20 +160,16 @@
         margin: $spacing-sm 0;
         
         .formatted-question {
-          display: flex;
-          align-items: flex-start;
-          gap: $spacing-sm;
           margin-bottom: $spacing-xs;
-          padding: $spacing-sm;
-          background-color: rgba($primary-yellow, 0.1);
-          border-radius: $radius-sm;
-          border-left: 3px solid $primary-yellow;
+          padding: $spacing-sm $spacing-md;
+          background-color: rgba($primary-black, 0.05);
+          border-radius: 20px;
+          border: 1px solid rgba($primary-black, 0.1);
+          transition: all $transition-fast;
           
-          .question-marker {
-            color: $primary-yellow;
-            font-size: $font-sm;
-            margin-top: 2px;
-            flex-shrink: 0;
+          &:hover {
+            background-color: rgba($primary-black, 0.08);
+            border-color: rgba($primary-black, 0.15);
           }
         }
       }

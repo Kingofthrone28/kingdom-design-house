@@ -91,8 +91,9 @@ const formatBulletPoints = (text, keywords) => {
  * Formats questions with proper structure
  */
 const formatQuestions = (text, keywords) => {
-  const questions = text.split('?').filter(q => q.trim());
-  const formattedQuestions = questions.map(question => {
+  // Split by question marks and filter out empty strings
+  const questionParts = text.split('?').filter(part => part.trim());
+  const formattedQuestions = questionParts.map(question => {
     const cleanQuestion = question.trim();
     if (cleanQuestion) {
       return {
@@ -168,7 +169,6 @@ export const renderFormattedResponse = (formattedResponse) => {
           <div key={index} className="formatted-question-list">
             {item.items.map((questionItem, questionIndex) => (
               <div key={questionIndex} className="formatted-question">
-                <span className="question-marker">❓</span>
                 <span dangerouslySetInnerHTML={{ __html: questionItem.content }} />
               </div>
             ))}
