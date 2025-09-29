@@ -125,6 +125,79 @@
       font-size: $font-base;
       line-height: 1.5;
       word-wrap: break-word;
+
+      // Formatted response styles
+      .formatted-paragraph {
+        margin-bottom: $spacing-md;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .formatted-bullet-list {
+        margin: $spacing-sm 0;
+        
+        .formatted-bullet-item {
+          margin-bottom: $spacing-xs;
+          
+          .formatted-bullet {
+            display: flex;
+            align-items: flex-start;
+            gap: $spacing-sm;
+            
+            .bullet-marker {
+              color: $primary-yellow;
+              font-weight: bold;
+              margin-top: 2px;
+              flex-shrink: 0;
+            }
+          }
+        }
+      }
+
+      .formatted-question-list {
+        margin: $spacing-sm 0;
+        
+        .formatted-question {
+          display: flex;
+          align-items: flex-start;
+          gap: $spacing-sm;
+          margin-bottom: $spacing-xs;
+          padding: $spacing-sm;
+          background-color: rgba($primary-yellow, 0.1);
+          border-radius: $radius-sm;
+          border-left: 3px solid $primary-yellow;
+          
+          .question-marker {
+            color: $primary-yellow;
+            font-size: $font-sm;
+            margin-top: 2px;
+            flex-shrink: 0;
+          }
+        }
+      }
+
+      // Keyword pill styles
+      .keyword-pill {
+        display: inline-block;
+        background-color: $primary-yellow;
+        color: $primary-black;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: $font-xs;
+        font-weight: $font-medium;
+        margin: 0 2px;
+        text-transform: capitalize;
+        box-shadow: 0 1px 3px rgba($primary-black, 0.1);
+        transition: all $transition-fast;
+
+        &:hover {
+          background-color: darken($primary-yellow, 5%);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 6px rgba($primary-black, 0.15);
+        }
+      }
     }
   }
 

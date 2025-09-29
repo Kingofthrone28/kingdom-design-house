@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styles from '../styles/ChatInterface.module.scss';
 import Image from 'next/image';
 import { sendRagChatMessage } from '../utils/index.js';
+import { formatResponse, renderFormattedResponse } from '../utils/responseFormatter.js';
 
 const ChatInterface = ({ isOpen, onClose }) => {
   const initMessage = {
@@ -114,7 +115,11 @@ const ChatInterface = ({ isOpen, onClose }) => {
               }`}
             >
               <div className={styles.chatInterface__message__content}>
-                {message.content}
+                {message.role === 'assistant' ? (
+                  renderFormattedResponse(formatResponse(message.content))
+                ) : (
+                  message.content
+                )}
               </div>
               {message.leadCreated && (
                 <div className={styles.chatInterface__lead__notification}>
