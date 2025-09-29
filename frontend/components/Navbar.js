@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.scss';
 import { getNavbarData } from '../data/navbarData';
-import ChatInterface from './ChatInterface';
 import Button from './Atoms/Button';
 import PhoneIcon from './Atoms/PhoneIcon';
 import EmailIcon from './Atoms/EmailIcon';
@@ -11,7 +10,6 @@ import MobileToggle from './Atoms/MobileToggle';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const navbarData = getNavbarData();
   const { phone, email } = navbarData.contact;
   const { buttonText, ariaLabel} = navbarData.cta;
@@ -21,19 +19,6 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
  
-  const toggleChat = () => {
-    
-      const chatInterface = document.querySelector('.chat-interface');
-      if (chatInterface) {
-        chatInterface.style.display = 'block';
-      }else{
-        const chatInterface = document.createElement('div');
-        chatInterface.className = 'chat-interface';
-        chatInterface.style.display = 'block';
-        document.body.appendChild(chatInterface);
-      }
-    
-  };
 
   return (
     <nav className={styles.navbar}>
@@ -60,7 +45,7 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Button variant="primary" size="large" onClick={toggleChat}>
+        <Button variant="primary" size="large">
           {buttonText}
         </Button>
 
