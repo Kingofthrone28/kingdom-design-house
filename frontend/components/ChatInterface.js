@@ -7,7 +7,7 @@ import { formatResponse, renderFormattedResponse } from '../utils/responseFormat
 const ChatInterface = ({ isOpen, onClose }) => {
   const initMessage = {
     role: 'assistant',
-    content: 'Hello! I\'m Jarvis, your AI assistant from Kingdom Design House. How can I help you today?'
+    content: 'Hello! I\'m Jarvis, your AI assistant from Kingdom Design House. Please provide me with your name and email address to get started and better assist you. How can I help you today?'
   };
   const [messages, setMessages] = useState([initMessage]);
   const [inputMessage, setInputMessage] = useState('');
