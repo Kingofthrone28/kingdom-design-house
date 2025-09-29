@@ -13,7 +13,7 @@ const ChatJarvis = () => {
     
 
   const handleChatClick = () => {
-    setIsChatOpen(true);
+    setIsChatOpen(!isChatOpen);
   };
 
   return (
@@ -36,7 +36,7 @@ const ChatJarvis = () => {
       {/* Chat Interface Modal */}
       <ChatInterface 
         isOpen={isChatOpen} 
-        onClose={() => setIsChatOpen(false)} 
+        onClose={() => handleChatClick()} 
       />
     </section>
   );

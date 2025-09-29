@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.scss';
 import { getNavbarData } from '../data/navbarData';
@@ -20,13 +20,19 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+ 
   const toggleChat = () => {
-    setIsChatOpen(!isChatOpen);
-  };
-
-  const closeChat = () => {
-    setIsChatOpen(false);
+    
+      const chatInterface = document.querySelector('.chat-interface');
+      if (chatInterface) {
+        chatInterface.style.display = 'block';
+      }else{
+        const chatInterface = document.createElement('div');
+        chatInterface.className = 'chat-interface';
+        chatInterface.style.display = 'block';
+        document.body.appendChild(chatInterface);
+      }
+    
   };
 
   return (
@@ -74,14 +80,6 @@ const Navbar = () => {
           />
         )}
       </div>
-
-      {/* Chat Interface */}
-      {isChatOpen && (
-        <ChatInterface 
-          isOpen={isChatOpen}
-          onClose={closeChat}
-        />
-      )}
     </nav>
   );
 };
