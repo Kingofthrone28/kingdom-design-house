@@ -188,29 +188,36 @@ const getStructuredInfo = async (query) => {
 };
 
 // Lead creation logic helper
-const createLeadIfPossible = async (structuredInfo, query) => {
+const createLeadIfPossible = async (structuredInfo, query, conversationHistory = []) => {
   if (structuredInfo?.email && structuredInfo?.service_requested) {
-    return await createHubSpotLead(structuredInfo);
+    return await createHubSpotLead(structuredInfo, conversationHistory);
   } else {
     const basicLeadInfo = extractBasicLeadInfo(query);
     if (basicLeadInfo.email) {
-      return await createHubSpotLead(basicLeadInfo);
+      return await createHubSpotLead(basicLeadInfo, conversationHistory);
     }
   }
   return null;
 };
 
 // Lead creation helper
-const createHubSpotLead = async (leadData) => {
+const createHubSpotLead = async (leadData, conversationHistory = []) => {
   try {
     console.log('Creating lead in HubSpot...')
     console.log(leadData)
-    const hubspotLead = await createLead({
+    
+    // Add conversation history to lead data
+    const enrichedLeadData = {
       ...leadData,
       source_of_lead: 'Website Chat',
       preferred_communication_method: 'Email',
-      contact_type: 'Lead'
-    });
+      contact_type: 'Lead',
+      conversation_history: conversationHistory.map(msg => 
+        `${msg.role}: ${msg.content}`
+      ).join('\n')
+    };
+    
+    const hubspotLead = await createLead(enrichedLeadData);
     console.log('Lead created in HubSpot:', hubspotLead.contact?.id);
     return hubspotLead;
   } catch (error) {
@@ -242,7 +249,7 @@ const chatHandler = async (req, res) => {
     }
 
     // Create HubSpot lead
-    const hubspotLead = await createLeadIfPossible(structuredInfo, query);
+    const hubspotLead = await createLeadIfPossible(structuredInfo, query, conversationHistory);
 
     // Prepare response
     const chatResponse = {

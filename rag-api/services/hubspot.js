@@ -62,7 +62,7 @@ const buildDealPayload = (dealData) => ({
 const buildTicketPayload = (ticketData) => ({
   properties: {
     subject: ticketData.subject || 'Lead Follow-up',
-    content: `${ticketData.description}\n\nPriority: ${ticketData.priority_level || 'High'}\nAssigned Team: ${ticketData.assigned_team || 'Sales Team'}\nIssue Type: ${ticketData.issue_type || 'Lead Follow-up'}\nKeywords: ${ticketData.conversation_keywords || 'None'}`,
+    content: ticketData.description || 'No description provided',
     hs_ticket_priority: ticketData.priority_level || 'HIGH',
     hs_pipeline_stage: '1'
   }
@@ -72,6 +72,48 @@ const buildRequestHeaders = () => ({
   'Authorization': `Bearer ${hubspotClient.accessToken}`,
   'Content-Type': 'application/json'
 });
+
+// Build comprehensive ticket content with conversation history
+const buildComprehensiveTicketContent = (leadData) => {
+  const timestamp = new Date().toISOString();
+  
+  return `
+=== LEAD INQUIRY SUMMARY ===
+Date: ${new Date().toLocaleDateString()}
+Time: ${new Date().toLocaleTimeString()}
+Source: Website Chat
+
+=== CONTACT INFORMATION ===
+Name: ${leadData.first_name || 'Not provided'} ${leadData.last_name || 'Not provided'}
+Email: ${leadData.email || 'Not provided'}
+Phone: ${leadData.phone || 'Not provided'}
+Company: ${leadData.company || 'Not provided'}
+
+=== SERVICE INTEREST ===
+Service Requested: ${leadData.service_requested || 'General Inquiry'}
+Project Description: ${leadData.project_description || 'No specific details provided'}
+Budget Range: ${leadData.budget_range || 'Not specified'}
+Timeline: ${leadData.timeline || 'Not specified'}
+
+=== CONVERSATION KEYWORDS ===
+${leadData.conversation_keywords || 'No keywords extracted'}
+
+=== CONVERSATION HISTORY ===
+${leadData.conversation_history || leadData.project_description || 'No conversation history available'}
+
+=== NEXT STEPS ===
+1. Review contact information and service requirements
+2. Schedule follow-up call or meeting
+3. Prepare proposal based on service interest
+4. Assign to appropriate sales team member
+
+=== TECHNICAL DETAILS ===
+Lead ID: Generated ${timestamp}
+Priority: HIGH
+Assigned Team: Sales Team
+Issue Type: Lead Follow-up
+  `.trim();
+};
 
 // Initialize HubSpot client
 const initializeHubSpot = () => {
@@ -192,12 +234,16 @@ const createLead = async (leadData) => {
     let ticket = null;
     if (leadData.project_description || leadData.service_requested) {
       try {
+        // Create comprehensive ticket content with conversation history
+        const ticketContent = buildComprehensiveTicketContent(leadData);
+        
         ticket = await createTicket({
           subject: `Follow-up: ${leadData.service_requested || 'New Lead'} inquiry`,
-          description: leadData.project_description || `New lead interested in ${leadData.service_requested || 'our services'}`,
+          description: ticketContent,
           priority_level: 'HIGH',
           assigned_team: 'Sales Team',
-          issue_type: 'Lead Follow-up'
+          issue_type: 'Lead Follow-up',
+          conversation_keywords: leadData.conversation_keywords || 'None'
         });
         console.log('Ticket created successfully');
       } catch (ticketError) {
