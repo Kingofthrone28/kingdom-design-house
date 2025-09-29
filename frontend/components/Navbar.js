@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.scss';
 import { getNavbarData } from '../data/navbarData';
+import ChatInterface from './ChatInterface';
 import Button from './Atoms/Button';
 import PhoneIcon from './Atoms/PhoneIcon';
 import EmailIcon from './Atoms/EmailIcon';
@@ -10,6 +11,7 @@ import MobileToggle from './Atoms/MobileToggle';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const navbarData = getNavbarData();
   const { phone, email } = navbarData.contact;
   const { buttonText, ariaLabel} = navbarData.cta;
@@ -17,6 +19,14 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+
+  const closeChat = () => {
+    setIsChatOpen(false);
   };
 
   return (
@@ -44,7 +54,7 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Button variant="primary" size="large">
+        <Button variant="primary" size="large" onClick={toggleChat}>
           {buttonText}
         </Button>
 
@@ -64,6 +74,14 @@ const Navbar = () => {
           />
         )}
       </div>
+
+      {/* Chat Interface */}
+      {isChatOpen && (
+        <ChatInterface 
+          isOpen={isChatOpen}
+          onClose={closeChat}
+        />
+      )}
     </nav>
   );
 };
