@@ -51,16 +51,22 @@ const extractBasicLeadInfo = (query) => {
     firstName = nameMatch5[1];
   }
   
-  // Service keywords mapping
+  // Enhanced service keywords mapping with more specific terms
   const serviceKeywords = {
-    'web development': ['website', 'web development', 'web design', 'site', 'online', 'web app', 'web application'],
-    'it services': ['it', 'technology', 'tech support', 'computer', 'system', 'technical support', 'help desk'],
-    'networking': ['network', 'networking', 'infrastructure', 'server', 'wifi', 'internet', 'connectivity'],
-    'ai solutions': ['ai', 'artificial intelligence', 'automation', 'machine learning', 'chatbot', 'ai integration']
+    'web development': ['website', 'web development', 'web design', 'site', 'online', 'web app', 'web application', 'ecommerce', 'cms', 'frontend', 'backend'],
+    'it services': ['it', 'technology', 'tech support', 'computer', 'system', 'technical support', 'help desk', 'desktop', 'laptop', 'hardware', 'software'],
+    'networking': ['network', 'networking', 'infrastructure', 'server', 'wifi', 'internet', 'connectivity', 'lan', 'wan', 'firewall', 'router', 'switch', 'cabling', 'wireless', 'ethernet', 'network setup', 'corporate office', 'users', 'devices', 'mbps', 'speed', 'security'],
+    'ai solutions': ['ai', 'artificial intelligence', 'automation', 'machine learning', 'chatbot', 'ai integration', 'intelligent', 'smart', 'predictive']
   };
   
+  // Analyze the full conversation for better service detection
   const serviceRequested = Object.entries(serviceKeywords)
     .find(([_, keywords]) => keywords.some(keyword => query.toLowerCase().includes(keyword)))?.[0] || 'General Inquiry';
+  
+  // Debug logging for service detection
+  console.log('Service Detection Debug:');
+  console.log('Query:', query);
+  console.log('Detected Service:', serviceRequested);
   
   // Extract conversation keywords
   const conversationKeywords = extractConversationKeywords(query);
@@ -192,7 +198,9 @@ const createLeadIfPossible = async (structuredInfo, query, conversationHistory =
   if (structuredInfo?.email && structuredInfo?.service_requested) {
     return await createHubSpotLead(structuredInfo, conversationHistory);
   } else {
-    const basicLeadInfo = extractBasicLeadInfo(query);
+    // Create enhanced query with full conversation for better service detection
+    const fullConversation = conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join(' ') + ' ' + query;
+    const basicLeadInfo = extractBasicLeadInfo(fullConversation);
     if (basicLeadInfo.email) {
       return await createHubSpotLead(basicLeadInfo, conversationHistory);
     }
