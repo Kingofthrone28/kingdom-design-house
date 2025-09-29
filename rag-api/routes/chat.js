@@ -68,6 +68,16 @@ const extractBasicLeadInfo = (query) => {
   console.log('Query:', query);
   console.log('Detected Service:', serviceRequested);
   
+  // Extract budget information
+  const budgetRegex = /\$?(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:k|thousand|K)?/i;
+  const budgetMatch = query.match(budgetRegex);
+  const budgetAmount = budgetMatch ? budgetMatch[1].replace(/,/g, '') : null;
+  
+  // Extract timeline information
+  const timelineRegex = /(?:timeline|deadline|complete|finish|deliver).*?(\d+)\s*(?:weeks?|months?|days?)/i;
+  const timelineMatch = query.match(timelineRegex);
+  const timeline = timelineMatch ? `${timelineMatch[1]} ${timelineMatch[2]}` : null;
+  
   // Extract conversation keywords
   const conversationKeywords = extractConversationKeywords(query);
   
@@ -78,6 +88,9 @@ const extractBasicLeadInfo = (query) => {
     last_name: lastName,
     service_requested: serviceRequested,
     project_description: query.substring(0, 500),
+    budget_range: budgetAmount,
+    budget_amount: budgetAmount,
+    timeline: timeline,
     conversation_keywords: conversationKeywords
   };
 };

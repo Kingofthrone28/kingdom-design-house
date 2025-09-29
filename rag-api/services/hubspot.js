@@ -217,11 +217,17 @@ const createLead = async (leadData) => {
     let deal = null;
     if (leadData.service_requested) {
       try {
+        const dealBudget = leadData.budget_amount || leadData.budget_range || '0';
+        console.log('Deal Budget Debug:');
+        console.log('leadData.budget_amount:', leadData.budget_amount);
+        console.log('leadData.budget_range:', leadData.budget_range);
+        console.log('Final deal budget:', dealBudget);
+        
         deal = await createDeal({
           ...leadData,
           contact_id: contact.id,
           deal_name: `${leadData.service_requested} - ${leadData.company || leadData.first_name || 'New Lead'}`,
-          budget_amount: leadData.budget_range || '0'
+          budget_amount: dealBudget
         });
         console.log('Deal created successfully');
       } catch (dealError) {
