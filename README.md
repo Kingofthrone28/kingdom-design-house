@@ -331,3 +331,4 @@ MIT License - see LICENSE file for details.
 - **Group-Specific Pages**: Dynamic routing for service groups
 - **Mobile-First Design**: Responsive component architecture
 - **AI Fallback Handling**: Graceful degradation when services unavailable# Trigger deployment Sun Sep 28 00:36:38 EDT 2025
+# Trigger Netlify deployment Sun Sep 28 22:12:00 EDT 2025
