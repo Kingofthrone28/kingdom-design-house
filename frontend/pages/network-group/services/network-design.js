@@ -7,19 +7,20 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 
-export default function AIGroupWebDesign() {
+export default function NetworkDesign() {
   return (
     <>
       <Head>
-        <title>AI-Powered Web Design - The AI Group | Kingdom Design House</title>
-        <meta name="description" content="AI-powered web design services by The AI Group. Intelligent design automation, AI-driven UX, and smart web interface solutions." />
+        <title>Network Design Services - The Network Group | Kingdom Design House</title>
+        <meta name="description" content="Network design services by The Network Group. IT-focused web design solutions, network-compatible designs, and technical web interfaces." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
       <Layout>
-        <GroupHero groupName="aigroup" />
-        <OurGroups />
+        <GroupHero groupName="networkgroup" />
+        <GroupHeading groupName="networkgroup" />
+        <ServiceContent serviceType="network-design" />
         <ProcessSteps />
         <ChatJarvis />
         <WhyChooseUs />

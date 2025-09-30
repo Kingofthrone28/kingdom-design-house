@@ -2,12 +2,12 @@ import React from 'react';
 import Head from 'next/head';
 import Layout from '../../../components/Layout';
 import GroupHero from '../../../components/GroupHero';
-import OurGroups from '../../../components/OurGroups';
+import GroupHeading from '../../../components/Molecules/GroupHeading';
 import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 
-export default function WebGroupDigitalMarketing() {
+export default function DigitalMarketing() {
   return (
     <>
       <Head>
@@ -18,8 +18,8 @@ export default function WebGroupDigitalMarketing() {
       </Head>
       
       <Layout>
-        <GroupHero groupName="webgroup" />
-        <OurGroups />
+        <GroupHero groupName="digitalmarketing" />
+        <GroupHeading groupName="digitalmarketing" />
         <ProcessSteps />
         <ChatJarvis />
         <WhyChooseUs />

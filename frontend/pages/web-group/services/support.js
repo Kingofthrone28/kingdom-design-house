@@ -2,12 +2,12 @@ import React from 'react';
 import Head from 'next/head';
 import Layout from '../../../components/Layout';
 import GroupHero from '../../../components/GroupHero';
-import OurGroups from '../../../components/OurGroups';
+import GroupHeading from '../../../componen ts/Molecules/GroupHeading';
 import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 
-export default function WebGroupSupport() {
+export default function Support() {
   return (
     <>
       <Head>
@@ -18,8 +18,9 @@ export default function WebGroupSupport() {
       </Head>
       
       <Layout>
-        <GroupHero groupName="webgroup" />
-        <OurGroups />
+        <GroupHero groupName="websupport" />
+        <GroupHeading groupName="websupport" />
+        {/* <ServiceContent serviceType="web-support" /> */}
         <ProcessSteps />
         <ChatJarvis />
         <WhyChooseUs />

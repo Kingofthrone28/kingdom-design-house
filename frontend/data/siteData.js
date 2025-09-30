@@ -248,19 +248,59 @@ export const siteData = {
           {
             title: "Development & Testing",
             description: "We build your application using industry best practices, with continuous testing to ensure quality, performance, and security at every step."
-          },
-          {
-            title: "Deployment & Optimization",
-            description: "We deploy your application with proper monitoring, security measures, and performance optimization to ensure reliable operation."
           }
         ]
       },
       expertise: {
-        title: "Technical Expertise",
+        title: "Development Expertise",
         items: [
-          "Full-Stack Development - Front-end and back-end solutions",
-          "API Integration - Seamless third-party service connections",
-          "Performance Optimization - Fast, efficient applications"
+          "Front-end Development - React, Next.js, Vue.js",
+          "Back-end Development - Node.js, Python, PHP",
+          "Database Design - MySQL, PostgreSQL, MongoDB"
+        ]
+      }
+    },
+    'network-it': {
+      title: "Network & IT Services",
+      mainContent: {
+        title: "Building Networks That Work as Hard as You Do",
+        paragraphs: [
+          "Your business relies on seamless connectivity — whether it's sharing files, video conferencing, or serving customers online. At <strong>Kingdom Design House</strong>, our IT & Networking Group provides custom-designed network solutions built to maximize speed, reliability, and scalability.",
+          "We don't believe in one-size-fits-all setups. Every router, switch, and WiFi access point is configured with your business environment in mind, ensuring your systems perform smoothly today and are ready for tomorrow's growth."
+        ]
+      },
+      approach: {
+        title: "Our Process: From Blueprint to Deployment",
+        steps: [
+          {
+            title: "Discovery & Assessment",
+            description: "We begin by understanding your unique requirements: How many users and devices will be on your network? Do you need high-performance connectivity for video, data, or cloud systems? Is your team scaling, requiring flexible upgrades in the future? By gathering this information upfront, we design a plan that eliminates bottlenecks and sets the foundation for efficiency."
+          },
+          {
+            title: "Strategic Planning",
+            description: "With your goals in mind, we create a network architecture blueprint. This plan outlines router placement and configuration for stable, fast data routing, switch setup for reliable communication between devices, WiFi design to ensure strong coverage throughout your workspace, and structured cabling recommendations for long-term performance. This stage ensures your network is not only functional but also built to grow with you."
+          },
+          {
+            title: "Network Design & Implementation",
+            description: "This is where planning becomes reality. Our team configures routers and switches to handle your exact workload, designs WiFi layouts for seamless roaming, coverage, and optimized performance, ensures load balancing so traffic flows efficiently across devices, and sets up redundancy measures to minimize downtime and interruptions. We carefully test every component before launch, ensuring your network is both stable and future-proof."
+          },
+          {
+            title: "Testing & Optimization",
+            description: "Before handing over your system, we run real-world tests to guarantee performance: speed and load testing, signal strength verification across your space, device compatibility checks, and fine-tuning to remove any weak spots. The result: a smooth, reliable network that supports your daily operations with ease."
+          },
+          {
+            title: "Support & Maintenance",
+            description: "Networking is not a \"set it and forget it\" service. As technology evolves, so do your needs. That's why we offer routine performance checks, troubleshooting and updates, and scalable adjustments as your business expands. We don't just build your network — we partner with you to keep it running at peak efficiency."
+          }
+        ]
+      },
+      expertise: {
+        title: "Network & IT Expertise",
+        items: [
+          "Network Infrastructure - Routers, switches, and structured cabling",
+          "WiFi Design & Optimization - Seamless coverage and performance",
+          "Security & Redundancy - Protecting your business data and uptime",
+          "Scalable Solutions - Networks that grow with your business"
         ]
       }
     }

@@ -3,13 +3,12 @@ import Head from 'next/head';
 import Layout from '../../../components/Layout';
 import GroupHero from '../../../components/GroupHero';
 import GroupHeading from '../../../components/Molecules/GroupHeading';
-import ServiceContent from '../../../components/Organisms/ServiceContent';
-import OurGroups from '../../../components/OurGroups';
+import ServiceContent from '../../../components/Organisms/ServiceContent';  
 import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 
-export default function WebGroupWebDesign() {
+export default function WebDesign() {
   return (
     <>
       <Head>
@@ -20,8 +19,8 @@ export default function WebGroupWebDesign() {
       </Head>
       
       <Layout>
-        <GroupHero groupName="webgroup" />
-        <GroupHeading groupName="webgroup" />
+        <GroupHero groupName="webdesign" />
+        <GroupHeading groupName="webdesign" />
         <ServiceContent serviceType="web-design" />
         <ProcessSteps />
         <ChatJarvis />

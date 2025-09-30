@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import GroupHero from '../components/GroupHero';
+import GroupHeading from '../components/Molecules/GroupHeading';
 import OurGroups from '../components/OurGroups';
 import ProcessSteps from '../components/ProcessSteps';
 import ChatJarvis from '../components/ChatJarvis';
@@ -19,6 +20,7 @@ export default function AIGroup() {
       
       <Layout>
         <GroupHero groupName="aigroup" />
+        <GroupHeading groupName="aigroup" />
         <OurGroups />
         <ProcessSteps />
         <ChatJarvis />

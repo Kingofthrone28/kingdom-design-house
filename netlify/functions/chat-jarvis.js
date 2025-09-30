@@ -92,18 +92,11 @@ const validateRequest = (event) => {
 const callRagApi = async (message, conversationHistory, userId) => {
   const ragApiUrl = process.env.RAG_API_URL || 'http://localhost:3001';
   
-  console.log(`Calling RAG API at: ${ragApiUrl}/api/chat`);
-  
   const requestBody = {
     query: message,
     conversationHistory,
     userId,
   };
-  
-  console.log('Sending request to RAG API:', {
-    url: `${ragApiUrl}/api/chat`,
-    body: requestBody
-  });
   
   const ragResponse = await fetch(`${ragApiUrl}/api/chat`, {
     method: 'POST',
@@ -135,62 +128,49 @@ const callRagApi = async (message, conversationHistory, userId) => {
  * @returns {Object} Transformed lead data for HubSpot
  */
 const transformLeadData = (structuredInfo, originalMessage) => {
-  // Extract numeric value from budget range (e.g., "$5k" -> "5000")
-  const extractBudgetAmount = (budgetRange) => {
-    if (!budgetRange) return '0';
-    const match = budgetRange.match(/\$?(\d+(?:\.\d+)?)([kK]?)/);
-    if (match) {
-      const value = parseFloat(match[1]);
-      const multiplier = match[2].toLowerCase() === 'k' ? 1000 : 1;
-      return (value * multiplier).toString();
-    }
-    return '0';
+  // Timeline to days mapping
+  const timelineMap = {
+    'urgent': 7,
+    'asap': 7,
+    'month': 30,
+    'quarter': 90
   };
 
-  // Convert timeline to estimated delivery date
-  const getEstimatedDeliveryDate = (timeline) => {
-    if (!timeline) return new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
-    
-    const now = new Date();
-    if (timeline.toLowerCase().includes('urgent') || timeline.toLowerCase().includes('asap')) {
-      return new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 1 week
-    } else if (timeline.toLowerCase().includes('month')) {
-      return new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString(); // 1 month
-    } else if (timeline.toLowerCase().includes('quarter')) {
-      return new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString(); // 3 months
-    }
-    return new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString(); // Default 1 month
+  // Extract budget amount with multiplier support
+  const extractBudgetAmount = (budget) => {
+    if (!budget) return '0';
+    const match = budget.match(/\$?(\d+(?:\.\d+)?)([kK]?)/);
+    return match ? (parseFloat(match[1]) * (match[2].toLowerCase() === 'k' ? 1000 : 1)).toString() : '0';
   };
 
-  return {
-    // Contact fields (matching buildContactPayload)
-    email: structuredInfo.email,
-    first_name: structuredInfo.first_name,
-    last_name: structuredInfo.last_name,
-    phone: structuredInfo.phone,
-    company: structuredInfo.company,
-    website: structuredInfo.website,
-    service_requested: structuredInfo.service_requested,
-    conversation_keywords: structuredInfo.conversation_keywords,
+  // Get delivery date based on timeline keywords
+  const getDeliveryDate = (timeline) => {
+    const days = 
+    Object.entries(timelineMap)
+      .find(([keyword]) => timeline?.toLowerCase().includes(keyword))?.[1] || 30;
+    return new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
+  };
+
+  // Unified field mapping with direct and computed values
+  const fieldMap = {
+    // Direct mappings
+    ...Object.fromEntries(['email', 'first_name', 'last_name', 'phone', 'company', 'website', 'service_requested', 'conversation_keywords', 'budget_range', 'timeline']
+      .map(field => [field, structuredInfo[field]])),
     
-    // Deal fields (matching buildDealPayload)
+    // Computed mappings
     deal_name: structuredInfo.service_requested ? `${structuredInfo.service_requested} Project` : 'New Lead Project',
     budget_amount: extractBudgetAmount(structuredInfo.budget_range),
-    budget_range: structuredInfo.budget_range,
-    estimated_delivery_date: getEstimatedDeliveryDate(structuredInfo.timeline),
-    timeline: structuredInfo.timeline,
-    
-    // Ticket fields (matching buildTicketPayload)
+    estimated_delivery_date: getDeliveryDate(structuredInfo.timeline),
     project_description: structuredInfo.project_description || originalMessage,
     description: structuredInfo.project_description || originalMessage,
     priority_level: 'HIGH',
-    assigned_team: 'Sales Team',
+    assigned_team: 'KDH Sales Team',
     issue_type: 'Lead Follow-up',
-    
-    // Additional metadata
     originalMessage,
-    timestamp: new Date().toISOString(),
+    timestamp: new Date().toISOString()
   };
+
+  return fieldMap;
 };
 
 /**
@@ -202,17 +182,13 @@ const transformLeadData = (structuredInfo, originalMessage) => {
 const handleLeadCreation = async (ragData, originalMessage) => {
   // Check if we have structured lead information
   if (!ragData.structuredInfo || !shouldCreateLead(ragData.structuredInfo)) {
-    console.log('No structured lead information available, skipping lead creation');
     return ragData;
   }
 
   try {
-    console.log('Attempting to create lead with structured info:', ragData.structuredInfo);
-    
     // Transform the data to match HubSpot service expectations
     const transformedLeadData = transformLeadData(ragData.structuredInfo, originalMessage);
-    console.log('Transformed lead data for HubSpot:', transformedLeadData);
-    
+        
     const leadResponse = await fetch(`${process.env.URL || 'http://localhost:8888'}/.netlify/functions/send-lead`, {
       method: 'POST',
       headers: {
@@ -221,15 +197,14 @@ const handleLeadCreation = async (ragData, originalMessage) => {
       body: JSON.stringify(transformedLeadData),
     });
 
-    if (leadResponse.ok) {
-      console.log('Lead created successfully');
-      ragData.leadCreated = true;
-    } else {
+    if(!leadResponse.ok){
       const errorData = await leadResponse.json();
       console.warn('Lead creation failed:', leadResponse.status, errorData);
       ragData.leadCreated = false;
       ragData.leadError = errorData.message || 'Lead creation failed';
     }
+    ragData.leadCreated = true;
+  
   } catch (leadError) {
     console.error('Error creating lead:', leadError);
     // Don't fail the chat response if lead creation fails
@@ -316,12 +291,6 @@ const shouldCreateLead = (structuredInfo) => {
  * @returns {Promise<Object>} Netlify function response
  */
 exports.handler = async (event, context) => {
-  console.log('Chat Jarvis function invoked:', {
-    method: event.httpMethod,
-    hasBody: !!event.body,
-    userAgent: event.headers?.['user-agent'],
-  });
-
   // Handle CORS preflight requests
   if (event.httpMethod === 'OPTIONS') {
     console.log('Handling CORS preflight request');
@@ -339,20 +308,9 @@ exports.handler = async (event, context) => {
     // Parse request body
     const { message, conversationHistory = [] } = JSON.parse(event.body);
     const userId = context.clientContext?.user?.sub || 'anonymous';
-    
-    console.log('Processing chat request:', {
-      messageLength: message.length,
-      conversationHistoryLength: conversationHistory.length,
-      userId,
-    });
 
     // Call the RAG API server
     const ragData = await callRagApi(message, conversationHistory, userId);
-    console.log('RAG API response received:', {
-      hasResponse: !!ragData.response,
-      hasStructuredInfo: !!ragData.structuredInfo,
-      hasHubspotLead: !!ragData.hubspotLead,
-    });
 
     // Handle lead creation if applicable
     const finalData = await handleLeadCreation(ragData, message);
@@ -360,13 +318,7 @@ exports.handler = async (event, context) => {
     // Return successful response
     return createResponse(200, finalData);
 
-  } catch (error) {
-    console.error('Chat Jarvis error:', {
-      message: error.message,
-      stack: error.stack,
-      name: error.name,
-    });
-    
+  } catch (error) {    
     return createResponse(500, { 
       error: 'Internal server error',
       message: 'Sorry, I encountered an error. Please try again.',

@@ -2,24 +2,26 @@ import React from 'react';
 import Head from 'next/head';
 import Layout from '../../../components/Layout';
 import GroupHero from '../../../components/GroupHero';
-import OurGroups from '../../../components/OurGroups';
+import GroupHeading from '../../../components/Molecules/GroupHeading';
+import ServiceContent from '../../../components/Organisms/ServiceContent';
 import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 
-export default function NetworkGroupWebDevelopment() {
+export default function AIDevelopment() {
   return (
     <>
       <Head>
-        <title>Web Development Services - The Network Group | Kingdom Design House</title>
-        <meta name="description" content="Web development services by The Network Group. Network-integrated web applications, secure development, and IT infrastructure web solutions." />
+        <title>AI-Powered Development - The AI Group | Kingdom Design House</title>
+        <meta name="description" content="AI-powered digital marketing services by The AI Group. Intelligent marketing automation, AI-driven campaigns, and smart analytics solutions." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
       <Layout>
-        <GroupHero groupName="networkgroup" />
-        <OurGroups />
+        <GroupHero groupName="aigroup" />
+        <GroupHeading groupName="aigroup" />
+        <ServiceContent serviceType="ai-development" />
         <ProcessSteps />
         <ChatJarvis />
         <WhyChooseUs />

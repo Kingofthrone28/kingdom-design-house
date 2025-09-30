@@ -8,7 +8,7 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 
-export default function WebGroupWebDevelopment() {
+export default function WebDevelopment() {
   return (
     <>
       <Head>
@@ -19,8 +19,8 @@ export default function WebGroupWebDevelopment() {
       </Head>
       
       <Layout>
-        <GroupHero groupName="webgroup" />
-        <GroupHeading groupName="webgroup" />
+        <GroupHero groupName="webdevelopment" />
+        <GroupHeading groupName="webdevelopment" />
         <ServiceContent serviceType="web-development" />
         <ProcessSteps />
         <ChatJarvis />

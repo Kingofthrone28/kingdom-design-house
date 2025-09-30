@@ -24,19 +24,22 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
   };
 
   // Navigation links from siteData
-  const { navLinks, webServicesSubmenu, networkServicesSubmenu, aiServicesSubmenu } = navBarGroupData;
+  const { navLinks, webServicesSubmenu, networkServicesSubmenu, aiServicesSubmenu, companyGroupsSubmenu } = navBarGroupData;
 
-  const getCurrentSubmenu = () => {
+  const getCurrentSubmenu = (linkName) => {
     const submenuMap = {
-      'webgroup': webServicesSubmenu,
-      'web-group': webServicesSubmenu,
-      'networkgroup': networkServicesSubmenu,
-      'network-group': networkServicesSubmenu,
-      'aigroup': aiServicesSubmenu,
-      'ai-group': aiServicesSubmenu
+      'Company Groups': companyGroupsSubmenu,
+      'Services': {
+        'webgroup': webServicesSubmenu,
+        'web-group': webServicesSubmenu,
+        'networkgroup': networkServicesSubmenu,
+        'network-group': networkServicesSubmenu,
+        'aigroup': aiServicesSubmenu,
+        'ai-group': aiServicesSubmenu
+      }[groupName] || webServicesSubmenu
     };
     
-    return submenuMap[groupName] || webServicesSubmenu;
+    return submenuMap[linkName] || webServicesSubmenu;
   };
   
   return (
@@ -68,7 +71,7 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
                     {link.name}
                     <span className={styles.navBarGroup__nav__chevron}>▼</span>
                     <div className={styles.navBarGroup__nav__submenu}>
-                      {getCurrentSubmenu().map((service, serviceIndex) => (
+                      {getCurrentSubmenu(link.name).map((service, serviceIndex) => (
                         <Link 
                           key={serviceIndex} 
                           href={service.route}

@@ -24,9 +24,14 @@ export const navbarData = {
   navBarGroup: {
     navLinks: [
       { name: "About", route: "/about" },
-      { name: "Company Groups", route: "/company-groups" },
+      { name: "Company Groups", hasSubmenu: true },
       { name: "Services", hasSubmenu: true },
       { name: "Pricing", route: "/pricing" }
+    ],
+    companyGroupsSubmenu: [
+      { name: "The Web Group", route: "/web-group" },
+      { name: "The Network Group", route: "/network-group" },
+      { name: "The AI Group", route: "/ai-group" }
     ],
     webServicesSubmenu: [
       { name: "Web Design", route: "/web-group/services/web-design" },
