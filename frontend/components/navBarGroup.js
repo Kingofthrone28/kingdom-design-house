@@ -23,6 +23,16 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const scrollToChat = () => {
+    const chatSection = document.getElementById('chat-jarvis');
+    if (chatSection) {
+      chatSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   // Navigation links from siteData
   const { navLinks, webServicesSubmenu, networkServicesSubmenu, aiServicesSubmenu, companyGroupsSubmenu } = navBarGroupData;
 
@@ -105,6 +115,8 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
             phone={phone}
             email={email}
             navigation={navigation}
+            onScrollToChat={scrollToChat}
+            groupName={groupName}
           />
         )}
 

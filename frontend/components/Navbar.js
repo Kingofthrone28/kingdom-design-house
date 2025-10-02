@@ -73,6 +73,7 @@ const Navbar = () => {
             email={email}
             navigation={navigation}
             onScrollToChat={scrollToChat}
+            groupName="webgroup"
           />
         )}
       </div>
