@@ -1,24 +1,73 @@
 [
   {
+    "id": "web-design-1",
+    "title": "Web Design Services",
+    "content": "Transform your online presence with award-winning, purpose-built web design. At Kingdom Design House, we combine design, development, and strategy to deliver digital experiences that reflect your brand and support long-term growth. Our collaborative approach involves you at every stage, creating a process that is clear, engaging, and client-focused. We immerse ourselves in your industry and brand identity to deliver a site that speaks directly to your audience while driving measurable results. Our approach includes Discovery (understanding business goals and challenges), Research & Insight (studying market and competition), UX & Structure (creating intuitive user flows), Content Alignment (determining key messages), and Design Execution (visually striking and strategically effective designs).",
+    "category": "web-design",
+    "tags": ["web design", "ux ui design", "creative direction", "mobile responsive", "brand identity", "user experience"]
+  },
+  {
     "id": "web-development-1",
     "title": "Web Development Services",
-    "content": "Kingdom Design House offers comprehensive web development services including custom website design, e-commerce solutions, content management systems, and responsive web applications. Our team specializes in modern frameworks like React, Next.js, and Node.js to create scalable and performant web solutions.",
+    "content": "Build powerful, scalable web applications with our expert development team. We create custom solutions that grow with your business and deliver exceptional user experiences. From front-end frameworks to back-end architecture, we use cutting-edge technologies to build robust, secure, and performant web applications. Our development process ensures your application is optimized for speed, security, and scalability. Our approach includes Technical Planning (analyzing requirements and creating technical roadmap), Architecture Design (scalable system architecture), and Development & Testing (building with industry best practices and continuous testing). We specialize in Front-end Development (React, Next.js, Vue.js), Back-end Development (Node.js, Python, PHP), and Database Design (MySQL, PostgreSQL, MongoDB).",
     "category": "web-development",
-    "tags": ["web development", "website design", "e-commerce", "cms", "react", "nextjs"]
+    "tags": ["web development", "custom applications", "react", "nextjs", "nodejs", "database design", "scalable solutions"]
   },
   {
-    "id": "it-services-1",
-    "title": "IT Services & Networking",
-    "content": "Our IT services include network setup and maintenance, server management, cybersecurity solutions, cloud migration, and technical support. We help businesses optimize their IT infrastructure for better performance, security, and scalability.",
-    "category": "it-services",
-    "tags": ["it services", "networking", "cybersecurity", "cloud migration", "server management"]
+    "id": "digital-marketing-1",
+    "title": "Digital Marketing & Technical SEO",
+    "content": "A stunning website means little if no one can find it. At Kingdom Design House, we pair handcrafted design and development with digital marketing strategies and technical SEO that ensure your site gets discovered, ranks well, and converts visitors into customers. We focus on proven SEO fundamentals, applying best practices from the ground up so your site is optimized for performance, user experience, and long-term growth. Our technical SEO process includes Site Architecture & Crawlability (logical structure for search engines), Page Speed & Performance (lightning-fast loading), Mobile Optimization (flawless mobile performance), On-Page Technical Elements (metadata, schema markup, canonical tags), and Indexing & Error Resolution (monitoring and fixing crawl errors).",
+    "category": "digital-marketing",
+    "tags": ["digital marketing", "technical seo", "search engine optimization", "page speed", "mobile optimization", "analytics"]
   },
   {
-    "id": "ai-solutions-1",
-    "title": "AI Integration & Tools",
-    "content": "We provide AI integration services including chatbot development, machine learning solutions, automation tools, and AI-powered business intelligence. Our AI solutions help businesses streamline operations and gain valuable insights from their data.",
-    "category": "ai-solutions",
-    "tags": ["ai integration", "chatbot", "machine learning", "automation", "business intelligence"]
+    "id": "support-1",
+    "title": "SEO Support & Growth Services",
+    "content": "Launching a website is only the beginning. To stay visible online, your SEO needs ongoing care, updates, and optimization. At Kingdom Design House, our SEO Support services provide long-term guidance and hands-on improvements to keep your website competitive in search rankings, responsive to algorithm changes, and aligned with your business goals. We see SEO as a continuous partnership — not a one-time project. Our support covers Ongoing Technical Monitoring (speed, crawlability, mobile performance), Keyword Tracking & Adjustments (refining strategy for qualified traffic), Content Refresh & Optimization (updating key pages with improved structure), Analytics & Reporting (clear, actionable reports on traffic and conversions), and Strategic Consultation (guidance on new content and best practices).",
+    "category": "support",
+    "tags": ["seo support", "ongoing optimization", "keyword tracking", "content refresh", "analytics reporting", "strategic consultation"]
+  },
+  {
+    "id": "network-design-1",
+    "title": "Network Design Services",
+    "content": "At Kingdom Design House, we provide complete network design services that ensure your business infrastructure is robust, scalable, and reliable. Our comprehensive approach covers every aspect of network implementation, from initial configuration to ongoing optimization and redundancy planning. We design custom networks tailored to your specific needs, ensuring optimal performance for current operations while planning for future growth. Our services include Router & Switch Configuration (custom setups for optimal performance, eliminating bottlenecks and improving speeds), WiFi Design & Optimization (seamless coverage, eliminating dead zones and ensuring seamless roaming), Network Load Balancing (intelligent traffic distribution, preventing bottlenecks and improving reliability), and Redundancy & Uptime Assurance (business continuity planning with backup systems and failover protection).",
+    "category": "network-design",
+    "tags": ["network design", "router configuration", "switch setup", "wifi optimization", "load balancing", "redundancy", "uptime assurance"]
+  },
+  {
+    "id": "network-optimization-1",
+    "title": "Network Testing & Optimization",
+    "content": "A network isn't complete the moment cables are plugged in or WiFi access points are turned on. The real measure of a system is how it performs under pressure — during peak business hours, high data usage, or when multiple applications are running at once. At Kingdom Design House, we believe testing and optimization are the final, crucial steps in building a network that is reliable, efficient, and future-ready. Our optimization services include Real-World Performance Testing (rigorous testing to simulate actual business conditions, speed tests, and multi-user stress tests), Coverage & Signal Verification (measuring signal strength throughout workspace to eliminate dead zones and weak spots), Bandwidth & Load Optimization (evaluating bandwidth distribution and making adjustments to prioritize business-critical functions), and Continuous Improvement (ongoing monitoring and adjustments to keep your network performing at its best).",
+    "category": "network-optimization",
+    "tags": ["network optimization", "performance testing", "signal verification", "bandwidth optimization", "load testing", "continuous improvement"]
+  },
+  {
+    "id": "network-support-1",
+    "title": "Network Support & Maintenance",
+    "content": "A strong network doesn't just need to be installed — it needs to be maintained. Technology evolves, devices are added, and usage demands change over time. At Kingdom Design House, our Support & Maintenance services ensure your network stays reliable, efficient, and ready for the future. We partner with you beyond installation, making sure your systems continue to perform at their best. Our support services include Proactive Support (monitoring and evaluating your network to identify potential weak spots before they cause disruptions), Routine Updates & System Care (handling firmware updates, configuration adjustments, and optimization tasks), Responsive Troubleshooting (quick diagnosis and resolution of problems to minimize downtime), and Long-Term Partnership (growing with you, adjusting your network as your team expands and needs evolve).",
+    "category": "network-support",
+    "tags": ["network support", "maintenance", "proactive support", "troubleshooting", "system updates", "long-term partnership"]
+  },
+  {
+    "id": "ai-consulting-1",
+    "title": "AI Consulting Services",
+    "content": "Artificial Intelligence isn't just a buzzword — it's a set of tools and techniques that can fundamentally change how businesses operate. At Kingdom Design House, our consulting services focus on helping you cut through the hype and uncover practical AI applications that align with your specific business goals. Our AI consulting process includes Strategic Assessment (in-depth review of workflows, data, and current technology stack to identify AI opportunities), Building an AI Roadmap (step-by-step roadmap for implementation with clear metrics for success), and Collaborative Guidance (partnership approach with training, support, and clear actionable plans). We help you understand how your existing data assets can be leveraged and what AI technologies are best suited for your business needs.",
+    "category": "ai-consulting",
+    "tags": ["ai consulting", "strategic assessment", "ai roadmap", "business intelligence", "workflow optimization", "data analysis"]
+  },
+  {
+    "id": "ai-development-1",
+    "title": "AI Development Services",
+    "content": "Once the plan is in place, our AI Development services transform strategy into working systems. At Kingdom Design House, we build and customize AI tools designed to fit directly into your operations — whether that's customer-facing automation, smarter search systems, or internal assistants. Our development process includes Custom-Built AI Applications (tools that handle your unique needs, from AI chatbots to recommendation engines), The Power of RAG (Retrieval-Augmented Generation that blends large language models with your company's proprietary data for accurate, context-aware responses), and Testing & Deployment (rigorous testing for accuracy, scalability, and usability with seamless integration into existing workflows). We create AI systems that don't just function — they enhance the way your business operates daily.",
+    "category": "ai-development",
+    "tags": ["ai development", "custom ai applications", "rag implementation", "chatbot development", "machine learning", "workflow automation"]
+  },
+  {
+    "id": "ai-support-1",
+    "title": "AI Support & Optimization",
+    "content": "Unlike traditional software, AI systems improve over time — but only if they're monitored and maintained. At Kingdom Design House, our AI Support services ensure that your solutions continue to evolve alongside your business, data, and industry trends. Our support services include Continuous Monitoring & Fine-Tuning (tracking AI performance to ensure accuracy, relevance, and speed while preventing model decay), Updating With New Data (continually feeding new data into your models so your AI reflects the current state of your business), and Advisory & Feature Expansion (acting as advisors for expanding AI capabilities with additional features like voice interfaces, analytics dashboards, or workflow automation). We help you extend the value of your initial AI investment and keep your systems sharp, relevant, and ahead of the curve.",
+    "category": "ai-support",
+    "tags": ["ai support", "ai optimization", "model monitoring", "data updates", "feature expansion", "continuous improvement"]
   },
   {
     "id": "pricing-web-1",
