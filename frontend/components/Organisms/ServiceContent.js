@@ -24,6 +24,16 @@ const ServiceContent = ({ serviceType = 'web-design', layout = null }) => {
   // Determine layout class
   const layoutClass = currentLayout === '2-column' ? styles['serviceContent__approachSteps--2column'] : styles['serviceContent__approachSteps--3column'];
   
+  const scrollToChat = () => {
+    const chatSection = document.getElementById('chat-jarvis');
+    if (chatSection) {
+      chatSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   // Debug logging
   console.log('ServiceContent Debug:', {
     currentLayout,
@@ -99,7 +109,7 @@ const ServiceContent = ({ serviceType = 'web-design', layout = null }) => {
 
         {/* CTA Section */}
         <div className={styles.serviceContent__cta}>
-          <Button variant="primary" size="large">
+          <Button variant="primary" size="large" onClick={scrollToChat}>
             Get Started Today
           </Button>
         </div>

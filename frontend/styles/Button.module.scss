@@ -55,6 +55,7 @@
   &--large {
     padding: $spacing-md $spacing-xl;
     font-size: $font-lg;
+    z-index: 1000;
   }
   
   &__arrow {

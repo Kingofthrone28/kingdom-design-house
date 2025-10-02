@@ -24,7 +24,7 @@ const ChatJarvis = () => {
           {buttonText}
         </Button>
       </div>
-      <p className={styles.chatJarvis__subtext}>Meet your AI Assistant, Jarvis, who is here to help you with any questions about our services, packages, and more.</p>
+      <p className={styles.chatJarvis__subtext}>Meet your AI Assistant, Jarvis, who is here to help you with any questions starting your project with questions about our group services, packages, and more.</p>
 
 
       {/* Splashes */}
