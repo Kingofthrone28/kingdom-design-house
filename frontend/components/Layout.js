@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import NavBarGroup from './navBarGroup';
 import Footer from './Footer';
 import { SiteDataProvider } from '../contexts/SiteDataContext';
+import { LayoutProvider } from '../contexts/LayoutContext';
 import { getPageData, getdefaultValues } from '../data/siteData';
 
 const Layout = ({ children }) => {
@@ -60,17 +61,19 @@ const Layout = ({ children }) => {
 
   return (
     <SiteDataProvider>
-      <div className="layout">
-        {isGroupPage || isServicesPage ? (
-          <NavBarGroup groupName={groupName} servicesPage={servicesPage} />
-        ) : (
-          <Navbar />
-        )}
-        <main className="main">
-          {children}
-        </main>
-        <Footer />
-      </div>
+      <LayoutProvider>
+        <div className="layout">
+          {isGroupPage || isServicesPage ? (
+            <NavBarGroup groupName={groupName} servicesPage={servicesPage} />
+          ) : (
+            <Navbar />
+          )}
+          <main className="main">
+            {children}
+          </main>
+          <Footer />
+        </div>
+      </LayoutProvider>
     </SiteDataProvider>
   );
 };

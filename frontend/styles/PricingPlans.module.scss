@@ -1,0 +1,253 @@
+@import './variables.scss';
+
+.pricingPlans {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5xl;
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-2xl;
+    position: relative;
+
+    // Vertical dividers between plans
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: $primary-yellow;
+      opacity: 0.3;
+    }
+
+    &::before {
+      left: calc(33.333% - 0.5px);
+    }
+
+    &::after {
+      right: calc(33.333% - 0.5px);
+    }
+  }
+
+  &__plan {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+    padding: $spacing-2xl;
+    background-color: rgba($primary-white, 0.02);
+    border: 1px solid rgba($primary-white, 0.1);
+    border-radius: $radius-lg;
+    transition: all $transition-fast;
+
+    &:hover {
+      background-color: rgba($primary-white, 0.05);
+      border-color: rgba($primary-yellow, 0.3);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__planHeader {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__planTitle {
+    font-family: $font-secondary;
+    font-size: $font-3xl;
+    font-weight: $font-bold;
+    color: $primary-yellow;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__planDescription {
+    font-size: $font-base;
+    color: $primary-white;
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+
+  &__planPricing {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    text-align: left;
+  }
+
+  &__price {
+    font-family: $font-secondary;
+    font-size: $font-4xl;
+    font-weight: $font-bold;
+    color: $primary-white;
+    line-height: 1;
+  }
+
+  &__priceLabel {
+    font-size: $font-sm;
+    color: $primary-white;
+    opacity: 0.7;
+  }
+
+  &__planFeatures,
+  &__planSupport {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__featuresTitle,
+  &__supportTitle {
+    font-family: $font-primary;
+    font-size: $font-lg;
+    font-weight: $font-medium;
+    color: $primary-white;
+    margin: 0;
+  }
+
+  &__featuresList,
+  &__supportList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__feature,
+  &__supportFeature {
+    font-size: $font-sm;
+    color: $primary-white;
+    line-height: 1.4;
+    opacity: 0.9;
+    position: relative;
+    padding-left: $spacing-lg;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5em;
+      width: 6px;
+      height: 6px;
+      background-color: $primary-yellow;
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__planAction {
+    margin-top: auto;
+    padding-top: $spacing-lg;
+  }
+
+  // Enterprise Section
+  &__enterprise {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+    text-align: center;
+    padding: $spacing-3xl;
+    background-color: rgba($primary-white, 0.02);
+    border: 1px solid rgba($primary-white, 0.1);
+    border-radius: $radius-lg;
+  }
+
+  &__enterpriseTitle {
+    font-family: $font-secondary;
+    font-size: $font-4xl;
+    font-weight: $font-bold;
+    color: $primary-yellow;
+    margin: 0;
+  }
+
+  &__enterpriseSubtitle {
+    font-family: $font-primary;
+    font-size: $font-xl;
+    font-weight: $font-medium;
+    color: $primary-white;
+    margin: 0;
+  }
+
+  &__enterpriseDescription {
+    font-size: $font-base;
+    color: $primary-white;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__enterpriseAction {
+    margin-top: $spacing-lg;
+  }
+
+  // Responsive design
+  @media (max-width: $breakpoint-lg) {
+    &__container {
+      grid-template-columns: 1fr;
+      gap: $spacing-xl;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    gap: $spacing-4xl;
+
+    &__plan {
+      padding: $spacing-xl;
+    }
+
+    &__planTitle {
+      font-size: $font-2xl;
+    }
+
+    &__price {
+      font-size: $font-3xl;
+    }
+
+    &__enterprise {
+      padding: $spacing-2xl;
+    }
+
+    &__enterpriseTitle {
+      font-size: $font-3xl;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    &__plan {
+      padding: $spacing-lg;
+    }
+
+    &__planTitle {
+      font-size: $font-xl;
+    }
+
+    &__price {
+      font-size: $font-2xl;
+    }
+
+    &__enterprise {
+      padding: $spacing-xl;
+    }
+
+    &__enterpriseTitle {
+      font-size: $font-2xl;
+    }
+
+    &__enterpriseSubtitle {
+      font-size: $font-lg;
+    }
+  }
+}

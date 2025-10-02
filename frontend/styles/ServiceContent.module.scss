@@ -51,21 +51,51 @@
     margin-bottom: $spacing-5xl;
   }
 
+  &__approachHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-2xl;
+    gap: $spacing-lg;
+  }
+
   &__approachTitle {
     font-family: $font-primary;
     font-size: $font-4xl;
     font-weight: $font-regular;
     color: $primary-black;
-    margin-bottom: $spacing-2xl;
+    margin: 0;
     text-align: left;
+    flex: 1;
+  }
+
+  &__layoutToggle {
+    flex-shrink: 0;
   }
 
   &__approachSteps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: $spacing-3xl;
     max-width: $breakpoint-xl;
     margin: 0 auto;
+  }
+
+  // Layout modifiers
+  &__approachSteps--3column {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  &__approachSteps--2column {
+    grid-template-columns: repeat(2, 1fr);
+    
+    // For odd number of items, center the last item
+    &:has(.serviceContent__step:nth-child(odd):last-child) {
+      .serviceContent__step:last-child {
+        grid-column: 1 / -1;
+        max-width: 50%;
+        margin: 0 auto;
+      }
+    }
   }
 
   &__step {
@@ -168,12 +198,18 @@
       font-size: $font-2xl;
     }
 
+    &__approachHeader {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-md;
+    }
+
     &__expertiseTitle {
       font-size: $font-2xl;
     }
 
     &__approachSteps {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr !important;
       gap: $spacing-2xl;
     }
 

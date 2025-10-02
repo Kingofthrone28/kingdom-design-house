@@ -3,6 +3,8 @@ import Head from 'next/head';
 import Layout from '../../../components/Layout';
 import GroupHero from '../../../components/GroupHero';
 import OurGroups from '../../../components/OurGroups';
+import ServiceContent from '../../../components/Organisms/ServiceContent';
+import GroupHeading from '../../../components/Molecules/GroupHeading';
 import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';

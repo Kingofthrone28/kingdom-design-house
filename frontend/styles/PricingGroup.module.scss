@@ -1,0 +1,77 @@
+@import './variables.scss';
+
+.pricingGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  text-align: center;
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $font-5xl;
+    font-weight: $font-regular;
+    color: $primary-white;
+    margin: 0;
+  }
+
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-sm;
+    background-color: rgba($primary-white, 0.05);
+    border-radius: $radius-lg;
+    padding: $spacing-xs;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  &__tab {
+    flex: 1;
+    padding: $spacing-md $spacing-lg;
+    background: none;
+    border: none;
+    border-radius: $radius-md;
+    font-family: $font-primary;
+    font-size: $font-base;
+    font-weight: $font-medium;
+    color: $primary-white;
+    cursor: pointer;
+    transition: all $transition-fast;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+      background-color: rgba($primary-white, 0.1);
+    }
+
+    &--active {
+      background-color: $primary-yellow;
+      color: $primary-black;
+      opacity: 1;
+      font-weight: $font-semibold;
+    }
+  }
+
+  // Responsive design
+  @media (max-width: $breakpoint-md) {
+    &__title {
+      font-size: $font-4xl;
+    }
+
+    &__tabs {
+      flex-direction: column;
+      gap: $spacing-xs;
+    }
+
+    &__tab {
+      padding: $spacing-sm $spacing-md;
+      font-size: $font-sm;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    &__title {
+      font-size: $font-3xl;
+    }
+  }
+}

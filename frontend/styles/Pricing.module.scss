@@ -1,0 +1,56 @@
+@import './variables.scss';
+
+.pricing {
+  background: linear-gradient(135deg, $primary-black 0%, darken($primary-black, 5%) 100%);
+  min-height: 100vh;
+  padding: $spacing-5xl 0;
+
+  &__container {
+    max-width: $breakpoint-xl;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4xl;
+  }
+
+  &__header {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: $spacing-4xl;
+    align-items: start;
+  }
+
+  &__toggle {
+    justify-self: end;
+    align-self: start;
+  }
+
+  // Responsive design
+  @media (max-width: $breakpoint-lg) {
+    &__header {
+      grid-template-columns: 1fr;
+      gap: $spacing-2xl;
+    }
+
+    &__toggle {
+      justify-self: center;
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-4xl 0;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-3xl 0;
+
+    &__title {
+      font-size: $font-3xl;
+    }
+
+    &__container {
+      gap: $spacing-3xl;
+    }
+  }
+}

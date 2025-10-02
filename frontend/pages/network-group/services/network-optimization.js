@@ -19,7 +19,7 @@ export default function NetworkOptimization() {
       </Head>
       
       <Layout>
-      <GroupHero groupName="networkgroup" />
+        <GroupHero groupName="networkgroup" />
         <GroupHeading groupName="networkgroup" />
         <ServiceContent serviceType="network-optimization" />
         <ProcessSteps />

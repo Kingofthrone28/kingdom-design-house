@@ -21,7 +21,6 @@ export default function AIGroup() {
       <Layout>
         <GroupHero groupName="aigroup" />
         <GroupHeading groupName="aigroup" />
-        <OurGroups />
         <ProcessSteps />
         <ChatJarvis />
         <WhyChooseUs />

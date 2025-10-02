@@ -1,0 +1,143 @@
+@import './variables.scss';
+
+.about {
+  background-color: $primary-light-yellow;
+  padding: $spacing-5xl 0;
+  min-height: 80vh;
+
+  &__container {
+    max-width: $breakpoint-xl;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xl;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-xl;
+    object-fit: cover;
+    border-radius: 120px;
+    border: 5px solid $primary-white;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__title {
+    background-color: $primary-yellow;
+    padding: $spacing-xl $spacing-xl;
+    font-family: $font-secondary;
+    font-size: $font-5xl;
+    font-weight: $font-regular;
+    transform: skewX(-10deg);
+    color: $primary-black;
+    margin-bottom: $spacing-xl;
+    text-align: left;
+  }
+
+
+  &__subTitle {
+    font-family: $font-primary;
+    font-size: $font-4xl;
+    font-style: italic;
+    font-weight: $font-light;
+    color: $primary-black;
+    margin-bottom: $spacing-xl;
+    text-align: left;
+  }
+
+  &__text {
+    text-align: left;
+  }
+
+  &__paragraph {
+    font-size: $font-lg;
+    line-height: 1.7;
+    color: $primary-dark-gray;
+    margin-bottom: $spacing-xl;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      font-weight: $font-bold;
+      color: $primary-black;
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: $breakpoint-lg) {
+    &__grid {
+      gap: $spacing-3xl;
+    }
+
+    &__image {
+      max-width: 350px;
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-4xl 0;
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: $spacing-3xl;
+      text-align: center;
+    }
+
+    &__title {
+      font-size: $font-4xl;
+      margin-bottom: $spacing-2xl;
+      text-align: center;
+    }
+
+    &__paragraph {
+      font-size: $font-base;
+    }
+
+    &__image {
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-3xl 0;
+
+    &__grid {
+      gap: $spacing-2xl;
+    }
+
+    &__title {
+      font-size: $font-3xl;
+    }
+
+    &__paragraph {
+      font-size: $font-sm;
+    }
+
+    &__image {
+      max-width: 250px;
+    }
+  }
+}

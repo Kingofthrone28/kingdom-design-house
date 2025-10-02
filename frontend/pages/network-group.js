@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
+import ProcessSteps from '../components/ProcessSteps';  
 import ServiceContent from '../components/Organisms/ServiceContent';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
@@ -20,7 +21,8 @@ export default function NetworkGroup() {
       <Layout>
         <GroupHero groupName="networkgroup" />
         <GroupHeading groupName="networkgroup" />
-        <ServiceContent serviceType="network-it" />
+        <ServiceContent serviceType="network-design" layout="2-column" />
+        <ProcessSteps />
         <ChatJarvis />
         <WhyChooseUs />
       </Layout>

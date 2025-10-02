@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/ProcessSteps.module.scss';
+import styles from  '../styles/ProcessSteps.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
 
 const ProcessSteps = () => {

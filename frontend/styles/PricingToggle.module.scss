@@ -1,0 +1,113 @@
+@import './variables.scss';
+
+.pricingToggle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all $transition-fast;
+
+    &:hover {
+      .pricingToggle__arrow {
+        transform: translateX(2px);
+      }
+    }
+
+    &:focus {
+      outline: none;
+      .pricingToggle__track {
+        box-shadow: 0 0 0 3px rgba($primary-yellow, 0.3);
+      }
+    }
+  }
+
+  &__track {
+    position: relative;
+    width: 200px;
+    height: 40px;
+    background-color: rgba($primary-white, 0.1);
+    border-radius: 20px;
+    border: 1px solid rgba($primary-white, 0.2);
+    transition: all $transition-fast;
+  }
+
+  &__slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 96px;
+    height: 34px;
+    background-color: $primary-yellow;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition-fast;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &--monthly {
+      transform: translateX(0);
+    }
+
+    &--total {
+      transform: translateX(98px);
+    }
+  }
+
+  &__label {
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $primary-black;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  &__arrow {
+    width: 16px;
+    height: 16px;
+    color: $primary-yellow;
+    transition: transform $transition-fast;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // Responsive design
+  @media (max-width: $breakpoint-sm) {
+    &__track {
+      width: 160px;
+      height: 36px;
+    }
+
+    &__slider {
+      width: 76px;
+      height: 30px;
+
+      &--total {
+        transform: translateX(78px);
+      }
+    }
+
+    &__label {
+      font-size: $font-xs;
+    }
+
+    &__arrow {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}

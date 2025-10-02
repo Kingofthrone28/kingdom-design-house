@@ -18,6 +18,16 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const scrollToChat = () => {
+    const chatSection = document.getElementById('chat-jarvis');
+    if (chatSection) {
+      chatSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
  
 
   return (
@@ -45,7 +55,7 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Button variant="primary" size="large">
+        <Button variant="primary" size="large" onClick={scrollToChat}>
           {buttonText}
         </Button>
 
@@ -62,6 +72,7 @@ const Navbar = () => {
             phone={phone}
             email={email}
             navigation={navigation}
+            onScrollToChat={scrollToChat}
           />
         )}
       </div>

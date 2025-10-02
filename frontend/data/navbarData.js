@@ -10,6 +10,8 @@ export const navbarData = {
     ariaLabel: "Toggle menu"
   },
   navigation: [
+    { name: "Home", route: "/" },
+    { name: "About", route: "/about" },
     { name: "The Web Group", route: "/web-group" },
     { name: "The Network Group", route: "/network-group" },
     { name: "The AI Group", route: "/ai-group" }
@@ -23,6 +25,7 @@ export const navbarData = {
   // Navigation data for NavBarGroup component
   navBarGroup: {
     navLinks: [
+      { name: "Home", route: "/" },
       { name: "About", route: "/about" },
       { name: "Company Groups", hasSubmenu: true },
       { name: "Services", hasSubmenu: true },

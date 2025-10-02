@@ -17,7 +17,7 @@ const ChatJarvis = () => {
   };
 
   return (
-    <section className={styles.chatJarvis}>
+    <section id="chat-jarvis" className={styles.chatJarvis}>
       <div className={styles.chatJarvis__container}>
         <Image src="/images/Jarvis.png" alt="Chat with Jarvis" width={250} height={250} />
         <Button variant="secondary" size="large" onClick={handleChatClick}>
