@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Layout from '../components/Layout';
+import ChatJarvis from '../components/ChatJarvis';
 import PricingGroup from '../components/PricingGroup';
 import PlanTypeSelector from '../components/Molecules/PlanTypeSelector';
 import PricingToggle from '../components/Atoms/PricingToggle';
@@ -60,6 +61,7 @@ export default function Pricing() {
             />
           </div>
         </section>
+        <ChatJarvis />
       </Layout>
     </>
   );

@@ -21,11 +21,39 @@
     "tags": ["ai integration", "chatbot", "machine learning", "automation", "business intelligence"]
   },
   {
-    "id": "pricing-1",
-    "title": "Pricing Information",
-    "content": "Our pricing varies based on project scope and requirements. Web development projects typically range from $5,000 to $50,000+. IT services are available on a monthly retainer basis starting at $2,000/month. AI solutions are custom quoted based on complexity. We offer free consultations to discuss your specific needs and provide accurate pricing.",
+    "id": "pricing-web-1",
+    "title": "Web Group Pricing Plans",
+    "content": "Web Group offers three pricing tiers: Starter Plan ($2,500 one-time setup, $150/month support) - perfect for small businesses with up to 5 pages, basic SEO, site branding, and contact forms. Growth Plan ($3,800 one-time setup, $250/month support) - ideal for small-mid businesses with up to 10 pages, custom branding, SEO for 10 pages, lead generation forms, and CRM integration. Scale Plan ($5,500 one-time setup, $500/month support) - designed for comprehensive solutions with up to 15 pages, custom design, web animations, advanced SEO setup, content marketing, and CRM integration. All plans include monthly support with content updates, reporting, and maintenance.",
     "category": "pricing",
-    "tags": ["pricing", "cost", "budget", "consultation", "quote"]
+    "tags": ["web pricing", "starter plan", "growth plan", "scale plan", "web development", "monthly support"]
+  },
+  {
+    "id": "pricing-network-1",
+    "title": "Network Group Pricing Plans",
+    "content": "Network Group offers three pricing tiers: Starter Plan ($3,000 one-time setup, $200/month support) - perfect for small businesses with basic router & switch setup, WiFi configuration, network security basics, and initial testing. Growth Plan ($4,500 one-time setup, $350/month support) - ideal for growing businesses with advanced router & switch config, WiFi optimization, load balancing setup, network redundancy, and security hardening. Scale Plan ($6,500 one-time setup, $600/month support) - designed for enterprises with enterprise-grade hardware, advanced load balancing, full redundancy setup, advanced security, network automation, and compliance features. All plans include monitoring, performance optimization, and support.",
+    "category": "pricing",
+    "tags": ["network pricing", "it services", "networking", "router setup", "wifi optimization", "network security"]
+  },
+  {
+    "id": "pricing-ai-1",
+    "title": "AI Group Pricing Plans",
+    "content": "AI Group offers three pricing tiers: Starter Plan ($4,000 one-time setup, $300/month support) - perfect for businesses exploring AI with AI consultation, basic chatbot setup, simple automation, and initial training. Growth Plan ($6,000 one-time setup, $500/month support) - ideal for businesses ready for advanced AI with advanced AI consultation, RAG implementation, custom AI applications, data integration, and advanced training. Scale Plan ($8,000 one-time setup, $800/month support) - designed for enterprises with enterprise AI strategy, custom RAG systems, advanced AI applications, full data integration, custom development, and API integrations. All plans include monitoring, optimization, and strategic consultation.",
+    "category": "pricing",
+    "tags": ["ai pricing", "ai consultation", "chatbot", "rag implementation", "ai development", "machine learning"]
+  },
+  {
+    "id": "pricing-enterprise-1",
+    "title": "Enterprise Solutions",
+    "content": "Enterprise Package is designed for corporations with unique requirements needing custom development, interactive features, and integration with other tools or systems. This is a fully tailored solution with no upfront cost. Payment terms are discussed based on scope and complexity. May include SaaS tools, CI/CD pipelines, backend or frontend frameworks, RESTFUL API integration, reporting dashboards, OAuth, 2FA Authentication, LLM solutions and more. Contact us to schedule a consultation for your enterprise needs.",
+    "category": "pricing",
+    "tags": ["enterprise", "custom solutions", "saas", "api integration", "authentication", "llm solutions"]
+  },
+  {
+    "id": "pricing-payment-1",
+    "title": "Payment Options",
+    "content": "We offer flexible payment options for all plans: Monthly payments - a budget-friendly option to finance your one-time setup over 3 or 6 months. Total amount - pay the one-time setup in full or choose a percentage to start the project with a balance at the end. Financing is only included on one-time setup fees. All monthly support fees are billed separately. We accept various payment methods and can discuss custom payment terms for enterprise clients.",
+    "category": "pricing",
+    "tags": ["payment options", "monthly payments", "financing", "budget friendly", "payment terms"]
   },
   {
     "id": "process-1",
@@ -68,5 +96,19 @@
     "content": "We offer free consultations to discuss your project needs, provide recommendations, and give you an accurate quote. During the consultation, we'll understand your goals, assess your current situation, and propose the best solution for your business.",
     "category": "consultation",
     "tags": ["consultation", "free", "quote", "recommendations", "assessment"]
+  },
+  {
+    "id": "pricing-comparison-1",
+    "title": "Pricing Plan Comparison",
+    "content": "Compare our pricing plans: Web Group - Starter ($2,500 setup, $150/month), Growth ($3,800 setup, $250/month), Scale ($5,500 setup, $500/month). Network Group - Starter ($3,000 setup, $200/month), Growth ($4,500 setup, $350/month), Scale ($6,500 setup, $600/month). AI Group - Starter ($4,000 setup, $300/month), Growth ($6,000 setup, $500/month), Scale ($8,000 setup, $800/month). Enterprise solutions are custom quoted. All plans include monthly support, monitoring, and optimization.",
+    "category": "pricing",
+    "tags": ["pricing comparison", "plan comparison", "web plans", "network plans", "ai plans", "enterprise"]
+  },
+  {
+    "id": "pricing-features-1",
+    "title": "What's Included in Each Plan",
+    "content": "All plans include: Monthly support with content updates, performance monitoring, security updates, backup management, and technical support. Web plans include SEO optimization, responsive design, and CMS integration. Network plans include router/switch configuration, WiFi optimization, load balancing, and redundancy setup. AI plans include consultation, implementation, training, and ongoing optimization. Enterprise plans are fully customized based on your specific requirements.",
+    "category": "pricing",
+    "tags": ["plan features", "what's included", "support", "monitoring", "optimization", "customization"]
   }
 ]
