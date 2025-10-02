@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from '../../styles/PricingPlans.module.scss';
+import Link from 'next/link';
+import {navbarData} from '../../data/navbarData';
 import Button from '../Atoms/Button';
 
 const PricingPlans = ({ 
@@ -86,9 +88,11 @@ const PricingPlans = ({
           The Enterprise Package is designed for corporations with unique requirements that need custom development, interactive features, and integration with other tools or systems. This is a fully tailored solution with no upfront cost. Payment terms are discussed based on the scope and complexity of the project. May include SaaS tools, CI/CD pipelines, backend or frontend frameworks or systems to integrate RESTFUL API, reporting dashboards, OAuth, 2FA Authentication, LLM solutions and more.
         </p>
         <div className={styles.pricingPlans__enterpriseAction}>
-          <Button variant="secondary" size="large">
-            Schedule a Call
-          </Button>
+          <Link href={`tel:${navbarData.contact.phone}`}>
+            <Button variant="secondary" size="large">
+              Schedule a Call
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
