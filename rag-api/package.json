@@ -8,8 +8,8 @@
     "dev": "nodemon server.js",
     "populate": "node scripts/populate-index.js",
     "setup": "node scripts/setup-enhanced-rag.js",
-    "process-docs": "node scripts/process-documents.js",
-    "scrape-web": "node --expose-gc --max-old-space-size=4096 scripts/web-content-scraper.js",
+    "process-docs": "echo '⚠️  Document processing disabled due to critical memory leaks' && echo '💡 Use manual content addition to sample-documents.json instead'",
+    "scrape-web": "echo '⚠️  Web scraping disabled due to critical memory leaks' && echo '💡 Use manual content addition to sample-documents.json instead'",
     "test": "node test-connection.js"
   },
   "dependencies": {

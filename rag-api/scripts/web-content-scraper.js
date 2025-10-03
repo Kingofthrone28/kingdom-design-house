@@ -126,14 +126,17 @@ const WEB_CONFIG = {
     { path: '/ai-group/services/ai-support', title: 'AI Support Services' }
   ],
   
-  // Processing options
+  // Processing options - Aggressive memory optimization
   options: {
-    chunkSize: 500,  // Reduced for memory efficiency
-    overlap: 100,    // Reduced for memory efficiency
-    timeout: 10000,  // 10 seconds
-    retries: 3,
-    maxContentSize: 2 * 1024 * 1024, // 2MB limit
-    maxChunksPerPage: 20 // Limit chunks per page
+    chunkSize: 300,  // Further reduced for memory efficiency
+    overlap: 50,     // Minimal overlap to save memory
+    timeout: 5000,   // Reduced timeout
+    retries: 2,      // Reduced retries
+    maxContentSize: 500 * 1024, // 500KB limit (much smaller)
+    maxChunksPerPage: 10, // Limit chunks per page
+    maxPagesPerBatch: 3,  // Process fewer pages at once
+    memoryThreshold: 100 * 1024 * 1024, // 100MB memory threshold
+    forceGCInterval: 2    // Force GC every 2 pages
   }
 };
 
@@ -177,32 +180,66 @@ const fetchPageContent = async (url) => {
 };
 
 /**
- * Extracts meaningful content from HTML
+ * Extracts meaningful content from HTML with aggressive memory optimization
  * @param {string} html - HTML content
  * @param {string} url - Source URL
  * @returns {Object} Extracted content with metadata
  */
 const extractPageContent = (html, url) => {
+  // Immediate size check to prevent memory issues
+  if (html.length > WEB_CONFIG.options.maxContentSize) {
+    console.warn(`⚠️  HTML too large (${Math.round(html.length / 1024)}KB), truncating for ${url}`);
+    html = html.substring(0, WEB_CONFIG.options.maxContentSize);
+  }
+  
   if (!cheerio) {
-    // Fallback: simple text extraction
+    // Fallback: simple text extraction with memory optimization
     const text = html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    const maxLength = 10000; // 10KB limit for fallback
+    const truncatedText = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    
     return {
       title: 'Web Content',
-      content: text,
+      content: truncatedText,
       url
     };
   }
   
-  const $ = cheerio.load(html);
+  let $;
+  try {
+    $ = cheerio.load(html, {
+      normalizeWhitespace: true,
+      decodeEntities: false // Prevent memory issues with entity decoding
+    });
+  } catch (error) {
+    console.warn(`⚠️  Cheerio parsing failed for ${url}, using fallback`);
+    const text = html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    return {
+      title: 'Web Content',
+      content: text.substring(0, 10000),
+      url
+    };
+  }
   
-  // Extract title
-  let title = $('title').text() || $('h1').first().text() || 'Web Content';
-  title = title.replace(/\s+/g, ' ').trim();
+  // Extract title with memory optimization
+  let title = 'Web Content';
+  try {
+    const titleText = $('title').text() || $('h1').first().text();
+    if (titleText) {
+      title = titleText.replace(/\s+/g, ' ').trim().substring(0, 200); // Limit title length
+    }
+  } catch (error) {
+    console.warn(`⚠️  Title extraction failed for ${url}`);
+  }
   
-  // Remove unwanted elements
-  $('script, style, nav, footer, .navigation, .sidebar, .ads, .advertisement').remove();
+  // Remove unwanted elements to reduce memory usage
+  try {
+    $('script, style, nav, footer, .navigation, .sidebar, .ads, .advertisement, .header, .menu').remove();
+  } catch (error) {
+    console.warn(`⚠️  Element removal failed for ${url}`);
+  }
   
-  // Extract main content
+  // Extract main content with memory optimization
   const contentSelectors = [
     'main', 'article', '.content', '.main-content', 
     '#content', '.post-content', '.entry-content',
@@ -210,28 +247,37 @@ const extractPageContent = (html, url) => {
   ];
   
   let content = '';
-  for (const selector of contentSelectors) {
-    const element = $(selector);
-    if (element.length > 0) {
-      content = element.text();
-      break;
+  try {
+    for (const selector of contentSelectors) {
+      const element = $(selector);
+      if (element.length > 0) {
+        content = element.text();
+        break;
+      }
     }
+    
+    // Fallback to body if no content area found
+    if (!content) {
+      content = $('body').text();
+    }
+  } catch (error) {
+    console.warn(`⚠️  Content extraction failed for ${url}, using fallback`);
+    content = html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
   }
   
-  // Fallback to body if no content area found
-  if (!content) {
-    content = $('body').text();
-  }
-  
-  // Clean up content
+  // Aggressive content cleanup and truncation
   content = content.replace(/\s+/g, ' ').trim();
   
-  // Limit content size to prevent memory issues
-  const maxContentLength = 50000; // 50KB limit
+  // Much smaller content limit to prevent memory issues
+  const maxContentLength = 20000; // 20KB limit (reduced from 50KB)
   if (content.length > maxContentLength) {
     content = content.substring(0, maxContentLength) + '...';
     console.warn(`⚠️  Content truncated to ${maxContentLength} characters for ${url}`);
   }
+  
+  // Clear cheerio instance to free memory
+  $.html = null;
+  $ = null;
   
   return {
     title,
@@ -304,7 +350,28 @@ const processWebPage = async (pageConfig) => {
 };
 
 /**
- * Processes all configured web pages
+ * Memory monitoring and cleanup utility
+ */
+const checkMemoryUsage = () => {
+  const used = process.memoryUsage();
+  const heapUsedMB = Math.round(used.heapUsed / 1024 / 1024);
+  const heapTotalMB = Math.round(used.heapTotal / 1024 / 1024);
+  
+  console.log(`💾 Memory: Heap ${heapUsedMB}MB/${heapTotalMB}MB, RSS ${Math.round(used.rss / 1024 / 1024)}MB`);
+  
+  // Force GC if memory usage is high
+  if (used.heapUsed > WEB_CONFIG.options.memoryThreshold && global.gc) {
+    console.log('🧹 High memory usage detected, forcing garbage collection...');
+    global.gc();
+    const afterGC = process.memoryUsage();
+    console.log(`💾 After GC: Heap ${Math.round(afterGC.heapUsed / 1024 / 1024)}MB`);
+  }
+  
+  return used;
+};
+
+/**
+ * Processes all configured web pages with streaming approach
  * @returns {Promise<Array>} Array of all content chunks
  */
 const processAllWebPages = async () => {
@@ -319,53 +386,75 @@ const processAllWebPages = async () => {
   console.log(`🌐 Using base URL: ${baseUrl}`);
   
   const allChunks = [];
+  let processedPages = 0;
   
-  // Process main pages in batches to manage memory
+  // Process main pages with aggressive memory management
   console.log('🌐 Processing main website pages...');
   for (let i = 0; i < WEB_CONFIG.pages.length; i++) {
     const page = WEB_CONFIG.pages[i];
     console.log(`📄 Processing page ${i + 1}/${WEB_CONFIG.pages.length}: ${page.title}`);
     
-    const chunks = await processWebPage(page);
-    allChunks.push(...chunks);
-    
-    // Force garbage collection every few pages
-    if (i % 3 === 0 && global.gc) {
-      global.gc();
+    try {
+      const chunks = await processWebPage(page);
+      allChunks.push(...chunks);
+      processedPages++;
+      
+      // Check memory usage after each page
+      checkMemoryUsage();
+      
+      // Force garbage collection more frequently
+      if (processedPages % WEB_CONFIG.options.forceGCInterval === 0 && global.gc) {
+        console.log('🧹 Forcing garbage collection...');
+        global.gc();
+      }
+      
+      // Longer delay to allow memory cleanup
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+    } catch (error) {
+      console.error(`❌ Failed to process ${page.title}:`, error.message);
+      // Continue with next page instead of failing completely
     }
-    
-    // Small delay to prevent overwhelming the server
-    await new Promise(resolve => setTimeout(resolve, 100));
   }
   
-  // Process service pages in smaller batches
+  // Process service pages in much smaller batches
   console.log('\n🔧 Processing service pages...');
-  const batchSize = 5; // Process 5 pages at a time
+  const batchSize = WEB_CONFIG.options.maxPagesPerBatch; // Process only 3 pages at a time
   for (let i = 0; i < WEB_CONFIG.servicePages.length; i += batchSize) {
     const batch = WEB_CONFIG.servicePages.slice(i, i + batchSize);
     console.log(`📄 Processing service batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(WEB_CONFIG.servicePages.length / batchSize)}`);
     
     for (const page of batch) {
-      const chunks = await processWebPage({
-        ...page,
-        category: 'services',
-        tags: ['services', 'offerings']
-      });
-      allChunks.push(...chunks);
-      
-      // Small delay between pages
-      await new Promise(resolve => setTimeout(resolve, 100));
-    }
-    
-    // Force garbage collection after each batch
-    if (global.gc) {
-      global.gc();
+      try {
+        const chunks = await processWebPage({
+          ...page,
+          category: 'services',
+          tags: ['services', 'offerings']
+        });
+        allChunks.push(...chunks);
+        processedPages++;
+        
+        // Check memory after each page
+        checkMemoryUsage();
+        
+        // Force GC after each page in service batch
+        if (global.gc) {
+          global.gc();
+        }
+        
+        // Delay between pages
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+      } catch (error) {
+        console.error(`❌ Failed to process service page ${page.title}:`, error.message);
+      }
     }
     
     // Longer delay between batches
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
   
+  console.log(`✅ Processed ${processedPages} pages total`);
   return allChunks;
 };
 
@@ -379,20 +468,51 @@ const logMemoryUsage = () => {
 };
 
 /**
- * Main scraping function
+ * Streaming upload function to prevent memory accumulation
+ * @param {Array} chunks - Array of chunks to upload
+ * @param {number} batchSize - Number of chunks to upload at once
+ */
+const uploadChunksInBatches = async (chunks, batchSize = 5) => {
+  console.log(`📤 Uploading ${chunks.length} chunks in batches of ${batchSize}...`);
+  
+  for (let i = 0; i < chunks.length; i += batchSize) {
+    const batch = chunks.slice(i, i + batchSize);
+    console.log(`📤 Uploading batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(chunks.length / batchSize)} (${batch.length} chunks)`);
+    
+    try {
+      await uploadChunksToPinecone(batch);
+      console.log(`✅ Batch ${Math.floor(i / batchSize) + 1} uploaded successfully`);
+      
+      // Force GC after each batch to free memory
+      if (global.gc) {
+        global.gc();
+      }
+      
+      // Delay between batches
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+    } catch (error) {
+      console.error(`❌ Failed to upload batch ${Math.floor(i / batchSize) + 1}:`, error.message);
+      // Continue with next batch instead of failing completely
+    }
+  }
+};
+
+/**
+ * Main scraping function with streaming approach
  */
 async function scrapeWebsite() {
   try {
     console.log('🚀 Starting website content scraping...');
-    logMemoryUsage();
+    checkMemoryUsage();
     
     // Initialize Pinecone
     console.log('🔗 Initializing Pinecone...');
     await initializePinecone();
     
-    // Process all web pages
+    // Process all web pages with streaming approach
     const allChunks = await processAllWebPages();
-    logMemoryUsage();
+    checkMemoryUsage();
     
     if (allChunks.length === 0) {
       console.log('⚠️  No content extracted from website');
@@ -410,9 +530,9 @@ async function scrapeWebsite() {
         console.log(`Content: ${chunk.content.substring(0, 200)}...`);
       });
     } else {
-      console.log(`\n📤 Uploading ${allChunks.length} chunks to Pinecone...`);
-      await uploadChunksToPinecone(allChunks);
-      logMemoryUsage();
+      // Upload in small batches to prevent memory issues
+      await uploadChunksInBatches(allChunks, 3); // Upload 3 chunks at a time
+      checkMemoryUsage();
     }
     
     console.log('\n🎉 Website scraping completed successfully!');

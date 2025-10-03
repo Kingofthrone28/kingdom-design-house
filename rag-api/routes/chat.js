@@ -10,13 +10,17 @@ const extractBasicLeadInfo = (query) => {
   const email = query.match(emailRegex)?.[0];
   const phone = query.match(phoneRegex)?.[0];
   
-  // Extract name patterns
+  // Extract name patterns - prioritize user messages
   let firstName = null;
   let lastName = null;
   
+  // Extract only user messages for name detection
+  const userMessages = query.split('user:').slice(1).join(' ');
+  const nameSearchQuery = userMessages || query;
+  
   // Pattern 1: "My name is John Smith" or "I'm John Smith"
   const namePattern1 = /(?:my name is|i'm|i am|this is)\s+([a-zA-Z]+)(?:\s+([a-zA-Z]+))?/i;
-  const nameMatch1 = query.match(namePattern1);
+  const nameMatch1 = nameSearchQuery.match(namePattern1);
   if (nameMatch1) {
     firstName = nameMatch1[1];
     lastName = nameMatch1[2] || null;
@@ -24,7 +28,7 @@ const extractBasicLeadInfo = (query) => {
   
   // Pattern 2: "John Smith here" or "John Smith calling"
   const namePattern2 = /^([a-zA-Z]+)(?:\s+([a-zA-Z]+))?\s+(?:here|calling|speaking)/i;
-  const nameMatch2 = query.match(namePattern2);
+  const nameMatch2 = nameSearchQuery.match(namePattern2);
   if (nameMatch2 && !firstName) {
     firstName = nameMatch2[1];
     lastName = nameMatch2[2] || null;
@@ -32,44 +36,60 @@ const extractBasicLeadInfo = (query) => {
   
   // Pattern 3: "Hi, I'm John" or "Hello, John here"
   const namePattern3 = /(?:hi|hello|hey),?\s*(?:i'm|i am)?\s*([a-zA-Z]+)/i;
-  const nameMatch3 = query.match(namePattern3);
+  const nameMatch3 = nameSearchQuery.match(namePattern3);
   if (nameMatch3 && !firstName) {
     firstName = nameMatch3[1];
   }
   
   // Pattern 4: "This is John" or "It's John"
   const namePattern4 = /(?:this is|it's|its)\s+([a-zA-Z]+)/i;
-  const nameMatch4 = query.match(namePattern4);
+  const nameMatch4 = nameSearchQuery.match(namePattern4);
   if (nameMatch4 && !firstName) {
     firstName = nameMatch4[1];
   }
   
   // Pattern 5: "John from Company" or "John at Company"
   const namePattern5 = /^([a-zA-Z]+)\s+(?:from|at)\s+/i;
-  const nameMatch5 = query.match(namePattern5);
+  const nameMatch5 = nameSearchQuery.match(namePattern5);
   if (nameMatch5 && !firstName) {
     firstName = nameMatch5[1];
   }
   
+  // Pattern 6: "Hi my name is Lucas Tyler" (from the actual conversation)
+  const namePattern6 = /hi my name is\s+([a-zA-Z]+)(?:\s+([a-zA-Z]+))?/i;
+  const nameMatch6 = nameSearchQuery.match(namePattern6);
+  if (nameMatch6 && !firstName) {
+    firstName = nameMatch6[1];
+    lastName = nameMatch6[2] || null;
+  }
+  
   // Enhanced service keywords mapping with more specific terms
   const serviceKeywords = {
+    'networking': ['network', 'networking', 'infrastructure', 'server', 'wifi', 'internet', 'connectivity', 'lan', 'wan', 'firewall', 'router', 'switch', 'cabling', 'wireless', 'ethernet', 'network setup', 'corporate office', 'users', 'devices', 'mbps', 'speed', 'security', 'router and switch', 'load balancing', 'network redundancy'],
     'web development': ['website', 'web development', 'web design', 'site', 'online', 'web app', 'web application', 'ecommerce', 'cms', 'frontend', 'backend'],
     'it services': ['it', 'technology', 'tech support', 'computer', 'system', 'technical support', 'help desk', 'desktop', 'laptop', 'hardware', 'software'],
-    'networking': ['network', 'networking', 'infrastructure', 'server', 'wifi', 'internet', 'connectivity', 'lan', 'wan', 'firewall', 'router', 'switch', 'cabling', 'wireless', 'ethernet', 'network setup', 'corporate office', 'users', 'devices', 'mbps', 'speed', 'security'],
     'ai solutions': ['ai', 'artificial intelligence', 'automation', 'machine learning', 'chatbot', 'ai integration', 'intelligent', 'smart', 'predictive']
   };
   
-  // Analyze the full conversation for better service detection
+  // Extract only user messages from conversation history for better service detection
+  const userMessagesForService = query.split('user:').slice(1).join(' ').toLowerCase();
+  const cleanQuery = userMessagesForService || query.toLowerCase();
+  
+  // Analyze user messages for service detection (prioritize user intent)
   const serviceRequested = Object.entries(serviceKeywords)
-    .find(([_, keywords]) => keywords.some(keyword => query.toLowerCase().includes(keyword)))?.[0] || 'General Inquiry';
+    .find(([_, keywords]) => keywords.some(keyword => cleanQuery.includes(keyword)))?.[0] || 'General Inquiry';
   
   // Debug logging for service detection
   console.log('Service Detection Debug:');
-  console.log('Query:', query);
+  console.log('Full Query:', query);
+  console.log('User Messages:', userMessagesForService);
+  console.log('Clean Query:', cleanQuery);
   console.log('Detected Service:', serviceRequested);
+  console.log('Name Search Query:', nameSearchQuery);
+  console.log('Extracted Name:', { firstName, lastName });
   
-  // Extract budget information
-  const budgetRegex = /\$?(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:k|thousand|K)?/i;
+  // Extract budget information - avoid office sizes and people counts
+  const budgetRegex = /\$(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:k|thousand|K)?/i;
   const budgetMatch = query.match(budgetRegex);
   const budgetAmount = budgetMatch ? budgetMatch[1].replace(/,/g, '') : null;
   

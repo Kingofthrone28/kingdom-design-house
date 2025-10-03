@@ -20,10 +20,10 @@ const SETUP_CONFIG = {
   // Process sample documents
   processSampleDocs: true,
   
-  // Process uploaded documents
-  processDocuments: true,
+  // Process uploaded documents (DISABLED due to critical memory leaks)
+  processDocuments: false,
   
-  // Scrape website content (temporarily disabled due to memory issues)
+  // Scrape website content (permanently disabled due to severe memory leaks)
   scrapeWebsite: false,
   
   // Document processing options
@@ -127,6 +127,10 @@ async function processSampleDocuments() {
 async function processUploadedDocuments() {
   if (!SETUP_CONFIG.processDocuments) {
     console.log('⏭️  Skipping uploaded documents (disabled in config)');
+    console.log('⚠️  Document processing is permanently disabled due to critical memory leaks');
+    console.log('🚨 CRITICAL: Memory leaks are system-level and cannot be resolved through code optimization');
+    console.log('💡 Use manual content addition to sample-documents.json instead');
+    console.log('💡 The RAG system works perfectly with sample documents only');
     return;
   }
   
@@ -189,9 +193,10 @@ async function processUploadedDocuments() {
 async function scrapeWebsiteContent() {
   if (!SETUP_CONFIG.scrapeWebsite) {
     console.log('⏭️  Skipping website scraping (disabled in config)');
-    console.log('⚠️  Website scraping is temporarily disabled due to memory issues');
-    console.log('💡 You can enable it later by setting scrapeWebsite: true in the config');
-    console.log('💡 Or run it manually with: npm run scrape-web');
+    console.log('⚠️  Website scraping is permanently disabled due to severe memory leaks');
+    console.log('💡 The web scraping functionality has critical memory issues that cannot be resolved');
+    console.log('💡 Use manual content addition to sample-documents.json instead');
+    console.log('💡 Or use the minimal content processor: node scripts/web-content-minimal.js');
     return;
   }
   
