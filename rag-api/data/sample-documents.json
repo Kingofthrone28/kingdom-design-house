@@ -78,10 +78,10 @@
   },
   {
     "id": "pricing-network-1",
-    "title": "Network Group Pricing Plans",
-    "content": "Network Group offers three pricing tiers: Starter Plan ($3,000 one-time setup, $200/month support) - perfect for small businesses with basic router & switch setup, WiFi configuration, network security basics, and initial testing. Growth Plan ($4,500 one-time setup, $350/month support) - ideal for growing businesses with advanced router & switch config, WiFi optimization, load balancing setup, network redundancy, and security hardening. Scale Plan ($6,500 one-time setup, $600/month support) - designed for enterprises with enterprise-grade hardware, advanced load balancing, full redundancy setup, advanced security, network automation, and compliance features. All plans include monitoring, performance optimization, and support.",
+    "title": "Networking & Security Services Pricing Tiers",
+    "content": "Network Group offers three pricing tiers: Starter Plan ($2,000-$3,500 one-time setup, $200/month support) - perfect for small offices (5-15 devices) with 1 router, 1-2 switches, 1-2 access points, basic firewall, up to 8-12 data drops, minimal wiring, and basic security setup. Growth Plan ($5,000-$8,000 one-time setup, $350/month support) - ideal for growing businesses (15-30 devices) with mesh Wi-Fi, managed switches with VLANs, robust firewall + VPN, better cabling coverage, Power over Ethernet (PoE), and more access points. Scale Plan ($10,000-$15,000+ one-time setup, $600/month support) - designed for enterprises with full office coverage, redundancy, zero-trust setups, cloud backups, advanced endpoint protection, high throughput routing, and multisite connectivity. All plans include monitoring, performance optimization, and support.",
     "category": "pricing",
-    "tags": ["network pricing", "it services", "networking", "router setup", "wifi optimization", "network security"]
+    "tags": ["network pricing", "it services", "networking", "router setup", "wifi optimization", "network security", "security services", "vlan", "vpn", "endpoint protection"]
   },
   {
     "id": "pricing-ai-1",
@@ -149,9 +149,9 @@
   {
     "id": "pricing-comparison-1",
     "title": "Pricing Plan Comparison",
-    "content": "Compare our pricing plans: Web Group - Starter ($2,500 setup, $150/month), Growth ($3,800 setup, $250/month), Scale ($5,500 setup, $500/month). Network Group - Starter ($3,000 setup, $200/month), Growth ($4,500 setup, $350/month), Scale ($6,500 setup, $600/month). AI Group - Starter ($4,000 setup, $300/month), Growth ($6,000 setup, $500/month), Scale ($8,000 setup, $800/month). Enterprise solutions are custom quoted. All plans include monthly support, monitoring, and optimization.",
+    "content": "Compare our pricing plans: Web Group - Starter ($2,500 setup, $150/month), Growth ($3,800 setup, $250/month), Scale ($5,500 setup, $500/month). Network Group - Starter ($2,000-$3,500 setup, $200/month), Growth ($5,000-$8,000 setup, $350/month), Scale ($10,000-$15,000+ setup, $600/month). AI Group - Starter ($4,000 setup, $300/month), Growth ($6,000 setup, $500/month), Scale ($8,000 setup, $800/month). Enterprise solutions are custom quoted. All plans include monthly support, monitoring, and optimization.",
     "category": "pricing",
-    "tags": ["pricing comparison", "plan comparison", "web plans", "network plans", "ai plans", "enterprise"]
+    "tags": ["pricing comparison", "plan comparison", "web plans", "network plans", "ai plans", "enterprise", "networking security"]
   },
   {
     "id": "pricing-features-1",

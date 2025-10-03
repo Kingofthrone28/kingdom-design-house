@@ -683,13 +683,17 @@ export const siteData = {
       plans: [
         {
           title: "Starter",
-          description: "Perfect for small businesses looking to establish a reliable network foundation.",
-          setupPrice: 3000,
+          description: "Perfect for small offices (5-15 devices) looking to establish a reliable network foundation.",
+          setupPrice: 2750, // Average of $2,000 - $3,500
+          priceRange: "$2,000 - $3,500",
           features: [
-            "Basic router & switch setup",
-            "WiFi configuration",
-            "Network security basics",
-            "Initial testing"
+            "Small office (5-15 devices)",
+            "1 router, 1-2 switches",
+            "1-2 access points",
+            "Basic firewall",
+            "Up to 8-12 data drops",
+            "Minimal wiring",
+            "Basic security setup"
           ],
           monthlySupport: 200,
           supportFeatures: [
@@ -700,14 +704,17 @@ export const siteData = {
         },
         {
           title: "Growth",
-          description: "Ideal for growing businesses that need advanced network features and optimization.",
-          setupPrice: 4500,
+          description: "Ideal for growing businesses (15-30 devices) that need advanced network features and optimization.",
+          setupPrice: 6500, // Average of $5,000 - $8,000
+          priceRange: "$5,000 - $8,000",
           features: [
-            "Advanced router & switch config",
-            "WiFi optimization",
-            "Load balancing setup",
-            "Network redundancy",
-            "Security hardening"
+            "15-30 devices",
+            "Mesh Wi-Fi",
+            "Managed switches with VLANs",
+            "Robust firewall + VPN",
+            "Better cabling coverage",
+            "Power over Ethernet (PoE)",
+            "More access points"
           ],
           monthlySupport: 350,
           supportFeatures: [
@@ -720,14 +727,16 @@ export const siteData = {
         {
           title: "Scale",
           description: "Designed for enterprises requiring comprehensive network solutions and maximum uptime.",
-          setupPrice: 6500,
+          setupPrice: 12500, // Average of $10,000 - $15,000+
+          priceRange: "$10,000 - $15,000+",
           features: [
-            "Enterprise-grade hardware",
-            "Advanced load balancing",
-            "Full redundancy setup",
-            "Advanced security",
-            "Network automation",
-            "Compliance features"
+            "Full office coverage",
+            "Redundancy",
+            "Zero-trust setups",
+            "Cloud backups",
+            "Advanced endpoint protection",
+            "High throughput routing",
+            "Multisite connectivity"
           ],
           monthlySupport: 600,
           supportFeatures: [
