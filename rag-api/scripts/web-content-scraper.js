@@ -128,15 +128,17 @@ const WEB_CONFIG = {
   
   // Processing options
   options: {
-    chunkSize: 800,
-    overlap: 150,
-    timeout: 10000, // 10 seconds
-    retries: 3
+    chunkSize: 500,  // Reduced for memory efficiency
+    overlap: 100,    // Reduced for memory efficiency
+    timeout: 10000,  // 10 seconds
+    retries: 3,
+    maxContentSize: 2 * 1024 * 1024, // 2MB limit
+    maxChunksPerPage: 20 // Limit chunks per page
   }
 };
 
 /**
- * Fetches content from a URL
+ * Fetches content from a URL with memory optimization
  * @param {string} url - URL to fetch
  * @returns {Promise<string>} HTML content
  */
@@ -148,14 +150,28 @@ const fetchPageContent = async (url) => {
   try {
     const response = await axios.get(url, {
       timeout: WEB_CONFIG.options.timeout,
+      maxContentLength: WEB_CONFIG.options.maxContentSize,
+      maxBodyLength: WEB_CONFIG.options.maxContentSize,
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; Kingdom Design House Bot/1.0)'
       }
     });
     
+    // Check content size
+    const contentSize = Buffer.byteLength(response.data, 'utf8');
+    if (contentSize > WEB_CONFIG.options.maxContentSize) {
+      throw new Error(`Content too large: ${Math.round(contentSize / 1024)}KB (limit: ${Math.round(WEB_CONFIG.options.maxContentSize / 1024)}KB)`);
+    }
+    
     return response.data;
   } catch (error) {
-    console.error(`Failed to fetch ${url}:`, error.message);
+    if (error.code === 'ECONNABORTED') {
+      throw new Error(`Timeout after ${WEB_CONFIG.options.timeout}ms`);
+    } else if (error.code === 'ENOTFOUND') {
+      throw new Error('Host not found');
+    } else if (error.response?.status) {
+      throw new Error(`HTTP ${error.response.status}: ${error.response.statusText}`);
+    }
     throw error;
   }
 };
@@ -210,6 +226,13 @@ const extractPageContent = (html, url) => {
   // Clean up content
   content = content.replace(/\s+/g, ' ').trim();
   
+  // Limit content size to prevent memory issues
+  const maxContentLength = 50000; // 50KB limit
+  if (content.length > maxContentLength) {
+    content = content.substring(0, maxContentLength) + '...';
+    console.warn(`⚠️  Content truncated to ${maxContentLength} characters for ${url}`);
+  }
+  
   return {
     title,
     content,
@@ -247,8 +270,16 @@ const processWebPage = async (pageConfig) => {
       WEB_CONFIG.options.overlap
     );
     
+    // Limit number of chunks to prevent memory issues
+    const maxChunks = WEB_CONFIG.options.maxChunksPerPage;
+    const limitedChunks = chunks.slice(0, maxChunks);
+    
+    if (chunks.length > maxChunks) {
+      console.warn(`⚠️  Limited to ${maxChunks} chunks (from ${chunks.length}) for ${pageConfig.title}`);
+    }
+    
     // Create chunks with metadata
-    const pageChunks = chunks.map((chunk, index) => ({
+    const pageChunks = limitedChunks.map((chunk, index) => ({
       id: `web-${pageConfig.path.replace(/[^a-zA-Z0-9]/g, '-')}-chunk-${index}`,
       content: chunk,
       metadata: {
@@ -257,13 +288,13 @@ const processWebPage = async (pageConfig) => {
         tags: (pageConfig.tags || []).join(', '),
         source: url,
         chunkIndex: index,
-        totalChunks: chunks.length,
+        totalChunks: limitedChunks.length,
         fileType: 'html',
         scrapedAt: new Date().toISOString()
       }
     }));
     
-    console.log(`✅ Extracted ${chunks.length} chunks from ${pageConfig.title}`);
+    console.log(`✅ Extracted ${limitedChunks.length} chunks from ${pageConfig.title}`);
     return pageChunks;
     
   } catch (error) {
@@ -289,25 +320,62 @@ const processAllWebPages = async () => {
   
   const allChunks = [];
   
-  // Process main pages
+  // Process main pages in batches to manage memory
   console.log('🌐 Processing main website pages...');
-  for (const page of WEB_CONFIG.pages) {
+  for (let i = 0; i < WEB_CONFIG.pages.length; i++) {
+    const page = WEB_CONFIG.pages[i];
+    console.log(`📄 Processing page ${i + 1}/${WEB_CONFIG.pages.length}: ${page.title}`);
+    
     const chunks = await processWebPage(page);
     allChunks.push(...chunks);
+    
+    // Force garbage collection every few pages
+    if (i % 3 === 0 && global.gc) {
+      global.gc();
+    }
+    
+    // Small delay to prevent overwhelming the server
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
   
-  // Process service pages
+  // Process service pages in smaller batches
   console.log('\n🔧 Processing service pages...');
-  for (const page of WEB_CONFIG.servicePages) {
-    const chunks = await processWebPage({
-      ...page,
-      category: 'services',
-      tags: ['services', 'offerings']
-    });
-    allChunks.push(...chunks);
+  const batchSize = 5; // Process 5 pages at a time
+  for (let i = 0; i < WEB_CONFIG.servicePages.length; i += batchSize) {
+    const batch = WEB_CONFIG.servicePages.slice(i, i + batchSize);
+    console.log(`📄 Processing service batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(WEB_CONFIG.servicePages.length / batchSize)}`);
+    
+    for (const page of batch) {
+      const chunks = await processWebPage({
+        ...page,
+        category: 'services',
+        tags: ['services', 'offerings']
+      });
+      allChunks.push(...chunks);
+      
+      // Small delay between pages
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    
+    // Force garbage collection after each batch
+    if (global.gc) {
+      global.gc();
+    }
+    
+    // Longer delay between batches
+    await new Promise(resolve => setTimeout(resolve, 500));
   }
   
   return allChunks;
+};
+
+/**
+ * Memory monitoring utility
+ */
+const logMemoryUsage = () => {
+  const used = process.memoryUsage();
+  const formatBytes = (bytes) => Math.round(bytes / 1024 / 1024 * 100) / 100;
+  console.log(`💾 Memory: RSS ${formatBytes(used.rss)}MB, Heap ${formatBytes(used.heapUsed)}/${formatBytes(used.heapTotal)}MB`);
 };
 
 /**
@@ -316,6 +384,7 @@ const processAllWebPages = async () => {
 async function scrapeWebsite() {
   try {
     console.log('🚀 Starting website content scraping...');
+    logMemoryUsage();
     
     // Initialize Pinecone
     console.log('🔗 Initializing Pinecone...');
@@ -323,15 +392,28 @@ async function scrapeWebsite() {
     
     // Process all web pages
     const allChunks = await processAllWebPages();
+    logMemoryUsage();
     
     if (allChunks.length === 0) {
       console.log('⚠️  No content extracted from website');
       return;
     }
     
-    // Upload to Pinecone
-    console.log(`\n📤 Uploading ${allChunks.length} chunks to Pinecone...`);
-    await uploadChunksToPinecone(allChunks);
+    // Upload to Pinecone (unless in dry-run mode)
+    if (global.DRY_RUN) {
+      console.log(`\n🔍 Dry run: Would upload ${allChunks.length} chunks to Pinecone`);
+      console.log('📋 Sample chunks:');
+      allChunks.slice(0, 3).forEach((chunk, index) => {
+        console.log(`\n--- Chunk ${index + 1} ---`);
+        console.log(`ID: ${chunk.id}`);
+        console.log(`Title: ${chunk.metadata.title}`);
+        console.log(`Content: ${chunk.content.substring(0, 200)}...`);
+      });
+    } else {
+      console.log(`\n📤 Uploading ${allChunks.length} chunks to Pinecone...`);
+      await uploadChunksToPinecone(allChunks);
+      logMemoryUsage();
+    }
     
     console.log('\n🎉 Website scraping completed successfully!');
     console.log(`📊 Total chunks processed: ${allChunks.length}`);
@@ -382,15 +464,20 @@ Example:
   const baseUrl = getBaseUrl();
   console.log(`🌐 Using base URL: ${baseUrl}`);
   
-  if (args.includes('--dry-run')) {
+  const isDryRun = args.includes('--dry-run');
+  const isVerbose = args.includes('--verbose');
+  
+  if (isDryRun) {
     console.log('🔍 Dry run mode - content will be scraped but not uploaded');
-    // TODO: Implement dry run mode
   }
   
-  if (args.includes('--verbose')) {
+  if (isVerbose) {
     console.log('📝 Verbose mode enabled');
-    // TODO: Implement verbose logging
   }
+  
+  // Set global flags for the scraping process
+  global.DRY_RUN = isDryRun;
+  global.VERBOSE = isVerbose;
   
   scrapeWebsite();
 }
