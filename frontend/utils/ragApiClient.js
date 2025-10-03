@@ -63,7 +63,16 @@ export const sendRagChatMessage = async (message, conversationHistory = []) => {
     fullUrl: url
   });
   
-  const payload = { message, conversationHistory };
+  // Determine payload structure based on endpoint
+  let payload;
+  if (path.includes('/.netlify/functions/')) {
+    // Netlify functions expect 'message'
+    payload = { message, conversationHistory };
+  } else {
+    // Direct RAG API expects 'query'
+    payload = { query: message, conversationHistory };
+  }
+  
   return await httpClient(url, {
     method: 'POST',
     body: payload,
