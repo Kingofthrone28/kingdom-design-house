@@ -1,0 +1,26 @@
+{
+    "name": "Kingdom Design House",
+    "short_name": "KDH",
+    "description": "Professional web development, IT services, networking, and AI solutions serving Long Island, Queens, Brooklyn, and Manhattan.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1a365d",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["business", "technology", "productivity"],
+    "lang": "en-US",
+    "scope": "/",
+    "prefer_related_applications": false
+}

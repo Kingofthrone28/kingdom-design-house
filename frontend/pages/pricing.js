@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Layout from '../components/Layout';
+import SEOHead from '../components/SEOHead';
 import ChatJarvis from '../components/ChatJarvis';
 import PricingGroup from '../components/PricingGroup';
 import PlanTypeSelector from '../components/Molecules/PlanTypeSelector';
 import PricingToggle from '../components/Atoms/PricingToggle';
 import PricingPlans from '../components/Organisms/PricingPlans';
 import { getPricingData } from '../data/siteData';
+import { pageSeoData } from '../lib/seo';
 import styles from '../styles/Pricing.module.scss';
 
 export default function Pricing() {
@@ -15,6 +16,7 @@ export default function Pricing() {
   
   const pricingData = getPricingData(selectedGroup);
   const { plans } = pricingData;
+  const seoData = pageSeoData.pricing;
 
   const handleToggle = () => {
     setIsMonthly(!isMonthly);
@@ -26,12 +28,7 @@ export default function Pricing() {
 
   return (
     <>
-      <Head>
-        <title>Pricing - Kingdom Design House</title>
-        <meta name="description" content="Choose the perfect plan for your business needs. Web development, network solutions, and AI services with flexible pricing options." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEOHead {...seoData} />
       
       <Layout>
         <section className={styles.pricing}>

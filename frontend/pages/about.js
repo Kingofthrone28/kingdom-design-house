@@ -1,27 +1,24 @@
 import React from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import Layout from '../components/Layout';
+import SEOHead from '../components/SEOHead';
 import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
 import ProcessSteps from '../components/ProcessSteps';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { getAboutData } from '../data/siteData';
+import { pageSeoData } from '../lib/seo';
 import styles from '../styles/About.module.scss';
 
 export default function About() {
   const aboutData = getAboutData();
   const { title, subTitle, content } = aboutData;
+  const seoData = pageSeoData.about;
 
   return (
     <>
-      <Head>
-        <title>About - Kingdom Design House</title>
-        <meta name="description" content="Learn about the founder and story behind Kingdom Design House, a technology company dedicated to solving problems through innovative web development, digital marketing, and network solutions." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEOHead {...seoData} />
       
       <Layout>
         <GroupHero groupName="web-group" />
