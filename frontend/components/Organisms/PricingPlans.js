@@ -11,11 +11,21 @@ const PricingPlans = ({
 }) => {
   const formatPrice = (price, isMonthly) => {
     if (isMonthly) {
-      // Calculate monthly price (assuming 3-6 month financing)
-      const monthlyPrice = Math.round(price / 4); // 4 months average
+      // Calculate monthly price (assuming 6 month financing)
+      const monthlyPrice = Math.round(price / 6); 
       return `$${monthlyPrice.toLocaleString()}`;
     }
     return `$${price.toLocaleString()}`;
+  };
+
+  const scrollToChat = () => {
+    const chatSection = document.getElementById('chat-jarvis');
+    if (chatSection) {
+      chatSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   };
 
   return (
@@ -68,7 +78,7 @@ const PricingPlans = ({
             </div>
 
             <div className={styles.pricingPlans__planAction}>
-              <Button variant="primary" size="large">
+              <Button variant="primary" size="large" onClick={scrollToChat}>
                 Get Started
               </Button>
             </div>
@@ -85,7 +95,7 @@ const PricingPlans = ({
           Fully Custom Solution - Schedule a Call
         </h4>
         <p className={styles.pricingPlans__enterpriseDescription}>
-          The Enterprise Package is designed for corporations with unique requirements that need custom development, interactive features, and integration with other tools or systems. This is a fully tailored solution with no upfront cost. Payment terms are discussed based on the scope and complexity of the project. May include SaaS tools, CI/CD pipelines, backend or frontend frameworks or systems to integrate RESTFUL API, reporting dashboards, OAuth, 2FA Authentication, LLM solutions and more.
+          The Enterprise Package is designed for corporations with unique requirements.
         </p>
         <div className={styles.pricingPlans__enterpriseAction}>
           <Link href={`tel:${navbarData.contact.phone}`}>

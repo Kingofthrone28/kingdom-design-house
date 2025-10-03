@@ -14,7 +14,8 @@ export const navbarData = {
     { name: "About", route: "/about" },
     { name: "The Web Group", route: "/web-group" },
     { name: "The Network Group", route: "/network-group" },
-    { name: "The AI Group", route: "/ai-group" }
+    { name: "The AI Group", route: "/ai-group" },
+    { name: "Pricing", route: "/pricing" }
   ],
   companyGroups: [
     "The Web Group",

@@ -17,7 +17,7 @@ const PlanTypeSelector = ({ className = '' }) => {
         <div className={styles.planTypeSelector__option}>
           <h3 className={styles.planTypeSelector__optionTitle}>Monthly</h3>
           <p className={styles.planTypeSelector__optionDescription}>
-            A budget friendly option to finance your one time setup for 3 or 6 months.
+            A budget friendly option to finance your one time setup for 6 months.
           </p>
         </div>
         

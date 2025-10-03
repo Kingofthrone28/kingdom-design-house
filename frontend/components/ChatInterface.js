@@ -7,7 +7,16 @@ import { formatResponse, renderFormattedResponse } from '../utils/responseFormat
 const ChatInterface = ({ isOpen, onClose }) => {
   const initMessage = {
     role: 'assistant',
-    content: 'Hello! I\'m Jarvis, your AI assistant from Kingdom Design House. Please provide me with your name and email address to get started and better assist you. How can I help you today?'
+    content: `👋 Hello! I'm Jarvis, your AI assistant from Kingdom Design House.
+
+I'm here to help you with:
+• 🌐 Web Development & Design (The Web Group)
+• 🔧 IT Services & Networking (The Network Group)  
+• 🤖 AI Integration & Tools (The AI Group)
+
+What brings you here today? I'd love to learn about your project and how we can help! 
+
+💡 Pro tip: Share your name and email if you'd like a personalized proposal!`
   };
   const [messages, setMessages] = useState([initMessage]);
   const [inputMessage, setInputMessage] = useState('');

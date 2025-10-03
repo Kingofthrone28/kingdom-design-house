@@ -112,10 +112,15 @@ cp frontend/env.example frontend/.env.local
 cp rag-api/env.example rag-api/.env
 ```
 
-3. **Populate Pinecone Index**
+3. **Setup Enhanced RAG System**
 ```bash
 cd rag-api
-node scripts/populate-index.js
+npm run setup
+# This will:
+# - Populate Pinecone with sample documents
+# - Process local documents (PDF, DOCX, HTML, MD, TXT)
+# - Scrape website content (optional)
+# - Set up the complete knowledge base
 ```
 
 ### Development
@@ -130,14 +135,31 @@ npm run dev
 2. **Start the RAG API**
 ```bash
 cd rag-api
-node server.js
+npm start
 # Runs on http://localhost:3001
 ```
 
-3. **Test HubSpot Integration**
+3. **Available RAG API Scripts**
 ```bash
 cd rag-api
-node test-hubspot-complete.js
+
+# Development with auto-reload
+npm run dev
+
+# Populate Pinecone with sample documents only
+npm run populate
+
+# Process local documents (PDF, DOCX, HTML, MD, TXT)
+npm run process-docs
+
+# Scrape website content and add to knowledge base
+npm run scrape-web
+
+# Test API connections
+npm test
+
+# Complete setup (recommended for first time)
+npm run setup
 ```
 
 ## 📁 Project Structure
@@ -183,7 +205,10 @@ kingdom-design-house/
 │   ├── lib/                    # Configuration
 │   │   └── config.js           # Environment config
 │   ├── scripts/                # Utility scripts
-│   │   └── populate-index.js   # Pinecone data population
+│   │   ├── populate-index.js    # Pinecone data population
+│   │   ├── process-documents.js # Document processing (PDF, DOCX, HTML, MD, TXT)
+│   │   ├── web-content-scraper.js # Website content scraping
+│   │   └── setup-enhanced-rag.js # Complete RAG system setup
 │   ├── data/                   # Sample documents
 │   └── server.js              # Express server
 ├── netlify/                    # Netlify functions
@@ -238,14 +263,39 @@ kingdom-design-house/
 - **Keyword Extraction**: Conversation keyword capture
 - **HubSpot Integration**: Automatic contact, deal, and ticket creation
 
-### Knowledge Base
-The system includes sample documents covering:
+### Enhanced RAG System
+The system includes multiple knowledge sources:
+
+#### **Sample Documents** (`rag-api/data/sample-documents.json`)
 - Web development services
 - IT services & networking
 - AI solutions
 - Pricing information
 - Company process
 - Contact information
+
+#### **Document Processing** (`npm run process-docs`)
+- **PDF Documents**: Extract text from PDF files
+- **DOCX Files**: Process Word documents
+- **HTML Files**: Parse HTML content
+- **Markdown Files**: Process MD documentation
+- **Text Files**: Plain text processing
+- **Automatic Chunking**: Intelligent text segmentation
+- **Metadata Extraction**: Document properties and context
+
+#### **Website Scraping** (`npm run scrape-web`)
+- **Live Content**: Scrape current website content
+- **Dynamic URLs**: Auto-detect localhost vs production
+- **Memory Optimized**: Efficient processing for large sites
+- **Content Filtering**: Extract relevant business information
+- **Batch Processing**: Handle multiple pages efficiently
+
+#### **Complete Setup** (`npm run setup`)
+- **One-Command Setup**: Automated knowledge base creation
+- **Multi-Source Integration**: Combines all knowledge sources
+- **Pinecone Population**: Vector database setup
+- **Error Handling**: Graceful failure management
+- **Progress Tracking**: Real-time setup monitoring
 
 ## 🚀 Deployment
 
@@ -293,13 +343,25 @@ curl -X POST http://localhost:3001/api/chat \
   -H "Content-Type: application/json" \
   -d '{"query": "Hi, I need help with web development"}'
 
-# Test HubSpot Integration
+# Test API connections
 cd rag-api
-node test-hubspot-complete.js
+npm test
 
 # Test Pinecone Connection
 cd rag-api
-node scripts/populate-index.js
+npm run populate
+
+# Test document processing
+cd rag-api
+npm run process-docs
+
+# Test website scraping
+cd rag-api
+npm run scrape-web
+
+# Complete system test
+cd rag-api
+npm run setup
 ```
 
 ## 📞 Support
@@ -314,6 +376,17 @@ MIT License - see LICENSE file for details.
 
 ## 🔄 Recent Updates
 
+### v2.1.0 - Enhanced RAG System & Lead Capture Fixes
+- ✅ **Enhanced RAG System**: Complete document processing pipeline
+- ✅ **Document Processing**: PDF, DOCX, HTML, MD, TXT support
+- ✅ **Website Scraping**: Live content extraction with memory optimization
+- ✅ **Fixed Service Detection**: Correctly identifies networking vs web development
+- ✅ **Fixed Name Extraction**: Properly extracts user names from conversations
+- ✅ **Fixed Budget Detection**: Avoids misinterpreting office sizes as budget
+- ✅ **Enhanced Debug Logging**: Comprehensive troubleshooting information
+- ✅ **Memory Optimization**: Efficient processing for large content
+- ✅ **One-Command Setup**: Automated knowledge base creation
+
 ### v2.0.0 - Enhanced AI & CRM Integration
 - ✅ Refactored chat handler with helper functions
 - ✅ Enhanced lead capture with name extraction
@@ -326,9 +399,10 @@ MIT License - see LICENSE file for details.
 - ✅ Added service-specific landing pages
 
 ### Key Features Added
+- **Enhanced RAG System**: Multi-source knowledge base with document processing
+- **Fixed Lead Capture**: Accurate service detection and name extraction
 - **Structured Lead Capture**: Automatic extraction of contact details
 - **HubSpot CRM Integration**: Full pipeline management
 - **Group-Specific Pages**: Dynamic routing for service groups
 - **Mobile-First Design**: Responsive component architecture
-- **AI Fallback Handling**: Graceful degradation when services unavailable# Trigger deployment Sun Sep 28 00:36:38 EDT 2025
-# Trigger Netlify deployment Sun Sep 28 22:12:00 EDT 2025
+- **AI Fallback Handling**: Graceful degradation when services unavailable

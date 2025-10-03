@@ -726,7 +726,7 @@ export const siteData = {
         },
         {
           title: "Scale",
-          description: "Designed for enterprises requiring comprehensive network solutions and maximum uptime.",
+          description: "Designed for established businesses requiring comprehensive network solutions and maximum uptime.",
           setupPrice: 12500, // Average of $10,000 - $15,000+
           priceRange: "$10,000 - $15,000+",
           features: [
