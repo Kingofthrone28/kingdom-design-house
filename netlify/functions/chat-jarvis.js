@@ -90,7 +90,8 @@ const validateRequest = (event) => {
  * @throws {Error} If RAG API call fails
  */
 const callRagApi = async (message, conversationHistory, userId) => {
-  const ragApiUrl = process.env.RAG_API_URL || 'http://localhost:3001';
+  // Use deployed RAG API URL or fallback to localhost for development
+  const ragApiUrl = process.env.RAG_API_URL || 'https://kingdom-design-house-production.up.railway.app';
   
   const requestBody = {
     query: message,
@@ -98,27 +99,63 @@ const callRagApi = async (message, conversationHistory, userId) => {
     userId,
   };
   
-  const ragResponse = await fetch(`${ragApiUrl}/api/chat`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify(requestBody),
-  });
-
-  if (!ragResponse.ok) {
-    const errorText = await ragResponse.text();
-    console.error('RAG API error details:', {
-      status: ragResponse.status,
-      statusText: ragResponse.statusText,
-      headers: Object.fromEntries(ragResponse.headers.entries()),
-      body: errorText
+  try {
+    const ragResponse = await fetch(`${ragApiUrl}/api/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
     });
-    throw new Error(`RAG API error: ${ragResponse.status} - ${errorText}`);
-  }
 
-  return await ragResponse.json();
+    if (!ragResponse.ok) {
+      const errorText = await ragResponse.text();
+      console.error('RAG API error details:', {
+        status: ragResponse.status,
+        statusText: ragResponse.statusText,
+        headers: Object.fromEntries(ragResponse.headers.entries()),
+        body: errorText
+      });
+      throw new Error(`RAG API error: ${ragResponse.status} - ${errorText}`);
+    }
+
+    return await ragResponse.json();
+  } catch (error) {
+    console.error('RAG API call failed:', error);
+    
+    // Return a fallback response when RAG API is unavailable
+    return {
+      response: `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.
+
+For immediate assistance, please contact us:
+📞 Phone: 347.927.8846
+📧 Email: info@kingdomdesignhouse.com
+
+We offer comprehensive packages for businesses of all sizes, including:
+• Web Development & Design
+• IT Services & Support  
+• Networking Solutions
+• AI Integration
+
+What specific services are you interested in?`,
+      structuredInfo: {
+        email: null,
+        first_name: null,
+        last_name: null,
+        phone: null,
+        company: null,
+        website: null,
+        service_requested: 'General Inquiry',
+        budget_range: null,
+        timeline: null,
+        project_description: message
+      },
+      hubspotLead: null,
+      relevantDocs: [],
+      timestamp: new Date().toISOString()
+    };
+  }
 };
 
 /**

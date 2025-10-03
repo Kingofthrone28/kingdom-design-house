@@ -3,7 +3,7 @@ const { generateResponse, extractStructuredInfo } = require('../services/openai'
 const { createLead } = require('../services/hubspot');
 
 // Helper function to extract basic lead info without AI
-const extractBasicLeadInfo = (query) => {
+const extractBasicLeadInfo = (query, conversationHistory = []) => {
   const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
   const phoneRegex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/;
   
@@ -15,7 +15,19 @@ const extractBasicLeadInfo = (query) => {
   let lastName = null;
   
   // Extract only user messages for name detection
-  const userMessages = query.split('user:').slice(1).join(' ');
+  // Handle both string format (legacy) and array format (current)
+  let userMessages = '';
+  if (Array.isArray(conversationHistory)) {
+    // New format: array of message objects
+    userMessages = conversationHistory
+      .filter(msg => msg.role === 'user')
+      .map(msg => msg.content)
+      .join(' ');
+  } else {
+    // Legacy format: string with 'user:' prefixes
+    userMessages = query.split('user:').slice(1).join(' ');
+  }
+  
   const nameSearchQuery = userMessages || query;
   
   // Pattern 1: "My name is John Smith" or "I'm John Smith"
@@ -72,7 +84,18 @@ const extractBasicLeadInfo = (query) => {
   };
   
   // Extract only user messages from conversation history for better service detection
-  const userMessagesForService = query.split('user:').slice(1).join(' ').toLowerCase();
+  let userMessagesForService = '';
+  if (Array.isArray(conversationHistory)) {
+    // New format: array of message objects
+    userMessagesForService = conversationHistory
+      .filter(msg => msg.role === 'user')
+      .map(msg => msg.content)
+      .join(' ')
+      .toLowerCase();
+  } else {
+    // Legacy format: string with 'user:' prefixes
+    userMessagesForService = query.split('user:').slice(1).join(' ').toLowerCase();
+  }
   const cleanQuery = userMessagesForService || query.toLowerCase();
   
   // Analyze user messages for service detection (prioritize user intent)
@@ -82,6 +105,7 @@ const extractBasicLeadInfo = (query) => {
   // Debug logging for service detection
   console.log('Service Detection Debug:');
   console.log('Full Query:', query);
+  console.log('Conversation History:', conversationHistory);
   console.log('User Messages:', userMessagesForService);
   console.log('Clean Query:', cleanQuery);
   console.log('Detected Service:', serviceRequested);
@@ -233,7 +257,7 @@ const createLeadIfPossible = async (structuredInfo, query, conversationHistory =
   } else {
     // Create enhanced query with full conversation for better service detection
     const fullConversation = conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join(' ') + ' ' + query;
-    const basicLeadInfo = extractBasicLeadInfo(fullConversation);
+    const basicLeadInfo = extractBasicLeadInfo(fullConversation, conversationHistory);
     if (basicLeadInfo.email) {
       return await createHubSpotLead(basicLeadInfo, conversationHistory);
     }

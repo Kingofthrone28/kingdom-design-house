@@ -66,7 +66,19 @@ What brings you here today? I'd love to learn about your project and how we can 
       console.error('Chat error:', error);
       const errorMessage = {
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again or contact us directly at info@kingdomdesignhouse.com'
+        content: `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.
+
+For immediate assistance, please contact us:
+📞 Phone: 347.927.8846
+📧 Email: info@kingdomdesignhouse.com
+
+We offer comprehensive packages for businesses of all sizes, including:
+• Web Development & Design
+• IT Services & Support  
+• Networking Solutions
+• AI Integration
+
+What specific services are you interested in?`
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
