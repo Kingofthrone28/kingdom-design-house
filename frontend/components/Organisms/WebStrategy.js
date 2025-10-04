@@ -7,6 +7,13 @@ const WebStrategy = () => {
   const strategyData = getWebStrategyData();
   const { steps, cta } = strategyData;
 
+  const scrollToChat = () => {
+    const chatSection = document.getElementById('chat-jarvis');
+    if (chatSection) {
+      chatSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <section className={styles.webStrategy}>
       <div className={styles.webStrategy__container}>
@@ -48,7 +55,7 @@ const WebStrategy = () => {
         
         {/* CTA Button */}
         <div className={styles.webStrategy__cta}>
-          <button className={styles.webStrategy__cta__button}>
+          <button className={styles.webStrategy__cta__button} onClick={() => scrollToChat()}>
             {cta.text}
             <span className={styles.webStrategy__cta__arrow}>→</span>
           </button>

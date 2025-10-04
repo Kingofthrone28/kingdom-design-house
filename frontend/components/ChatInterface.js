@@ -70,7 +70,7 @@ What brings you here today? I'd love to learn about your project and how we can 
 
 For immediate assistance, please contact us:
 📞 Phone: 347.927.8846
-📧 Email: info@kingdomdesignhouse.com
+📧 Email: kingdomdesignhouse@gmail.com
 
 We offer comprehensive packages for businesses of all sizes, including:
 • Web Development & Design

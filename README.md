@@ -367,7 +367,7 @@ npm run setup
 ## 📞 Support
 
 For questions or support, contact:
-- **Email**: info@kingdomdesignhouse.com
+- **Email**: kingdomdesignhouse@gmail.com
 - **Phone**: 347.927.8846
 
 ## 📄 License

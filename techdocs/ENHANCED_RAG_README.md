@@ -393,7 +393,7 @@ const processingMetrics = {
 - **Code Examples**: `/examples`
 
 ### Contact
-- **Email**: info@kingdomdesignhouse.com
+- **Email**: kingdomdesignhouse@gmail.com
 - **Phone**: 347.927.8846
 - **Support Hours**: Monday - Friday, 9 AM - 6 PM EST
 

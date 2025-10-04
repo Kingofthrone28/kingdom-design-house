@@ -22,7 +22,7 @@ Authorization: Bearer YOUR_API_KEY
 
 ### Getting an API Key
 
-1. Contact our support team at info@kingdomdesignhouse.com
+1. Contact our support team at kingdomdesignhouse@gmail.com
 2. Provide your business information and use case
 3. We'll generate and provide your API key
 4. Keep your API key secure and never share it publicly

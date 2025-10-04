@@ -12,7 +12,7 @@ export const seoConfig = {
     url: "https://kingdomdesignhouse.com",
     logo: "https://kingdomdesignhouse.com/images/logo.png",
     phone: "347.927.8846",
-    email: "info@kingdomdesignhouse.com"
+    email: "kingdomdesignhouse@gmail.com"
   },
   
   location: {
@@ -49,7 +49,7 @@ export const pageSeoData = {
       "url": "https://kingdomdesignhouse.com",
       "logo": "https://kingdomdesignhouse.com/images/logo.png",
       "telephone": "347.927.8846",
-      "email": "info@kingdomdesignhouse.com",
+      "email": "kingdomdesignhouse@gmail.com",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Long Island",

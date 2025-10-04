@@ -218,7 +218,7 @@ npm run scrape-web -- --url https://staging.kingdomdesignhouse.com
 ### Support Resources
 - **Documentation**: `ENHANCED_RAG_README.md`
 - **Examples**: Sample documents in data directories
-- **Contact**: info@kingdomdesignhouse.com
+- **Contact**: kingdomdesignhouse@gmail.com
 - **Phone**: 347.927.8846
 
 ---

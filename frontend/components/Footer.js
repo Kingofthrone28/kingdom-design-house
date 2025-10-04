@@ -25,7 +25,7 @@ const Footer = () => {
             <div className={styles.footer__contact__item}>
               <span className={styles.footer__contact__label}><EmailIcon /></span>
               <a 
-                href="mailto:info@kingdomdesignhouse.com" 
+                href="mailto:kingdomdesignhouse@gmail.com" 
                 className={styles.footer__contact__link}
               >
                 {companyInfo.email}
