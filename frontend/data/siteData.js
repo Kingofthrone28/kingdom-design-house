@@ -8,7 +8,7 @@ export const siteData = {
   
   contact: {
     phone: "347.927.8846",
-    email: "info@kingdomdesignhouse.com",
+    email: "kingdomdesignhouse@gmail.com",
     businessPhone: "347.927.8846"
   },
   
@@ -832,12 +832,18 @@ export const siteData = {
       'The AI Group'
     ],
     socialMedia: [
-      'LinkedIn',
-      'Instagram'
+      {
+        name: 'LinkedIn',
+        url: 'https://www.linkedin.com/in/paul-solomon-4a623bba/'
+      },
+      {
+        name: 'Instagram',
+        url: 'https://www.instagram.com/kingdom_design_house/'
+      }
     ],
     companyInfo: { 
       phone: '347.927.8846', 
-      email: 'info@kingdomdesignhouse.com' 
+      email: 'kingdomdesignhouse@gmail.com' 
     },  
    }
 };

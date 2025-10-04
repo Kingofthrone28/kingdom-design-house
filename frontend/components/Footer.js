@@ -69,8 +69,13 @@ const Footer = () => {
               <ul className={styles.footer__links__list}>
                 {socialMedia.map((social, index) => (
                   <li key={index} className={styles.footer__links__item}>
-                    <a href="#" className={styles.footer__links__link}>
-                      {social}
+                    <a 
+                      href={social.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={styles.footer__links__link}
+                    >
+                      {social.name}
                     </a>
                   </li>
                 ))}
