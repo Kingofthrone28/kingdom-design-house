@@ -14,6 +14,9 @@ const getRagApiUrl = () => {
     ['localhost', 'http://localhost:3001'],
     ['127.0.0.1', 'http://localhost:3001'],
     
+    // Production domain patterns - use primary domain for functions
+    ['kingdomdesignhouse.com', 'https://kingdomdesignhouse.com'],
+    
     // Netlify patterns - use preview domain for functions
     ['netlify.app', 'https://kingdom-design-house.netlify.app'],
     ['netlify.com', 'https://kingdom-design-house.netlify.app'],
@@ -36,8 +39,8 @@ const getRagApiUrl = () => {
 const getRagApiPath = () => {
   const { hostname } = window.location;
   
-  // Netlify uses functions, others use direct API
-  if (hostname.includes('netlify.app') || hostname.includes('netlify.com')) {
+  // Netlify uses functions (including primary domain), others use direct API
+  if (hostname.includes('netlify.app') || hostname.includes('netlify.com') || hostname.includes('kingdomdesignhouse.com')) {
     return '/.netlify/functions/chat-jarvis';
   }
   

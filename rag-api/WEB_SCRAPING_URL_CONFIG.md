@@ -25,7 +25,7 @@ npm run scrape-web
 - **Custom PORT (not 3001)**: `http://localhost:3000`
 
 ### 4. Production Default
-- **Default**: `https://kingdom-design-house.netlify.app`
+- **Default**: `https://kingdomdesignhouse.com`
 
 ## Usage Examples
 
@@ -44,7 +44,7 @@ npm run scrape-web -- --url http://localhost:3000
 npm run scrape-web
 
 # Or explicitly set
-npm run scrape-web -- --url https://kingdom-design-house.netlify.app
+npm run scrape-web -- --url https://kingdomdesignhouse.com
 ```
 
 ### Custom Environment
@@ -64,7 +64,7 @@ Add to your `.env` file:
 ```bash
 # Web Scraping Configuration
 WEB_SCRAPING_URL=http://localhost:3000  # For development
-# WEB_SCRAPING_URL=https://kingdom-design-house.netlify.app  # For production
+# WEB_SCRAPING_URL=https://kingdomdesignhouse.com  # For production
 ```
 
 ## Pages Scraped

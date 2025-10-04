@@ -58,8 +58,8 @@ const getBaseUrl = () => {
     return 'http://localhost:3000';
   }
   
-  // Default to production Netlify URL
-  return 'https://kingdom-design-house.netlify.app';
+  // Default to production primary domain
+  return 'https://kingdomdesignhouse.com';
 };
 
 // Configuration for website scraping
