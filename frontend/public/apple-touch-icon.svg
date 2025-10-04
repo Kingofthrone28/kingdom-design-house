@@ -1,0 +1,13 @@
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- 180x180 Apple Touch Icon -->
+  <rect width="180" height="180" fill="#1a1a1a" rx="32"/>
+  
+  <!-- Crown-like element (simplified) -->
+  <path d="M45 67.5 L90 45 L135 67.5 L124 90 L56 90 Z" fill="#ffd700"/>
+  
+  <!-- Base platform -->
+  <rect x="34" y="90" width="112" height="22" fill="#ffd700"/>
+  
+  <!-- Text -->
+  <text x="90" y="145" font-family="Arial, sans-serif" font-size="45" font-weight="bold" text-anchor="middle" fill="#ffffff">KDH</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!-- 16x16 KDH favicon -->
+  <rect width="16" height="16" fill="#1a1a1a" rx="3"/>
+  
+  <!-- Crown-like element (simplified) -->
+  <path d="M4 6 L8 4 L12 6 L11 8 L5 8 Z" fill="#ffd700"/>
+  
+  <!-- Base platform -->
+  <rect x="3" y="8" width="10" height="2" fill="#ffd700"/>
+  
+  <!-- Text -->
+  <text x="8" y="13" font-family="Arial, sans-serif" font-size="4" font-weight="bold" text-anchor="middle" fill="#ffffff">KDH</text>
+</svg>
