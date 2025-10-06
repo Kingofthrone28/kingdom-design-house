@@ -169,6 +169,27 @@ export const pageSeoData = {
       "areaServed": ["Long Island, NY", "Queens, NY", "Brooklyn, NY", "Manhattan, NY"],
       "serviceType": "AI Solutions"
     }
+  },
+
+  videoDemo: {
+    title: "Video Component Demo | Interactive Video Showcase | Kingdom Design House | Long Island, NY",
+    description: "Experience our interactive video components and see how we showcase our work through engaging video content. Video player demos and showcase examples.",
+    keywords: "video component demo, interactive video showcase, video player Long Island, video content Queens, multimedia solutions Brooklyn, video development Manhattan",
+    canonical: "/video-demo/",
+    ogTitle: "Video Component Demo | Interactive Video Showcase | Kingdom Design House",
+    ogDescription: "Experience our interactive video components and see how we showcase our work through engaging video content.",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Video Component Demo",
+      "description": "Interactive video showcase and component demonstrations",
+      "url": "https://kingdomdesignhouse.com/video-demo/",
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "Video Player Component",
+        "description": "Interactive video player component for web applications"
+      }
+    }
   }
 };
 
@@ -320,6 +341,7 @@ export const generateSitemapUrls = () => {
     { url: '/ai-group/', priority: 0.8, changefreq: 'monthly' },
     { url: '/ai-group/services/ai-consulting/', priority: 0.7, changefreq: 'monthly' },
     { url: '/ai-group/services/ai-development/', priority: 0.7, changefreq: 'monthly' },
-    { url: '/ai-group/services/ai-support/', priority: 0.7, changefreq: 'monthly' }
+    { url: '/ai-group/services/ai-support/', priority: 0.7, changefreq: 'monthly' },
+    { url: '/video-demo/', priority: 0.6, changefreq: 'monthly' }
   ];
 };

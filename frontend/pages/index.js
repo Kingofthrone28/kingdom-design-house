@@ -7,7 +7,7 @@ import ProcessSteps from '../components/ProcessSteps';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { pageSeoData } from '../lib/seo';
-
+import VideoShowcase from '../components/VideoShowcase';
 export default function Home() {
   const seoData = pageSeoData.home;
   
@@ -18,6 +18,7 @@ export default function Home() {
       <Layout>
         <Hero />
         <OurGroups />
+        <VideoShowcase />
         <ProcessSteps />
         <ChatJarvis />
         <WhyChooseUs />
