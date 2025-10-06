@@ -12,10 +12,12 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# SPA fallback - only redirect non-static files to index.html
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false
 
 [functions]
   directory = "netlify/functions"
