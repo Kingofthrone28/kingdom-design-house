@@ -21,6 +21,7 @@ What brings you here today? I'd love to learn about your project and how we can 
   const [messages, setMessages] = useState([initMessage]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState('connected'); // 'connected', 'slow', 'offline'
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -59,14 +60,50 @@ What brings you here today? I'd love to learn about your project and how we can 
 
       if (result.success) {
         setMessages(prev => [...prev, assistantMessage(result.data)]);
+        setConnectionStatus('connected');
       } else {
-        throw new Error(result.error?.message || 'Failed to send message');
+        // Handle specific error types
+        if (result.error?.isTimeout) {
+          setConnectionStatus('slow');
+          throw new Error('Request timed out. Please try again.');
+        } else if (result.error?.isNetworkError) {
+          setConnectionStatus('offline');
+          throw new Error('Network error. Please check your connection.');
+        } else {
+          throw new Error(result.error?.message || 'Failed to send message');
+        }
       }
     } catch (error) {
       console.error('Chat error:', error);
-      const errorMessage = {
-        role: 'assistant',
-        content: `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.
+      
+      let errorContent;
+      if (error.message.includes('timed out')) {
+        errorContent = `⏱️ **Connection Timeout**
+        
+I'm experiencing slow response times, likely due to network conditions. This is common in public WiFi environments.
+
+**Quick Solutions:**
+• Try refreshing the page
+• Check your internet connection
+• Consider using mobile data if WiFi is slow
+
+I'm still here to help! Please try your message again.`;
+      } else if (error.message.includes('Network error')) {
+        errorContent = `🌐 **Network Connection Issue**
+        
+I'm having trouble connecting to my servers. This often happens with:
+• Public WiFi restrictions
+• Network firewalls
+• Temporary connectivity issues
+
+**Please try:**
+• Refreshing the page
+• Switching to mobile data
+• Checking your internet connection
+
+I'll be here when you're ready to continue!`;
+      } else {
+        errorContent = `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.
 
 For immediate assistance, please contact us:
 📞 Phone: 347.927.8846
@@ -78,7 +115,12 @@ We offer comprehensive packages for businesses of all sizes, including:
 • Networking Solutions
 • AI Integration
 
-What specific services are you interested in?`
+What specific services are you interested in?`;
+      }
+      
+      const errorMessage = {
+        role: 'assistant',
+        content: errorContent
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -107,6 +149,16 @@ What specific services are you interested in?`
             <div>
               <h3>Chat with Jarvis</h3>
               <p>AI Assistant</p>
+              {connectionStatus === 'slow' && (
+                <span className={styles.connectionStatus} style={{color: '#ffa500'}}>
+                  ⚠️ Slow connection
+                </span>
+              )}
+              {connectionStatus === 'offline' && (
+                <span className={styles.connectionStatus} style={{color: '#ff4444'}}>
+                  🔴 Connection issues
+                </span>
+              )}
             </div>
           </div>
           <button 

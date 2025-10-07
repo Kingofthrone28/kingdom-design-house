@@ -10,6 +10,8 @@ const DEFAULT_HEADERS = {
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 1000; // 1 second
+const REQUEST_TIMEOUT_MS = 30000; // 30 seconds
+const CONNECTION_TIMEOUT_MS = 10000; // 10 seconds for initial connection
 
 /**
  * Generic HTTP client for making requests in the browser.
@@ -31,7 +33,17 @@ async function httpClient(url, options = {}, retries = 0) {
       ...rest,
     };
 
+    // Create timeout controller
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    
+    // Add abort signal to fetch options
+    fetchOptions.signal = controller.signal;
+
     const response = await fetch(url, fetchOptions);
+    
+    // Clear timeout on successful response
+    clearTimeout(timeoutId);
     
     if (!response.ok) {
       const errorBody = await response.json().catch(() => ({ message: response.statusText }));
@@ -55,16 +67,38 @@ async function httpClient(url, options = {}, retries = 0) {
   } catch (error) {
     console.error(`HTTP request failed for ${url} (${method}):`, error.message);
 
-    if (retries < MAX_RETRIES && (error.message.includes('429') || error.message.includes('RateLimit'))) {
+    // Handle timeout and network errors with retry logic
+    const isRetryableError = 
+      error.name === 'AbortError' || // Timeout
+      error.message.includes('Failed to fetch') || // Network error
+      error.message.includes('429') || // Rate limit
+      error.message.includes('RateLimit') ||
+      error.message.includes('timeout') ||
+      error.message.includes('NetworkError');
+
+    if (retries < MAX_RETRIES && isRetryableError) {
       const delay = RETRY_DELAY_MS * Math.pow(2, retries);
       console.log(`Retrying in ${delay}ms... (Attempt ${retries + 1}/${MAX_RETRIES})`);
       await new Promise(resolve => setTimeout(resolve, delay));
       return httpClient(url, options, retries + 1);
     }
 
+    // Provide user-friendly error messages
+    let userMessage = 'Request failed. Please try again.';
+    if (error.name === 'AbortError') {
+      userMessage = 'Request timed out. Please check your connection and try again.';
+    } else if (error.message.includes('Failed to fetch')) {
+      userMessage = 'Network error. Please check your internet connection.';
+    }
+
     return {
       success: false,
-      error: { message: error.message },
+      error: { 
+        message: userMessage,
+        originalError: error.message,
+        isTimeout: error.name === 'AbortError',
+        isNetworkError: error.message.includes('Failed to fetch')
+      },
       status: 500,
     };
   }
