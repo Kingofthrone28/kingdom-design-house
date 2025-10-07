@@ -193,39 +193,47 @@ What specific services are you interested in?`,
  * @returns {Object} Transformed lead data for HubSpot
  */
 const transformLeadData = (structuredInfo, originalMessage) => {
-  // Timeline to days mapping
-  const timelineMap = {
-    'urgent': 7,
-    'asap': 7,
-    'month': 30,
-    'quarter': 90
-  };
-
-  // Extract budget amount with multiplier support
-  const extractBudgetAmount = (budget) => {
-    if (!budget) return '0';
-    const match = budget.match(/\$?(\d+(?:\.\d+)?)([kK]?)/);
-    return match ? (parseFloat(match[1]) * (match[2].toLowerCase() === 'k' ? 1000 : 1)).toString() : '0';
-  };
-
-  // Get delivery date based on timeline keywords
-  const getDeliveryDate = (timeline) => {
-    const days = 
-    Object.entries(timelineMap)
-      .find(([keyword]) => timeline?.toLowerCase().includes(keyword))?.[1] || 30;
-    return new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
-  };
-
-  // Unified field mapping with direct and computed values
-  const fieldMap = {
-    // Direct mappings
-    ...Object.fromEntries(['email', 'first_name', 'last_name', 'phone', 'company', 'website', 'service_requested', 'conversation_keywords', 'budget_range', 'timeline']
-      .map(field => [field, structuredInfo[field]])),
+  // Extract and transform data using helper functions
+  const transformedData = {
+    // Direct field mappings
+    ...mapDirectFields(structuredInfo),
     
-    // Computed mappings
-    deal_name: structuredInfo.service_requested ? `${structuredInfo.service_requested} Project` : 'New Lead Project',
+    // Computed field mappings
+    ...mapComputedFields(structuredInfo, originalMessage)
+  };
+
+  return transformedData;
+};
+
+/**
+ * Maps direct fields from structured info to HubSpot format
+ * @param {Object} structuredInfo - Raw structured information
+ * @returns {Object} Direct field mappings
+ */
+const mapDirectFields = (structuredInfo) => {
+  const directFields = [
+    'email', 'first_name', 'last_name', 'phone', 'company', 
+    'website', 'service_requested', 'conversation_keywords', 
+    'budget_range', 'timeline'
+  ];
+  
+  return directFields.reduce((mapping, field) => {
+    mapping[field] = structuredInfo[field];
+    return mapping;
+  }, {});
+};
+
+/**
+ * Maps computed fields that require transformation or calculation
+ * @param {Object} structuredInfo - Raw structured information
+ * @param {string} originalMessage - Original user message
+ * @returns {Object} Computed field mappings
+ */
+const mapComputedFields = (structuredInfo, originalMessage) => {
+  return {
+    deal_name: generateDealName(structuredInfo.service_requested),
     budget_amount: extractBudgetAmount(structuredInfo.budget_range),
-    estimated_delivery_date: getDeliveryDate(structuredInfo.timeline),
+    estimated_delivery_date: calculateDeliveryDate(structuredInfo.timeline),
     project_description: structuredInfo.project_description || originalMessage,
     description: structuredInfo.project_description || originalMessage,
     priority_level: 'HIGH',
@@ -234,8 +242,59 @@ const transformLeadData = (structuredInfo, originalMessage) => {
     originalMessage,
     timestamp: new Date().toISOString()
   };
+};
 
-  return fieldMap;
+/**
+ * Generates a deal name based on service requested
+ * @param {string} serviceRequested - The requested service
+ * @returns {string} Generated deal name
+ */
+const generateDealName = (serviceRequested) => {
+  return serviceRequested ? `${serviceRequested} Project` : 'New Lead Project';
+};
+
+/**
+ * Extracts and normalizes budget amount from budget range text
+ * @param {string} budgetRange - Budget range text (e.g., "$5k", "10K", "5000")
+ * @returns {string} Normalized budget amount as string
+ */
+const extractBudgetAmount = (budgetRange) => {
+  if (!budgetRange) return '0';
+  
+  const budgetPattern = /\$?(\d+(?:\.\d+)?)([kK]?)/;
+  const match = budgetRange.match(budgetPattern);
+  
+  if (!match) return '0';
+  
+  const amount = parseFloat(match[1]);
+  const multiplier = match[2].toLowerCase() === 'k' ? 1000 : 1;
+  
+  return (amount * multiplier).toString();
+};
+
+/**
+ * Calculates delivery date based on timeline keywords
+ * @param {string} timeline - Project timeline text
+ * @returns {string} ISO string of calculated delivery date
+ */
+const calculateDeliveryDate = (timeline) => {
+  const timelineMap = {
+    'urgent': 7,
+    'asap': 7,
+    'month': 30,
+    'quarter': 90
+  };
+  
+  const defaultDays = 30;
+  const timelineLower = timeline?.toLowerCase() || '';
+  
+  const matchingKeyword = Object.entries(timelineMap)
+    .find(([keyword]) => timelineLower.includes(keyword));
+  
+  const days = matchingKeyword ? matchingKeyword[1] : defaultDays;
+  const deliveryDate = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+  
+  return deliveryDate.toISOString();
 };
 
 /**
@@ -297,43 +356,113 @@ const handleLeadCreation = async (ragData, originalMessage) => {
  * @returns {boolean} True if lead should be created
  */
 const shouldCreateLead = (structuredInfo) => {
+  // Early return for invalid input
+  if (!isValidStructuredInfo(structuredInfo)) {
+    return false;
+  }
+
+  // Extract and validate key information
+  const leadCriteria = extractLeadCriteria(structuredInfo);
+  
+  // Apply business logic for lead qualification
+  const shouldCreate = evaluateLeadCreationCriteria(leadCriteria);
+  
+  // Log decision for debugging
+  logLeadCreationDecision(leadCriteria, shouldCreate);
+
+  return shouldCreate;
+};
+
+/**
+ * Validates that structured info is a valid object with content
+ * @param {*} structuredInfo - The structured info to validate
+ * @returns {boolean} True if valid, false otherwise
+ */
+const isValidStructuredInfo = (structuredInfo) => {
   if (!structuredInfo || typeof structuredInfo !== 'object') {
     console.log('No structured info or invalid format');
     return false;
   }
+  return true;
+};
 
-  // Check for email (required for contact creation)
-  const hasEmail = structuredInfo.email && structuredInfo.email.trim() !== '';
-  
-  // Check for service interest (required for deal/ticket creation)
-  const hasServiceInterest = structuredInfo.service_requested && structuredInfo.service_requested.trim() !== '';
-  
-  // Check for project description (alternative for ticket creation)
-  const hasProjectDescription = structuredInfo.project_description && structuredInfo.project_description.trim() !== '';
-  
-  // Check for any lead indicators (budget, timeline, company, phone)
-  const hasLeadIndicators = structuredInfo.budget_range || 
-                           structuredInfo.timeline || 
-                           structuredInfo.company || 
-                           structuredInfo.phone ||
-                           structuredInfo.first_name ||
-                           structuredInfo.last_name;
+/**
+ * Extracts and validates key lead qualification criteria
+ * @param {Object} structuredInfo - Raw structured information
+ * @returns {Object} Validated lead criteria
+ */
+const extractLeadCriteria = (structuredInfo) => {
+  return {
+    hasEmail: hasValidField(structuredInfo.email),
+    hasServiceInterest: hasValidField(structuredInfo.service_requested),
+    hasProjectDescription: hasValidField(structuredInfo.project_description),
+    hasContactInfo: hasAnyContactInfo(structuredInfo),
+    hasLeadIndicators: hasAnyLeadIndicators(structuredInfo)
+  };
+};
 
-  // Lead should be created if:
-  // 1. We have an email AND (service interest OR project description OR lead indicators)
-  // 2. OR we have service interest with any contact info
-  const shouldCreate = (hasEmail && (hasServiceInterest || hasProjectDescription || hasLeadIndicators)) ||
-                      (hasServiceInterest && (structuredInfo.first_name || structuredInfo.last_name || structuredInfo.company));
+/**
+ * Checks if a field has valid content (not empty or whitespace)
+ * @param {string} field - Field value to check
+ * @returns {boolean} True if field has valid content
+ */
+const hasValidField = (field) => {
+  return field && field.trim() !== '';
+};
 
+/**
+ * Checks if any contact information is available
+ * @param {Object} structuredInfo - Structured information object
+ * @returns {boolean} True if any contact info is present
+ */
+const hasAnyContactInfo = (structuredInfo) => {
+  return hasValidField(structuredInfo.first_name) || 
+         hasValidField(structuredInfo.last_name) || 
+         hasValidField(structuredInfo.company);
+};
+
+/**
+ * Checks if any lead qualification indicators are present
+ * @param {Object} structuredInfo - Structured information object
+ * @returns {boolean} True if any lead indicators are present
+ */
+const hasAnyLeadIndicators = (structuredInfo) => {
+  const leadIndicatorFields = [
+    'budget_range', 'timeline', 'company', 'phone', 
+    'first_name', 'last_name'
+  ];
+  
+  return leadIndicatorFields.some(field => hasValidField(structuredInfo[field]));
+};
+
+/**
+ * Evaluates lead creation criteria using business logic
+ * @param {Object} criteria - Lead qualification criteria
+ * @returns {boolean} True if lead should be created
+ */
+const evaluateLeadCreationCriteria = (criteria) => {
+  const { hasEmail, hasServiceInterest, hasProjectDescription, hasContactInfo, hasLeadIndicators } = criteria;
+  
+  // Primary qualification: Email + (Service Interest OR Project Description OR Lead Indicators)
+  const primaryQualification = hasEmail && (hasServiceInterest || hasProjectDescription || hasLeadIndicators);
+  
+  // Secondary qualification: Service Interest + Contact Information
+  const secondaryQualification = hasServiceInterest && hasContactInfo;
+  
+  return primaryQualification || secondaryQualification;
+};
+
+/**
+ * Logs lead creation decision for debugging and monitoring
+ * @param {Object} criteria - Lead qualification criteria
+ * @param {boolean} shouldCreate - Final decision
+ */
+const logLeadCreationDecision = (criteria, shouldCreate) => {
   console.log('Lead creation decision:', {
-    hasEmail,
-    hasServiceInterest,
-    hasProjectDescription,
-    hasLeadIndicators,
-    shouldCreate
+    ...criteria,
+    shouldCreate,
+    timestamp: new Date().toISOString()
   });
-
-  return shouldCreate;
 };
 
 /**
