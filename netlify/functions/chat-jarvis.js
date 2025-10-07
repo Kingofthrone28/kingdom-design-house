@@ -1,11 +1,39 @@
 /**
  * @fileoverview Netlify Function: Chat Jarvis Proxy
  * 
- * This function acts as a proxy between the frontend and the RAG API server.
- * It handles CORS, request validation, and optional lead creation.
+ * This function acts as a critical proxy between the frontend and the RAG API server.
+ * It handles CORS, request validation, and optional lead creation in the Kingdom Design House
+ * AI chat system architecture.
  * 
- * @author Kingdom Design House
+ * SYSTEM INTEGRATION:
+ * ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+ * │   Frontend      │    │   Netlify       │    │   RAG API       │
+ * │   (Next.js)     │───▶│   Functions     │───▶│   (Railway)     │
+ * │   Chat UI       │    │   This Module   │    │   AI Processing │
+ * └─────────────────┘    └─────────────────┘    └─────────────────┘
+ *                                 │
+ *                                 ▼
+ *                        ┌─────────────────┐
+ *                        │   HubSpot CRM   │
+ *                        │   Lead Storage  │
+ *                        └─────────────────┘
+ * 
+ * WORKFLOW:
+ * 1. Receives chat requests from frontend with CORS handling
+ * 2. Validates request format and required fields
+ * 3. Proxies request to RAG API server for AI processing
+ * 4. Transforms RAG response data for HubSpot compatibility
+ * 5. Optionally creates leads in HubSpot CRM
+ * 6. Returns enriched response to frontend
+ * 
+ * FALLBACK MECHANISMS:
+ * - RAG API unavailable: Returns template response with contact info
+ * - Lead creation fails: Continues chat functionality without CRM integration
+ * - Invalid requests: Returns structured error responses
+ * 
+ * @author Kingdom Design House Development Team
  * @version 1.0.0
+ * @since 2024
  */
 
 /**
