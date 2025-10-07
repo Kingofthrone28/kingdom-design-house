@@ -239,12 +239,20 @@ const mapDirectFields = (structuredInfo) => {
  * @returns {Object} Computed field mappings
  */
 const mapComputedFields = (structuredInfo, originalMessage) => {
+
+  const { 
+    service_requested, 
+    budget_range, 
+    timeline, 
+    project_description
+  } = structuredInfo;
+  
   return {
-    deal_name: generateDealName(structuredInfo.service_requested),
-    budget_amount: extractBudgetAmount(structuredInfo.budget_range),
-    estimated_delivery_date: calculateDeliveryDate(structuredInfo.timeline),
-    project_description: structuredInfo.project_description || originalMessage,
-    description: structuredInfo.project_description || originalMessage,
+    deal_name: generateDealName(service_requested),
+    budget_amount: extractBudgetAmount(budget_range),
+    estimated_delivery_date: calculateDeliveryDate(timeline),
+    project_description: project_description || originalMessage,
+    description: project_description || originalMessage,
     priority_level: 'HIGH',
     assigned_team: 'KDH Sales Team',
     issue_type: 'Lead Follow-up',
@@ -314,7 +322,11 @@ const calculateDeliveryDate = (timeline) => {
  */
 const handleLeadCreation = async (ragData, originalMessage) => {
   // Destructure ragData for cleaner access
-  const { structuredInfo, leadCreated, leadError } = ragData;
+  let { 
+    structuredInfo, 
+    leadCreated, 
+    leadError 
+  } = ragData;
   
   // Check if we have structured lead information
   if (!structuredInfo || !shouldCreateLead(structuredInfo)) {
@@ -336,17 +348,18 @@ const handleLeadCreation = async (ragData, originalMessage) => {
     if(!leadResponse.ok){
       const errorData = await leadResponse.json();
       console.warn('Lead creation failed:', leadResponse.status, errorData);
-      ragData.leadCreated = false;
-      ragData.leadError = errorData.message || 'Lead creation failed';
-    } else {
-      ragData.leadCreated = true;
-    }
+      leadCreated = false;
+      leadError = errorData.message || 'Lead creation failed';
+    } 
+    
+    return leadCreated = true;
+    
   
   } catch (leadError) {
     console.error('Error creating lead:', leadError);
     // Don't fail the chat response if lead creation fails
-    ragData.leadCreated = false;
-    ragData.leadError = leadError.message;
+    leadCreated = false;
+    leadError = leadError.message;
   }
 
   return ragData;
@@ -538,4 +551,40 @@ exports.handler = async (event, context) => {
       timestamp: new Date().toISOString(),
     });
   }
+};
+
+// Export functions for testing
+module.exports = {
+  // Main handler
+  handler: exports.handler,
+  
+  // Utility functions
+  validateRequest,
+  createResponse,
+  handleCorsPreflight,
+  
+  // RAG API functions
+  callRagApi,
+  createFallbackResponse,
+  
+  // Data transformation functions
+  transformLeadData,
+  mapDirectFields,
+  mapComputedFields,
+  generateDealName,
+  extractBudgetAmount,
+  calculateDeliveryDate,
+  
+  // Lead qualification functions
+  shouldCreateLead,
+  isValidStructuredInfo,
+  extractLeadCriteria,
+  hasValidField,
+  hasAnyContactInfo,
+  hasAnyLeadIndicators,
+  evaluateLeadCreationCriteria,
+  logLeadCreationDecision,
+  
+  // Lead creation functions
+  handleLeadCreation
 };
