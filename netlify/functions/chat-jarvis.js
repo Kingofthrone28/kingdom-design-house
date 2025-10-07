@@ -153,8 +153,18 @@ const callRagApi = async (message, conversationHistory, userId) => {
     console.error('RAG API call failed:', error);
     
     // Return a fallback response when RAG API is unavailable
-    return {
-      response: `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.
+    return createFallbackResponse(message);
+  }
+};
+
+/**
+ * Creates a fallback response when RAG API is unavailable
+ * @param {string} message - Original user message
+ * @returns {Object} Fallback response structure
+ */
+const createFallbackResponse = (message) => {
+  return {
+    response: `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.
 
 For immediate assistance, please contact us:
 📞 Phone: 347.927.8846
@@ -167,23 +177,22 @@ We offer comprehensive packages for businesses of all sizes, including:
 • AI Integration
 
 What specific services are you interested in?`,
-      structuredInfo: {
-        email: null,
-        first_name: null,
-        last_name: null,
-        phone: null,
-        company: null,
-        website: null,
-        service_requested: 'General Inquiry',
-        budget_range: null,
-        timeline: null,
-        project_description: message
-      },
-      hubspotLead: null,
-      relevantDocs: [],
-      timestamp: new Date().toISOString()
-    };
-  }
+    structuredInfo: {
+      email: null,
+      first_name: null,
+      last_name: null,
+      phone: null,
+      company: null,
+      website: null,
+      service_requested: 'General Inquiry',
+      budget_range: null,
+      timeline: null,
+      project_description: message
+    },
+    hubspotLead: null,
+    relevantDocs: [],
+    timestamp: new Date().toISOString()
+  };
 };
 
 /**
@@ -304,14 +313,17 @@ const calculateDeliveryDate = (timeline) => {
  * @returns {Promise<Object>} Updated RAG data with lead creation status
  */
 const handleLeadCreation = async (ragData, originalMessage) => {
+  // Destructure ragData for cleaner access
+  const { structuredInfo, leadCreated, leadError } = ragData;
+  
   // Check if we have structured lead information
-  if (!ragData.structuredInfo || !shouldCreateLead(ragData.structuredInfo)) {
+  if (!structuredInfo || !shouldCreateLead(structuredInfo)) {
     return ragData;
   }
 
   try {
     // Transform the data to match HubSpot service expectations
-    const transformedLeadData = transformLeadData(ragData.structuredInfo, originalMessage);
+    const transformedLeadData = transformLeadData(structuredInfo, originalMessage);
         
     const leadResponse = await fetch(`${process.env.URL || 'http://localhost:8888'}/.netlify/functions/send-lead`, {
       method: 'POST',
@@ -326,8 +338,9 @@ const handleLeadCreation = async (ragData, originalMessage) => {
       console.warn('Lead creation failed:', leadResponse.status, errorData);
       ragData.leadCreated = false;
       ragData.leadError = errorData.message || 'Lead creation failed';
+    } else {
+      ragData.leadCreated = true;
     }
-    ragData.leadCreated = true;
   
   } catch (leadError) {
     console.error('Error creating lead:', leadError);
@@ -441,7 +454,13 @@ const hasAnyLeadIndicators = (structuredInfo) => {
  * @returns {boolean} True if lead should be created
  */
 const evaluateLeadCreationCriteria = (criteria) => {
-  const { hasEmail, hasServiceInterest, hasProjectDescription, hasContactInfo, hasLeadIndicators } = criteria;
+  const { 
+    hasEmail, 
+    hasServiceInterest, 
+    hasProjectDescription, 
+    hasContactInfo, 
+    hasLeadIndicators 
+  } = criteria;
   
   // Primary qualification: Email + (Service Interest OR Project Description OR Lead Indicators)
   const primaryQualification = hasEmail && (hasServiceInterest || hasProjectDescription || hasLeadIndicators);
