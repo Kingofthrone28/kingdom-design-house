@@ -1,8 +1,76 @@
+/**
+ * @fileoverview RAG (Retrieval-Augmented Generation) Chat API Route
+ * 
+ * This module implements the core chat functionality for Kingdom Design House's AI assistant (Jarvis).
+ * It combines document retrieval, AI-powered response generation, and lead capture in a unified system.
+ * 
+ * SYSTEM ARCHITECTURE:
+ * ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+ * │   Frontend      │    │   Netlify       │    │   RAG API       │
+ * │   (Next.js)     │───▶│   Functions     │───▶│   (Railway)     │
+ * │   Chat UI       │    │   Proxy         │    │   This Module   │
+ * └─────────────────┘    └─────────────────┘    └─────────────────┘
+ *                                                       │
+ *                                                       ▼
+ * ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+ * │   HubSpot CRM   │◀───│   Lead Creation │◀───│   AI Services   │
+ * │   Lead Storage  │    │   Logic         │    │   OpenAI GPT    │
+ * └─────────────────┘    └─────────────────┘    └─────────────────┘
+ *                                                       │
+ *                                                       ▼
+ *                                                ┌─────────────────┐
+ *                                                │   Pinecone      │
+ *                                                │   Vector DB     │
+ *                                                │   Document      │
+ *                                                │   Retrieval     │
+ *                                                └─────────────────┘
+ * 
+ * WORKFLOW:
+ * 1. User sends message via frontend chat interface
+ * 2. Netlify function proxies request to RAG API
+ * 3. RAG API searches Pinecone for relevant documents
+ * 4. AI generates contextual response using retrieved documents
+ * 5. System extracts lead information from conversation
+ * 6. Lead is created in HubSpot CRM if sufficient data available
+ * 7. Response is sent back through the chain to user
+ * 
+ * FALLBACK SYSTEMS:
+ * - If AI services fail: Uses template responses with contact info
+ * - If Pinecone fails: Uses basic keyword matching for responses
+ * - If HubSpot fails: Logs error but continues chat functionality
+ * 
+ * @author Kingdom Design House Development Team
+ * @version 1.0.0
+ * @since 2024
+ */
+
 const { searchSimilarDocuments } = require('../services/pinecone');
 const { generateResponse, extractStructuredInfo } = require('../services/openai');
 const { createLead } = require('../services/hubspot');
 
-// Helper function to extract basic lead info without AI
+/**
+ * Extracts basic lead information from user queries using regex patterns and keyword matching.
+ * This function serves as a fallback when AI-powered extraction is unavailable and provides
+ * essential lead capture functionality for the RAG (Retrieval-Augmented Generation) system.
+ * 
+ * @param {string} query - The user's current message/query
+ * @param {Array} conversationHistory - Array of conversation messages in format [{role: 'user'|'assistant', content: string}]
+ * @returns {Object} Extracted lead information including:
+ *   - email: Extracted email address using regex
+ *   - phone: Extracted phone number using regex  
+ *   - first_name: Extracted first name using multiple pattern matching
+ *   - last_name: Extracted last name using multiple pattern matching
+ *   - service_requested: Detected service type based on keyword analysis
+ *   - project_description: Truncated query for project context
+ *   - budget_range: Extracted budget amount from query
+ *   - timeline: Extracted project timeline information
+ *   - conversation_keywords: Relevant keywords from the conversation
+ * 
+ * @description This function is critical for lead capture when AI services are down.
+ * It uses multiple regex patterns to extract names and analyzes conversation history
+ * to determine service interests. It handles both legacy string format and current
+ * array format for conversation history.
+ */
 const extractBasicLeadInfo = (query, conversationHistory = []) => {
   const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
   const phoneRegex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/;
@@ -139,7 +207,22 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   };
 };
 
-// Helper function to extract conversation keywords
+/**
+ * Extracts relevant keywords from user queries to enhance lead categorization and analysis.
+ * This function analyzes conversation content to identify business context, technology needs,
+ * urgency indicators, and budget considerations for better lead qualification.
+ * 
+ * @param {string} query - The user's message/query to analyze
+ * @returns {string|null} Comma-separated string of found keywords, or null if none found
+ * 
+ * @description This function supports the lead qualification process by identifying:
+ * - Business context (startup, enterprise, small business)
+ * - Technology requirements (website, app, mobile, ecommerce)
+ * - Urgency indicators (urgent, asap, deadline)
+ * - Budget considerations (affordable, expensive, investment)
+ * 
+ * The extracted keywords help sales teams understand lead context and prioritize follow-up.
+ */
 const extractConversationKeywords = (query) => {
   const keywords = [];
   const lowerQuery = query.toLowerCase();
@@ -159,7 +242,19 @@ const extractConversationKeywords = (query) => {
   return keywords.join(', ') || null;
 };
 
-// Fallback response templates
+/**
+ * Fallback response templates for when AI services are unavailable.
+ * These templates ensure the chat system remains functional even during service outages,
+ * providing professional responses that maintain user engagement and lead capture.
+ * 
+ * @type {Object}
+ * @property {string} default - Standard fallback response for general inquiries
+ * @property {Function} personalized - Dynamic response generator for service-specific inquiries
+ * 
+ * @description These templates are critical for system reliability and ensure
+ * that potential leads are not lost due to technical difficulties. They include
+ * contact information and service offerings to maintain business continuity.
+ */
 const FALLBACK_RESPONSES = {
   default: `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing technical difficulties with my AI services, but I'd be happy to help you with your web development, IT services, networking, and AI solutions needs.
 
@@ -191,7 +286,23 @@ For immediate assistance, please contact us:
 I'll make sure our team gets back to you quickly with a personalized proposal for your needs. What's your timeline looking like for this project?`
 };
 
-// System prompt template
+/**
+ * Creates a comprehensive system prompt for the AI assistant (Jarvis) that includes
+ * company context, conversation history, and behavioral guidelines.
+ * 
+ * @param {string} context - Relevant context from retrieved documents via Pinecone search
+ * @param {Array} conversationHistory - Array of previous conversation messages
+ * @returns {string} Formatted system prompt for AI model
+ * 
+ * @description This function is central to the RAG system's effectiveness. It:
+ * - Provides Jarvis with company information and service offerings
+ * - Includes relevant context from document search for informed responses
+ * - Maintains conversation context for coherent interactions
+ * - Sets behavioral guidelines for professional lead qualification
+ * 
+ * The system prompt ensures Jarvis responds consistently with company values
+ * and effectively qualifies leads through structured conversation flow.
+ */
 const createSystemPrompt = (context, conversationHistory) => `You are Jarvis, the AI assistant for Kingdom Design House. You help potential clients understand our services and gather information about their needs.
 
 Company Information:
@@ -220,7 +331,26 @@ Guidelines:
 
 Current conversation history: ${conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join('\n')}`;
 
-// AI response helper
+/**
+ * Generates AI-powered responses using the RAG (Retrieval-Augmented Generation) system.
+ * This function orchestrates the core AI workflow: document retrieval, context building,
+ * and response generation with fallback handling for service reliability.
+ * 
+ * @param {string} query - The user's current message/query
+ * @param {Array} conversationHistory - Array of previous conversation messages
+ * @returns {Promise<Object>} Response object containing:
+ *   - response: AI-generated response text
+ *   - relevantDocs: Array of retrieved documents with metadata
+ * 
+ * @description This function implements the core RAG workflow:
+ * 1. Searches Pinecone vector database for relevant documents
+ * 2. Builds context from retrieved documents
+ * 3. Creates system prompt with context and conversation history
+ * 4. Generates AI response using OpenAI GPT model
+ * 5. Falls back to template responses if AI services fail
+ * 
+ * This is the primary function that makes the chat system intelligent and context-aware.
+ */
 const getAIResponse = async (query, conversationHistory) => {
   try {
     const relevantDocs = await searchSimilarDocuments(query, 5);
@@ -240,7 +370,23 @@ const getAIResponse = async (query, conversationHistory) => {
   }
 };
 
-// Structured info helper
+/**
+ * Extracts structured information from user queries using AI-powered analysis.
+ * This function uses OpenAI's advanced language understanding to identify and
+ * categorize lead information with high accuracy and context awareness.
+ * 
+ * @param {string} query - The user's message/query to analyze
+ * @returns {Promise<Object|null>} Structured lead information or null if extraction fails
+ * 
+ * @description This function provides AI-powered lead extraction that:
+ * - Uses advanced NLP to understand user intent and context
+ * - Extracts contact information, service interests, and project details
+ * - Provides higher accuracy than regex-based extraction
+ * - Handles complex conversation patterns and implicit information
+ * 
+ * This is the preferred method for lead extraction when AI services are available,
+ * falling back to extractBasicLeadInfo when AI services are unavailable.
+ */
 const getStructuredInfo = async (query) => {
   try {
     return await extractStructuredInfo(query);
@@ -250,7 +396,25 @@ const getStructuredInfo = async (query) => {
   }
 };
 
-// Lead creation logic helper
+/**
+ * Determines whether to create a HubSpot lead based on available information.
+ * This function implements the lead creation logic by evaluating structured information
+ * and falling back to basic extraction when needed.
+ * 
+ * @param {Object|null} structuredInfo - AI-extracted structured information
+ * @param {string} query - The user's current message/query
+ * @param {Array} conversationHistory - Array of previous conversation messages
+ * @returns {Promise<Object|null>} HubSpot lead object or null if no lead created
+ * 
+ * @description This function implements the lead qualification logic:
+ * 1. First attempts to use AI-extracted structured information
+ * 2. Falls back to basic regex-based extraction if AI data unavailable
+ * 3. Only creates leads when email and service information are available
+ * 4. Enriches lead data with conversation history for context
+ * 
+ * This function ensures leads are only created when sufficient information
+ * is available for meaningful follow-up by the sales team.
+ */
 const createLeadIfPossible = async (structuredInfo, query, conversationHistory = []) => {
   if (structuredInfo?.email && structuredInfo?.service_requested) {
     return await createHubSpotLead(structuredInfo, conversationHistory);
@@ -265,7 +429,25 @@ const createLeadIfPossible = async (structuredInfo, query, conversationHistory =
   return null;
 };
 
-// Lead creation helper
+/**
+ * Creates a lead in HubSpot CRM with enriched data and conversation context.
+ * This function handles the actual lead creation process, including data enrichment
+ * and error handling for HubSpot API integration.
+ * 
+ * @param {Object} leadData - Lead information extracted from user query
+ * @param {Array} conversationHistory - Array of conversation messages for context
+ * @returns {Promise<Object|null>} HubSpot lead response or null if creation fails
+ * 
+ * @description This function:
+ * 1. Enriches lead data with conversation history and metadata
+ * 2. Adds source tracking and communication preferences
+ * 3. Creates the lead in HubSpot CRM via API
+ * 4. Handles API errors gracefully with logging
+ * 5. Returns lead information for response generation
+ * 
+ * This function is critical for converting chat interactions into actionable
+ * sales leads in the CRM system.
+ */
 const createHubSpotLead = async (leadData, conversationHistory = []) => {
   try {
     console.log('Creating lead in HubSpot...')
@@ -291,7 +473,34 @@ const createHubSpotLead = async (leadData, conversationHistory = []) => {
   }
 };
 
-// Main chat handler
+/**
+ * Main chat handler that orchestrates the entire RAG system workflow.
+ * This is the primary API endpoint that processes chat messages, generates responses,
+ * and manages lead creation through the complete RAG pipeline.
+ * 
+ * @param {Object} req - Express request object containing:
+ *   - body.query: User's message/query
+ *   - body.conversationHistory: Array of previous conversation messages
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>} Sends JSON response with chat data
+ * 
+ * @description This function implements the complete RAG workflow:
+ * 1. Validates incoming request data
+ * 2. Generates AI response using document retrieval and context
+ * 3. Extracts structured information for lead qualification
+ * 4. Creates HubSpot leads when appropriate
+ * 5. Personalizes responses based on lead information
+ * 6. Returns comprehensive response with all relevant data
+ * 
+ * This is the central orchestrator that ties together all system components:
+ * - Pinecone vector search for document retrieval
+ * - OpenAI GPT for response generation and information extraction
+ * - HubSpot CRM for lead management
+ * - Fallback systems for service reliability
+ * 
+ * The function ensures robust error handling and graceful degradation
+ * when individual services are unavailable.
+ */
 const chatHandler = async (req, res) => {
   try {
     const { query, conversationHistory = [] } = req.body;
