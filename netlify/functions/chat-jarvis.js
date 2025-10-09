@@ -328,14 +328,24 @@ const handleLeadCreation = async (ragData, originalMessage) => {
     leadError 
   } = ragData;
   
+  console.log('Lead Creation Debug:', {
+    hasStructuredInfo: !!structuredInfo,
+    structuredInfo,
+    shouldCreate: structuredInfo ? shouldCreateLead(structuredInfo) : false,
+    originalMessage
+  });
+  
   // Check if we have structured lead information
   if (!structuredInfo || !shouldCreateLead(structuredInfo)) {
+    console.log('Skipping lead creation - no valid structured info or criteria not met');
     return ragData;
   }
 
   try {
     // Transform the data to match HubSpot service expectations
     const transformedLeadData = transformLeadData(structuredInfo, originalMessage);
+    
+    console.log('Attempting lead creation with data:', transformedLeadData);
         
     const leadResponse = await fetch(`${process.env.URL || 'http://localhost:8888'}/.netlify/functions/send-lead`, {
       method: 'POST',
@@ -344,17 +354,19 @@ const handleLeadCreation = async (ragData, originalMessage) => {
       },
       body: JSON.stringify(transformedLeadData),
     });
+    
+    console.log('Lead creation response status:', leadResponse.status);
 
     if(!leadResponse.ok){
       const errorData = await leadResponse.json();
       console.warn('Lead creation failed:', leadResponse.status, errorData);
       leadCreated = false;
       leadError = errorData.message || 'Lead creation failed';
-    } 
+    } else {
+      leadCreated = true;
+      console.log('Lead created successfully');
+    }
     
-    return leadCreated = true;
-    
-  
   } catch (leadError) {
     console.error('Error creating lead:', leadError);
     // Don't fail the chat response if lead creation fails
@@ -362,7 +374,12 @@ const handleLeadCreation = async (ragData, originalMessage) => {
     leadError = leadError.message;
   }
 
-  return ragData;
+  // Return updated ragData with lead creation status
+  return {
+    ...ragData,
+    leadCreated,
+    leadError
+  };
 };
 
 /**
