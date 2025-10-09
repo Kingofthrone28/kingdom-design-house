@@ -98,12 +98,18 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   
   const nameSearchQuery = userMessages || query;
   
+  console.log('Name Extraction Debug:');
+  console.log('User Messages:', userMessages);
+  console.log('Name Search Query:', nameSearchQuery);
+  
   // Pattern 1: "My name is John Smith" or "I'm John Smith"
   const namePattern1 = /(?:my name is|i'm|i am|this is)\s+([a-zA-Z]+)(?:\s+([a-zA-Z]+))?/i;
   const nameMatch1 = nameSearchQuery.match(namePattern1);
+  console.log('Pattern 1 match:', nameMatch1);
   if (nameMatch1) {
     firstName = nameMatch1[1];
     lastName = nameMatch1[2] || null;
+    console.log('Pattern 1 extracted:', { firstName, lastName });
   }
   
   // Pattern 2: "John Smith here" or "John Smith calling"
@@ -138,9 +144,21 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   // Pattern 6: "Hi my name is Lucas Tyler" (from the actual conversation)
   const namePattern6 = /hi my name is\s+([a-zA-Z]+)(?:\s+([a-zA-Z]+))?/i;
   const nameMatch6 = nameSearchQuery.match(namePattern6);
+  console.log('Pattern 6 match:', nameMatch6);
   if (nameMatch6 && !firstName) {
     firstName = nameMatch6[1];
     lastName = nameMatch6[2] || null;
+    console.log('Pattern 6 extracted:', { firstName, lastName });
+  }
+  
+  // Pattern 7: More flexible "Hi my name is" pattern
+  const namePattern7 = /hi\s+my\s+name\s+is\s+([a-zA-Z]+)(?:\s+([a-zA-Z]+))?/i;
+  const nameMatch7 = nameSearchQuery.match(namePattern7);
+  console.log('Pattern 7 match:', nameMatch7);
+  if (nameMatch7 && !firstName) {
+    firstName = nameMatch7[1];
+    lastName = nameMatch7[2] || null;
+    console.log('Pattern 7 extracted:', { firstName, lastName });
   }
   
   // Enhanced service keywords mapping with more specific terms
@@ -213,7 +231,7 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   // Extract conversation keywords
   const conversationKeywords = extractConversationKeywords(query);
   
-  return {
+  const extractedInfo = {
     email: email || null,
     phone: phone || null,
     first_name: firstName,
@@ -225,6 +243,9 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
     timeline: timeline,
     conversation_keywords: conversationKeywords
   };
+  
+  console.log('Final extracted lead info:', extractedInfo);
+  return extractedInfo;
 };
 
 /**
@@ -436,14 +457,25 @@ const getStructuredInfo = async (query) => {
  * is available for meaningful follow-up by the sales team.
  */
 const createLeadIfPossible = async (structuredInfo, query, conversationHistory = []) => {
+  console.log('Lead Creation Debug - createLeadIfPossible:');
+  console.log('Structured Info:', structuredInfo);
+  console.log('Query:', query);
+  console.log('Conversation History:', conversationHistory);
+  
   if (structuredInfo?.email && structuredInfo?.service_requested) {
+    console.log('Using structured info for lead creation');
     return await createHubSpotLead(structuredInfo, conversationHistory);
   } else {
+    console.log('Falling back to basic lead info extraction');
     // Create enhanced query with full conversation for better service detection
     const fullConversation = conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join(' ') + ' ' + query;
     const basicLeadInfo = extractBasicLeadInfo(fullConversation, conversationHistory);
+    console.log('Basic Lead Info:', basicLeadInfo);
     if (basicLeadInfo.email) {
+      console.log('Creating lead with basic info');
       return await createHubSpotLead(basicLeadInfo, conversationHistory);
+    } else {
+      console.log('No email found in basic lead info - skipping lead creation');
     }
   }
   return null;
