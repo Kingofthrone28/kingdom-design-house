@@ -261,8 +261,8 @@ export const GDPRProvider = ({ children }) => {
    */
   const clearNonEssentialData = () => {
     // Clear analytics data
-    if (typeof gtag !== 'undefined') {
-      gtag('consent', 'update', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('consent', 'update', {
         analytics_storage: 'denied',
         ad_storage: 'denied'
       });
@@ -329,40 +329,40 @@ export const GDPRProvider = ({ children }) => {
    * Applies consent settings to the application
    */
   const applyConsentSettings = () => {
+    // Update Google Analytics consent
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('consent', 'update', {
+        analytics_storage: state.consent.analytics ? 'granted' : 'denied',
+        ad_storage: state.consent.marketing ? 'granted' : 'denied',
+      });
+    }
+
     // Analytics tracking
     if (state.consent.analytics) {
-      console.log('Analytics tracking enabled');
-      // Enable Google Analytics, etc.
+      console.log('✅ Analytics tracking enabled');
     } else {
-      console.log('Analytics tracking disabled');
-      // Disable analytics
+      console.log('❌ Analytics tracking disabled');
     }
 
     // Marketing cookies
     if (state.consent.marketing) {
-      console.log('Marketing tracking enabled');
-      // Enable marketing tracking
+      console.log('✅ Marketing tracking enabled');
     } else {
-      console.log('Marketing tracking disabled');
-      // Disable marketing tracking
+      console.log('❌ Marketing tracking disabled');
     }
 
     // Personalization
     if (state.consent.personalization) {
-      console.log('Personalization enabled');
-      // Enable personalization features
+      console.log('✅ Personalization enabled');
     } else {
-      console.log('Personalization disabled');
-      // Disable personalization
+      console.log('❌ Personalization disabled');
     }
 
     // Third-party services
     if (state.consent.thirdParty) {
-      console.log('Third-party services enabled');
-      // Enable third-party integrations
+      console.log('✅ Third-party services enabled');
     } else {
-      console.log('Third-party services disabled');
-      // Disable third-party services
+      console.log('❌ Third-party services disabled');
     }
   };
 
