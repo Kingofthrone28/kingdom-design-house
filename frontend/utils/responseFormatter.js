@@ -34,7 +34,12 @@ const extractKeywords = (text) => {
  * Formats text with keyword highlighting and bullet points
  */
 export const formatResponse = (text) => {
-  if (!text) return text;
+  if (!text || typeof text !== 'string') {
+    return [{
+      type: 'paragraph',
+      content: 'No response available'
+    }];
+  }
 
   // Extract keywords
   const keywords = extractKeywords(text);
@@ -140,8 +145,22 @@ const highlightKeywords = (text, keywords) => {
  * Renders formatted response as JSX
  */
 export const renderFormattedResponse = (formattedResponse) => {
+  // Handle null, undefined, or empty responses
+  if (!formattedResponse) {
+    return <div>No response available</div>;
+  }
+
+  // Handle string responses (fallback)
+  if (typeof formattedResponse === 'string') {
+    return <div dangerouslySetInnerHTML={{ __html: formattedResponse }} />;
+  }
+
+  // Handle non-array objects
   if (!Array.isArray(formattedResponse)) {
-    return <div dangerouslySetInnerHTML={{ __html: formattedResponse.content }} />;
+    if (formattedResponse.content) {
+      return <div dangerouslySetInnerHTML={{ __html: formattedResponse.content }} />;
+    }
+    return <div>Invalid response format</div>;
   }
 
   return formattedResponse.map((item, index) => {

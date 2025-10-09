@@ -45,11 +45,21 @@ What brings you here today? I'd love to learn about your project and how we can 
     setIsLoading(true);
 
     const assistantMessage = (data) => {
+      // Ensure data exists and has required properties
+      if (!data) {
+        return {
+          role: 'assistant',
+          content: 'Sorry, I encountered an error processing your request. Please try again.',
+          structuredInfo: null,
+          leadCreated: false
+        };
+      }
+
       return {
         role: 'assistant',
-        content: data.response,
-        structuredInfo: data.structuredInfo,
-        leadCreated: data.leadCreated
+        content: data.response || 'Sorry, I encountered an error processing your request. Please try again.',
+        structuredInfo: data.structuredInfo || null,
+        leadCreated: data.leadCreated || false
       };
     }
 
@@ -189,9 +199,9 @@ What specific services are you interested in?`;
             >
               <div className={styles.chatInterface__message__content}>
                 {message.role === 'assistant' ? (
-                  renderFormattedResponse(formatResponse(message.content))
+                  renderFormattedResponse(formatResponse(message.content || 'No response available'))
                 ) : (
-                  message.content
+                  message.content || 'No message content'
                 )}
               </div>
               {message.leadCreated && (
