@@ -158,6 +158,11 @@
 
       .formatted-question-list {
         margin: $spacing-sm 0;
+        background: $primary-beige;
+        margin: $spacing-sm;
+        font-weight: $font-semibold;
+        padding: $spacing-sm;
+        border-radius: $radius-lg;
         
         .formatted-question {
           margin-bottom: $spacing-xs;
