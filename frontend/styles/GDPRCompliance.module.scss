@@ -15,8 +15,8 @@
   color: $primary-black;
   padding: $spacing-lg;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  animation: slideUp 0.3s ease-out;
+  z-index: $z-dropdown;
+  animation: slideUp $transition-base;
 
   &__content {
     max-width: 1200px;
@@ -35,7 +35,7 @@
 
   &__text {
     flex: 1;
-    min-width: 300px;
+    min-width: $spacing-6xl;
 
     h3 {
       margin: 0 0 $spacing-sm 0;
@@ -88,7 +88,7 @@
     font-weight: $font-semibold;
     cursor: pointer;
     transition: all $transition-base;
-    min-width: 100px;
+    min-width: $spacing-5xl;
 
     &:hover {
       background: $primary-black;
@@ -131,7 +131,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2000;
+  z-index: $z-modal;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,14 +149,14 @@
 
   &__content {
     position: relative;
-    background: white;
+    background: $primary-white;
     border-radius: $radius-lg;
     box-shadow: $shadow-xl;
     max-width: 600px;
     width: 100%;
     max-height: 90vh;
     overflow: hidden;
-    animation: modalSlideIn 0.3s ease-out;
+    animation: modalSlideIn $transition-base;
 
     @media (max-width: $breakpoint-md) {
       max-width: 95vw;
@@ -230,7 +230,7 @@
     font-weight: $font-semibold;
     cursor: pointer;
     transition: all $transition-base;
-    min-width: 120px;
+    min-width: $spacing-6xl;
 
     &:hover {
       background: darken($primary-color, 10%);
@@ -308,8 +308,8 @@
     flex-shrink: 0;
 
     input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
+      width: $spacing-md;
+      height: $spacing-md;
       cursor: pointer;
       accent-color: $primary-color;
 

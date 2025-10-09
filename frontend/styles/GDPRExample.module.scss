@@ -31,7 +31,7 @@
   &__section {
     margin-bottom: $spacing-2xl;
     padding: $spacing-lg;
-    background: white;
+    background: $primary-white;
     border-radius: $radius-md;
     box-shadow: $shadow-sm;
     border: 1px solid $border-color;
@@ -134,7 +134,7 @@
     font-weight: $font-semibold;
     cursor: pointer;
     transition: all $transition-base;
-    min-width: 140px;
+    min-width: $spacing-6xl;
 
     &:hover {
       background: darken($primary-color, 10%);
@@ -168,7 +168,7 @@
   &__buttonPrimary {
     @extend .gdprExample__button;
     background: #28a745;
-    color: white;
+    color: $primary-white;
 
     &:hover {
       background: darken(#28a745, 10%);
@@ -178,7 +178,7 @@
   &__buttonDanger {
     @extend .gdprExample__button;
     background: #dc3545;
-    color: white;
+    color: $primary-white;
 
     &:hover {
       background: darken(#dc3545, 10%);
