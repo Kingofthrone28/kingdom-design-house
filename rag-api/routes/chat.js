@@ -144,11 +144,12 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   }
   
   // Enhanced service keywords mapping with more specific terms
+  // Order matters: more specific services should be checked first
   const serviceKeywords = {
-    'networking': ['network', 'networking', 'infrastructure', 'server', 'wifi', 'internet', 'connectivity', 'lan', 'wan', 'firewall', 'router', 'switch', 'cabling', 'wireless', 'ethernet', 'network setup', 'corporate office', 'users', 'devices', 'mbps', 'speed', 'security', 'router and switch', 'load balancing', 'network redundancy'],
+    'ai solutions': ['ai integration', 'ai solution', 'artificial intelligence', 'machine learning', 'chatbot', 'ai agent', 'sales automation', 'lead automation', 'automated sales', 'ai tools', 'intelligent automation', 'smart automation', 'predictive analytics', 'ai assistant', 'ai system'],
     'web development': ['website', 'web development', 'web design', 'site', 'online', 'web app', 'web application', 'ecommerce', 'cms', 'frontend', 'backend'],
-    'it services': ['it', 'technology', 'tech support', 'computer', 'system', 'technical support', 'help desk', 'desktop', 'laptop', 'hardware', 'software'],
-    'ai solutions': ['ai', 'artificial intelligence', 'automation', 'machine learning', 'chatbot', 'ai integration', 'intelligent', 'smart', 'predictive']
+    'networking': ['network', 'networking', 'infrastructure', 'server', 'wifi', 'internet', 'connectivity', 'lan', 'wan', 'firewall', 'router', 'switch', 'cabling', 'wireless', 'ethernet', 'network setup', 'corporate office', 'users', 'devices', 'mbps', 'speed', 'security', 'router and switch', 'load balancing', 'network redundancy'],
+    'it services': ['it', 'technology', 'tech support', 'computer', 'system', 'technical support', 'help desk', 'desktop', 'laptop', 'hardware', 'software']
   };
   
   // Extract only user messages from conversation history for better service detection
@@ -167,8 +168,25 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   const cleanQuery = userMessagesForService || query.toLowerCase();
   
   // Analyze user messages for service detection (prioritize user intent)
-  const serviceRequested = Object.entries(serviceKeywords)
-    .find(([_, keywords]) => keywords.some(keyword => cleanQuery.includes(keyword)))?.[0] || 'General Inquiry';
+  // Score each service based on keyword matches and specificity
+  const serviceScores = Object.entries(serviceKeywords).map(([service, keywords]) => {
+    const matches = keywords.filter(keyword => cleanQuery.includes(keyword));
+    const score = matches.length;
+    // Boost score for exact phrase matches (more specific)
+    const exactMatches = matches.filter(keyword => keyword.includes(' ') && cleanQuery.includes(keyword));
+    return {
+      service,
+      score: score + (exactMatches.length * 2), // Double points for exact phrase matches
+      matches
+    };
+  });
+  
+  // Sort by score (highest first) and take the best match
+  const bestMatch = serviceScores
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score)[0];
+  
+  const serviceRequested = bestMatch?.service || 'General Inquiry';
   
   // Debug logging for service detection
   console.log('Service Detection Debug:');
@@ -176,6 +194,8 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   console.log('Conversation History:', conversationHistory);
   console.log('User Messages:', userMessagesForService);
   console.log('Clean Query:', cleanQuery);
+  console.log('Service Scores:', serviceScores);
+  console.log('Best Match:', bestMatch);
   console.log('Detected Service:', serviceRequested);
   console.log('Name Search Query:', nameSearchQuery);
   console.log('Extracted Name:', { firstName, lastName });
