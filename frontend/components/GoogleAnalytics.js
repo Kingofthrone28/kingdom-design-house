@@ -2,7 +2,8 @@
  * @fileoverview Google Analytics Component
  * 
  * This component manages Google Analytics tracking with GDPR compliance.
- * It only loads and executes GA when the user has given consent.
+ * The gtag script is always loaded for detection but tracking is controlled by consent.
+ * Analytics data collection is denied by default until user gives consent.
  * 
  * @author Kingdom Design House Development Team
  * @version 1.0.0
@@ -58,14 +59,9 @@ const GoogleAnalytics = () => {
     }
   }, [canTrackAnalytics, consent.marketing]);
 
-  // Don't load GA if user hasn't consented
-  if (!canTrackAnalytics()) {
-    return null;
-  }
-
   return (
     <>
-      {/* Global Site Tag (gtag.js) - Google Analytics */}
+      {/* Global Site Tag (gtag.js) - Always loaded for detection */}
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
@@ -79,12 +75,14 @@ const GoogleAnalytics = () => {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             
+            // Set default consent - deny all until user consents
             gtag('consent', 'default', {
-              'analytics_storage': 'granted',
-              'ad_storage': '${consent.marketing ? 'granted' : 'denied'}',
+              'analytics_storage': 'denied',
+              'ad_storage': 'denied',
               'anonymize_ip': true
             });
             
+            // Configure GA but tracking will be controlled by consent
             gtag('config', '${GA_MEASUREMENT_ID}', {
               page_path: window.location.pathname,
               anonymize_ip: true,

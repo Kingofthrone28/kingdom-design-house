@@ -17,15 +17,17 @@ Our Google Analytics implementation:
 
 ## 🚀 How It Works
 
-### 1. **Consent-Based Loading**
+### 1. **Consent-Based Tracking**
 
-Google Analytics only loads when the user has given analytics consent through the GDPR banner:
+Google Analytics gtag script is always loaded for detection, but tracking is controlled by consent:
 
 ```jsx
-// GoogleAnalytics.js checks consent before loading
-if (!canTrackAnalytics()) {
-  return null; // Don't load GA scripts
-}
+// GoogleAnalytics.js always loads gtag but denies tracking by default
+gtag('consent', 'default', {
+  'analytics_storage': 'denied',
+  'ad_storage': 'denied',
+  'anonymize_ip': true
+});
 ```
 
 ### 2. **Automatic Page View Tracking**
@@ -214,10 +216,10 @@ trackTiming('API', 'load_time', endTime - startTime, 'Chat API');
 
 ### Consent Flow
 
-1. **User Visits Site** → GDPR banner appears
-2. **User Accepts Analytics** → Google Analytics loads
+1. **User Visits Site** → gtag script loads (denied by default) → GDPR banner appears
+2. **User Accepts Analytics** → Google Analytics tracking enabled
 3. **User Browses** → Page views and events tracked
-4. **User Withdraws Consent** → Google Analytics disabled
+4. **User Withdraws Consent** → Google Analytics tracking disabled
 
 ### Consent Updates
 
@@ -397,12 +399,12 @@ console.log(canTrackAnalytics()); // Should return true/false
 
 ## 🔧 Troubleshooting
 
-### GA Not Loading
+### GA Not Detected
 
-1. Check if user has given analytics consent
-2. Verify `G-BEKZ5DH50B` measurement ID is correct
-3. Check browser console for errors
-4. Ensure ad blockers are disabled for testing
+1. Verify `G-BEKZ5DH50B` measurement ID is correct
+2. Check browser console for errors
+3. Ensure ad blockers are disabled for testing
+4. Wait a few minutes after deployment for changes to propagate
 
 ### Events Not Tracking
 
