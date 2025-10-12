@@ -21,7 +21,7 @@ const buildHubSpotHeaders = () => ({
  * @param {object} contactData - Data for the contact.
  * @returns {Promise<object>} HubSpot contact response.
  */
-const ecreateHubSpotContact = async (contactData) => {
+const createHubSpotContact = async (contactData) => {
   const url = `${HUBSPOT_BASE_URL}/crm/v3/objects/contacts`;
   const payload = { properties: contactData };
   return await httpClient(url, {
