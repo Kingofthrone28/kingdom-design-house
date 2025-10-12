@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Navbar from './Navbar';
 import NavBarGroup from './navBarGroup';
+import Breadcrumbs from './Molecules/Breadcrumbs';
 import Footer from './Footer';
 import { SiteDataProvider } from '../contexts/SiteDataContext';
 import { LayoutProvider } from '../contexts/LayoutContext';
@@ -59,6 +60,9 @@ const Layout = ({ children }) => {
     isServicesPage
   } = pageInfo;
 
+  // Show breadcrumbs on all pages except homepage
+  const showBreadcrumbs = router.pathname !== '/';
+
   return (
     <SiteDataProvider>
       <LayoutProvider>
@@ -71,6 +75,7 @@ const Layout = ({ children }) => {
           <main className="main">
             {children}
           </main>
+          {showBreadcrumbs && <Breadcrumbs />}
           <Footer />
         </div>
       </LayoutProvider>

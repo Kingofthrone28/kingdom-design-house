@@ -98,18 +98,12 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   
   const nameSearchQuery = userMessages || query;
   
-  console.log('Name Extraction Debug:');
-  console.log('User Messages:', userMessages);
-  console.log('Name Search Query:', nameSearchQuery);
-  
   // Pattern 1: "My name is John Smith" or "I'm John Smith"
   const namePattern1 = /(?:my name is|i'm|i am|this is)\s+([a-zA-Z]+)(?:\s+([a-zA-Z]+))?/i;
   const nameMatch1 = nameSearchQuery.match(namePattern1);
-  console.log('Pattern 1 match:', nameMatch1);
   if (nameMatch1) {
     firstName = nameMatch1[1];
     lastName = nameMatch1[2] || null;
-    console.log('Pattern 1 extracted:', { firstName, lastName });
   }
   
   // Pattern 2: "John Smith here" or "John Smith calling"
@@ -144,21 +138,17 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   // Pattern 6: "Hi my name is Lucas Tyler" (from the actual conversation)
   const namePattern6 = /hi my name is\s+([a-zA-Z]+)(?:\s+([a-zA-Z]+))?/i;
   const nameMatch6 = nameSearchQuery.match(namePattern6);
-  console.log('Pattern 6 match:', nameMatch6);
   if (nameMatch6 && !firstName) {
     firstName = nameMatch6[1];
     lastName = nameMatch6[2] || null;
-    console.log('Pattern 6 extracted:', { firstName, lastName });
   }
   
   // Pattern 7: More flexible "Hi my name is" pattern
   const namePattern7 = /hi\s+my\s+name\s+is\s+([a-zA-Z]+)(?:\s+([a-zA-Z]+))?/i;
   const nameMatch7 = nameSearchQuery.match(namePattern7);
-  console.log('Pattern 7 match:', nameMatch7);
   if (nameMatch7 && !firstName) {
     firstName = nameMatch7[1];
     lastName = nameMatch7[2] || null;
-    console.log('Pattern 7 extracted:', { firstName, lastName });
   }
   
   // Enhanced service keywords mapping with more specific terms
@@ -206,17 +196,13 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
   
   const serviceRequested = bestMatch?.service || 'General Inquiry';
   
-  // Debug logging for service detection
-  console.log('Service Detection Debug:');
-  console.log('Full Query:', query);
-  console.log('Conversation History:', conversationHistory);
-  console.log('User Messages:', userMessagesForService);
-  console.log('Clean Query:', cleanQuery);
-  console.log('Service Scores:', serviceScores);
-  console.log('Best Match:', bestMatch);
-  console.log('Detected Service:', serviceRequested);
-  console.log('Name Search Query:', nameSearchQuery);
-  console.log('Extracted Name:', { firstName, lastName });
+  // Debug logging for service detection (simplified)
+  console.log('Regex Extraction - Service Detection:', {
+    detectedService: serviceRequested,
+    bestMatchScore: bestMatch?.score || 0,
+    extractedName: { firstName, lastName },
+    hasEmail: !!email
+  });
   
   // Extract budget information - avoid office sizes and people counts
   const budgetRegex = /\$(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:k|thousand|K)?/i;
@@ -244,7 +230,13 @@ const extractBasicLeadInfo = (query, conversationHistory = []) => {
     conversation_keywords: conversationKeywords
   };
   
-  console.log('Final extracted lead info:', extractedInfo);
+  console.log('Regex Extraction - Final Result:', {
+    hasEmail: !!extractedInfo.email,
+    hasName: !!(extractedInfo.first_name || extractedInfo.last_name),
+    service: extractedInfo.service_requested,
+    hasBudget: !!extractedInfo.budget_range
+  });
+  
   return extractedInfo;
 };
 
@@ -428,9 +420,9 @@ const getAIResponse = async (query, conversationHistory) => {
  * This is the preferred method for lead extraction when AI services are available,
  * falling back to extractBasicLeadInfo when AI services are unavailable.
  */
-const getStructuredInfo = async (query) => {
+const getStructuredInfo = async (query, conversationHistory = []) => {
   try {
-    return await extractStructuredInfo(query);
+    return await extractStructuredInfo(query, conversationHistory);
   } catch (extractError) {
     console.log('Structured info extraction failed:', extractError.message);
     return null;
@@ -462,22 +454,44 @@ const createLeadIfPossible = async (structuredInfo, query, conversationHistory =
   console.log('Query:', query);
   console.log('Conversation History:', conversationHistory);
   
-  if (structuredInfo?.email && structuredInfo?.service_requested) {
-    console.log('Using structured info for lead creation');
-    return await createHubSpotLead(structuredInfo, conversationHistory);
-  } else {
-    console.log('Falling back to basic lead info extraction');
-    // Create enhanced query with full conversation for better service detection
-    const fullConversation = conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join(' ') + ' ' + query;
-    const basicLeadInfo = extractBasicLeadInfo(fullConversation, conversationHistory);
-    console.log('Basic Lead Info:', basicLeadInfo);
-    if (basicLeadInfo.email) {
-      console.log('Creating lead with basic info');
-      return await createHubSpotLead(basicLeadInfo, conversationHistory);
+  // Strategy 1: Try OpenAI extraction first (highest accuracy)
+  if (structuredInfo && Object.keys(structuredInfo).length > 0) {
+    // Check if OpenAI provided sufficient data for lead creation
+    const hasEmail = structuredInfo.email && structuredInfo.email.trim() !== '';
+    const hasService = structuredInfo.service_requested && structuredInfo.service_requested !== 'General Inquiry';
+    const hasContactInfo = structuredInfo.first_name || structuredInfo.phone;
+    
+    if (hasEmail && (hasService || hasContactInfo)) {
+      console.log('✅ Using OpenAI structured info for lead creation');
+      return await createHubSpotLead(structuredInfo, conversationHistory);
     } else {
-      console.log('No email found in basic lead info - skipping lead creation');
+      console.log('⚠️ OpenAI extraction incomplete - missing critical data:', {
+        hasEmail,
+        hasService,
+        hasContactInfo,
+        structuredInfo
+      });
     }
+  } else {
+    console.log('⚠️ OpenAI extraction failed or returned empty data');
   }
+  
+  // Strategy 2: Fall back to regex extraction (reliable backup)
+  console.log('🔄 Falling back to regex-based extraction');
+  const fullConversation = conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join(' ') + ' ' + query;
+  const basicLeadInfo = extractBasicLeadInfo(fullConversation, conversationHistory);
+  
+  console.log('Regex extraction result:', basicLeadInfo);
+  
+  // Check if regex extraction found sufficient data
+  if (basicLeadInfo.email && basicLeadInfo.email.trim() !== '') {
+    console.log('✅ Using regex extraction for lead creation');
+    return await createHubSpotLead(basicLeadInfo, conversationHistory);
+  } else {
+    console.log('❌ Both extraction methods failed - insufficient data for lead creation');
+    console.log('Missing requirements: email address');
+  }
+  
   return null;
 };
 
@@ -564,7 +578,14 @@ const chatHandler = async (req, res) => {
     // Get AI response and structured info
     const aiResult = await getAIResponse(query, conversationHistory);
     const { response, relevantDocs } = aiResult;
-    const structuredInfo = await getStructuredInfo(query);
+    
+    console.log('Chat Handler - Getting structured info with conversation history:', {
+      query,
+      conversationHistoryLength: conversationHistory.length,
+      conversationHistory: conversationHistory
+    });
+    
+    const structuredInfo = await getStructuredInfo(query, conversationHistory);
 
     // Personalize fallback response if needed
     if (response.includes('technical difficulties')) {

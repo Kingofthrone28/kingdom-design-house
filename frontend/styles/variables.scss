@@ -100,3 +100,28 @@ $text-muted-dark: #adb5bd;
 
 // Font Family
 $font-family-base: $font-primary;
+
+// Container
+$container-max-width: 1280px;
+
+// Font Size Aliases (for compatibility)
+$font-size-xs: $font-xs;
+$font-size-sm: $font-sm;
+$font-size-base: $font-base;
+$font-size-lg: $font-lg;
+$font-size-xl: $font-xl;
+$font-size-2xl: $font-2xl;
+$font-size-3xl: $font-3xl;
+$font-size-4xl: $font-4xl;
+$font-size-5xl: $font-5xl;
+$font-size-6xl: $font-6xl;
+
+// Border Radius Aliases (for compatibility)
+$border-radius-sm: $radius-sm;
+$border-radius-md: $radius-md;
+$border-radius-lg: $radius-lg;
+$border-radius-xl: $radius-xl;
+
+// Breakpoint Aliases (for compatibility)
+$breakpoint-mobile: $breakpoint-sm;
+$breakpoint-tablet: $breakpoint-md;

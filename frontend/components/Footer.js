@@ -63,6 +63,67 @@ const Footer = () => {
               </ul>
             </div>
 
+            {/* AI Services */}
+            <div className={styles.footer__links__section}>
+              <h3 className={styles.footer__links__title}>AI Solutions</h3>
+              <ul className={styles.footer__links__list}>
+                <li className={styles.footer__links__item}>
+                  <Link href="/ai-group/services/ai-consulting" className={styles.footer__links__link}>
+                    AI Consulting
+                  </Link>
+                </li>
+                <li className={styles.footer__links__item}>
+                  <Link href="/ai-group/services/ai-support" className={styles.footer__links__link}>
+                    AI Support
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Web Services */}
+            <div className={styles.footer__links__section}>
+              <h3 className={styles.footer__links__title}>Web Services</h3>
+              <ul className={styles.footer__links__list}>
+                <li className={styles.footer__links__item}>
+                  <Link href="/web-group/services/web-development" className={styles.footer__links__link}>
+                    Web Development
+                  </Link>
+                </li>
+                <li className={styles.footer__links__item}>
+                  <Link href="/web-group/services/web-design" className={styles.footer__links__link}>
+                    Web Design
+                  </Link>
+                </li>
+                <li className={styles.footer__links__item}>
+                  <Link href="/web-group/services/digital-marketing" className={styles.footer__links__link}>
+                    Digital Marketing
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Network Services */}
+            <div className={styles.footer__links__section}>
+              <h3 className={styles.footer__links__title}>Network Services</h3>
+              <ul className={styles.footer__links__list}>
+                <li className={styles.footer__links__item}>
+                  <Link href="/network-group/services/network-design" className={styles.footer__links__link}>
+                    Network Design
+                  </Link>
+                </li>
+                <li className={styles.footer__links__item}>
+                  <Link href="/network-group/services/network-optimization" className={styles.footer__links__link}>
+                    Network Optimization
+                  </Link>
+                </li>
+                <li className={styles.footer__links__item}>
+                  <Link href="/network-group/services/network-support" className={styles.footer__links__link}>
+                    Network Support
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
             {/* Social Media */}
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Social Media</h3>

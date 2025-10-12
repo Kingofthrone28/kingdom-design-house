@@ -4,6 +4,11 @@ Allow: /
 # Sitemap
 Sitemap: https://kingdomdesignhouse.com/sitemap.xml
 
+# Explicitly allow service pages for better discovery
+Allow: /ai-group/services/
+Allow: /web-group/services/
+Allow: /network-group/services/
+
 # Crawl-delay for better server performance
 Crawl-delay: 1
 

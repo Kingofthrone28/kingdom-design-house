@@ -11,6 +11,38 @@ export const siteData = {
     email: "kingdomdesignhouse@gmail.com",
     businessPhone: "347.927.8846"
   },
+
+  // Services data for ServicesSection component
+  services: {
+    'AI Group': {
+      basePath: '/ai-group/services',
+      description: 'Intelligent automation and AI-powered solutions',
+      services: [
+        { name: 'AI Development', slug: 'ai-development', description: 'Custom AI solutions and development' },
+        { name: 'AI Consulting', slug: 'ai-consulting', description: 'Strategic AI implementation and planning' },
+        { name: 'AI Support', slug: 'ai-support', description: 'Ongoing AI system maintenance and optimization' }
+      ]
+    },
+    'Web Group': {
+      basePath: '/web-group/services',
+      description: 'Modern web development and digital solutions',
+      services: [
+        { name: 'Web Development', slug: 'web-development', description: 'Custom web applications and platforms' },
+        { name: 'Web Design', slug: 'web-design', description: 'Beautiful, user-centered design solutions' },
+        { name: 'Digital Marketing', slug: 'digital-marketing', description: 'SEO, content, and growth strategies' },
+        { name: 'Support', slug: 'support', description: 'Website maintenance and technical support' }
+      ]
+    },
+    'Network Group': {
+      basePath: '/network-group/services',
+      description: 'Enterprise networking and infrastructure',
+      services: [
+        { name: 'Network Design', slug: 'network-design', description: 'Custom network architecture and planning' },
+        { name: 'Network Optimization', slug: 'network-optimization', description: 'Performance tuning and enhancement' },
+        { name: 'Network Support', slug: 'network-support', description: '24/7 network monitoring and maintenance' }
+      ]
+    }
+  },
   
   navbar: {
     cta: {
