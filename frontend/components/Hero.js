@@ -31,7 +31,7 @@ const Hero = () => {
 
         {/* Tagline */}
         <p className={styles.hero__tagline}>
-          Your All-In-One Partner for <span className={styles.hero__headline__highlight}>Web Development / IT / Networking & AI Solutions</span>
+          Your All-In-One Partner for <span className={styles.hero__headline__highlight}>Web Development / IT / Networking & AI Solutions in NY</span>
         </p>
 
         {/* Main Headline */}

@@ -2,7 +2,7 @@
 export const siteData = {
   company: {
     name: "Kingdom Design House",
-    tagline: "Your All-In-One Partner for Web Development / IT / Networking & AI Solutions",
+    tagline: "Your All-In-One Partner for Web Development / IT / Networking & AI Solutions in NY",
     description: "We solve business problems so you don't have to."
   },
   
@@ -10,6 +10,118 @@ export const siteData = {
     phone: "347.927.8846",
     email: "kingdomdesignhouse@gmail.com",
     businessPhone: "347.927.8846"
+  },
+
+  // Contact form configuration
+  contactForm: {
+    title: "Get Your Free Consultation",
+    subtitle: "Ready to transform your business with technology? Let's discuss your project and how we can help you achieve your goals.",
+    fields: {
+      name: {
+        label: "Full Name",
+        type: "text",
+        required: true,
+        placeholder: "Enter your full name",
+        validation: {
+          minLength: 2,
+          maxLength: 100,
+          pattern: "^[a-zA-Z\\s'-]+$"
+        }
+      },
+      email: {
+        label: "Email Address",
+        type: "email",
+        required: true,
+        placeholder: "Enter your email address",
+        validation: {
+          pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+        }
+      },
+      phone: {
+        label: "Phone Number",
+        type: "tel",
+        required: false,
+        placeholder: "Enter your phone number",
+        validation: {
+          pattern: "^[\\+]?[1-9][\\d]{0,15}$"
+        }
+      },
+      company: {
+        label: "Company Name",
+        type: "text",
+        required: false,
+        placeholder: "Enter your company name",
+        validation: {
+          maxLength: 100
+        }
+      },
+      service: {
+        label: "Service Interested In",
+        type: "select",
+        required: true,
+        placeholder: "Select a service",
+        options: [
+          { value: "", label: "Select a service" },
+          { value: "web-development", label: "Web Development" },
+          { value: "web-design", label: "Web Design" },
+          { value: "digital-marketing", label: "Digital Marketing" },
+          { value: "it-services", label: "IT Services" },
+          { value: "network-design", label: "Network Design" },
+          { value: "network-support", label: "Network Support" },
+          { value: "network-optimization", label: "Network Optimization" },
+          { value: "ai-solutions", label: "AI Solutions" },
+          { value: "ai-consulting", label: "AI Consulting" },
+          { value: "ai-development", label: "AI Development" },
+          { value: "other", label: "Other" }
+        ]
+      },
+      message: {
+        label: "Project Details",
+        type: "textarea",
+        required: true,
+        placeholder: "Tell us about your project, goals, timeline, and any specific requirements...",
+        validation: {
+          minLength: 10,
+          maxLength: 2000
+        }
+      }
+    },
+    submitButton: {
+      text: "Send Message",
+      loadingText: "Sending...",
+      successText: "Message Sent!"
+    },
+    businessHours: {
+      title: "Business Hours",
+      hours: [
+        { day: "Monday - Friday", time: "9:00 AM - 6:00 PM" },
+        { day: "Saturday", time: "Closed" },
+        { day: "Sunday", time: "Closed" }
+      ]
+    },
+    contactMethods: [
+      {
+        type: "phone",
+        label: "Phone",
+        value: "347.927.8846",
+        description: "Mon-Fri 9AM-6PM EST",
+        action: "tel:347.927.8846"
+      },
+      {
+        type: "email",
+        label: "Email",
+        value: "kingdomdesignhouse@gmail.com",
+        description: "We respond within 24 hours",
+        action: "mailto:kingdomdesignhouse@gmail.com"
+      },
+      {
+        type: "location",
+        label: "Service Area",
+        value: "Long Island, NY",
+        description: "Queens • Brooklyn • Manhattan",
+        action: null
+      }
+    ]
   },
 
   // Services data for ServicesSection component
@@ -46,7 +158,7 @@ export const siteData = {
   
   navbar: {
     cta: {
-      buttonText: "Get A Quote",
+      buttonText: "Book Now",
       ariaLabel: "Toggle menu"
     },
     companyGroups: [
@@ -193,6 +305,11 @@ export const siteData = {
 
   // Group heading data for different groups
   groupHeadings: {
+    ourGroups: {
+      title: "Our Groups",
+      highlightedText: "Groups",
+      content: "At <strong>Kingdom Design House</strong>, we provide comprehensive services that help you grow your business. From web development to IT and networking, we have you covered."
+    },
     webgroup: {
       title: "Our Web Group",
       highlightedText: "Web Group",
@@ -861,7 +978,54 @@ export const siteData = {
     companyGroups: [
       'The Web Group',
       'The IT Group',
-      'The AI Group'
+      'The AI Group',
+    
+    ],
+    webServices: [
+      {
+        name:'Web Development',
+        url:'/web-group/services/web-development'
+      },
+      {
+      name:'Web Design',
+      url:'/web-group/services/web-design'
+      },
+      {
+        name:'Digital Marketing',
+        url:'/web-group/services/digital-marketing'
+      },
+      {
+        name:'Support',
+        url:'/web-group/services/support'
+      },
+    ],
+    networkServices: [
+      {
+        name:'Network Design',
+        url:'/network-group/services/network-design'
+      },
+      {
+      name:'Network Optimization',
+      url:'/network-group/services/network-optimization'
+      },
+      { 
+      name:'Network Support',
+      url:'/network-group/services/network-support',
+      },
+    ],
+    aiServices: [
+      {
+        name:'AI Development',
+        url:'/ai-group/services/ai-development'
+      },
+      {
+        name:'AI Consulting',
+        url:'/ai-group/services/ai-consulting'
+      },
+      {
+        name:'AI Support',
+        url:'/ai-group/services/ai-support'
+      },
     ],
     socialMedia: [
       {
@@ -935,6 +1099,10 @@ export const getAboutData = () => {
 
 export const getPricingData = (groupType = 'web') => {
   return siteData.pricing[groupType] || siteData.pricing.web;
+};
+
+export const getContactFormData = () => {
+  return siteData.contactForm;
 };
 
 // Export pageData and defaultValues from siteData

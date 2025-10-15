@@ -22,6 +22,8 @@ What brings you here today? I'd love to learn about your project and how we can 
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState('connected'); // 'connected', 'slow', 'offline'
+  const [honeypot, setHoneypot] = useState(''); // Bot protection honeypot field
+  const [pageLoadTime] = useState(Date.now()); // Track page load time for bot detection
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -65,8 +67,11 @@ What brings you here today? I'd love to learn about your project and how we can 
 
 
     try {
-      // Use centralized HTTP client
-      const result = await sendRagChatMessage(inputMessage.trim(), messages);
+      // Use centralized HTTP client with bot protection fields
+      const result = await sendRagChatMessage(inputMessage.trim(), messages, {
+        website: honeypot, // Honeypot field (should be empty)
+        pageLoadTime: pageLoadTime, // For timing validation
+      });
 
       if (result.success) {
         setMessages(prev => [...prev, assistantMessage(result.data)]);
@@ -226,6 +231,17 @@ What specific services are you interested in?`;
         </div>
 
         <div className={styles.chatInterface__input}>
+          {/* Honeypot field - hidden from users, bots will fill it */}
+          <input
+            type="text"
+            name="website"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            style={{ display: 'none' }}
+            tabIndex="-1"
+            autoComplete="off"
+            aria-hidden="true"
+          />
           <textarea
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}

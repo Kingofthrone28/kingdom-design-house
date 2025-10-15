@@ -7,6 +7,26 @@
   NODE_VERSION = "18"
   NPM_FLAGS = "--production=false"
 
+# Force HTTPS redirects
+[[redirects]]
+  from = "http://kingdomdesignhouse.com/*"
+  to = "https://kingdomdesignhouse.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.kingdomdesignhouse.com/*"
+  to = "https://kingdomdesignhouse.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.kingdomdesignhouse.com/*"
+  to = "https://kingdomdesignhouse.com/:splat"
+  status = 301
+  force = true
+
+# API redirects
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"

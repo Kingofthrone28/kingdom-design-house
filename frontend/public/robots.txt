@@ -1,45 +1,13 @@
 User-agent: *
 Allow: /
 
+# Canonical URL
+Host: https://kingdomdesignhouse.com
+
 # Sitemap
 Sitemap: https://kingdomdesignhouse.com/sitemap.xml
 
-# Explicitly allow service pages for better discovery
-Allow: /ai-group/services/
-Allow: /web-group/services/
-Allow: /network-group/services/
-
-# Crawl-delay for better server performance
-Crawl-delay: 1
-
-# Disallow admin or sensitive areas (if any)
-# Disallow: /admin/
-# Disallow: /private/
-
-# Allow all major search engines
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
+# Disallow problematic paths
+Disallow: /api/
+Disallow: /.netlify/
+Disallow: /_next/

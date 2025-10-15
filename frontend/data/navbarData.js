@@ -6,12 +6,14 @@ export const navbarData = {
     email: "kingdomdesignhouse@gmail.com"
   },
   cta: {
-    buttonText: "Get A Quote",
-    ariaLabel: "Toggle menu"
+    buttonText: "Book Now",
+    ariaLabel: "Toggle menu",
+    route: "/contact"
   },
   navigation: [
     { name: "Home", route: "/" },
     { name: "About", route: "/about" },
+    { name: "Services", route: "/services" },
     { name: "The Web Group", route: "/web-group" },
     { name: "The Network Group", route: "/network-group" },
     { name: "The AI Group", route: "/ai-group" },

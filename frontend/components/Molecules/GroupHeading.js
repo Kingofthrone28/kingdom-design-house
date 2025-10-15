@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../styles/GroupHeading.module.scss';
 import { getGroupHeadingData } from '../../data/siteData';
 
-const GroupHeading = ({ groupName = 'webgroup' }) => {
+const GroupHeading = ({ groupName = 'ourGroups' }) => {
   const headingData = getGroupHeadingData(groupName);
   const { title, content, highlightedText } = headingData;
 

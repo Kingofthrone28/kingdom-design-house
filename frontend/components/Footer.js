@@ -11,9 +11,12 @@ const Footer = () => {
   const { getFooterData } = useSiteData();
   const footerData = getFooterData();
   const navbarData = getNavbarData();
+  const {navigation} = navbarData;
   const {
     companyInfo,
-    companyGroups, 
+    webServices,
+    networkServices,
+    aiServices,
     socialMedia 
 } = footerData;
   return (
@@ -53,7 +56,7 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Company Groups</h3>
               <ul className={styles.footer__links__list}>
-                {navbarData.navigation.map((group, index) => (
+                {navigation && navigation.map((group, index) => (
                   <li key={index} className={styles.footer__links__item}>
                     <Link href={group.route} className={styles.footer__links__link}>
                       {group.name}
@@ -67,16 +70,13 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>AI Solutions</h3>
               <ul className={styles.footer__links__list}>
-                <li className={styles.footer__links__item}>
-                  <Link href="/ai-group/services/ai-consulting" className={styles.footer__links__link}>
-                    AI Consulting
-                  </Link>
-                </li>
-                <li className={styles.footer__links__item}>
-                  <Link href="/ai-group/services/ai-support" className={styles.footer__links__link}>
-                    AI Support
-                  </Link>
-                </li>
+                {aiServices && aiServices.map((service, index) => (
+                  <li key={index} className={styles.footer__links__item}>
+                    <Link href={service.url} className={styles.footer__links__link}>
+                      {service.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -84,21 +84,13 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Web Services</h3>
               <ul className={styles.footer__links__list}>
-                <li className={styles.footer__links__item}>
-                  <Link href="/web-group/services/web-development" className={styles.footer__links__link}>
-                    Web Development
-                  </Link>
-                </li>
-                <li className={styles.footer__links__item}>
-                  <Link href="/web-group/services/web-design" className={styles.footer__links__link}>
-                    Web Design
-                  </Link>
-                </li>
-                <li className={styles.footer__links__item}>
-                  <Link href="/web-group/services/digital-marketing" className={styles.footer__links__link}>
-                    Digital Marketing
-                  </Link>
-                </li>
+                {webServices && webServices.map((service, index) => (
+                  <li key={index} className={styles.footer__links__item}>
+                    <Link href={service.url} className={styles.footer__links__link}>
+                      {service.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -106,21 +98,13 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Network Services</h3>
               <ul className={styles.footer__links__list}>
-                <li className={styles.footer__links__item}>
-                  <Link href="/network-group/services/network-design" className={styles.footer__links__link}>
-                    Network Design
-                  </Link>
-                </li>
-                <li className={styles.footer__links__item}>
-                  <Link href="/network-group/services/network-optimization" className={styles.footer__links__link}>
-                    Network Optimization
-                  </Link>
-                </li>
-                <li className={styles.footer__links__item}>
-                  <Link href="/network-group/services/network-support" className={styles.footer__links__link}>
-                    Network Support
-                  </Link>
-                </li>
+                {networkServices && networkServices.map((service, index) => (
+                  <li key={index} className={styles.footer__links__item}>
+                    <Link href={service.url} className={styles.footer__links__link}>
+                      {service.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -128,7 +112,7 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Social Media</h3>
               <ul className={styles.footer__links__list}>
-                {socialMedia.map((social, index) => (
+                {socialMedia && socialMedia.map((social, index) => (
                   <li key={index} className={styles.footer__links__item}>
                     <a 
                       href={social.url} 

@@ -51,9 +51,10 @@ const getRagApiPath = () => {
  * Sends a chat message to the RAG API.
  * @param {string} message - User's message.
  * @param {Array<object>} conversationHistory - Previous messages.
+ * @param {object} botProtectionFields - Optional bot protection fields (honeypot, timing).
  * @returns {Promise<object>} RAG API response.
  */
-export const sendRagChatMessage = async (message, conversationHistory = []) => {
+export const sendRagChatMessage = async (message, conversationHistory = [], botProtectionFields = {}) => {
   const baseUrl = getRagApiUrl();
   const path = getRagApiPath();
   const url = `${baseUrl}${path}`;
@@ -69,11 +70,19 @@ export const sendRagChatMessage = async (message, conversationHistory = []) => {
   // Determine payload structure based on endpoint
   let payload;
   if (path.includes('/.netlify/functions/')) {
-    // Netlify functions expect 'message'
-    payload = { message, conversationHistory };
+    // Netlify functions expect 'message' plus bot protection fields
+    payload = { 
+      message, 
+      conversationHistory,
+      ...botProtectionFields // Include honeypot, pageLoadTime, etc.
+    };
   } else {
-  // Direct RAG API expects 'query'
-  payload = { query: message, conversationHistory };
+  // Direct RAG API expects 'query' plus bot protection fields
+  payload = { 
+      query: message, 
+      conversationHistory,
+      ...botProtectionFields
+    };
   }
   
   return await httpClient(url, {

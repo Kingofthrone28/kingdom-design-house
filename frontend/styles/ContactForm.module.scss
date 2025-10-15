@@ -1,0 +1,333 @@
+@import './variables.scss';
+
+.contactForm {
+  background: linear-gradient(135deg, $primary-black 0%, darken($primary-black, 5%) 100%);
+  min-height: 100vh;
+  padding: $spacing-5xl 0;
+
+  &__container {
+    max-width: $breakpoint-xl;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4xl;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $font-5xl;
+    font-weight: $font-regular;
+    color: $primary-white;
+    margin: 0 0 $spacing-lg 0;
+  }
+
+  &__subtitle {
+    font-size: $font-lg;
+    color: rgba($primary-white, 0.8);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-4xl;
+    align-items: start;
+  }
+
+  &__info {
+    background: rgba($primary-white, 0.05);
+    border-radius: $radius-lg;
+    padding: $spacing-2xl;
+    border: 1px solid rgba($primary-white, 0.1);
+  }
+
+  &__sectionTitle {
+    font-family: $font-secondary;
+    font-size: $font-3xl;
+    font-weight: $font-semibold;
+    color: $primary-yellow;
+    margin: 0 0 $spacing-md 0;
+  }
+
+  &__sectionDescription {
+    color: rgba($primary-white, 0.8);
+    margin-bottom: $spacing-xl;
+    line-height: 1.6;
+  }
+
+  &__methods {
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__method {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: $spacing-lg;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background: rgba($primary-white, 0.05);
+    }
+  }
+
+  &__methodIcon {
+    margin-right: $spacing-md;
+    margin-top: $spacing-xs;
+    color: $primary-yellow;
+  }
+
+  &__methodDetails {
+    flex: 1;
+  }
+
+  &__methodLabel {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: $primary-white;
+    margin: 0 0 $spacing-xs 0;
+  }
+
+  &__methodValue {
+    display: block;
+    font-size: $font-base;
+    color: $primary-yellow;
+    text-decoration: none;
+    margin-bottom: $spacing-xs;
+    font-weight: $font-medium;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__methodDescription {
+    font-size: $font-sm;
+    color: rgba($primary-white, 0.7);
+  }
+
+  &__hours {
+    background: rgba($primary-white, 0.03);
+    border-radius: $radius-md;
+    padding: $spacing-lg;
+    border: 1px solid rgba($primary-white, 0.1);
+  }
+
+  &__hoursTitle {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: $primary-white;
+    margin: 0 0 $spacing-md 0;
+  }
+
+  &__hoursList {
+    .contactForm__hourItem {
+      display: flex;
+      justify-content: space-between;
+      padding: $spacing-sm 0;
+      border-bottom: 1px solid rgba($primary-white, 0.1);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .contactForm__hourDay {
+      color: rgba($primary-white, 0.8);
+      font-weight: $font-medium;
+    }
+
+    .contactForm__hourTime {
+      color: rgba($primary-white, 0.7);
+    }
+  }
+
+  &__formSection {
+    background: rgba($primary-white, 0.05);
+    border-radius: $radius-lg;
+    padding: $spacing-2xl;
+    border: 1px solid rgba($primary-white, 0.1);
+  }
+
+  &__status {
+    padding: $spacing-md $spacing-lg;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-lg;
+    font-weight: $font-medium;
+
+    &--success {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+    }
+
+    &--error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-lg;
+  }
+
+  &__submitButton {
+    margin-top: $spacing-lg;
+    align-self: flex-start;
+  }
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  &--error {
+    .formField__input {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.05);
+    }
+  }
+
+  &__label {
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $primary-white;
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+  }
+
+  &__required {
+    color: #ef4444;
+    font-size: $font-sm;
+  }
+
+  &__input {
+    padding: $spacing-md $spacing-lg;
+    border: 2px solid rgba($primary-white, 0.2);
+    border-radius: $radius-md;
+    background: rgba($primary-white, 0.05);
+    color: $primary-white;
+    font-size: $font-base;
+    font-family: $font-primary;
+    transition: all $transition-fast;
+
+    &::placeholder {
+      color: rgba($primary-white, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary-yellow;
+      background: rgba($primary-white, 0.08);
+    }
+
+    &:hover {
+      border-color: rgba($primary-white, 0.3);
+    }
+
+    &--error {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    &--error:focus {
+      border-color: #ef4444;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: $font-primary;
+  }
+
+  &__error {
+    font-size: $font-sm;
+    color: #ef4444;
+    margin-top: $spacing-xs;
+  }
+}
+
+// Responsive design
+@media (max-width: $breakpoint-lg) {
+  .contactForm {
+    &__content {
+      grid-template-columns: 1fr;
+      gap: $spacing-3xl;
+    }
+
+    &__formRow {
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .contactForm {
+    padding: $spacing-4xl 0;
+
+    &__title {
+      font-size: $font-4xl;
+    }
+
+    &__subtitle {
+      font-size: $font-base;
+    }
+
+    &__info,
+    &__formSection {
+      padding: $spacing-lg;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .contactForm {
+    padding: $spacing-6xl 0;
+
+    &__title {
+      font-size: $font-3xl;
+    }
+
+    &__container {
+      gap: $spacing-3xl;
+    }
+
+    &__info,
+    &__formSection {
+      padding: $spacing-md;
+    }
+
+    &__method {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-sm;
+    }
+
+    &__methodIcon {
+      margin-right: 0;
+      margin-top: 0;
+    }
+  }
+}

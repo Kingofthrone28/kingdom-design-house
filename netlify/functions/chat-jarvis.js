@@ -2,8 +2,8 @@
  * @fileoverview Netlify Function: Chat Jarvis Proxy
  * 
  * This function acts as a critical proxy between the frontend and the RAG API server.
- * It handles CORS, request validation, and optional lead creation in the Kingdom Design House
- * AI chat system architecture.
+ * It handles CORS, request validation, bot protection, and optional lead creation in 
+ * the Kingdom Design House AI chat system architecture.
  * 
  * SYSTEM INTEGRATION:
  * ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -21,20 +21,31 @@
  * WORKFLOW:
  * 1. Receives chat requests from frontend with CORS handling
  * 2. Validates request format and required fields
- * 3. Proxies request to RAG API server for AI processing
- * 4. Transforms RAG response data for HubSpot compatibility
- * 5. Optionally creates leads in HubSpot CRM
- * 6. Returns enriched response to frontend
+ * 3. [OPTIONAL] Applies bot protection layers (configurable via env vars)
+ * 4. Proxies request to RAG API server for AI processing
+ * 5. Transforms RAG response data for HubSpot compatibility
+ * 6. Optionally creates leads in HubSpot CRM
+ * 7. Returns enriched response to frontend
+ * 
+ * BOT PROTECTION (OPTIONAL - DISABLED BY DEFAULT):
+ * - Rate limiting: Prevents spam and API abuse
+ * - Honeypot fields: Catches automated bots
+ * - Timing validation: Detects suspiciously fast submissions
+ * - Pattern detection: Identifies spam-like message patterns
+ * Enable via environment variables (see botProtection.cjs)
  * 
  * FALLBACK MECHANISMS:
  * - RAG API unavailable: Returns template response with contact info
  * - Lead creation fails: Continues chat functionality without CRM integration
  * - Invalid requests: Returns structured error responses
+ * - Bot detected: Returns polite response without creating lead or calling expensive APIs
  * 
  * @author Kingdom Design House Development Team
- * @version 1.0.0
+ * @version 1.1.0
  * @since 2024
  */
+
+const { checkBotProtection, getProtectionStatus } = require('./utils/botProtection.cjs');
 
 /**
  * Standard CORS headers for all responses
@@ -520,9 +531,10 @@ const logLeadCreationDecision = (criteria, shouldCreate) => {
  * Flow:
  * 1. Handle CORS preflight requests
  * 2. Validate incoming request
- * 3. Call RAG API server
- * 4. Optionally create lead in HubSpot
- * 5. Return response to frontend
+ * 3. [OPTIONAL] Apply bot protection layers
+ * 4. Call RAG API server (or return fallback if bot detected)
+ * 5. Optionally create lead in HubSpot (skip if bot detected)
+ * 6. Return response to frontend
  * 
  * @param {Object} event - Netlify event object
  * @param {string} event.httpMethod - HTTP method (GET, POST, etc.)
@@ -549,19 +561,72 @@ exports.handler = async (event, context) => {
 
   try {
     // Parse request body
-    const { message, conversationHistory = [] } = JSON.parse(event.body);
+    const requestBody = JSON.parse(event.body);
+    const { message, conversationHistory = [] } = requestBody;
     const userId = context.clientContext?.user?.sub || 'anonymous';
 
-    // Call the RAG API server
-    const ragData = await callRagApi(message, conversationHistory, userId);
+    // [OPTIONAL] Bot Protection Check
+    // Only active if environment variables are set
+    const protectionResult = checkBotProtection(event, requestBody, userId);
+    
+    // Log protection status and results (for monitoring)
+    if (protectionResult.metadata.enabledLayers.length > 0) {
+      console.log('Bot Protection Check:', {
+        userId,
+        allowed: protectionResult.allowed,
+        suspicious: protectionResult.suspicious,
+        reasons: protectionResult.reasons,
+        layers: protectionResult.metadata.enabledLayers,
+      });
+    }
+
+    // Handle rate limiting (hard block)
+    if (!protectionResult.allowed) {
+      const retryAfter = protectionResult.retryAfter || 60;
+      return createResponse(429, {
+        error: 'Too many requests',
+        response: `You're sending messages too quickly. Please wait ${retryAfter} seconds and try again.`,
+        retryAfter,
+        blocked: true,
+      }, {
+        'Retry-After': retryAfter.toString(),
+      });
+    }
+
+    // Handle suspicious activity (soft handling)
+    // Allow the chat to continue but skip expensive operations
+    let ragData;
+    if (protectionResult.suspicious) {
+      // Return fallback response without calling expensive AI APIs
+      console.warn('Suspicious activity detected, using fallback response:', protectionResult.reasons);
+      ragData = createFallbackResponse(message);
+      ragData.botProtectionTriggered = true;
+      ragData.botProtectionReasons = protectionResult.reasons;
+    } else {
+      // Normal flow: Call the RAG API server
+      ragData = await callRagApi(message, conversationHistory, userId);
+    }
 
     // Handle lead creation if applicable
-    const finalData = await handleLeadCreation(ragData, message);
+    // Skip lead creation if bot protection was triggered
+    let finalData;
+    if (protectionResult.actions.allowLeadCreation) {
+      finalData = await handleLeadCreation(ragData, message);
+    } else {
+      console.log('Skipping lead creation due to bot protection');
+      finalData = {
+        ...ragData,
+        leadCreated: false,
+        leadSkipped: true,
+        leadSkipReason: 'Bot protection triggered',
+      };
+    }
 
     // Return successful response
     return createResponse(200, finalData);
 
-  } catch (error) {    
+  } catch (error) {
+    console.error('Handler error:', error);
     return createResponse(500, { 
       error: 'Internal server error',
       message: 'Sorry, I encountered an error. Please try again.',
@@ -579,6 +644,10 @@ module.exports = {
   validateRequest,
   createResponse,
   handleCorsPreflight,
+  
+  // Bot protection (imported)
+  checkBotProtection,
+  getProtectionStatus,
   
   // RAG API functions
   callRagApi,

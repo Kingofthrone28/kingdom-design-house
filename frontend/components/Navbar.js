@@ -12,7 +12,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarData = getNavbarData();
   const { phone, email } = navbarData.contact;
-  const { buttonText, ariaLabel} = navbarData.cta;
+  const { buttonText, ariaLabel,route} = navbarData.cta;
   const { navigation = [] } = navbarData;
 
   const toggleMenu = () => {
@@ -55,9 +55,11 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Button variant="primary" size="large" onClick={scrollToChat}>
-          {buttonText}
-        </Button>
+        <Link href={route}>
+          <Button variant="primary" size="large">
+            {buttonText}
+          </Button>
+        </Link>   
 
         {/* Mobile Menu Toggle */}
         <MobileToggle 
