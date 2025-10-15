@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { getContactFormData } from '../data/siteData';
 import { handleFormSubmission } from '../utils/formSubmissionService';
 import styles from '../styles/ContactForm.module.scss';
@@ -6,7 +7,8 @@ import Button from './Atoms/Button';
 import PhoneIcon from './Atoms/PhoneIcon';
 import EmailIcon from './Atoms/EmailIcon';
 
-const ContactForm = () => {
+const ContactFormInner = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const formConfig = getContactFormData();
   const [formData, setFormData] = useState({
     name: '',
@@ -44,7 +46,20 @@ const ContactForm = () => {
     setSubmitStatus(null);
 
     try {
-      const result = await handleFormSubmission(formData, formConfig);
+      // Execute reCAPTCHA
+      if (!executeRecaptcha) {
+        throw new Error('reCAPTCHA not available');
+      }
+
+      const recaptchaToken = await executeRecaptcha('contact_form_submit');
+      
+      // Add reCAPTCHA token to form data
+      const formDataWithRecaptcha = {
+        ...formData,
+        recaptchaToken
+      };
+
+      const result = await handleFormSubmission(formDataWithRecaptcha, formConfig);
       
       if (result.success) {
         setSubmitStatus({
@@ -229,6 +244,30 @@ const ContactForm = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+// Wrapper component with reCAPTCHA provider
+const ContactForm = () => {
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+  if (!recaptchaSiteKey) {
+    console.warn('reCAPTCHA site key not found. Form will work without reCAPTCHA protection.');
+    return <ContactFormInner />;
+  }
+
+  return (
+    <GoogleReCaptchaProvider
+      reCaptchaKey={recaptchaSiteKey}
+      scriptProps={{
+        async: false,
+        defer: false,
+        appendTo: "head",
+        nonce: undefined,
+      }}
+    >
+      <ContactFormInner />
+    </GoogleReCaptchaProvider>
   );
 };
 

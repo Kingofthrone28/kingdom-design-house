@@ -10,6 +10,7 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const axios = require('axios');
 const { body, validationResult } = require('express-validator');
 require('dotenv').config();
 
@@ -39,6 +40,66 @@ app.use('/api/contact', limiter);
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// reCAPTCHA validation function
+async function validateRecaptcha(token, ip) {
+  try {
+    const response = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
+      params: {
+        secret: process.env.RECAPTCHA_SECRET_KEY,
+        response: token,
+        remoteip: ip
+      }
+    });
+
+    const { success, score, action, 'error-codes': errorCodes } = response.data;
+
+    if (!success) {
+      console.log('reCAPTCHA validation failed:', errorCodes);
+      return {
+        valid: false,
+        reason: 'reCAPTCHA validation failed',
+        errors: errorCodes
+      };
+    }
+
+    // For reCAPTCHA v3, check score (0.0 to 1.0, higher is more likely human)
+    const minScore = parseFloat(process.env.RECAPTCHA_MIN_SCORE) || 0.5;
+    if (score < minScore) {
+      console.log(`reCAPTCHA score too low: ${score} (minimum: ${minScore})`);
+      return {
+        valid: false,
+        reason: 'reCAPTCHA score too low',
+        score: score
+      };
+    }
+
+    // Verify the action matches what we expect
+    if (action !== 'contact_form_submit') {
+      console.log(`reCAPTCHA action mismatch: expected 'contact_form_submit', got '${action}'`);
+      return {
+        valid: false,
+        reason: 'reCAPTCHA action mismatch',
+        action: action
+      };
+    }
+
+    console.log(`reCAPTCHA validation successful. Score: ${score}, Action: ${action}`);
+    return {
+      valid: true,
+      score: score,
+      action: action
+    };
+
+  } catch (error) {
+    console.error('reCAPTCHA validation error:', error.message);
+    return {
+      valid: false,
+      reason: 'reCAPTCHA validation error',
+      error: error.message
+    };
+  }
+}
 
 // Gmail transporter setup
 const createTransporter = () => {
@@ -266,6 +327,27 @@ app.post('/api/contact', contactValidation, async (req, res) => {
     }
 
     const formData = req.body;
+    const clientIP = req.ip || req.connection.remoteAddress || req.socket.remoteAddress;
+
+    // Validate reCAPTCHA if token is provided
+    if (formData.recaptchaToken) {
+      const recaptchaResult = await validateRecaptcha(formData.recaptchaToken, clientIP);
+      
+      if (!recaptchaResult.valid) {
+        console.log(`reCAPTCHA validation failed for IP ${clientIP}:`, recaptchaResult);
+        return res.status(400).json({
+          success: false,
+          message: 'Security validation failed. Please try again.',
+          error: 'reCAPTCHA validation failed'
+        });
+      }
+      
+      console.log(`reCAPTCHA validation passed for ${formData.name} (${formData.email}). Score: ${recaptchaResult.score}`);
+    } else {
+      console.log(`No reCAPTCHA token provided for submission from ${formData.name} (${formData.email})`);
+      // In production, you might want to require reCAPTCHA
+      // return res.status(400).json({ success: false, message: 'Security validation required' });
+    }
     
     // Create email templates
     const { businessEmail, userEmail } = createEmailTemplates(formData);
