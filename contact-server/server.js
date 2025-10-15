@@ -8,6 +8,7 @@
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const axios = require('axios');
@@ -19,6 +20,14 @@ const PORT = process.env.PORT || 8081;
 
 // Trust proxy for Railway deployment
 app.set('trust proxy', 1);
+
+// Initialize SendGrid
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  console.log('SendGrid initialized successfully');
+} else {
+  console.log('SendGrid API key not found, using Nodemailer fallback');
+}
 
 // Security middleware
 app.use(helmet());
@@ -117,6 +126,29 @@ const createTransporter = () => {
     greetingTimeout: 30000,   // 30 seconds
     socketTimeout: 60000      // 60 seconds
   });
+};
+
+// SendGrid email function
+const sendEmailWithSendGrid = async (to, subject, html, text) => {
+  const msg = {
+    to: to,
+    from: {
+      email: process.env.SENDGRID_FROM_EMAIL || 'noreply@kingdomdesignhouse.com',
+      name: 'Kingdom Design House'
+    },
+    subject: subject,
+    html: html,
+    text: text
+  };
+
+  try {
+    await sgMail.send(msg);
+    console.log(`SendGrid email sent successfully to ${to}`);
+    return { success: true };
+  } catch (error) {
+    console.error('SendGrid email error:', error);
+    throw error;
+  }
 };
 
 // Email templates
@@ -360,29 +392,52 @@ app.post('/api/contact', contactValidation, async (req, res) => {
     const { businessEmail, userEmail } = createEmailTemplates(formData);
     
     // Create transporter
-    const transporter = createTransporter();
+    // Send emails using SendGrid (preferred) or Gmail (fallback)
+    const emailPromises = [];
     
-    // Send emails
-    const emailPromises = [
-      // Email to business
-      transporter.sendMail({
-        from: process.env.GMAIL_USER,
-        to: process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
-        replyTo: formData.email,
-        subject: businessEmail.subject,
-        text: businessEmail.text,
-        html: businessEmail.html
-      }),
-      
-      // Confirmation email to user
-      transporter.sendMail({
-        from: process.env.GMAIL_USER,
-        to: formData.email,
-        subject: userEmail.subject,
-        text: userEmail.text,
-        html: userEmail.html
-      })
-    ];
+    if (process.env.SENDGRID_API_KEY) {
+      // Use SendGrid
+      emailPromises.push(
+        // Email to business
+        sendEmailWithSendGrid(
+          process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
+          businessEmail.subject,
+          businessEmail.html,
+          businessEmail.text
+        ),
+        
+        // Confirmation email to user
+        sendEmailWithSendGrid(
+          formData.email,
+          userEmail.subject,
+          userEmail.html,
+          userEmail.text
+        )
+      );
+    } else {
+      // Fallback to Gmail
+      const transporter = createTransporter();
+      emailPromises.push(
+        // Email to business
+        transporter.sendMail({
+          from: process.env.GMAIL_USER,
+          to: process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
+          replyTo: formData.email,
+          subject: businessEmail.subject,
+          text: businessEmail.text,
+          html: businessEmail.html
+        }),
+        
+        // Confirmation email to user
+        transporter.sendMail({
+          from: process.env.GMAIL_USER,
+          to: formData.email,
+          subject: userEmail.subject,
+          text: userEmail.text,
+          html: userEmail.html
+        })
+      );
+    }
 
     await Promise.all(emailPromises);
 
