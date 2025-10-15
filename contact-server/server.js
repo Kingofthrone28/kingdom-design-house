@@ -22,6 +22,11 @@ const PORT = process.env.PORT || 8081;
 app.set('trust proxy', 1);
 
 // Initialize SendGrid
+console.log('Environment check:');
+console.log('SENDGRID_API_KEY exists:', !!process.env.SENDGRID_API_KEY);
+console.log('SENDGRID_API_KEY length:', process.env.SENDGRID_API_KEY ? process.env.SENDGRID_API_KEY.length : 0);
+console.log('SENDGRID_FROM_EMAIL:', process.env.SENDGRID_FROM_EMAIL);
+
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   console.log('SendGrid initialized successfully');
