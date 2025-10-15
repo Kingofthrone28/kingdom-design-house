@@ -22,16 +22,19 @@ const PORT = process.env.PORT || 8081;
 app.set('trust proxy', 1);
 
 // Initialize SendGrid
-console.log('Environment check:');
-console.log('SENDGRID_API_KEY exists:', !!process.env.SENDGRID_API_KEY);
-console.log('SENDGRID_API_KEY length:', process.env.SENDGRID_API_KEY ? process.env.SENDGRID_API_KEY.length : 0);
-console.log('SENDGRID_FROM_EMAIL:', process.env.SENDGRID_FROM_EMAIL);
+const hasSendgridKey = !!process.env.SENDGRID_API_KEY;
+const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL;
+const isProductionEnv = process.env.NODE_ENV === 'production';
 
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  console.log('SendGrid initialized successfully');
-} else {
-  console.log('SendGrid API key not found, using Nodemailer fallback');
+if (hasSendgridKey) {
+  try {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    console.log('SendGrid initialized successfully');
+  } catch (e) {
+    console.error('SendGrid initialization error:', e?.message || e);
+  }
+} else if (!isProductionEnv) {
+  console.log('SendGrid API key not found; dev mode may use SMTP fallback');
 }
 
 // Security middleware
@@ -396,11 +399,10 @@ app.post('/api/contact', contactValidation, async (req, res) => {
     // Create email templates
     const { businessEmail, userEmail } = createEmailTemplates(formData);
     
-    // Create transporter
-    // Send emails using SendGrid (preferred) or Gmail (fallback)
+    // Send emails using SendGrid (preferred). In production, do not fallback to SMTP.
     const emailPromises = [];
-    
-    if (process.env.SENDGRID_API_KEY) {
+
+    if (hasSendgridKey) {
       // Use SendGrid
       emailPromises.push(
         // Email to business
@@ -419,7 +421,7 @@ app.post('/api/contact', contactValidation, async (req, res) => {
           userEmail.text
         )
       );
-    } else {
+    } else if (!isProductionEnv) {
       // Fallback to Gmail
       const transporter = createTransporter();
       emailPromises.push(
@@ -442,6 +444,10 @@ app.post('/api/contact', contactValidation, async (req, res) => {
           html: userEmail.html
         })
       );
+    } else {
+      // Production without SendGrid key: do not attempt SMTP to avoid timeouts
+      console.error('SendGrid API key missing in production; skipping email send to avoid timeouts');
+      return res.status(503).json({ success: false, message: 'Email service temporarily unavailable. Please try again later.' });
     }
 
     await Promise.all(emailPromises);
@@ -477,6 +483,15 @@ app.get('/api/health', (req, res) => {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'Contact Form Server'
+  });
+});
+
+// Env check endpoint (no secrets, only booleans/metadata)
+app.get('/api/env-check', (req, res) => {
+  return res.json({
+    hasSENDGRID_API_KEY: !!process.env.SENDGRID_API_KEY,
+    sendgridFromEmail: !!process.env.SENDGRID_FROM_EMAIL,
+    nodeEnv: process.env.NODE_ENV || 'development'
   });
 });
 
