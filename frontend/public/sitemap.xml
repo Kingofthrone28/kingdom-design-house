@@ -48,4 +48,67 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- Web Group Services -->
+  <url>
+    <loc>https://kingdomdesignhouse.com/web-group/services/web-development/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kingdomdesignhouse.com/web-group/services/web-design/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kingdomdesignhouse.com/web-group/services/digital-marketing/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kingdomdesignhouse.com/web-group/services/support/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Network Group Services -->
+  <url>
+    <loc>https://kingdomdesignhouse.com/network-group/services/network-design/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kingdomdesignhouse.com/network-group/services/network-optimization/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kingdomdesignhouse.com/network-group/services/network-support/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- AI Group Services -->
+  <url>
+    <loc>https://kingdomdesignhouse.com/ai-group/services/ai-consulting/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kingdomdesignhouse.com/ai-group/services/ai-development/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kingdomdesignhouse.com/ai-group/services/ai-support/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
