@@ -15,7 +15,7 @@ const { body, validationResult } = require('express-validator');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8081;
 
 // Trust proxy for Railway deployment
 app.set('trust proxy', 1);
@@ -430,7 +430,7 @@ app.use((error, req, res, next) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Contact form server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/api/health`);
 });
