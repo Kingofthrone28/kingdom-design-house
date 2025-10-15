@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`RAG API Server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/`);
   console.log(`Chat endpoint: http://localhost:${PORT}/api/chat`);
