@@ -8,7 +8,6 @@
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const sgMail = require('@sendgrid/mail');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const axios = require('axios');
@@ -21,21 +20,8 @@ const PORT = process.env.PORT || 8081;
 // Trust proxy for Railway deployment
 app.set('trust proxy', 1);
 
-// Initialize SendGrid
-const hasSendgridKey = !!process.env.SENDGRID_API_KEY;
-const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL;
-const isProductionEnv = process.env.NODE_ENV === 'production';
-
-if (hasSendgridKey) {
-  try {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    console.log('SendGrid initialized successfully');
-  } catch (e) {
-    console.error('SendGrid initialization error:', e?.message || e);
-  }
-} else if (!isProductionEnv) {
-  console.log('SendGrid API key not found; dev mode may use SMTP fallback');
-}
+// Gmail SMTP Configuration
+console.log('Using Gmail SMTP for email delivery');
 
 // Security middleware
 app.use(helmet());
@@ -136,28 +122,6 @@ const createTransporter = () => {
   });
 };
 
-// SendGrid email function
-const sendEmailWithSendGrid = async (to, subject, html, text) => {
-  const msg = {
-    to: to,
-    from: {
-      email: process.env.SENDGRID_FROM_EMAIL || 'noreply@kingdomdesignhouse.com',
-      name: 'Kingdom Design House'
-    },
-    subject: subject,
-    html: html,
-    text: text
-  };
-
-  try {
-    await sgMail.send(msg);
-    console.log(`SendGrid email sent successfully to ${to}`);
-    return { success: true };
-  } catch (error) {
-    console.error('SendGrid email error:', error);
-    throw error;
-  }
-};
 
 // Email templates
 const createEmailTemplates = (formData) => {
@@ -399,56 +363,28 @@ app.post('/api/contact', contactValidation, async (req, res) => {
     // Create email templates
     const { businessEmail, userEmail } = createEmailTemplates(formData);
     
-    // Send emails using SendGrid (preferred). In production, do not fallback to SMTP.
-    const emailPromises = [];
-
-    if (hasSendgridKey) {
-      // Use SendGrid
-      emailPromises.push(
-        // Email to business
-        sendEmailWithSendGrid(
-          process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
-          businessEmail.subject,
-          businessEmail.html,
-          businessEmail.text
-        ),
-        
-        // Confirmation email to user
-        sendEmailWithSendGrid(
-          formData.email,
-          userEmail.subject,
-          userEmail.html,
-          userEmail.text
-        )
-      );
-    } else if (!isProductionEnv) {
-      // Fallback to Gmail
-      const transporter = createTransporter();
-      emailPromises.push(
-        // Email to business
-        transporter.sendMail({
-          from: process.env.GMAIL_USER,
-          to: process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
-          replyTo: formData.email,
-          subject: businessEmail.subject,
-          text: businessEmail.text,
-          html: businessEmail.html
-        }),
-        
-        // Confirmation email to user
-        transporter.sendMail({
-          from: process.env.GMAIL_USER,
-          to: formData.email,
-          subject: userEmail.subject,
-          text: userEmail.text,
-          html: userEmail.html
-        })
-      );
-    } else {
-      // Production without SendGrid key: do not attempt SMTP to avoid timeouts
-      console.error('SendGrid API key missing in production; skipping email send to avoid timeouts');
-      return res.status(503).json({ success: false, message: 'Email service temporarily unavailable. Please try again later.' });
-    }
+    // Send emails using Gmail SMTP
+    const transporter = createTransporter();
+    const emailPromises = [
+      // Email to business
+      transporter.sendMail({
+        from: process.env.GMAIL_USER,
+        to: process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
+        replyTo: formData.email,
+        subject: businessEmail.subject,
+        text: businessEmail.text,
+        html: businessEmail.html
+      }),
+      
+      // Confirmation email to user
+      transporter.sendMail({
+        from: process.env.GMAIL_USER,
+        to: formData.email,
+        subject: userEmail.subject,
+        text: userEmail.text,
+        html: userEmail.html
+      })
+    ];
 
     await Promise.all(emailPromises);
 
