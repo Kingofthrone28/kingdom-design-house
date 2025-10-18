@@ -7,7 +7,7 @@
 
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const axios = require('axios');
@@ -20,8 +20,14 @@ const PORT = process.env.PORT || 8081;
 // Trust proxy for Railway deployment
 app.set('trust proxy', 1);
 
-// Gmail SMTP Configuration
-console.log('Using Gmail SMTP for email delivery');
+// Gmail OAuth 2.0 Configuration
+const hasOAuthCredentials = !!(process.env.GMAIL_CLIENT_ID && process.env.GMAIL_CLIENT_SECRET && process.env.GMAIL_REFRESH_TOKEN);
+
+if (hasOAuthCredentials) {
+  console.log('Using Gmail OAuth 2.0 for email delivery');
+} else {
+  console.log('Gmail OAuth credentials not found. Please set GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, and GMAIL_REFRESH_TOKEN');
+}
 
 // Security middleware
 app.use(helmet());
@@ -107,19 +113,60 @@ async function validateRecaptcha(token, ip) {
   }
 }
 
-// Gmail transporter setup
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD // Use App Password, not regular password
-    },
-    // Add connection timeout settings for Railway deployment
-    connectionTimeout: 60000, // 60 seconds
-    greetingTimeout: 30000,   // 30 seconds
-    socketTimeout: 60000      // 60 seconds
+// Gmail OAuth 2.0 setup
+const createGmailClient = () => {
+  if (!hasOAuthCredentials) {
+    throw new Error('Gmail OAuth credentials not configured');
+  }
+
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.GMAIL_CLIENT_ID,
+    process.env.GMAIL_CLIENT_SECRET,
+    'urn:ietf:wg:oauth:2.0:oob' // For desktop app
+  );
+
+  oauth2Client.setCredentials({
+    refresh_token: process.env.GMAIL_REFRESH_TOKEN
   });
+
+  return google.gmail({ version: 'v1', auth: oauth2Client });
+};
+
+// Send email via Gmail API
+const sendEmailViaGmailAPI = async (to, subject, html, text) => {
+  try {
+    const gmail = createGmailClient();
+    
+    // Create email message
+    const message = [
+      `To: ${to}`,
+      `Subject: ${subject}`,
+      'Content-Type: text/html; charset=utf-8',
+      '',
+      html
+    ].join('\n');
+
+    // Encode message in base64url format
+    const encodedMessage = Buffer.from(message)
+      .toString('base64')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+
+    // Send email
+    const result = await gmail.users.messages.send({
+      userId: 'me',
+      requestBody: {
+        raw: encodedMessage
+      }
+    });
+
+    console.log(`Gmail API email sent successfully to ${to}. Message ID: ${result.data.id}`);
+    return { success: true, messageId: result.data.id };
+  } catch (error) {
+    console.error('Gmail API email error:', error);
+    throw error;
+  }
 };
 
 
@@ -363,27 +410,30 @@ app.post('/api/contact', contactValidation, async (req, res) => {
     // Create email templates
     const { businessEmail, userEmail } = createEmailTemplates(formData);
     
-    // Send emails using Gmail SMTP
-    const transporter = createTransporter();
+    // Send emails using Gmail API (OAuth 2.0)
+    if (!hasOAuthCredentials) {
+      return res.status(503).json({ 
+        success: false, 
+        message: 'Email service not configured. Please contact support.' 
+      });
+    }
+
     const emailPromises = [
       // Email to business
-      transporter.sendMail({
-        from: process.env.GMAIL_USER,
-        to: process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
-        replyTo: formData.email,
-        subject: businessEmail.subject,
-        text: businessEmail.text,
-        html: businessEmail.html
-      }),
+      sendEmailViaGmailAPI(
+        process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
+        businessEmail.subject,
+        businessEmail.html,
+        businessEmail.text
+      ),
       
       // Confirmation email to user
-      transporter.sendMail({
-        from: process.env.GMAIL_USER,
-        to: formData.email,
-        subject: userEmail.subject,
-        text: userEmail.text,
-        html: userEmail.html
-      })
+      sendEmailViaGmailAPI(
+        formData.email,
+        userEmail.subject,
+        userEmail.html,
+        userEmail.text
+      )
     ];
 
     await Promise.all(emailPromises);
