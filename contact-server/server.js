@@ -7,7 +7,7 @@
 
 const express = require('express');
 const cors = require('cors');
-const { google } = require('googleapis');
+const sgMail = require('@sendgrid/mail');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const axios = require('axios');
@@ -20,13 +20,19 @@ const PORT = process.env.PORT || 8081;
 // Trust proxy for Railway deployment
 app.set('trust proxy', 1);
 
-// Gmail OAuth 2.0 Configuration
-const hasOAuthCredentials = !!(process.env.GMAIL_CLIENT_ID && process.env.GMAIL_CLIENT_SECRET && process.env.GMAIL_REFRESH_TOKEN);
+// SendGrid Configuration
+const hasSendgridKey = !!process.env.SENDGRID_API_KEY;
+const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL || 'noreply@kingdomdesignhouse.com';
 
-if (hasOAuthCredentials) {
-  console.log('Using Gmail OAuth 2.0 for email delivery');
+if (hasSendgridKey) {
+  try {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    console.log('SendGrid initialized successfully');
+  } catch (e) {
+    console.error('SendGrid initialization error:', e?.message || e);
+  }
 } else {
-  console.log('Gmail OAuth credentials not found. Please set GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, and GMAIL_REFRESH_TOKEN');
+  console.log('SendGrid API key not found. Please set SENDGRID_API_KEY');
 }
 
 // Security middleware
@@ -64,26 +70,34 @@ async function validateRecaptcha(token, ip) {
       }
     });
 
+    const recaptchaResults = (isValid, reason, errorMessage) => {
+      return {
+        valid: isValid,
+        reason: reason,
+        errors: errorMessage
+      };
+    }
+
+    const actionValidationResults = (isValid, isScore, isAction) => {
+      return {
+        valid: isValid,
+        score: isScore,
+        action: isAction
+      };
+    }
+
     const { success, score, action, 'error-codes': errorCodes } = response.data;
 
     if (!success) {
       console.log('reCAPTCHA validation failed:', errorCodes);
-      return {
-        valid: false,
-        reason: 'reCAPTCHA validation failed',
-        errors: errorCodes
-      };
+      recaptchaResults(false, 'reCAPTCHA validation failed', errorCodes);
     }
 
     // For reCAPTCHA v3, check score (0.0 to 1.0, higher is more likely human)
     const minScore = parseFloat(process.env.RECAPTCHA_MIN_SCORE) || 0.5;
     if (score < minScore) {
       console.log(`reCAPTCHA score too low: ${score} (minimum: ${minScore})`);
-      return {
-        valid: false,
-        reason: 'reCAPTCHA score too low',
-        score: score
-      };
+      recaptchaResults(false, 'reCAPTCHA score too low', score);
     }
 
     // Verify the action matches what we expect
@@ -97,74 +111,33 @@ async function validateRecaptcha(token, ip) {
     }
 
     console.log(`reCAPTCHA validation successful. Score: ${score}, Action: ${action}`);
-    return {
-      valid: true,
-      score: score,
-      action: action
-    };
+    actionValidationResults(true, score, action);
 
   } catch (error) {
     console.error('reCAPTCHA validation error:', error.message);
-    return {
-      valid: false,
-      reason: 'reCAPTCHA validation error',
-      error: error.message
-    };
+    recaptchaResults(false, 'reCAPTCHA score too low', error.message);
   }
 }
 
-// Gmail OAuth 2.0 setup
-const createGmailClient = () => {
-  if (!hasOAuthCredentials) {
-    throw new Error('Gmail OAuth credentials not configured');
-  }
+// SendGrid email function
+const sendEmailWithSendGrid = async (to, subject, html, text) => {
+  const msg = {
+    to: to,
+    from: {
+      email: sendgridFromEmail,
+      name: 'Kingdom Design House'
+    },
+    subject: subject,
+    html: html,
+    text: text
+  };
 
-  const oauth2Client = new google.auth.OAuth2(
-    process.env.GMAIL_CLIENT_ID,
-    process.env.GMAIL_CLIENT_SECRET,
-    'urn:ietf:wg:oauth:2.0:oob' // For desktop app
-  );
-
-  oauth2Client.setCredentials({
-    refresh_token: process.env.GMAIL_REFRESH_TOKEN
-  });
-
-  return google.gmail({ version: 'v1', auth: oauth2Client });
-};
-
-// Send email via Gmail API
-const sendEmailViaGmailAPI = async (to, subject, html, text) => {
   try {
-    const gmail = createGmailClient();
-    
-    // Create email message
-    const message = [
-      `To: ${to}`,
-      `Subject: ${subject}`,
-      'Content-Type: text/html; charset=utf-8',
-      '',
-      html
-    ].join('\n');
-
-    // Encode message in base64url format
-    const encodedMessage = Buffer.from(message)
-      .toString('base64')
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '');
-
-    // Send email
-    const result = await gmail.users.messages.send({
-      userId: 'me',
-      requestBody: {
-        raw: encodedMessage
-      }
-    });
-
-    console.log(`Gmail API email sent successfully to ${to}. Message ID: ${result.data.id}`);
-    return { success: true, messageId: result.data.id };
+    await sgMail.send(msg);
+    console.log(`SendGrid email sent successfully to ${to}`);
+    return { success: true };
   } catch (error) {
-    console.error('Gmail API email error:', error);
+    console.error('SendGrid email error:', error);
     throw error;
   }
 };
@@ -410,8 +383,8 @@ app.post('/api/contact', contactValidation, async (req, res) => {
     // Create email templates
     const { businessEmail, userEmail } = createEmailTemplates(formData);
     
-    // Send emails using Gmail API (OAuth 2.0)
-    if (!hasOAuthCredentials) {
+    // Send emails using SendGrid
+    if (!hasSendgridKey) {
       return res.status(503).json({ 
         success: false, 
         message: 'Email service not configured. Please contact support.' 
@@ -420,7 +393,7 @@ app.post('/api/contact', contactValidation, async (req, res) => {
 
     const emailPromises = [
       // Email to business
-      sendEmailViaGmailAPI(
+      sendEmailWithSendGrid(
         process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
         businessEmail.subject,
         businessEmail.html,
@@ -428,7 +401,7 @@ app.post('/api/contact', contactValidation, async (req, res) => {
       ),
       
       // Confirmation email to user
-      sendEmailViaGmailAPI(
+      sendEmailWithSendGrid(
         formData.email,
         userEmail.subject,
         userEmail.html,
