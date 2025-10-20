@@ -27,6 +27,7 @@ const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL || 'noreply@kingdomdes
 console.log('SendGrid configuration check:');
 console.log('- SENDGRID_API_KEY exists:', !!process.env.SENDGRID_API_KEY);
 console.log('- SENDGRID_FROM_EMAIL:', process.env.SENDGRID_FROM_EMAIL);
+console.log('- Current timestamp:', new Date().toISOString());
 
 if (hasSendgridKey) {
   try {
