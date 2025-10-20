@@ -70,34 +70,26 @@ async function validateRecaptcha(token, ip) {
       }
     });
 
-    const recaptchaResults = (isValid, reason, errorMessage) => {
-      return {
-        valid: isValid,
-        reason: reason,
-        errors: errorMessage
-      };
-    }
-
-    const actionValidationResults = (isValid, isScore, isAction) => {
-      return {
-        valid: isValid,
-        score: isScore,
-        action: isAction
-      };
-    }
-
     const { success, score, action, 'error-codes': errorCodes } = response.data;
 
     if (!success) {
       console.log('reCAPTCHA validation failed:', errorCodes);
-      recaptchaResults(false, 'reCAPTCHA validation failed', errorCodes);
+      return {
+        valid: false,
+        reason: 'reCAPTCHA validation failed',
+        errors: errorCodes
+      };
     }
 
     // For reCAPTCHA v3, check score (0.0 to 1.0, higher is more likely human)
     const minScore = parseFloat(process.env.RECAPTCHA_MIN_SCORE) || 0.5;
     if (score < minScore) {
       console.log(`reCAPTCHA score too low: ${score} (minimum: ${minScore})`);
-      recaptchaResults(false, 'reCAPTCHA score too low', score);
+      return {
+        valid: false,
+        reason: 'reCAPTCHA score too low',
+        score: score
+      };
     }
 
     // Verify the action matches what we expect
@@ -111,11 +103,19 @@ async function validateRecaptcha(token, ip) {
     }
 
     console.log(`reCAPTCHA validation successful. Score: ${score}, Action: ${action}`);
-    actionValidationResults(true, score, action);
+    return {
+      valid: true,
+      score: score,
+      action: action
+    };
 
   } catch (error) {
     console.error('reCAPTCHA validation error:', error.message);
-    recaptchaResults(false, 'reCAPTCHA score too low', error.message);
+    return {
+      valid: false,
+      reason: 'reCAPTCHA validation error',
+      error: error.message
+    };
   }
 }
 
