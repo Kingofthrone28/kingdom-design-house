@@ -24,6 +24,10 @@ app.set('trust proxy', 1);
 const hasSendgridKey = !!process.env.SENDGRID_API_KEY;
 const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL || 'noreply@kingdomdesignhouse.com';
 
+console.log('SendGrid configuration check:');
+console.log('- SENDGRID_API_KEY exists:', !!process.env.SENDGRID_API_KEY);
+console.log('- SENDGRID_FROM_EMAIL:', process.env.SENDGRID_FROM_EMAIL);
+
 if (hasSendgridKey) {
   try {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
