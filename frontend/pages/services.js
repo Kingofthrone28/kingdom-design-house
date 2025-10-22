@@ -11,7 +11,7 @@ import WhyChooseUs from '../components/WhyChooseUs';
 import { pageSeoData } from '../lib/seo';
 import VideoShowcase from '../components/VideoShowcase';
 export default function Services() {
-  const seoData = pageSeoData.home;
+  const seoData = pageSeoData.services;
   
   return (
     <>

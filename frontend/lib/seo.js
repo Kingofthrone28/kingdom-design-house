@@ -171,6 +171,28 @@ export const pageSeoData = {
     }
   },
 
+  services: {
+    title: "Our Services | Web Development, IT & AI Solutions | Kingdom Design House | Long Island, NY",
+    description: "Comprehensive technology services including web development, IT solutions, networking, and AI services. Serving Long Island, Queens, Brooklyn, and Manhattan with professional solutions.",
+    keywords: "services Long Island, web development services Queens, IT services Brooklyn, AI solutions Manhattan, technology services NYC, business solutions Long Island, professional services Queens",
+    canonical: "/services/",
+    ogTitle: "Our Services | Web Development, IT & AI Solutions | Kingdom Design House",
+    ogDescription: "Comprehensive technology services including web development, IT solutions, networking, and AI services. Serving Long Island, Queens, Brooklyn, and Manhattan.",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Technology Services",
+      "description": "Comprehensive technology services including web development, IT solutions, networking, and AI services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Kingdom Design House"
+      },
+      "areaServed": ["Long Island, NY", "Queens, NY", "Brooklyn, NY", "Manhattan, NY"],
+      "serviceType": ["Web Development", "IT Services", "Networking Solutions", "AI Solutions"],
+      "url": "https://kingdomdesignhouse.com/services/"
+    }
+  },
+
   videoDemo: {
     title: "Video Component Demo | Interactive Video Showcase | Kingdom Design House | Long Island, NY",
     description: "Experience our interactive video components and see how we showcase our work through engaging video content. Video player demos and showcase examples.",
@@ -328,6 +350,7 @@ export const generateSitemapUrls = () => {
   return [
     { url: '/', priority: 1.0, changefreq: 'weekly' },
     { url: '/about/', priority: 0.8, changefreq: 'monthly' },
+    { url: '/services/', priority: 0.9, changefreq: 'monthly' },
     { url: '/pricing/', priority: 0.9, changefreq: 'monthly' },
     { url: '/web-group/', priority: 0.8, changefreq: 'monthly' },
     { url: '/web-group/services/web-development/', priority: 0.7, changefreq: 'monthly' },
