@@ -7,7 +7,7 @@ import React from 'react';
  * Includes Organization, LocalBusiness, and Service schemas.
  */
 const StructuredData = () => {
-  // Organization Schema
+  // Enhanced Organization Schema with GEO/AIO optimization
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -19,30 +19,80 @@ const StructuredData = () => {
     description: 'Full-service technology company offering AI solutions, web development, and network services for businesses in Long Island, NY.',
     email: 'kingdomdesignhouse@gmail.com',
     telephone: '+1-347-927-8846',
+    // GEO Optimization - Enhanced geographic data
     address: {
       '@type': 'PostalAddress',
       addressRegion: 'NY',
       addressLocality: 'Long Island',
-      addressCountry: 'US'
+      addressCountry: 'US',
+      postalCode: '11501',
+      streetAddress: 'Long Island, New York'
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '40.7891',
+      longitude: '-73.1347'
+    },
+    // Enhanced area served with detailed geographic entities
     areaServed: [
       {
         '@type': 'City',
-        name: 'Long Island'
+        name: 'Long Island',
+        containedInPlace: {
+          '@type': 'State',
+          name: 'New York'
+        }
       },
       {
         '@type': 'City',
-        name: 'Queens'
+        name: 'Queens',
+        containedInPlace: {
+          '@type': 'State',
+          name: 'New York'
+        }
       },
       {
         '@type': 'City',
-        name: 'Brooklyn'
+        name: 'Brooklyn',
+        containedInPlace: {
+          '@type': 'State',
+          name: 'New York'
+        }
       },
       {
         '@type': 'City',
-        name: 'Manhattan'
+        name: 'Manhattan',
+        containedInPlace: {
+          '@type': 'State',
+          name: 'New York'
+        }
       }
     ],
+    // AIO Optimization - Enhanced entity relationships
+    knowsAbout: [
+      'Web Development',
+      'IT Services',
+      'Networking Solutions',
+      'AI Solutions',
+      'React Development',
+      'Node.js',
+      'Python',
+      'Cloud Computing'
+    ],
+    hasCredential: [
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'AWS Certified',
+        description: 'Amazon Web Services certification'
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'Microsoft Certified',
+        description: 'Microsoft technology certification'
+      }
+    ],
+    foundingDate: '2020',
+    numberOfEmployees: '5-10',
     sameAs: [
       'https://www.linkedin.com/company/kingdom-design-house',
       'https://www.instagram.com/kingdomdesignhouse'
@@ -207,6 +257,70 @@ const StructuredData = () => {
     }
   };
 
+  // GEO Optimization - Geographic Entity Schema
+  const geographicEntitySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Place',
+    '@id': 'https://kingdomdesignhouse.com/#place',
+    name: 'Long Island, New York',
+    description: 'Primary service area for Kingdom Design House technology services',
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '40.7891',
+      longitude: '-73.1347'
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Long Island',
+      addressRegion: 'NY',
+      addressCountry: 'US'
+    },
+    containedInPlace: {
+      '@type': 'State',
+      name: 'New York',
+      addressRegion: 'NY'
+    }
+  };
+
+  // AIO Optimization - AI Entity Schema
+  const aiEntitySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    '@id': 'https://kingdomdesignhouse.com/#ai-entity',
+    headline: 'AI Solutions and Technology Services',
+    description: 'Comprehensive AI and technology services including web development, IT solutions, and intelligent automation',
+    author: {
+      '@type': 'Organization',
+      name: 'Kingdom Design House'
+    },
+    about: [
+      {
+        '@type': 'Thing',
+        name: 'Artificial Intelligence',
+        description: 'AI solutions and intelligent automation services'
+      },
+      {
+        '@type': 'Thing',
+        name: 'Web Development',
+        description: 'Custom web applications and digital solutions'
+      },
+      {
+        '@type': 'Thing',
+        name: 'IT Services',
+        description: 'Information technology support and infrastructure'
+      }
+    ],
+    mentions: [
+      'React',
+      'Node.js',
+      'Python',
+      'Machine Learning',
+      'Cloud Computing',
+      'AWS',
+      'Microsoft Azure'
+    ]
+  };
+
   return (
     <>
       <script
@@ -216,6 +330,14 @@ const StructuredData = () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(geographicEntitySchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aiEntitySchema) }}
       />
       <script
         type="application/ld+json"

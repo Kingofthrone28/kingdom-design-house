@@ -22,6 +22,16 @@ export const seoConfig = {
     coordinates: {
       latitude: "40.7891",
       longitude: "-73.1347"
+    },
+    // GEO Optimization - Enhanced geographic entities
+    geoEntities: {
+      state: "New York",
+      stateCode: "NY",
+      counties: ["Nassau County", "Suffolk County", "Queens County", "Kings County", "New York County"],
+      cities: ["Long Island", "Queens", "Brooklyn", "Manhattan", "New York City"],
+      zipCodes: ["11501", "11502", "11503", "11101", "11201", "10001"],
+      timeZone: "America/New_York",
+      region: "Northeast United States"
     }
   },
 
@@ -29,6 +39,33 @@ export const seoConfig = {
     twitter: "@kingdomdesignhouse",
     facebook: "kingdomdesignhouse",
     linkedin: "kingdom-design-house"
+  },
+
+  // AIO (AI Optimization) Configuration
+  aiOptimization: {
+    // Content formatting for AI parsing
+    contentStructure: {
+      useHeadings: true,
+      useLists: true,
+      useTables: true,
+      useDefinitions: true,
+      useExamples: true
+    },
+    // Entity relationships for AI understanding
+    entityRelationships: {
+      services: ["Web Development", "IT Services", "Networking", "AI Solutions"],
+      industries: ["Technology", "Business", "E-commerce", "Healthcare", "Finance"],
+      technologies: ["React", "Node.js", "Python", "AI/ML", "Cloud Computing"],
+      certifications: ["AWS", "Microsoft", "Google Cloud", "Cisco"]
+    },
+    // Fact-based content for AI trust
+    facts: {
+      founded: "2020",
+      experience: "10+ years",
+      teamSize: "5-10 employees",
+      clients: "50+ businesses served",
+      projects: "100+ completed"
+    }
   }
 };
 
