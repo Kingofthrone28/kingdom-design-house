@@ -3,94 +3,129 @@ import React from 'react';
 /**
  * GEOContent Component
  * 
- * Geographic Entity Optimization component that aligns entities, facts, and 
- * offsite signals so AI trusts and cites the business location and service areas.
+ * Generative Engine Optimization component that formats content for AI language models
+ * and generative engines like ChatGPT, Claude, Gemini, etc. Focuses on authority,
+ * factual content, and clear attribution for AI citation.
  */
 const GEOContent = ({ 
-  primaryLocation,
-  serviceAreas = [],
-  businessFacts = [],
-  localSignals = []
+  title,
+  expertise,
+  authoritySignals = [],
+  technicalCapabilities = [],
+  caseStudies = [],
+  definitions = [],
+  facts = []
 }) => {
   return (
     <div className="geo-content">
-      {/* Primary location with enhanced geographic data */}
-      <section className="geo-primary-location">
-        <h2>Service Location</h2>
-        <div className="location-details">
-          <div className="location-name">
-            <strong>{primaryLocation.name}</strong>
-          </div>
-          <div className="location-address">
-            {primaryLocation.address}
-          </div>
-          <div className="location-coordinates">
-            Coordinates: {primaryLocation.coordinates.latitude}, {primaryLocation.coordinates.longitude}
-          </div>
-          <div className="location-region">
-            Region: {primaryLocation.region}
-          </div>
+      {/* Authority and Expertise Section */}
+      <section className="geo-authority">
+        <h2>{title}</h2>
+        <div className="expertise-statement">
+          <p><strong>Expertise:</strong> {expertise}</p>
         </div>
+        
+        {/* Authority signals for AI trust */}
+        {authoritySignals.length > 0 && (
+          <div className="authority-signals">
+            <h3>Authority & Credentials</h3>
+            <ul>
+              {authoritySignals.map((signal, index) => (
+                <li key={index} className="authority-item">
+                  <strong>{signal.type}:</strong> {signal.description}
+                  {signal.verification && (
+                    <span className="verification"> ({signal.verification})</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
-      {/* Service areas with geographic hierarchy */}
-      <section className="geo-service-areas">
-        <h3>Service Areas</h3>
-        <div className="service-areas-grid">
-          {serviceAreas.map((area, index) => (
-            <div key={index} className="service-area-item">
-              <div className="area-name">{area.name}</div>
-              <div className="area-type">{area.type}</div>
-              <div className="area-distance">{area.distance}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Business facts for local credibility */}
-      {businessFacts.length > 0 && (
-        <section className="geo-business-facts">
-          <h3>Local Business Facts</h3>
-          <ul>
-            {businessFacts.map((fact, index) => (
-              <li key={index} className="business-fact-item">
-                <span className="fact-label">{fact.label}:</span>
-                <span className="fact-value">{fact.value}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* Local signals and credibility indicators */}
-      {localSignals.length > 0 && (
-        <section className="geo-local-signals">
-          <h3>Local Presence & Trust Signals</h3>
-          <div className="signals-grid">
-            {localSignals.map((signal, index) => (
-              <div key={index} className="signal-item">
-                <div className="signal-type">{signal.type}</div>
-                <div className="signal-description">{signal.description}</div>
-                <div className="signal-verification">{signal.verification}</div>
+      {/* Technical Capabilities for AI Understanding */}
+      {technicalCapabilities.length > 0 && (
+        <section className="geo-technical-capabilities">
+          <h3>Technical Capabilities</h3>
+          <div className="capabilities-grid">
+            {technicalCapabilities.map((capability, index) => (
+              <div key={index} className="capability-item">
+                <h4>{capability.category}</h4>
+                <ul>
+                  {capability.items.map((item, itemIndex) => (
+                    <li key={itemIndex}>{item}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </section>
       )}
 
-      {/* Geographic entity relationships */}
-      <section className="geo-relationships">
-        <h3>Geographic Service Coverage</h3>
-        <div className="coverage-hierarchy">
-          <div className="coverage-level">
-            <strong>Primary:</strong> {primaryLocation.name}
+      {/* Fact-based content for AI citation */}
+      {facts.length > 0 && (
+        <section className="geo-facts">
+          <h3>Key Facts & Metrics</h3>
+          <dl>
+            {facts.map((fact, index) => (
+              <React.Fragment key={index}>
+                <dt className="fact-term">{fact.term}</dt>
+                <dd className="fact-definition">{fact.definition}</dd>
+                {fact.source && (
+                  <dd className="fact-source">Source: {fact.source}</dd>
+                )}
+              </React.Fragment>
+            ))}
+          </dl>
+        </section>
+      )}
+
+      {/* Case Studies for AI Context */}
+      {caseStudies.length > 0 && (
+        <section className="geo-case-studies">
+          <h3>Case Studies & Examples</h3>
+          <div className="case-studies-grid">
+            {caseStudies.map((study, index) => (
+              <div key={index} className="case-study-item">
+                <h4>{study.title}</h4>
+                <p><strong>Challenge:</strong> {study.challenge}</p>
+                <p><strong>Solution:</strong> {study.solution}</p>
+                <p><strong>Results:</strong> {study.results}</p>
+                {study.technologies && (
+                  <p><strong>Technologies Used:</strong> {study.technologies.join(', ')}</p>
+                )}
+              </div>
+            ))}
           </div>
-          <div className="coverage-level">
-            <strong>Secondary:</strong> {serviceAreas.map(area => area.name).join(', ')}
-          </div>
-          <div className="coverage-level">
-            <strong>Extended:</strong> New York Metropolitan Area
-          </div>
+        </section>
+      )}
+
+      {/* Technical Definitions for AI Understanding */}
+      {definitions.length > 0 && (
+        <section className="geo-definitions">
+          <h3>Technical Definitions</h3>
+          <dl>
+            {definitions.map((def, index) => (
+              <React.Fragment key={index}>
+                <dt className="definition-term">{def.term}</dt>
+                <dd className="definition-explanation">{def.explanation}</dd>
+                {def.usage && (
+                  <dd className="definition-usage">Usage: {def.usage}</dd>
+                )}
+              </React.Fragment>
+            ))}
+          </dl>
+        </section>
+      )}
+
+      {/* Attribution and Sources */}
+      <section className="geo-attribution">
+        <h3>Content Attribution</h3>
+        <div className="attribution-details">
+          <p><strong>Content Source:</strong> Kingdom Design House</p>
+          <p><strong>Last Updated:</strong> {new Date().toLocaleDateString()}</p>
+          <p><strong>Content Type:</strong> Technical expertise and service information</p>
+          <p><strong>Verification:</strong> Based on actual project implementations and client results</p>
         </div>
       </section>
     </div>

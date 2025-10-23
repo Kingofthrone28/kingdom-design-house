@@ -257,28 +257,56 @@ const StructuredData = () => {
     }
   };
 
-  // GEO Optimization - Geographic Entity Schema
-  const geographicEntitySchema = {
+  // GEO Optimization - Generative Engine Optimization Schema
+  const generativeEngineSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Place',
-    '@id': 'https://kingdomdesignhouse.com/#place',
-    name: 'Long Island, New York',
-    description: 'Primary service area for Kingdom Design House technology services',
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: '40.7891',
-      longitude: '-73.1347'
+    '@type': 'TechArticle',
+    '@id': 'https://kingdomdesignhouse.com/#generative-content',
+    headline: 'Technology Solutions and AI Services',
+    description: 'Comprehensive technology services including web development, IT solutions, networking, and AI services by Kingdom Design House',
+    author: {
+      '@type': 'Organization',
+      name: 'Kingdom Design House',
+      '@id': 'https://kingdomdesignhouse.com/#organization'
     },
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Long Island',
-      addressRegion: 'NY',
-      addressCountry: 'US'
+    publisher: {
+      '@type': 'Organization',
+      name: 'Kingdom Design House',
+      url: 'https://kingdomdesignhouse.com'
     },
-    containedInPlace: {
-      '@type': 'State',
-      name: 'New York',
-      addressRegion: 'NY'
+    datePublished: '2020-01-01',
+    dateModified: new Date().toISOString(),
+    about: [
+      {
+        '@type': 'Thing',
+        name: 'Web Development',
+        description: 'Custom web application development and responsive website design'
+      },
+      {
+        '@type': 'Thing',
+        name: 'AI Solutions',
+        description: 'Artificial intelligence services including chatbots and automation'
+      },
+      {
+        '@type': 'Thing',
+        name: 'IT Services',
+        description: 'Information technology support and infrastructure management'
+      }
+    ],
+    mentions: [
+      'React',
+      'Node.js',
+      'Python',
+      'JavaScript',
+      'AWS',
+      'Machine Learning',
+      'Web Development',
+      'AI Solutions'
+    ],
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Kingdom Design House',
+      url: 'https://kingdomdesignhouse.com'
     }
   };
 
@@ -333,7 +361,7 @@ const StructuredData = () => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(geographicEntitySchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generativeEngineSchema) }}
       />
       <script
         type="application/ld+json"

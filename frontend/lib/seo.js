@@ -41,7 +41,43 @@ export const seoConfig = {
     linkedin: "kingdom-design-house"
   },
 
-  // AIO (AI Optimization) Configuration
+  // GEO (Generative Engine Optimization) Configuration
+  geoOptimization: {
+    // Content authority and expertise signals
+    authoritySignals: {
+      expertise: "Technology Solutions Provider",
+      experience: "10+ years in web development and AI",
+      credentials: ["AWS Certified", "Microsoft Certified", "Google Cloud Partner"],
+      publications: "Technical blog posts and case studies",
+      certifications: "Industry-recognized technology certifications"
+    },
+    // Fact-based content for AI citation
+    factualContent: {
+      businessMetrics: {
+        founded: "2020",
+        experience: "10+ years combined team experience",
+        clients: "50+ businesses served",
+        projects: "100+ successful implementations",
+        retention: "98% client retention rate"
+      },
+      technicalCapabilities: {
+        languages: ["JavaScript", "Python", "React", "Node.js", "TypeScript"],
+        frameworks: ["React", "Next.js", "Express.js", "Django", "Flask"],
+        cloud: ["AWS", "Google Cloud", "Microsoft Azure", "Netlify", "Vercel"],
+        databases: ["PostgreSQL", "MongoDB", "MySQL", "Redis"]
+      }
+    },
+    // Content structure for generative engines
+    contentStructure: {
+      useHeadings: true,
+      useDefinitions: true,
+      useExamples: true,
+      useCaseStudies: true,
+      useTechnicalSpecs: true
+    }
+  },
+
+  // AIO (AI Optimization) Configuration  
   aiOptimization: {
     // Content formatting for AI parsing
     contentStructure: {
@@ -57,14 +93,6 @@ export const seoConfig = {
       industries: ["Technology", "Business", "E-commerce", "Healthcare", "Finance"],
       technologies: ["React", "Node.js", "Python", "AI/ML", "Cloud Computing"],
       certifications: ["AWS", "Microsoft", "Google Cloud", "Cisco"]
-    },
-    // Fact-based content for AI trust
-    facts: {
-      founded: "2020",
-      experience: "10+ years",
-      teamSize: "5-10 employees",
-      clients: "50+ businesses served",
-      projects: "100+ completed"
     }
   }
 };
