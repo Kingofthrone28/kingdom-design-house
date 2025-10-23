@@ -1,6 +1,7 @@
 import React from 'react';
-import Head from 'next/head';
 import Layout from '../../../components/Layout';
+import SEOHead from '../../../components/SEOHead';
+import StructuredData from '../../../components/StructuredData';
 import GroupHero from '../../../components/GroupHero';
 import OurGroups from '../../../components/OurGroups';
 import ServiceContent from '../../../components/Organisms/ServiceContent';
@@ -8,16 +9,15 @@ import GroupHeading from '../../../components/Molecules/GroupHeading';
 import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
+import { serviceSeoData } from '../../../lib/seo';
 
 export default function NetworkDesign() {
+  const seoData = serviceSeoData.networkDesign;
+  
   return (
     <>
-      <Head>
-        <title>Network Design Services - The Network Group | Kingdom Design House</title>
-        <meta name="description" content="Network design services by The Network Group. IT-focused web design solutions, network-compatible designs, and technical web interfaces." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEOHead {...seoData} />
+      <StructuredData />
       
       <Layout>
         <GroupHero groupName="networkgroup" />

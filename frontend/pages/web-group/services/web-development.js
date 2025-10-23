@@ -1,22 +1,22 @@
 import React from 'react';
-import Head from 'next/head';
 import Layout from '../../../components/Layout';
+import SEOHead from '../../../components/SEOHead';
+import StructuredData from '../../../components/StructuredData';
 import GroupHero from '../../../components/GroupHero';
 import GroupHeading from '../../../components/Molecules/GroupHeading';
 import ServiceContent from '../../../components/Organisms/ServiceContent';
 import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
+import { serviceSeoData } from '../../../lib/seo';
 
 export default function WebDevelopment() {
+  const seoData = serviceSeoData.webDevelopment;
+  
   return (
     <>
-      <Head>
-        <title>Web Development Services - The Web Group | Kingdom Design House</title>
-        <meta name="description" content="Professional web development services by The Web Group. Custom web applications, e-commerce solutions, and scalable web development." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEOHead {...seoData} />
+      <StructuredData />
       
       <Layout>
         <GroupHero groupName="webdevelopment" />

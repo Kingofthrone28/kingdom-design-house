@@ -283,6 +283,40 @@ export const serviceSeoData = {
         "name": "Kingdom Design House"
       }
     }
+  },
+
+  aiDevelopment: {
+    title: "AI Development Services | Custom AI Solutions | Kingdom Design House | Long Island, NY",
+    description: "Professional AI development services in Long Island, NY. Custom AI solutions, machine learning applications, and intelligent automation for businesses.",
+    keywords: "AI development Long Island, artificial intelligence Queens, AI solutions Brooklyn, machine learning Manhattan, AI consulting NYC, AI automation Long Island",
+    canonical: "/ai-group/services/ai-development/",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "AI Development Services",
+      "description": "Professional AI development and machine learning solutions",
+      "provider": {
+        "@type": "Organization",
+        "name": "Kingdom Design House"
+      }
+    }
+  },
+
+  networkDesign: {
+    title: "Network Design Services | IT Network Solutions | Kingdom Design House | Long Island, NY",
+    description: "Professional network design services in Long Island, NY. IT network architecture, infrastructure planning, and enterprise networking solutions for businesses.",
+    keywords: "network design Long Island, IT networking Queens, network architecture Brooklyn, enterprise networking Manhattan, IT infrastructure NYC, network solutions Long Island",
+    canonical: "/network-group/services/network-design/",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Network Design Services",
+      "description": "Professional network design and IT infrastructure solutions",
+      "provider": {
+        "@type": "Organization",
+        "name": "Kingdom Design House"
+      }
+    }
   }
 };
 
