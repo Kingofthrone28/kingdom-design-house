@@ -21,7 +21,7 @@ const testFormDataMinimal = {
   message: "I'm interested in AI automation for my business processes. Can you help me understand what's possible?"
 };
 
-async function testContactForm(serverUrl = 'http://localhost:3002', formData = testFormData) {
+async function testContactForm(serverUrl = 'http://localhost:8081', formData = testFormData) {
   console.log('🧪 Testing Contact Form Submission...');
   console.log('📊 Test Data:', JSON.stringify(formData, null, 2));
   console.log('🌐 Server URL:', serverUrl);
@@ -56,7 +56,7 @@ async function testContactForm(serverUrl = 'http://localhost:3002', formData = t
   }
 }
 
-async function testHealthCheck(serverUrl = 'http://localhost:3002') {
+async function testHealthCheck(serverUrl = 'http://localhost:8081') {
   console.log('🏥 Testing Health Check...');
   
   try {
@@ -77,7 +77,7 @@ async function testHealthCheck(serverUrl = 'http://localhost:3002') {
   }
 }
 
-async function testValidationErrors(serverUrl = 'http://localhost:3002') {
+async function testValidationErrors(serverUrl = 'http://localhost:8081') {
   console.log('🔍 Testing Validation Errors...');
   
   const invalidData = {
@@ -124,7 +124,7 @@ async function runAllTests() {
   console.log('\n' + '='.repeat(50) + '\n');
   
   // Test 3: Minimal Form Submission
-  await testContactForm('http://localhost:3002', testFormDataMinimal);
+  await testContactForm('http://localhost:8081', testFormDataMinimal);
   console.log('\n' + '='.repeat(50) + '\n');
   
   // Test 4: Validation Errors

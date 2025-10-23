@@ -317,6 +317,74 @@ export const serviceSeoData = {
         "name": "Kingdom Design House"
       }
     }
+  },
+
+  networkOptimization: {
+    title: "Network Optimization Services | IT Performance Solutions | Kingdom Design House | Long Island, NY",
+    description: "Professional network optimization services in Long Island, NY. Network performance tuning, bandwidth optimization, and IT infrastructure enhancement for businesses.",
+    keywords: "network optimization Long Island, IT performance Queens, network tuning Brooklyn, bandwidth optimization Manhattan, IT enhancement NYC, network solutions Long Island",
+    canonical: "/network-group/services/network-optimization/",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Network Optimization Services",
+      "description": "Professional network optimization and performance enhancement",
+      "provider": {
+        "@type": "Organization",
+        "name": "Kingdom Design House"
+      }
+    }
+  },
+
+  networkSupport: {
+    title: "Network Support Services | IT Support Solutions | Kingdom Design House | Long Island, NY",
+    description: "Professional network support services in Long Island, NY. 24/7 network monitoring, maintenance, and technical support for business networks.",
+    keywords: "network support Long Island, IT support Queens, network maintenance Brooklyn, technical support Manhattan, IT monitoring NYC, network services Long Island",
+    canonical: "/network-group/services/network-support/",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Network Support Services",
+      "description": "Professional network support and maintenance services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Kingdom Design House"
+      }
+    }
+  },
+
+  aiConsulting: {
+    title: "AI Consulting Services | AI Strategy Solutions | Kingdom Design House | Long Island, NY",
+    description: "Professional AI consulting services in Long Island, NY. AI strategy development, implementation planning, and intelligent automation consulting for businesses.",
+    keywords: "AI consulting Long Island, artificial intelligence Queens, AI strategy Brooklyn, AI planning Manhattan, AI implementation NYC, AI services Long Island",
+    canonical: "/ai-group/services/ai-consulting/",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "AI Consulting Services",
+      "description": "Professional AI consulting and strategy development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Kingdom Design House"
+      }
+    }
+  },
+
+  aiSupport: {
+    title: "AI Support Services | AI Maintenance Solutions | Kingdom Design House | Long Island, NY",
+    description: "Professional AI support services in Long Island, NY. AI system maintenance, optimization, and ongoing support for intelligent automation systems.",
+    keywords: "AI support Long Island, AI maintenance Queens, AI optimization Brooklyn, AI services Manhattan, AI systems NYC, AI support Long Island",
+    canonical: "/ai-group/services/ai-support/",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "AI Support Services",
+      "description": "Professional AI support and system maintenance",
+      "provider": {
+        "@type": "Organization",
+        "name": "Kingdom Design House"
+      }
+    }
   }
 };
 

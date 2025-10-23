@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import VideoPlayer from '../components/Organisms/VideoPlayer';
 import VideoShowcase from '../components/VideoShowcase';
 import SEOHead from '../components/SEOHead';
@@ -16,9 +15,6 @@ const VideoDemoPage = () => {
   return (
     <>
       <SEOHead {...seoData} />
-      <Head>
-        <title>Video Demo - Kingdom Design House</title>
-      </Head>
       
       <main style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto' }}>
         <h1 style={{ textAlign: 'center', marginBottom: '40px', color: '#2c3e50' }}>

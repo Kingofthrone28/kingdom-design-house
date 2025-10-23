@@ -1,22 +1,22 @@
 import React from 'react';
-import Head from 'next/head';
 import Layout from '../../../components/Layout';
+import SEOHead from '../../../components/SEOHead';
+import StructuredData from '../../../components/StructuredData';
 import GroupHero from '../../../components/GroupHero';
 import GroupHeading from '../../../components/Molecules/GroupHeading';
 import ServiceContent from '../../../components/Organisms/ServiceContent';
 import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
+import { serviceSeoData } from '../../../lib/seo';
 
 export default function DigitalMarketing() {
+  const seoData = serviceSeoData.digitalMarketing;
+  
   return (
     <>
-      <Head>
-        <title>Digital Marketing Services - The Web Group | Kingdom Design House</title>
-        <meta name="description" content="Digital marketing services by The Web Group. SEO optimization, social media marketing, content strategy, and online advertising solutions." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEOHead {...seoData} />
+      <StructuredData />
       
       <Layout>
         <GroupHero groupName="digitalmarketing" />

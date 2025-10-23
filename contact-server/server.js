@@ -64,7 +64,23 @@ app.use('/api/contact', limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// reCAPTCHA validation function
+// Response builder factory for reCAPTCHA validation
+const createRecaptchaResponse = (valid, reason, additionalData = {}) => ({
+  valid,
+  reason,
+  ...additionalData
+});
+
+// Validation condition checker with callback pattern
+const checkValidationCondition = (condition, reason, additionalData = {}) => {
+  if (condition) {
+    console.log(reason);
+    return createRecaptchaResponse(false, reason, additionalData);
+  }
+  return null;
+};
+
+// reCAPTCHA validation function with functional pattern
 async function validateRecaptcha(token, ip) {
   try {
     const response = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
@@ -77,50 +93,37 @@ async function validateRecaptcha(token, ip) {
 
     const { success, score, action, 'error-codes': errorCodes } = response.data;
 
-    if (!success) {
-      console.log('reCAPTCHA validation failed:', errorCodes);
-      return {
-        valid: false,
-        reason: 'reCAPTCHA validation failed',
-        errors: errorCodes
-      };
+    // Check validation conditions using functional pattern
+    const validationChecks = [
+      checkValidationCondition(
+        !success, 
+        'reCAPTCHA validation failed', 
+        { errors: errorCodes }),
+      checkValidationCondition(
+        score < (parseFloat(process.env.RECAPTCHA_MIN_SCORE) || 0.5),
+        `reCAPTCHA score too low: ${score} (minimum: ${parseFloat(process.env.RECAPTCHA_MIN_SCORE) || 0.5})`,
+        { score }
+      ),
+      checkValidationCondition(
+        action !== 'contact_form_submit',
+        `reCAPTCHA action mismatch: expected 'contact_form_submit', got '${action}'`,
+        { action }
+      )
+    ];
+
+    // Find first failed validation
+    const failedCheck = validationChecks.find(check => check !== null);
+    if (failedCheck) {
+      return failedCheck;
     }
 
-    // For reCAPTCHA v3, check score (0.0 to 1.0, higher is more likely human)
-    const minScore = parseFloat(process.env.RECAPTCHA_MIN_SCORE) || 0.5;
-    if (score < minScore) {
-      console.log(`reCAPTCHA score too low: ${score} (minimum: ${minScore})`);
-      return {
-        valid: false,
-        reason: 'reCAPTCHA score too low',
-        score: score
-      };
-    }
-
-    // Verify the action matches what we expect
-    if (action !== 'contact_form_submit') {
-      console.log(`reCAPTCHA action mismatch: expected 'contact_form_submit', got '${action}'`);
-      return {
-        valid: false,
-        reason: 'reCAPTCHA action mismatch',
-        action: action
-      };
-    }
-
+    // All validations passed
     console.log(`reCAPTCHA validation successful. Score: ${score}, Action: ${action}`);
-    return {
-      valid: true,
-      score: score,
-      action: action
-    };
+    return createRecaptchaResponse(true, 'Validation successful', { score, action });
 
   } catch (error) {
     console.error('reCAPTCHA validation error:', error.message);
-    return {
-      valid: false,
-      reason: 'reCAPTCHA validation error',
-      error: error.message
-    };
+    return createRecaptchaResponse(false, 'reCAPTCHA validation error', { error: error.message });
   }
 }
 
