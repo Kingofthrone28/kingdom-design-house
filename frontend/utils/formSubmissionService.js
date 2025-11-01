@@ -132,35 +132,61 @@ export const sanitizeFormData = (formData) => {
 };
 
 /**
- * Submits form data to the Express.js contact server
+ * Submits form data to the Netlify contact form function
  * @param {Object} formData - Sanitized form data
  * @returns {Promise<Object>} Submission result
  */
 export const submitContactForm = async (formData) => {
   try {
-    // Use Express server endpoint (update this URL to your deployed server)
-    const serverUrl = process.env.NEXT_PUBLIC_CONTACT_SERVER_URL || 'http://localhost:3002';
+    // Determine the base URL for Netlify functions
+    const getNetlifyBaseUrl = () => {
+      // In production, use relative path (Netlify will handle it)
+      if (typeof window !== 'undefined' && window.location.hostname.includes('netlify.app')) {
+        return '';
+      }
+      // In development, use localhost Netlify dev server
+      if (process.env.NODE_ENV === 'development') {
+        return 'http://localhost:8888';
+      }
+      // Fallback to production Netlify URL
+      return 'https://kingdom-design-house.netlify.app';
+    };
     
-    // Submit to Express contact server
-    const response = await fetch(`${serverUrl}/api/contact`, {
+    const baseUrl = getNetlifyBaseUrl();
+    const endpoint = '/.netlify/functions/send-lead';
+    
+    // Transform form data to match send-lead function expectations
+    const leadData = {
+      email: formData.email,
+      first_name: formData.name?.split(' ')[0] || formData.name,
+      last_name: formData.name?.split(' ').slice(1).join(' ') || null,
+      phone: formData.phone || null,
+      company: formData.company || null,
+      service_requested: formData.service || 'General Inquiry',
+      project_description: formData.message || null,
+      recaptchaToken: formData.recaptchaToken || null
+    };
+    
+    // Submit to Netlify function
+    const response = await fetch(`${baseUrl}${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(leadData),
     });
     
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      throw new Error(errorData.message || errorData.error || `HTTP error! status: ${response.status}`);
     }
     
     const result = await response.json();
     return {
       success: true,
-      data: result.data,
-      message: result.message || 'Message sent successfully! We\'ll get back to you soon.'
+      data: result.data || result,
+      message: 'Message sent successfully! We\'ll get back to you soon.'
     };
     
   } catch (error) {
