@@ -14,6 +14,7 @@
 const servicePages = {
   'AI Group Services': [
     'https://kingdomdesignhouse.com/ai-group/services/ai-consulting/',
+    'https://kingdomdesignhouse.com/ai-group/services/ai-development/',
     'https://kingdomdesignhouse.com/ai-group/services/ai-support/'
   ],
   'Web Group Services': [
