@@ -8,8 +8,9 @@ import ServicesSection from '../components/Organisms/ServicesSection';
 import ProcessSteps from '../components/ProcessSteps';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
-import AIOContent from '../components/AIOContent';
-import GEOContent from '../components/GEOContent';
+// GEO & AIO components available for future use but not currently rendered
+// import AIOContent from '../components/AIOContent';
+// import GEOContent from '../components/GEOContent';
 import { pageSeoData, seoConfig } from '../lib/seo';
 import VideoShowcase from '../components/VideoShowcase';
 import { getPageHeadline } from '../data/siteData';
@@ -22,6 +23,11 @@ export default function Services() {
   const geoData = {
     title: "Technology Solutions & AI Services",
     expertise: "Full-service technology company specializing in web development, IT solutions, networking, and AI services with 10+ years of combined experience",
+    content: [
+      "Kingdom Design House is a <strong>full-service technology company</strong> providing comprehensive solutions for businesses across Long Island, Queens, Brooklyn, and Manhattan. Our team combines <strong>10+ years of combined experience</strong> in web development, IT infrastructure, network design, and artificial intelligence.",
+      "We specialize in delivering <strong>tailored technology solutions</strong> that drive business growth, improve operational efficiency, and enhance customer experiences. From custom web applications to AI-powered automation systems, we help businesses leverage cutting-edge technology to achieve their goals.",
+      "Our proven track record includes <strong>100+ successful technology implementations</strong> with a <strong>98% client retention rate</strong>, demonstrating our commitment to delivering exceptional results and ongoing support for our clients."
+    ],
     authoritySignals: [
       { 
         type: "Business Registration", 
@@ -134,7 +140,6 @@ export default function Services() {
   // AIO Optimization data
   const aioData = {
     title: "Technology Services & AI Solutions",
-    content: "Kingdom Design House provides comprehensive technology services including web development, IT solutions, networking, and AI services. We serve businesses across Long Island, Queens, Brooklyn, and Manhattan with professional technology solutions.",
     facts: [
       { label: "Years in Business", value: "4+ years" },
       { label: "Team Experience", value: "10+ years combined" },
@@ -171,18 +176,15 @@ export default function Services() {
   return (
     <>
       <SEOHead {...seoData} />
-      <StructuredData />
+      <StructuredData geoData={geoData} aioData={aioData} />
       
       <Layout>
         <Hero pageHeadline={pageHeadline} />
         <GroupHeading groupIntent="Explore Web, Network & AI Solutions for NYC Businesses" />
         <ServicesSection />
         
-        {/* GEO Optimization Content */}
-        <GEOContent {...geoData} />
-        
-        {/* AIO Optimization Content */}
-        <AIOContent {...aioData} />
+        {/* GEO & AIO Optimization Data - Available for structured data/SEO purposes only */}
+        {/* Data objects (geoData, aioData) kept for future use but not visually rendered */}
         
         <VideoShowcase />
         <ProcessSteps />

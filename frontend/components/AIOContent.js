@@ -8,7 +8,6 @@ import React from 'react';
  */
 const AIOContent = ({ 
   title, 
-  content, 
   facts = [], 
   definitions = [], 
   examples = [],
@@ -92,13 +91,6 @@ const AIOContent = ({
           </ol>
         </section>
       )}
-
-      {/* Main content with AI-friendly formatting */}
-      <section className="aio-main-content">
-        <div className="content-text">
-          {content}
-        </div>
-      </section>
     </div>
   );
 };

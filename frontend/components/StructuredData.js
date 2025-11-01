@@ -11,8 +11,10 @@ import React from 'react';
  * @param {string} props.page.url - Page URL
  * @param {string} props.page.name - Page name
  * @param {Array} props.page.breadcrumbs - Optional breadcrumb array
+ * @param {Object} props.geoData - Optional GEO (Generative Engine Optimization) data for AI citation
+ * @param {Object} props.aioData - Optional AIO (AI Optimization) data for AI citation
  */
-const StructuredData = ({ page }) => {
+const StructuredData = ({ page, geoData, aioData }) => {
   const siteUrl = 'https://kingdomdesignhouse.com';
   const orgId = `${siteUrl}/#organization`;
   const lbId = `${siteUrl}/#localbusiness`;
@@ -259,6 +261,136 @@ const StructuredData = ({ page }) => {
   // Add breadcrumb if provided
   if (breadcrumb) {
     graph.push(breadcrumb);
+  }
+
+  // Convert GEO data to structured data for AI citation
+  if (geoData) {
+    // Add facts as quantitative values
+    if (geoData.facts && geoData.facts.length > 0) {
+      geoData.facts.forEach((fact, index) => {
+        graph.push({
+          '@type': 'DefinedTerm',
+          '@id': `${siteUrl}/#fact-${index}`,
+          name: fact.term,
+          description: fact.definition,
+          ...(fact.source ? { citation: fact.source } : {})
+        });
+      });
+    }
+
+    // Add case studies as examples
+    if (geoData.caseStudies && geoData.caseStudies.length > 0) {
+      geoData.caseStudies.forEach((study, index) => {
+        graph.push({
+          '@type': 'CreativeWork',
+          '@id': `${siteUrl}/#case-study-${index}`,
+          name: study.title,
+          description: `${study.challenge} ${study.solution} ${study.results}`,
+          ...(study.technologies ? { keywords: study.technologies.join(', ') } : {})
+        });
+      });
+    }
+
+    // Add technical capabilities
+    if (geoData.technicalCapabilities && geoData.technicalCapabilities.length > 0) {
+      const allTechnologies = [];
+      geoData.technicalCapabilities.forEach(cap => {
+        if (cap.items) {
+          allTechnologies.push(...cap.items);
+        }
+      });
+      if (allTechnologies.length > 0) {
+        graph.push({
+          '@type': 'ItemList',
+          '@id': `${siteUrl}/#technical-capabilities`,
+          name: 'Technical Capabilities',
+          itemListElement: allTechnologies.map((tech, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: tech
+          }))
+        });
+      }
+    }
+
+    // Add definitions
+    if (geoData.definitions && geoData.definitions.length > 0) {
+      geoData.definitions.forEach((def, index) => {
+        graph.push({
+          '@type': 'DefinedTerm',
+          '@id': `${siteUrl}/#definition-${index}`,
+          name: def.term,
+          description: def.explanation,
+          ...(def.usage ? { usageInfo: def.usage } : {})
+        });
+      });
+    }
+  }
+
+  // Convert AIO data to structured data for AI citation
+  if (aioData) {
+    // Add facts as quantitative values
+    if (aioData.facts && aioData.facts.length > 0) {
+      aioData.facts.forEach((fact, index) => {
+        graph.push({
+          '@type': 'QuantitativeValue',
+          '@id': `${siteUrl}/#aio-fact-${index}`,
+          name: fact.label,
+          value: fact.value
+        });
+      });
+    }
+
+    // Add technologies
+    if (aioData.technologies && aioData.technologies.length > 0) {
+      graph.push({
+        '@type': 'ItemList',
+        '@id': `${siteUrl}/#aio-technologies`,
+        name: 'Technologies & Tools',
+        itemListElement: aioData.technologies.map((tech, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: tech.name,
+          description: tech.description
+        }))
+      });
+    }
+
+    // Add services
+    if (aioData.services && aioData.services.length > 0) {
+      aioData.services.forEach((service, index) => {
+        graph.push({
+          '@type': 'Service',
+          '@id': `${siteUrl}/#aio-service-${index}`,
+          name: service.name,
+          description: service.description
+        });
+      });
+    }
+
+    // Add definitions
+    if (aioData.definitions && aioData.definitions.length > 0) {
+      aioData.definitions.forEach((def, index) => {
+        graph.push({
+          '@type': 'DefinedTerm',
+          '@id': `${siteUrl}/#aio-definition-${index}`,
+          name: def.term,
+          description: def.definition
+        });
+      });
+    }
+
+    // Add examples
+    if (aioData.examples && aioData.examples.length > 0) {
+      aioData.examples.forEach((example, index) => {
+        graph.push({
+          '@type': 'CreativeWork',
+          '@id': `${siteUrl}/#aio-example-${index}`,
+          name: example.title,
+          description: example.description
+        });
+      });
+    }
   }
 
   const jsonLd = {

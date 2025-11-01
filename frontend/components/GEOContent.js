@@ -21,9 +21,11 @@ const GEOContent = ({
       {/* Authority and Expertise Section */}
       <section className="geo-authority">
         <h2>{title}</h2>
-        <div className="expertise-statement">
-          <p><strong>Expertise:</strong> {expertise}</p>
-        </div>
+        {expertise && (
+          <div className="expertise-statement">
+            <p><strong>Expertise:</strong> {expertise}</p>
+          </div>
+        )}
         
         {/* Authority signals for AI trust */}
         {authoritySignals.length > 0 && (
