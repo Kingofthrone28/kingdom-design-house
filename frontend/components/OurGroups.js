@@ -4,7 +4,7 @@ import { useSiteData } from '../contexts/SiteDataContext';
 import Button from './Atoms/Button';
 import Link from 'next/link';
 
-const OurGroups = () => {
+const OurGroups = ({ groupIntent = null }) => {
   const [activeGroup, setActiveGroup] = useState('web');
   const { getGroupsData } = useSiteData();
   const groups = getGroupsData() || [];
@@ -19,6 +19,14 @@ const OurGroups = () => {
         <div className={styles.ourGroups__header}>
           <h2 className={styles.ourGroups__title}>
             Our <span className={styles.ourGroups__title__highlight}>Groups</span>
+            {groupIntent && (
+              <>
+                <br />
+                <span className={styles.ourGroups__title__intent}>
+                  {groupIntent}
+                </span>
+              </>
+            )}
           </h2>
           <p className={styles.ourGroups__subtext}>Our groups are designed to help you grow your business and achieve your goals. Whether you're looking to start a new business, expand your existing business, or just need some help, you have a choice between our groups below to take you to the next level.</p>
         </div>

@@ -190,11 +190,107 @@ export const siteData = {
   },
   
   hero: {
+    // Default/homepage headline
     headline: {
       main: "WE SOLVE BUSINESS",
       highlight: "PROBLEMS",
       sub: "SO YOU",
       subHighlight: "DON'T HAVE TO"
+    }
+  },
+
+  // Page-specific headlines for unique H1s
+  pageHeadlines: {
+    about: {
+      main: "ABOUT",
+      highlight: "KINGDOM DESIGN HOUSE",
+      sub: "",
+      subHighlight: ""
+    },
+    services: {
+      main: "OUR",
+      highlight: "TECHNOLOGY SERVICES",
+      sub: "IN LONG ISLAND & NYC",
+      subHighlight: ""
+    },
+    webGroup: {
+      main: "WEB DEVELOPMENT &",
+      highlight: "DESIGN SERVICES",
+      sub: "IN LONG ISLAND & NYC",
+      subHighlight: ""
+    },
+    networkGroup: {
+      main: "IT NETWORK DESIGN &",
+      highlight: "SUPPORT SERVICES",
+      sub: "IN LONG ISLAND & NYC",
+      subHighlight: ""
+    },
+    aiGroup: {
+      main: "AI SOLUTIONS &",
+      highlight: "AUTOMATION SERVICES",
+      sub: "IN LONG ISLAND & NYC",
+      subHighlight: ""
+    },
+    // Service pages
+    'web-design': {
+      main: "WEB DESIGN",
+      highlight: "SERVICES",
+      sub: "FOR NYC BRANDS",
+      subHighlight: ""
+    },
+    'web-development': {
+      main: "CUSTOM WEB",
+      highlight: "DEVELOPMENT",
+      sub: "FOR NYC BUSINESSES",
+      subHighlight: ""
+    },
+    'digital-marketing': {
+      main: "DIGITAL MARKETING &",
+      highlight: "SEO SERVICES",
+      sub: "IN NEW YORK CITY",
+      subHighlight: ""
+    },
+    'support': {
+      main: "WEBSITE SUPPORT &",
+      highlight: "MAINTENANCE",
+      sub: "FOR LONG ISLAND",
+      subHighlight: ""
+    },
+    'network-design': {
+      main: "NETWORK DESIGN &",
+      highlight: "ARCHITECTURE",
+      sub: "IN LONG ISLAND NY",
+      subHighlight: ""
+    },
+    'network-optimization': {
+      main: "NETWORK OPTIMIZATION &",
+      highlight: "IT PERFORMANCE",
+      sub: "FOR NYC OFFICES",
+      subHighlight: ""
+    },
+    'network-support': {
+      main: "24/7 NETWORK",
+      highlight: "SUPPORT",
+      sub: "FOR LONG ISLAND BUSINESSES",
+      subHighlight: ""
+    },
+    'ai-development': {
+      main: "AI DEVELOPMENT",
+      highlight: "SOLUTIONS",
+      sub: "IN LONG ISLAND NY",
+      subHighlight: ""
+    },
+    'ai-consulting': {
+      main: "AI CONSULTING",
+      highlight: "SERVICES",
+      sub: "FOR NYC BUSINESSES",
+      subHighlight: ""
+    },
+    'ai-support': {
+      main: "AI SUPPORT &",
+      highlight: "MAINTENANCE",
+      sub: "FOR LONG ISLAND COMPANIES",
+      subHighlight: ""
     }
   },
   
@@ -1083,6 +1179,10 @@ export const getFooterData = () => {
 
 export const getGroupHeadingData = (groupName) => {
   return siteData.groupHeadings[groupName] || siteData.groupHeadings.webgroup;
+};
+
+export const getPageHeadline = (pageName) => {
+  return siteData.pageHeadlines[pageName] || siteData.hero.headline;
 };
 
 export const getWebStrategyData = () => {

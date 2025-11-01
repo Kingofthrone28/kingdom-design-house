@@ -9,9 +9,11 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
+import { getPageHeadline } from '../../../data/siteData';
 
 export default function WebDesign() {
   const seoData = serviceSeoData.webDesign;
+  const pageHeadline = getPageHeadline('web-design');
   
   return (
     <>
@@ -19,8 +21,8 @@ export default function WebDesign() {
       <StructuredData />
       
       <Layout>
-        <GroupHero groupName="webdesign" />
-        <GroupHeading groupName="webdesign" />
+        <GroupHero groupName="webdesign" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="webdesign" groupIntent="Web Design Services for Long Island & NYC Brands" />
         <ServiceContent serviceType="web-design" />
         <ProcessSteps />
         <ChatJarvis />

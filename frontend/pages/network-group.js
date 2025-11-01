@@ -8,17 +8,19 @@ import ServiceContent from '../components/Organisms/ServiceContent';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { pageSeoData } from '../lib/seo';
+import { getPageHeadline } from '../data/siteData';
 
 export default function NetworkGroup() {
   const seoData = pageSeoData.networkGroup;
+  const pageHeadline = getPageHeadline('networkGroup');
   
   return (
     <>
       <SEOHead {...seoData} />
       
       <Layout>
-        <GroupHero groupName="networkgroup" />
-        <GroupHeading groupName="networkgroup" />
+        <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="networkgroup" groupIntent="IT Infrastructure & Connectivity Experts in NY" />
         <ServiceContent serviceType="network-design" layout="2-column" />
         <ProcessSteps />
         <ChatJarvis />

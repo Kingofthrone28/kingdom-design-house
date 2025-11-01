@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../styles/GroupHeading.module.scss';
 import { getGroupHeadingData } from '../../data/siteData';
 
-const GroupHeading = ({ groupName = 'ourGroups' }) => {
+const GroupHeading = ({ groupName = 'ourGroups', groupIntent = null }) => {
   const headingData = getGroupHeadingData(groupName);
   const { title, content, highlightedText } = headingData;
 
@@ -14,13 +14,21 @@ const GroupHeading = ({ groupName = 'ourGroups' }) => {
   return (
     <section className={styles.groupHeading}>
       <div className={styles.groupHeading__container}>
-        {/* Heading with highlighted text */}
+        {/* Heading with highlighted text and optional groupIntent */}
         <h2 className={styles.groupHeading__title}>
           {beforeHighlight}
           <span className={styles.groupHeading__highlight}>
             {highlightedText}
           </span>
           {afterHighlight}
+          {groupIntent && (
+            <>
+              <br />
+              <span className={styles.groupHeading__intent}>
+                {groupIntent}
+              </span>
+            </>
+          )}
         </h2>
         
         {/* Content paragraph with HTML support */}

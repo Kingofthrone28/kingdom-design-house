@@ -9,9 +9,11 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
+import { getPageHeadline } from '../../../data/siteData';
 
 export default function DigitalMarketing() {
   const seoData = serviceSeoData.digitalMarketing;
+  const pageHeadline = getPageHeadline('digital-marketing');
   
   return (
     <>
@@ -19,8 +21,8 @@ export default function DigitalMarketing() {
       <StructuredData />
       
       <Layout>
-        <GroupHero groupName="digitalmarketing" />
-        <GroupHeading groupName="digitalmarketing" />
+        <GroupHero groupName="digitalmarketing" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="digitalmarketing" groupIntent="Digital Marketing & SEO Services in NYC" />
         <ServiceContent serviceType="digital-marketing" />
         <ProcessSteps />
         <ChatJarvis />

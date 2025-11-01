@@ -9,9 +9,11 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
+import { getPageHeadline } from '../../../data/siteData';
 
 export default function NetworkSupport() {
   const seoData = serviceSeoData.networkSupport;
+  const pageHeadline = getPageHeadline('network-support');
   
   return (
     <>
@@ -19,8 +21,8 @@ export default function NetworkSupport() {
       <StructuredData />
       
       <Layout>
-        <GroupHero groupName="networkgroup" />
-        <GroupHeading groupName="networkgroup" />
+        <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="networkgroup" groupIntent="24/7 Network Support for Long Island Businesses" />
         <ServiceContent serviceType="network-support" />
         <ProcessSteps />
         <ChatJarvis />

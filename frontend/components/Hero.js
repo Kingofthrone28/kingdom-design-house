@@ -3,15 +3,17 @@ import NextImage from 'next/image';
 import styles from '../styles/Hero.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
 
-const Hero = () => {
+const Hero = ({ pageHeadline = null }) => {
   const { getHeroData } = useSiteData();
   const heroData = getHeroData();
+  
+  // Use page-specific headline or fall back to default
   const { 
     main, 
     sub, 
     subHighlight, 
     highlight 
-  } = heroData.headline;
+  } = pageHeadline || heroData.headline;
 
   return (
     <section className={styles.hero}>
@@ -36,11 +38,11 @@ const Hero = () => {
 
         {/* Main Headline */}
         <div className={styles.hero__headline}>
-          <h1 className={styles.hero__headline__main}>{main} {''}
+          <h1 className={styles.hero__headline__main}>
+            {main} {''}
             <span className={styles.hero__headline__highlight}>{highlight}</span>
-          </h1>
-          <h1 className={styles.hero__headline__sub}>
-           {sub} {''}
+            <br />
+            {sub} {''}
             <span className={styles.hero__headline__highlight}>{subHighlight}</span>
           </h1>
         </div>

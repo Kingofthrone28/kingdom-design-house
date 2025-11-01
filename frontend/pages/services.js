@@ -12,8 +12,11 @@ import AIOContent from '../components/AIOContent';
 import GEOContent from '../components/GEOContent';
 import { pageSeoData, seoConfig } from '../lib/seo';
 import VideoShowcase from '../components/VideoShowcase';
+import { getPageHeadline } from '../data/siteData';
+
 export default function Services() {
   const seoData = pageSeoData.services;
+  const pageHeadline = getPageHeadline('services');
   
   // GEO (Generative Engine Optimization) data
   const geoData = {
@@ -171,8 +174,8 @@ export default function Services() {
       <StructuredData />
       
       <Layout>
-        <Hero />
-        <GroupHeading/>
+        <Hero pageHeadline={pageHeadline} />
+        <GroupHeading groupIntent="Explore Web, Network & AI Solutions for NYC Businesses" />
         <ServicesSection />
         
         {/* GEO Optimization Content */}

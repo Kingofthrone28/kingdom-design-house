@@ -66,12 +66,6 @@ const Breadcrumbs = ({ customCrumbs }) => {
 
   return (
     <>
-      {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-
       {/* Breadcrumb Navigation */}
       <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
         <ol className={styles.list}>

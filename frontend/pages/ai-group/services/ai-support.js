@@ -9,9 +9,11 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
+import { getPageHeadline } from '../../../data/siteData';
 
 export default function AISupport() {
   const seoData = serviceSeoData.aiSupport;
+  const pageHeadline = getPageHeadline('ai-support');
   
   return (
     <>
@@ -19,8 +21,8 @@ export default function AISupport() {
       <StructuredData />
       
       <Layout>
-        <GroupHero groupName="aigroup" />
-        <GroupHeading groupName="aigroup" />
+        <GroupHero groupName="aigroup" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="aigroup" groupIntent="AI Support & Maintenance for Long Island Companies" />
         <ServiceContent serviceType="ai-support" />
         <ProcessSteps />
         <ChatJarvis />

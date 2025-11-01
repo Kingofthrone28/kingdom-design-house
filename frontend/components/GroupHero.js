@@ -4,7 +4,7 @@ import { useSiteData } from '../contexts/SiteDataContext';
 import Button from './Atoms/Button';
 import { getGroupsData } from '../data/siteData';
 
-const GroupHero = ({ groupName = 'default' }) => {
+const GroupHero = ({ groupName = 'default', pageHeadline = null }) => {
     /*
     Get the current group data  (groupName)
     Get the background image for the current group (bgImage)
@@ -24,12 +24,13 @@ const GroupHero = ({ groupName = 'default' }) => {
   const buttonData = heroData.chat; 
   const { buttonText } = buttonData || { buttonText: "Start a Project" };
 
+  // Use page-specific headline or fall back to default
   const { 
     main, 
     sub, 
     subHighlight, 
     highlight 
-  } = heroData.headline;
+  } = pageHeadline || heroData.headline;
 
   const scrollToChat = () => {
     const chatSection = document.getElementById('chat-jarvis');
@@ -53,11 +54,11 @@ const GroupHero = ({ groupName = 'default' }) => {
 
         {/* Main Headline */}
         <div className={styles.hero__headline}>
-          <h1 className={styles.hero__headline__main}>{main} {''}
+          <h1 className={styles.hero__headline__main}>
+            {main} {''}
             <span className={styles.hero__headline__highlight}>{highlight}</span>
-          </h1>
-          <h1 className={styles.hero__headline__sub}>
-           {sub} {''}
+            <br />
+            {sub} {''}
             <span className={styles.hero__headline__highlight}>{subHighlight}</span>
           </h1>
         </div>

@@ -9,9 +9,11 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
+import { getPageHeadline } from '../../../data/siteData';
 
 export default function Support() {
   const seoData = serviceSeoData.support;
+  const pageHeadline = getPageHeadline('support');
   
   return (
     <>
@@ -19,8 +21,8 @@ export default function Support() {
       <StructuredData />
       
       <Layout>
-        <GroupHero groupName="websupport" />
-        <GroupHeading groupName="websupport" />
+        <GroupHero groupName="websupport" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="websupport" groupIntent="Website Support & Maintenance in Long Island NY" />
         <ServiceContent serviceType="support" />
         <ProcessSteps />
         <ChatJarvis />

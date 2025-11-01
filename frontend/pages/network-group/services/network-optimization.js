@@ -9,9 +9,11 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
+import { getPageHeadline } from '../../../data/siteData';
 
 export default function NetworkOptimization() {
   const seoData = serviceSeoData.networkOptimization;
+  const pageHeadline = getPageHeadline('network-optimization');
   
   return (
     <>
@@ -19,8 +21,8 @@ export default function NetworkOptimization() {
       <StructuredData />
       
       <Layout>
-        <GroupHero groupName="networkgroup" />
-        <GroupHeading groupName="networkgroup" />
+        <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="networkgroup" groupIntent="Network Optimization & IT Performance for NYC Offices" />
         <ServiceContent serviceType="network-optimization" />
         <ProcessSteps />
         <ChatJarvis />

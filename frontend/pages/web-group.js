@@ -8,17 +8,19 @@ import ProcessSteps from '../components/ProcessSteps';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { pageSeoData } from '../lib/seo';
+import { getPageHeadline } from '../data/siteData';
 
 export default function WebGroup() {
   const seoData = pageSeoData.webGroup;
+  const pageHeadline = getPageHeadline('webGroup');
   
   return (
     <>
       <SEOHead {...seoData} />
       
       <Layout>
-        <GroupHero groupName="webgroup" />
-        <GroupHeading groupName="webgroup" />
+        <GroupHero groupName="webgroup" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="webgroup" groupIntent="Web Development & SEO Experts in New York" />
         <ProcessSteps />
         <WebStrategy />
         <WhyChooseUs />

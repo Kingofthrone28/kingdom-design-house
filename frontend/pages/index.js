@@ -20,7 +20,7 @@ export default function Home() {
       
       <Layout>
         <Hero />
-        <OurGroups />
+        <OurGroups groupIntent="Web, AI & IT Services in Long Island NY" />
         <ServicesSection />
         <VideoShowcase />
         <ProcessSteps />

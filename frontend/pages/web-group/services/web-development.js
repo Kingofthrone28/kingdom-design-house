@@ -9,9 +9,11 @@ import ProcessSteps from '../../../components/ProcessSteps';
 import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
+import { getPageHeadline } from '../../../data/siteData';
 
 export default function WebDevelopment() {
   const seoData = serviceSeoData.webDevelopment;
+  const pageHeadline = getPageHeadline('web-development');
   
   return (
     <>
@@ -19,8 +21,8 @@ export default function WebDevelopment() {
       <StructuredData />
       
       <Layout>
-        <GroupHero groupName="webdevelopment" />
-        <GroupHeading groupName="webdevelopment" />
+        <GroupHero groupName="webdevelopment" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="webdevelopment" groupIntent="Web Development Solutions for NYC Businesses" />
         <ServiceContent serviceType="web-development" />
         <ProcessSteps />
         <ChatJarvis />

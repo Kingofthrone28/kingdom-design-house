@@ -8,17 +8,19 @@ import ProcessSteps from '../components/ProcessSteps';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { pageSeoData } from '../lib/seo';
+import { getPageHeadline } from '../data/siteData';
 
 export default function AIGroup() {
   const seoData = pageSeoData.aiGroup;
+  const pageHeadline = getPageHeadline('aiGroup');
   
   return (
     <>
       <SEOHead {...seoData} />
       
       <Layout>
-        <GroupHero groupName="aigroup" />
-        <GroupHeading groupName="aigroup" />
+        <GroupHero groupName="aigroup" pageHeadline={pageHeadline} />
+        <GroupHeading groupName="aigroup" groupIntent="AI Solutions & Automation Experts in NY" />
         <ProcessSteps />
         <ChatJarvis />
         <WhyChooseUs />
