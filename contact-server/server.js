@@ -146,6 +146,12 @@ const sendEmailWithSendGrid = async (to, subject, html, text) => {
     return { success: true };
   } catch (error) {
     console.error('SendGrid email error:', error);
+    console.error('SendGrid error details:', {
+      code: error.code,
+      message: error.message,
+      response: error.response?.body,
+      errors: error.response?.body?.errors
+    });
     throw error;
   }
 };

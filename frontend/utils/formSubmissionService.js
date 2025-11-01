@@ -132,14 +132,34 @@ export const sanitizeFormData = (formData) => {
 };
 
 /**
- * Submits form data to the Express.js contact server
+ * Submits form data to the Express.js contact server (SendGrid email service)
  * @param {Object} formData - Sanitized form data
  * @returns {Promise<Object>} Submission result
  */
 export const submitContactForm = async (formData) => {
   try {
-    // Use Express server endpoint (update this URL to your deployed server)
-    const serverUrl = process.env.NEXT_PUBLIC_CONTACT_SERVER_URL || 'http://localhost:3002';
+    // Determine the contact server URL
+    // In production, use NEXT_PUBLIC_CONTACT_SERVER_URL environment variable
+    // In development, use localhost:8081 (default contact-server port)
+    const getServerUrl = () => {
+      // Check for production environment variable first
+      if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_CONTACT_SERVER_URL) {
+        return process.env.NEXT_PUBLIC_CONTACT_SERVER_URL;
+      }
+      
+      // In production (Netlify), use Railway deployment URL
+      if (typeof window !== 'undefined' && window.location.hostname.includes('netlify.app')) {
+        // Use Railway deployment URL (update this to your actual Railway URL)
+        return process.env.NEXT_PUBLIC_CONTACT_SERVER_URL || 'https://kingdom-design-house-contact.up.railway.app';
+      }
+      
+      // In development, use localhost:8081
+      return 'http://localhost:8081';
+    };
+    
+    const serverUrl = getServerUrl();
+    
+    console.log('Submitting form to contact server:', `${serverUrl}/api/contact`);
     
     // Submit to Express contact server
     const response = await fetch(`${serverUrl}/api/contact`, {
