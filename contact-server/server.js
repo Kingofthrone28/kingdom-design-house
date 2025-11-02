@@ -271,7 +271,7 @@ Reply to: ${formData.email}
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #495057;">Email:</td>
-                <td style="padding: 8px 0; color: #212529;"><a href="mailto:kingdomdesignhouse@gmail.com" style="color: #007bff;">kingdomdesignhouse@gmail.com</a></td>
+                <td style="padding: 8px 0; color: #212529;"><a href="mailto:info@kingdomdesignhouse.com" style="color: #007bff;">info@kingdomdesignhouse.com</a></td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #495057;">Hours:</td>
@@ -307,7 +307,7 @@ Thank you for reaching out to Kingdom Design House! We've received your inquiry 
 
 Quick Contact:
 Phone: 347.927.8846
-Email: kingdomdesignhouse@gmail.com
+Email: info@kingdomdesignhouse.com
 Hours: Mon-Fri 9AM-6PM EST
 
 What's Next?
@@ -408,7 +408,7 @@ app.post('/api/contact', contactValidation, async (req, res) => {
     const emailPromises = [
       // Email to business
       sendEmailWithSendGrid(
-        process.env.BUSINESS_EMAIL || 'kingdomdesignhouse@gmail.com',
+        process.env.BUSINESS_EMAIL || 'info@kingdomdesignhouse.com',
         businessEmail.subject,
         businessEmail.html,
         businessEmail.text

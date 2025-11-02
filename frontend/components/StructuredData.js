@@ -72,7 +72,7 @@ const StructuredData = ({ page, geoData, aioData }) => {
       logo: `${siteUrl}/images/logo.png`,
       description:
         'Full-service technology company offering AI solutions, web development, and network services for businesses in Long Island, NY.',
-      email: 'kingdomdesignhouse@gmail.com',
+      email: 'info@kingdomdesignhouse.com',
       telephone: '+1-347-927-8846',
       sameAs: [
         'https://www.linkedin.com/company/kingdom-design-house',
@@ -106,7 +106,7 @@ const StructuredData = ({ page, geoData, aioData }) => {
       image: `${siteUrl}/images/logo.png`,
       url: siteUrl,
       telephone: '+1-347-927-8846',
-      email: 'kingdomdesignhouse@gmail.com',
+      email: 'info@kingdomdesignhouse.com',
       priceRange: '$$-$$$',
       // No street address provided to avoid NAP confusion
       address: {

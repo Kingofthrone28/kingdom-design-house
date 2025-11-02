@@ -56,7 +56,7 @@ In your Railway project dashboard:
 # Existing variables...
 GMAIL_USER=your-email@gmail.com
 GMAIL_APP_PASSWORD=your-app-password
-BUSINESS_EMAIL=kingdomdesignhouse@gmail.com
+BUSINESS_EMAIL=info@kingdomdesignhouse.com
 
 # Add these new variables:
 RECAPTCHA_SECRET_KEY=your-secret-key-here

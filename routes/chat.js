@@ -88,7 +88,7 @@ const FALLBACK_RESPONSES = {
 
 For immediate assistance, please contact us:
 📞 Phone: 347.927.8846
-📧 Email: kingdomdesignhouse@gmail.com
+📧 Email: info@kingdomdesignhouse.com
 
 We offer comprehensive packages for businesses of all sizes, including:
 • Web Development & Design
@@ -109,7 +109,7 @@ I'd love to help you with your project! While I'm experiencing some technical di
 
 For immediate assistance, please contact us:
 📞 Phone: 347.927.8846
-📧 Email: kingdomdesignhouse@gmail.com
+📧 Email: info@kingdomdesignhouse.com
 
 I'll make sure our team gets back to you quickly with a personalized proposal for your needs. What's your timeline looking like for this project?`
 };

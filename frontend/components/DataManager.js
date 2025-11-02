@@ -16,10 +16,10 @@ const DataManager = () => {
 
   const handleResetContact = () => {
     setNewPhone("347.927.8846");
-    setNewEmail("kingdomdesignhouse@gmail.com");
+    setNewEmail("info@kingdomdesignhouse.com");
     updateContact({
       phone: "347.927.8846",
-      email: "kingdomdesignhouse@gmail.com"
+      email: "info@kingdomdesignhouse.com"
     });
   };
 

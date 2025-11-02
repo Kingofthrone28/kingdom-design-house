@@ -95,7 +95,7 @@ All documentation files should include:
 ## 📞 **Support**
 
 For documentation questions or updates:
-- **Email**: kingdomdesignhouse@gmail.com
+- **Email**: info@kingdomdesignhouse.com
 - **Phone**: 347.927.8846
 
 ---

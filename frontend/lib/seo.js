@@ -12,7 +12,7 @@ export const seoConfig = {
     url: "https://kingdomdesignhouse.com",
     logo: "https://kingdomdesignhouse.com/images/logo.png",
     phone: "347.927.8846",
-    email: "kingdomdesignhouse@gmail.com"
+    email: "info@kingdomdesignhouse.com"
   },
   
   location: {

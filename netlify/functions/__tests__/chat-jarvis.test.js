@@ -320,7 +320,7 @@ describe('Chat Jarvis Function Unit Tests', () => {
       const result = createFallbackResponse('test message');
       
       expect(result.response).toContain('347.927.8846');
-      expect(result.response).toContain('kingdomdesignhouse@gmail.com');
+      expect(result.response).toContain('info@kingdomdesignhouse.com');
       expect(result.response).toContain('Web Development & Design');
       expect(result.response).toContain('IT Services & Support');
     });

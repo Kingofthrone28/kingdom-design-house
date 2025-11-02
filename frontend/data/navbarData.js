@@ -3,7 +3,7 @@
 export const navbarData = {
   contact: {
     phone: "347.927.8846",
-    email: "kingdomdesignhouse@gmail.com"
+    email: "info@kingdomdesignhouse.com"
   },
   cta: {
     buttonText: "Book Now",

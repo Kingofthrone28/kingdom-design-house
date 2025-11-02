@@ -32,7 +32,7 @@ cp env.example .env
 # Edit .env with your Gmail credentials
 GMAIL_USER=your-email@gmail.com
 GMAIL_APP_PASSWORD=your-16-char-app-password
-BUSINESS_EMAIL=kingdomdesignhouse@gmail.com
+BUSINESS_EMAIL=info@kingdomdesignhouse.com
 PORT=3001
 ALLOWED_ORIGINS=https://kingdomdesignhouse.com,http://localhost:3000
 ```
@@ -126,7 +126,7 @@ heroku create your-contact-server
 # Set environment variables
 heroku config:set GMAIL_USER=your-email@gmail.com
 heroku config:set GMAIL_APP_PASSWORD=your-app-password
-heroku config:set BUSINESS_EMAIL=kingdomdesignhouse@gmail.com
+heroku config:set BUSINESS_EMAIL=info@kingdomdesignhouse.com
 
 # Deploy
 git push heroku main

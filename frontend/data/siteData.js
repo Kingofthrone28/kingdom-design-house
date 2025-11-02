@@ -8,7 +8,7 @@ export const siteData = {
   
   contact: {
     phone: "347.927.8846",
-    email: "kingdomdesignhouse@gmail.com",
+    email: "info@kingdomdesignhouse.com",
     businessPhone: "347.927.8846"
   },
 
@@ -110,9 +110,9 @@ export const siteData = {
       {
         type: "email",
         label: "Email",
-        value: "kingdomdesignhouse@gmail.com",
+        value: "info@kingdomdesignhouse.com",
         description: "We respond within 24 hours",
-        action: "mailto:kingdomdesignhouse@gmail.com"
+        action: "mailto:info@kingdomdesignhouse.com"
       },
       {
         type: "location",
@@ -1135,7 +1135,7 @@ export const siteData = {
     ],
     companyInfo: { 
       phone: '347.927.8846', 
-      email: 'kingdomdesignhouse@gmail.com',
+      email: 'info@kingdomdesignhouse.com',
       address: "3 Charlick Place, Freeport, NY 11520",
     },  
    }

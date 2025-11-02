@@ -248,7 +248,7 @@ Based on the site assessment, we create a custom network design:
 
 For technical support or questions about network setup and configuration:
 
-- **Email**: kingdomdesignhouse@gmail.com
+- **Email**: info@kingdomdesignhouse.com
 - **Phone**: 347.927.8846
 - **Support Hours**: Monday - Friday, 9 AM - 6 PM EST
 
