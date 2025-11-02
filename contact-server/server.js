@@ -128,7 +128,7 @@ async function validateRecaptcha(token, ip) {
 }
 
 // SendGrid email function
-const sendEmailWithSendGrid = async (to, subject, html, text) => {
+const sendEmailWithSendGrid = async (to, subject, html, text, replyTo = null) => {
   const msg = {
     to: to,
     from: {
@@ -140,9 +140,14 @@ const sendEmailWithSendGrid = async (to, subject, html, text) => {
     text: text
   };
 
+  // Add reply-to header if provided
+  if (replyTo) {
+    msg.replyTo = replyTo;
+  }
+
   try {
     await sgMail.send(msg);
-    console.log(`SendGrid email sent successfully to ${to}`);
+    console.log(`SendGrid email sent successfully to ${to}${replyTo ? ` (replyTo: ${replyTo})` : ''}`);
     return { success: true };
   } catch (error) {
     console.error('SendGrid email error:', error);
@@ -406,20 +411,22 @@ app.post('/api/contact', contactValidation, async (req, res) => {
     }
 
     const emailPromises = [
-      // Email to business
+      // Email to business - reply-to set to form sender so you can reply directly
       sendEmailWithSendGrid(
         process.env.BUSINESS_EMAIL || 'info@kingdomdesignhouse.com',
         businessEmail.subject,
         businessEmail.html,
-        businessEmail.text
+        businessEmail.text,
+        formData.email // Reply-to the person who submitted the form
       ),
       
-      // Confirmation email to user
+      // Confirmation email to user - reply-to set to business email
       sendEmailWithSendGrid(
         formData.email,
         userEmail.subject,
         userEmail.html,
-        userEmail.text
+        userEmail.text,
+        process.env.BUSINESS_EMAIL || 'info@kingdomdesignhouse.com' // Reply-to business email
       )
     ];
 
