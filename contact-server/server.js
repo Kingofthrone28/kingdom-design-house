@@ -155,8 +155,22 @@ const sendEmailWithSendGrid = async (to, subject, html, text, replyTo = null) =>
       code: error.code,
       message: error.message,
       response: error.response?.body,
-      errors: error.response?.body?.errors
+      errors: error.response?.body?.errors,
+      fromEmail: sendgridFromEmail,
+      toEmail: to
     });
+    
+    // Log specific SendGrid errors for debugging
+    if (error.response?.body?.errors) {
+      error.response.body.errors.forEach((err, index) => {
+        console.error(`SendGrid error ${index + 1}:`, {
+          field: err.field,
+          message: err.message,
+          help: err.help
+        });
+      });
+    }
+    
     throw error;
   }
 };
