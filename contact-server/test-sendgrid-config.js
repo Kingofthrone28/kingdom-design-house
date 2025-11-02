@@ -49,15 +49,25 @@ console.log('');
 // Test 3: Send Test Email
 console.log('Test 3: Send Test Email');
 console.log('------------------------');
-console.log(`Attempting to send test email from: ${SENDGRID_FROM_EMAIL}`);
+
+// Use a different FROM address for test to avoid spam filters
+// Test emails from same address to same address often go to spam
+const testFromEmail = SENDGRID_FROM_EMAIL === BUSINESS_EMAIL 
+  ? 'noreply@kingdomdesignhouse.com' 
+  : SENDGRID_FROM_EMAIL;
+
+console.log(`Attempting to send test email from: ${testFromEmail}`);
 console.log(`Attempting to send test email to: ${BUSINESS_EMAIL}`);
+if (SENDGRID_FROM_EMAIL === BUSINESS_EMAIL) {
+  console.log(`⚠️  Note: Using noreply@ instead of info@ as FROM to avoid spam filters`);
+}
 console.log('');
 
 const testEmail = {
   to: BUSINESS_EMAIL,
   from: {
-    email: SENDGRID_FROM_EMAIL,
-    name: 'Kingdom Design House Test'
+    email: testFromEmail,
+    name: 'Kingdom Design House'
   },
   subject: 'SendGrid Configuration Test',
   text: `This is a test email to verify SendGrid configuration.
