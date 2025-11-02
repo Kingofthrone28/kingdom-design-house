@@ -13,7 +13,7 @@ const SEOHead = ({
   canonical,
   ogTitle,
   ogDescription,
-  ogImage = '/images/og-default.jpg',
+  ogImage = '/images/kdh_logo.svg',
   ogType = 'website',
   structuredData,
   noindex = false,
