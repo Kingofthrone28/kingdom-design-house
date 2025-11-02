@@ -1,10 +1,12 @@
 import React from 'react';
+import Head from 'next/head';
 
 /**
  * StructuredData Component
  * 
  * Implements Schema.org structured data for rich snippets and improved SEO.
  * Consolidates all JSON-LD into a single @graph for cleaner structure.
+ * Renders structured data inside the <head> tag using Next.js Head component.
  * 
  * @param {Object} props - Component props
  * @param {Object} props.page - Optional page-specific data
@@ -399,10 +401,12 @@ const StructuredData = ({ page, geoData, aioData }) => {
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
+    <Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </Head>
   );
 };
 
