@@ -3,7 +3,8 @@ import styles from '../styles/Footer.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
 import { getNavbarData } from '../data/navbarData';
 import EmailIcon from './Atoms/EmailIcon';
-import PhoneIcon from './Atoms/PhoneIcon';
+import PhoneIcon from './Atoms/PhoneIcon';  
+import LocationIcon from './Atoms/LocationIcon';
 import Link from 'next/link';
             
 const Footer = () => {
@@ -44,7 +45,10 @@ const Footer = () => {
                 {companyInfo.phone}
               </a>
             </div>
-            
+            <div className={styles.footer__contact__item}>
+              <span className={styles.footer__contact__label}><LocationIcon /></span>
+              <span className={styles.footer__contact__link}>{companyInfo.address}</span>
+            </div>
             <div className={styles.footer__copyright}>
               Copyright {currentYear} Kingdom Design House LLC. All rights reserved.
             </div>
@@ -56,7 +60,7 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Company Groups</h3>
               <ul className={styles.footer__links__list}>
-                {navigation && navigation.map((group, index) => (
+                {navigation.map((group, index) => (
                   <li key={index} className={styles.footer__links__item}>
                     <Link href={group.route} className={styles.footer__links__link}>
                       {group.name}
@@ -70,7 +74,7 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>AI Solutions</h3>
               <ul className={styles.footer__links__list}>
-                {aiServices && aiServices.map((service, index) => (
+                {aiServices.map((service, index) => (
                   <li key={index} className={styles.footer__links__item}>
                     <Link href={service.url} className={styles.footer__links__link}>
                       {service.name}
@@ -84,7 +88,7 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Web Services</h3>
               <ul className={styles.footer__links__list}>
-                {webServices && webServices.map((service, index) => (
+                {webServices.map((service, index) => (
                   <li key={index} className={styles.footer__links__item}>
                     <Link href={service.url} className={styles.footer__links__link}>
                       {service.name}
@@ -98,7 +102,7 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Network Services</h3>
               <ul className={styles.footer__links__list}>
-                {networkServices && networkServices.map((service, index) => (
+                {networkServices.map((service, index) => (
                   <li key={index} className={styles.footer__links__item}>
                     <Link href={service.url} className={styles.footer__links__link}>
                       {service.name}
@@ -112,7 +116,7 @@ const Footer = () => {
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Social Media</h3>
               <ul className={styles.footer__links__list}>
-                {socialMedia && socialMedia.map((social, index) => (
+                {socialMedia.map((social, index) => (
                   <li key={index} className={styles.footer__links__item}>
                     <a 
                       href={social.url} 

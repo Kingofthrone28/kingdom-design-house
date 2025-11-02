@@ -1135,7 +1135,8 @@ export const siteData = {
     ],
     companyInfo: { 
       phone: '347.927.8846', 
-      email: 'kingdomdesignhouse@gmail.com' 
+      email: 'kingdomdesignhouse@gmail.com',
+      address: "3 Charlick Place, Freeport, NY 11520",
     },  
    }
 };
