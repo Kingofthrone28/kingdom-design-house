@@ -7,7 +7,11 @@
   NODE_VERSION = "18"
   NPM_FLAGS = "--production=false"
 
-# Force HTTPS redirects
+# Force HTTPS and www canonicalization redirects
+# These redirects ensure all traffic goes to canonical https://kingdomdesignhouse.com
+# Google Search Console may flag these as "Page with redirect" but they are intentional
+# for proper SEO canonicalization and HTTPS enforcement
+
 [[redirects]]
   from = "http://kingdomdesignhouse.com/*"
   to = "https://kingdomdesignhouse.com/:splat"
@@ -25,6 +29,26 @@
   to = "https://kingdomdesignhouse.com/:splat"
   status = 301
   force = true
+
+# Handle non-trailing-slash to trailing-slash redirects for consistency
+# These redirects ensure all pages have consistent URL structure matching Next.js config
+[[redirects]]
+  from = "/web-group"
+  to = "/web-group/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/network-group"
+  to = "/network-group/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/ai-group"
+  to = "/ai-group/"
+  status = 301
+  force = false
 
 # API redirects
 [[redirects]]
