@@ -22,7 +22,7 @@ app.set('trust proxy', 1);
 
 // SendGrid Configuration
 const hasSendgridKey = !!process.env.SENDGRID_API_KEY;
-const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL || 'noreply@kingdomdesignhouse.com';
+const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL || 'no-reply@kingdomdesignhouse.com';
 
 console.log('SendGrid configuration check:');
 console.log('- SENDGRID_API_KEY exists:', !!process.env.SENDGRID_API_KEY);

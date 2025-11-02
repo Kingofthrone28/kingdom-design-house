@@ -10,7 +10,7 @@ const sgMail = require('@sendgrid/mail');
 
 // Configuration from environment
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
-const SENDGRID_FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL || 'noreply@kingdomdesignhouse.com';
+const SENDGRID_FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL || 'no-reply@kingdomdesignhouse.com';
 const BUSINESS_EMAIL = process.env.BUSINESS_EMAIL || 'info@kingdomdesignhouse.com';
 
 console.log('🔍 SendGrid Configuration Test');
@@ -53,8 +53,8 @@ console.log('------------------------');
 // Use a different FROM address for test to avoid spam filters
 // Test emails from same address to same address often go to spam
 const testFromEmail = SENDGRID_FROM_EMAIL === BUSINESS_EMAIL 
-  ? 'noreply@kingdomdesignhouse.com' 
-  : SENDGRID_FROM_EMAIL;
+      ? 'no-reply@kingdomdesignhouse.com' 
+      : SENDGRID_FROM_EMAIL;
 
 console.log(`Attempting to send test email from: ${testFromEmail}`);
 console.log(`Attempting to send test email to: ${BUSINESS_EMAIL}`);
