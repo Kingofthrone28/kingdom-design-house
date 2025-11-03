@@ -357,9 +357,20 @@ const contactValidation = [
     .withMessage('Please provide a valid email address'),
   
   body('phone')
-    .optional()
-    .matches(/^[\+]?[1-9][\d]{0,15}$/)
-    .withMessage('Please provide a valid phone number'),
+    .optional({ checkFalsy: true, nullable: true }) // Skip validation if field is undefined, null, or empty string
+    .trim()
+    .custom((value) => {
+      // If empty or falsy after trim, it's valid (optional field)
+      if (!value || value === '') {
+        return true;
+      }
+      // If has value, validate pattern
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      if (!phoneRegex.test(value)) {
+        throw new Error('Please provide a valid phone number');
+      }
+      return true;
+    }),
   
   body('company')
     .optional()

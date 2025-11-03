@@ -41,9 +41,22 @@ const ContactFormInner = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    
+    // Clear any previous errors
     setErrors({});
     setSubmitStatus(null);
+    
+    // Trim and clean form data before validation
+    const cleanedFormData = {
+      name: formData.name?.trim() || '',
+      email: formData.email?.trim() || '',
+      phone: formData.phone?.trim() || '', // Optional field - empty string is valid
+      company: formData.company?.trim() || '',
+      service: formData.service?.trim() || '',
+      message: formData.message?.trim() || ''
+    };
+    
+    setIsSubmitting(true);
 
     try {
       // Execute reCAPTCHA
@@ -53,9 +66,9 @@ const ContactFormInner = () => {
 
       const recaptchaToken = await executeRecaptcha('contact_form_submit');
       
-      // Add reCAPTCHA token to form data
+      // Add reCAPTCHA token to cleaned form data
       const formDataWithRecaptcha = {
-        ...formData,
+        ...cleanedFormData,
         recaptchaToken
       };
 
@@ -103,7 +116,9 @@ const ContactFormInner = () => {
       onChange: handleInputChange,
       placeholder: fieldConfig.placeholder,
       className: `${styles.formField__input} ${hasError ? styles['formField__input--error'] : ''}`,
-      required: fieldConfig.required
+      required: fieldConfig.required || false
+      // Note: HTML5 validation is handled by browser, but we override with React validation
+      // Optional fields (like phone) should not have required attribute
     };
 
     return (

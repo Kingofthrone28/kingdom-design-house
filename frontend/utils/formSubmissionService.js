@@ -64,17 +64,20 @@ export const validateFormData = (formData, fieldConfig) => {
   Object.entries(fieldConfig.fields).forEach(([fieldName, config]) => {
     const value = formData[fieldName] || '';
     const sanitizedValue = sanitizeInput(value);
+    const isEmpty = !sanitizedValue || sanitizedValue.trim() === '';
     
     // Check required fields
-    if (config.required && (!sanitizedValue || sanitizedValue.trim() === '')) {
+    if (config.required && isEmpty) {
       errors[fieldName] = `${config.label} is required`;
       return;
     }
     
-    // Skip validation for empty optional fields
-    if (!sanitizedValue && !config.required) return;
+    // Skip validation for empty optional fields (explicitly check for phone)
+    if (isEmpty && !config.required) {
+      return;
+    }
     
-    // Type-specific validation
+    // Type-specific validation (only runs if field has a value)
     switch (fieldName) {
       case 'email':
         if (!validateEmail(sanitizedValue)) {
@@ -83,7 +86,8 @@ export const validateFormData = (formData, fieldConfig) => {
         break;
         
       case 'phone':
-        if (!validatePhone(sanitizedValue)) {
+        // Phone is optional, so only validate if it has a value
+        if (!isEmpty && !validatePhone(sanitizedValue)) {
           errors[fieldName] = 'Please enter a valid phone number';
         }
         break;
@@ -95,8 +99,8 @@ export const validateFormData = (formData, fieldConfig) => {
         break;
         
       default:
-        // Generic validation based on config
-        if (config.validation) {
+        // Generic validation based on config (only runs if field has a value)
+        if (config.validation && !isEmpty) {
           if (config.validation.minLength && sanitizedValue.length < config.validation.minLength) {
             errors[fieldName] = `${config.label} must be at least ${config.validation.minLength} characters`;
           }
