@@ -516,4 +516,4 @@ app.listen(PORT, '0.0.0.0', () => {
 });
 
 module.exports = app;
-// Force redeploy - Wed Oct 15 18:06:45 EDT 2025
+// Deployment test - Phone validation fix deployed - Nov 2, 2025
