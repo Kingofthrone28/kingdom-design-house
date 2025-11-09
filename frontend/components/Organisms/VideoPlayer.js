@@ -7,28 +7,37 @@ const VideoPlayer = ({
   autoplay = false, 
   loop = false, 
   muted = false, 
+  playsInline = true,
   controls = true,
+  showOverlay = true,
+  showLoading = true,
   className = '',
   width = '100%',
   height = 'auto',
+  preload = 'auto',
   onPlay,
   onPause,
   onEnded,
   onError
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(showLoading);
   const [hasError, setHasError] = useState(false);
   const videoRef = useRef(null);
 
   // Fallback timeout to hide loading spinner
   React.useEffect(() => {
+    if (!showLoading) {
+      setIsLoading(false);
+      return;
+    }
+
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000); // Hide loading after 5 seconds
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [showLoading]);
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -40,8 +49,32 @@ const VideoPlayer = ({
     onPause && onPause();
   };
 
+  const restartVideo = () => {
+    if (!videoRef.current) return;
+
+    try {
+      // Jump slightly into the timeline to avoid displaying a blank frame
+      videoRef.current.currentTime = 0.01;
+    } catch (error) {
+      console.warn('Unable to set video currentTime:', error);
+    }
+
+    const playPromise = videoRef.current.play();
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise.catch((error) => {
+        console.warn('Video autoplay prevented on loop restart:', error);
+      });
+    }
+  };
+
   const handleEnded = () => {
     setIsPlaying(false);
+
+    if (loop) {
+      restartVideo();
+      return;
+    }
+
     onEnded && onEnded();
   };
 
@@ -114,9 +147,10 @@ const VideoPlayer = ({
         src={src}
         poster={poster}
         autoPlay={autoplay}
-        loop={loop}
         muted={muted}
+        playsInline={playsInline}
         controls={controls}
+        preload={preload}
         onPlay={handlePlay}
         onPause={handlePause}
         onEnded={handleEnded}
@@ -125,7 +159,6 @@ const VideoPlayer = ({
         onCanPlay={handleCanPlay}
         onKeyDown={handleKeyPress}
         tabIndex={0}
-        preload="metadata"
       />
       
       {isLoading && (
@@ -135,7 +168,7 @@ const VideoPlayer = ({
         </div>
       )}
 
-      {!controls && (
+      {!controls && showOverlay && (
         <div 
           className={styles.videoPlayer__overlay}
           onClick={togglePlayPause}

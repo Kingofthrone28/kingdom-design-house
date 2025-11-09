@@ -2,6 +2,7 @@ import React from 'react';
 import NextImage from 'next/image';
 import styles from '../styles/Hero.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
+import VideoPlayer from './Organisms/VideoPlayer';
 
 const Hero = ({ pageHeadline = null }) => {
   const { getHeroData } = useSiteData();
@@ -17,6 +18,22 @@ const Hero = ({ pageHeadline = null }) => {
 
   return (
     <section className={styles.hero}>
+      <div className={styles.hero__video}>
+        <VideoPlayer
+          src="/videos/kdh_promo.mp4"
+          autoplay
+          loop
+          muted
+          controls={false}
+          showOverlay={false}
+          showLoading={false}
+          width="100%"
+          height="100%"
+        />
+      </div>
+
+      <div className={styles.hero__overlay} />
+
       <div className={styles.hero__container}>
         {/* Logo */}
         <div className={styles.hero__logo}>

@@ -5,7 +5,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  min-height: 110vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,8 +13,60 @@
   position: relative;
   overflow: hidden;
 
+  &__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+
+    :global(.videoPlayer) {
+      width: 100%;
+      height: 100%;
+    }
+
+    :global(.videoPlayer__video) {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.45) 25%,
+      rgba(0, 0, 0, 0.65) 80%
+    );
+    z-index: 1;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('/images/bg-pattern.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: repeat;
+      opacity: 0.7;
+      z-index: 1;
+    }
+  }
 
   &__container {
+    top: 50px;
     max-width: $breakpoint-xl;
     margin: 0 auto;
     padding: 0 $spacing-lg;
@@ -110,7 +162,7 @@
     height: 60px;
     background: linear-gradient(135deg, $primary-yellow 100%, transparent 100%);
     clip-path: polygon(0 100%, 50% 0, 100% 100%);
-    z-index: 1;
+    z-index: 2;
   }
 }
 
@@ -172,7 +224,6 @@
         font-size: $font-4xl;
       }
     }
-
     &__tagline {
       font-size: $font-base;
     }
