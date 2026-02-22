@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { siteData } from '../../data/siteData';
 import styles from '../../styles/ServicesSection.module.scss';
+import { withTrailingSlash } from '../../utils/url';
 
 /**
  * ServicesSection Component
@@ -37,7 +38,7 @@ const ServicesSection = () => {
                 {groupData.services.map((service) => (
                   <li key={service.slug} className={styles.serviceItem}>
                     <Link 
-                      href={`${groupData.basePath}/${service.slug}`}
+                      href={withTrailingSlash(`${groupData.basePath}/${service.slug}`)}
                       className={styles.serviceLink}
                     >
                       <span className={styles.serviceName}>{service.name}</span>
@@ -56,4 +57,3 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
-

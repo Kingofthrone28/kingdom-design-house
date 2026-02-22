@@ -8,6 +8,7 @@ import PhoneIcon from './Atoms/PhoneIcon';
 import EmailIcon from './Atoms/EmailIcon';
 import MobileMenu from './Molecules/MobileMenu';
 import MobileToggle from './Atoms/MobileToggle';
+import { withTrailingSlash } from '../utils/url';
 
 const NavBarGroup = ({ groupName = 'webgroup' }) => {
   const groupData = getGroupsData();
@@ -84,7 +85,7 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
                       {getCurrentSubmenu(link.name).map((service, serviceIndex) => (
                         <Link 
                           key={serviceIndex} 
-                          href={service.route}
+                          href={withTrailingSlash(service.route)}
                           className={styles.navBarGroup__nav__submenu__link}
                         >
                           {service.name}
@@ -94,7 +95,7 @@ const NavBarGroup = ({ groupName = 'webgroup' }) => {
                   </div>
                 </div>
               ) : (
-                <Link href={link.route} className={styles.navBarGroup__nav__link}>
+                <Link href={withTrailingSlash(link.route)} className={styles.navBarGroup__nav__link}>
                   {link.name}
                 </Link>
               )}

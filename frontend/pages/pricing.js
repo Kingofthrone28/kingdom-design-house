@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import SEOHead from '../components/SEOHead';
+import StructuredData from '../components/StructuredData';
 import ChatJarvis from '../components/ChatJarvis';
 import PricingGroup from '../components/PricingGroup';
 import PlanTypeSelector from '../components/Molecules/PlanTypeSelector';
@@ -29,6 +30,7 @@ export default function Pricing() {
   return (
     <>
       <SEOHead {...seoData} />
+      <StructuredData />
       
       <Layout>
         <section className={styles.pricing}>

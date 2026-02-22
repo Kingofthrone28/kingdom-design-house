@@ -3,6 +3,7 @@ import NextImage from 'next/image';
 import styles from '../styles/Hero.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
 import VideoPlayer from './Organisms/VideoPlayer';
+import Button from './Atoms/Button';
 
 const Hero = ({ pageHeadline = null }) => {
   const { getHeroData } = useSiteData();
@@ -64,6 +65,11 @@ const Hero = ({ pageHeadline = null }) => {
           </h1>
         </div>
       </div>
+
+      {/* CTA Button */}
+      <Button variant="secondary" size="large">
+        Discover Our Work
+      </Button>
 
       {/* Diagonal Separator */}
       <div className={styles.hero__separator}/>

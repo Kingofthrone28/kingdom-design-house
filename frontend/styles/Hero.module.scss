@@ -66,7 +66,6 @@
   }
 
   &__container {
-    top: 50px;
     max-width: $breakpoint-xl;
     margin: 0 auto;
     padding: 0 $spacing-lg;
@@ -114,7 +113,7 @@
   }
 
   &__headline {
-    margin-bottom: $spacing-6xl;
+    margin-bottom: $spacing-3xl;
     font-family: $font-secondary;
 
     &__main,
@@ -192,7 +191,6 @@
 // Responsive adjustments
 @media (max-width: $breakpoint-md) {
   .hero {
-    padding-top: 100px;
     min-height: 100vh;
 
     &__logo {

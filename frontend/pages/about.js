@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Layout from '../components/Layout';
 import SEOHead from '../components/SEOHead';
+import StructuredData from '../components/StructuredData';
 import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
 import ProcessSteps from '../components/ProcessSteps';
@@ -19,6 +20,7 @@ export default function About() {
   return (
     <>
       <SEOHead {...seoData} />
+      <StructuredData />
       
       <Layout>
         <GroupHero groupName="web-group" />
@@ -42,9 +44,9 @@ export default function About() {
                 <h1 className={styles.about__title}>
                   {title}
                 </h1>
-                <h1 className={styles.about__subTitle}>
+                <h2 className={styles.about__subTitle}>
                   {subTitle}
-                </h1>
+                </h2>
                 
                 <div className={styles.about__text}>
                   {content.map((paragraph, index) => (

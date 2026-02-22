@@ -1,5 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { toAbsoluteUrl, withTrailingSlash } from '../utils/url';
 
 /**
  * StructuredData Component
@@ -17,11 +19,33 @@ import Head from 'next/head';
  * @param {Object} props.aioData - Optional AIO (AI Optimization) data for AI citation
  */
 const StructuredData = ({ page, geoData, aioData }) => {
+  const router = useRouter();
   const siteUrl = 'https://kingdomdesignhouse.com';
+  const pathFromRoute = withTrailingSlash(router.asPath?.split('?')[0]?.split('#')[0] || '/');
+  const pageUrl = page?.url ? toAbsoluteUrl(siteUrl, page.url) : toAbsoluteUrl(siteUrl, pathFromRoute);
+  const formatPathAsName = (path) => {
+    if (path === '/') {
+      return 'Kingdom Design House';
+    }
+
+    const title = path
+      .split('/')
+      .filter(Boolean)
+      .map((segment) =>
+        segment
+          .split('-')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')
+      )
+      .join(' - ');
+
+    return `${title} | Kingdom Design House`;
+  };
+  const pageName = page?.name || formatPathAsName(pathFromRoute);
   const orgId = `${siteUrl}/#organization`;
   const lbId = `${siteUrl}/#localbusiness`;
   const webSiteId = `${siteUrl}/#website`;
-  const webPageId = page?.url ? `${page.url}#webpage` : `${siteUrl}/#webpage`;
+  const webPageId = `${pageUrl}#webpage`;
 
   // Build BreadcrumbList from props (optional)
   const breadcrumb = page?.breadcrumbs?.length
@@ -32,7 +56,7 @@ const StructuredData = ({ page, geoData, aioData }) => {
           '@type': 'ListItem',
           position: i + 1,
           name: b.name,
-          ...(b.url ? { item: b.url } : {})
+          ...(b.url ? { item: toAbsoluteUrl(siteUrl, b.url) } : {})
         }))
       }
     : null;
@@ -42,23 +66,19 @@ const StructuredData = ({ page, geoData, aioData }) => {
     {
       '@type': 'WebSite',
       '@id': webSiteId,
-      url: siteUrl,
+      url: `${siteUrl}/`,
       name: 'Kingdom Design House',
-      publisher: { '@id': orgId },
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: `${siteUrl}/?s={search_term_string}`,
-        'query-input': 'required name=search_term_string'
-      }
+      publisher: { '@id': orgId }
     },
 
     // WebPage (generic; override per page via props)
     {
       '@type': 'WebPage',
       '@id': webPageId,
-      url: page?.url || siteUrl,
-      name: page?.name || 'Kingdom Design House',
+      url: pageUrl,
+      name: pageName,
       isPartOf: { '@id': webSiteId },
+      mainEntityOfPage: pageUrl,
       inLanguage: 'en-US'
     },
 
@@ -68,15 +88,15 @@ const StructuredData = ({ page, geoData, aioData }) => {
       '@id': orgId,
       name: 'Kingdom Design House',
       legalName: 'Kingdom Design House LLC',
-      url: siteUrl,
-      logo: `${siteUrl}/images/logo.png`,
+      url: `${siteUrl}/`,
+      logo: `${siteUrl}/images/kdh_logo.svg`,
       description:
         'Full-service technology company offering AI solutions, web development, and network services for businesses in Long Island, NY.',
       email: 'info@kingdomdesignhouse.com',
       telephone: '+1-347-927-8846',
       sameAs: [
-        'https://www.linkedin.com/company/kingdom-design-house',
-        'https://www.instagram.com/kingdomdesignhouse'
+        'https://www.linkedin.com/in/paul-solomon-4a623bba/',
+        'https://www.instagram.com/kingdom_design_house/'
       ],
       foundingDate: '2020',
       numberOfEmployees: {
@@ -103,17 +123,17 @@ const StructuredData = ({ page, geoData, aioData }) => {
       '@type': 'LocalBusiness',
       '@id': lbId,
       name: 'Kingdom Design House',
-      image: `${siteUrl}/images/logo.png`,
-      url: siteUrl,
+      image: `${siteUrl}/images/kdh_logo.svg`,
+      url: `${siteUrl}/`,
       telephone: '+1-347-927-8846',
       email: 'info@kingdomdesignhouse.com',
       priceRange: '$$-$$$',
-      // No street address provided to avoid NAP confusion
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Long Island',
+        streetAddress: '3 Charlick Place',
+        addressLocality: 'Freeport',
         addressRegion: 'NY',
-        postalCode: '11501',
+        postalCode: '11520',
         addressCountry: 'US'
       },
       geo: {
@@ -411,4 +431,3 @@ const StructuredData = ({ page, geoData, aioData }) => {
 };
 
 export default StructuredData;
-

@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import SEOHead from '../components/SEOHead';
+import StructuredData from '../components/StructuredData';
 import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
 import WebStrategy from '../components/Organisms/WebStrategy';
@@ -17,6 +18,7 @@ export default function WebGroup() {
   return (
     <>
       <SEOHead {...seoData} />
+      <StructuredData />
       
       <Layout>
         <GroupHero groupName="webgroup" pageHeadline={pageHeadline} />

@@ -5,6 +5,7 @@ import PhoneIcon from '../Atoms/PhoneIcon';
 import EmailIcon from '../Atoms/EmailIcon';
 import Button from '../Atoms/Button';
 import { getNavBarGroupData } from '../../data/navbarData';
+import { withTrailingSlash } from '../../utils/url';
 
 const MobileMenu = ({ phone, email, navigation = [], onScrollToChat, groupName = 'webgroup' }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -63,7 +64,7 @@ const MobileMenu = ({ phone, email, navigation = [], onScrollToChat, groupName =
                       companyGroupsSubmenu.map((item, itemIndex) => (
                         <Link 
                           key={itemIndex} 
-                          href={item.route}
+                          href={withTrailingSlash(item.route)}
                           className={styles.navbar__mobile__dropdown__link}
                           onClick={() => setOpenDropdown(null)}
                         >
@@ -74,7 +75,7 @@ const MobileMenu = ({ phone, email, navigation = [], onScrollToChat, groupName =
                       getCurrentServicesSubmenu().map((item, itemIndex) => (
                         <Link 
                           key={itemIndex} 
-                          href={item.route}
+                          href={withTrailingSlash(item.route)}
                           className={styles.navbar__mobile__dropdown__link}
                           onClick={() => setOpenDropdown(null)}
                         >
@@ -87,7 +88,7 @@ const MobileMenu = ({ phone, email, navigation = [], onScrollToChat, groupName =
               </div>
             ) : (
               <Link 
-                href={link.route} 
+                href={withTrailingSlash(link.route)} 
                 className={styles.navbar__mobile__groups__link}
                 onClick={() => setOpenDropdown(null)}
               >

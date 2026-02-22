@@ -54,7 +54,7 @@ const VideoPlayer = ({
 
     try {
       // Jump slightly into the timeline to avoid displaying a blank frame
-      videoRef.current.currentTime = 0.01;
+      videoRef.current.currentTime = 0.10;
     } catch (error) {
       console.warn('Unable to set video currentTime:', error);
     }
@@ -147,6 +147,7 @@ const VideoPlayer = ({
         src={src}
         poster={poster}
         autoPlay={autoplay}
+        loop={loop}
         muted={muted}
         playsInline={playsInline}
         controls={controls}

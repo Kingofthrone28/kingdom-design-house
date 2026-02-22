@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Breadcrumbs.module.scss';
+import { withTrailingSlash, toAbsoluteUrl } from '../../utils/url';
 
 /**
  * Breadcrumbs Component
@@ -14,7 +16,8 @@ import styles from '../../styles/Breadcrumbs.module.scss';
  */
 const Breadcrumbs = ({ customCrumbs }) => {
   const router = useRouter();
-  const pathSegments = router.asPath.split('/').filter(segment => segment);
+  const normalizedPath = router.asPath.split('?')[0].split('#')[0];
+  const pathSegments = normalizedPath.split('/').filter(segment => segment);
 
   // Generate breadcrumbs from URL path
   const generateBreadcrumbs = () => {
@@ -37,12 +40,12 @@ const Breadcrumbs = ({ customCrumbs }) => {
       // Special handling: If segment is "services", link to homepage services section
       let href = currentPath;
       if (segment.toLowerCase() === 'services') {
-        href = '/#services';
+        href = '/services/';
       }
 
       crumbs.push({
         label,
-        href,
+        href: withTrailingSlash(href),
         isLast: index === pathSegments.length - 1
       });
     });
@@ -60,12 +63,19 @@ const Breadcrumbs = ({ customCrumbs }) => {
       '@type': 'ListItem',
       'position': index + 1,
       'name': crumb.label,
-      'item': `https://kingdomdesignhouse.com${crumb.href}`
+      'item': toAbsoluteUrl('https://kingdomdesignhouse.com', crumb.href)
     }))
   };
 
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
+
       {/* Breadcrumb Navigation */}
       <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
         <ol className={styles.list}>
@@ -94,4 +104,3 @@ const Breadcrumbs = ({ customCrumbs }) => {
 };
 
 export default Breadcrumbs;
-

@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { seoConfig } from '../lib/seo';
+import { toAbsoluteAssetUrl, toAbsoluteUrl } from '../utils/url';
 
 /**
  * Comprehensive SEO Head Component
@@ -19,16 +20,21 @@ const SEOHead = ({
   noindex = false,
   additionalMeta = []
 }) => {
-  const fullTitle = title ? `${title} | ${seoConfig.company.name}` : seoConfig.company.name;
-  const fullCanonical = canonical ? `${seoConfig.company.url}${canonical}` : seoConfig.company.url;
-  const fullOgImage = ogImage.startsWith('http') ? ogImage : `${seoConfig.company.url}${ogImage}`;
+  const companyName = seoConfig.company.name;
+  const fullTitle = title
+    ? (title.toLowerCase().includes(companyName.toLowerCase()) ? title : `${title} | ${companyName}`)
+    : companyName;
+  const fullCanonical = toAbsoluteUrl(seoConfig.company.url, canonical || '/');
+  const fullOgImage = toAbsoluteAssetUrl(seoConfig.company.url, ogImage);
+  const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+  const bingVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
 
   return (
     <Head>
       {/* Basic Meta Tags */}
       <title>{fullTitle}</title>
       <meta name="description" content={description || seoConfig.company.description} />
-      <meta name="keywords" content={keywords} />
+      {keywords && <meta name="keywords" content={keywords} />}
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="robots" content={noindex ? "noindex,nofollow" : "index,follow"} />
       <meta name="author" content={seoConfig.company.name} />
@@ -55,16 +61,17 @@ const SEOHead = ({
       <meta property="og:url" content={fullCanonical} />
       <meta property="og:site_name" content={seoConfig.company.name} />
       <meta property="og:image" content={fullOgImage} />
+      <meta property="og:image:secure_url" content={fullOgImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={ogTitle || fullTitle} />
       <meta property="og:locale" content="en_US" />
       
       {/* Business-specific Open Graph tags */}
-      <meta property="business:contact_data:street_address" content="Long Island, New York" />
-      <meta property="business:contact_data:locality" content="Long Island" />
+      <meta property="business:contact_data:street_address" content="3 Charlick Place" />
+      <meta property="business:contact_data:locality" content="Freeport" />
       <meta property="business:contact_data:region" content="NY" />
-      <meta property="business:contact_data:postal_code" content="11501" />
+      <meta property="business:contact_data:postal_code" content="11520" />
       <meta property="business:contact_data:country_name" content="United States" />
       <meta property="business:contact_data:phone_number" content={seoConfig.company.phone} />
       <meta property="business:contact_data:email" content={seoConfig.company.email} />
@@ -83,9 +90,9 @@ const SEOHead = ({
       <meta name="msapplication-TileColor" content="#1a365d" />
       <meta name="msapplication-config" content="/browserconfig.xml" />
       
-      {/* Local Business Schema */}
-      <meta name="google-site-verification" content="your-google-verification-code" />
-      <meta name="bing-site-verification" content="your-bing-verification-code" />
+      {/* Site verification tags should only be present with real values */}
+      {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
+      {bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
       
       {/* Structured Data */}
       {structuredData && (

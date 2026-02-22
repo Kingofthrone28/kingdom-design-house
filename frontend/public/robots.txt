@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Canonical URL
-Host: https://kingdomdesignhouse.com
+Host: kingdomdesignhouse.com
 
 # Sitemap
 Sitemap: https://kingdomdesignhouse.com/sitemap.xml
@@ -10,4 +10,3 @@ Sitemap: https://kingdomdesignhouse.com/sitemap.xml
 # Disallow problematic paths
 Disallow: /api/
 Disallow: /.netlify/
-Disallow: /_next/

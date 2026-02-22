@@ -9,7 +9,8 @@ const VideoDemoPage = () => {
     ...pageSeoData.videoDemo,
     title: 'Video Demo - Kingdom Design House',
     description: 'Experience our video components and see how we showcase our work through engaging video content.',
-    keywords: 'video demo, web development showcase, business transformation videos, Kingdom Design House'
+    keywords: 'video demo, web development showcase, business transformation videos, Kingdom Design House',
+    noindex: true
   };
 
   return (

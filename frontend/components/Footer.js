@@ -6,6 +6,7 @@ import EmailIcon from './Atoms/EmailIcon';
 import PhoneIcon from './Atoms/PhoneIcon';  
 import LocationIcon from './Atoms/LocationIcon';
 import Link from 'next/link';
+import { withTrailingSlash } from '../utils/url';
             
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -62,7 +63,7 @@ const Footer = () => {
               <ul className={styles.footer__links__list}>
                 {navigation.map((group, index) => (
                   <li key={index} className={styles.footer__links__item}>
-                    <Link href={group.route} className={styles.footer__links__link}>
+                    <Link href={withTrailingSlash(group.route)} className={styles.footer__links__link}>
                       {group.name}
                     </Link>
                   </li>
@@ -76,7 +77,7 @@ const Footer = () => {
               <ul className={styles.footer__links__list}>
                 {aiServices.map((service, index) => (
                   <li key={index} className={styles.footer__links__item}>
-                    <Link href={service.url} className={styles.footer__links__link}>
+                    <Link href={withTrailingSlash(service.url)} className={styles.footer__links__link}>
                       {service.name}
                     </Link>
                   </li>
@@ -90,7 +91,7 @@ const Footer = () => {
               <ul className={styles.footer__links__list}>
                 {webServices.map((service, index) => (
                   <li key={index} className={styles.footer__links__item}>
-                    <Link href={service.url} className={styles.footer__links__link}>
+                    <Link href={withTrailingSlash(service.url)} className={styles.footer__links__link}>
                       {service.name}
                     </Link>
                   </li>
@@ -104,7 +105,7 @@ const Footer = () => {
               <ul className={styles.footer__links__list}>
                 {networkServices.map((service, index) => (
                   <li key={index} className={styles.footer__links__item}>
-                    <Link href={service.url} className={styles.footer__links__link}>
+                    <Link href={withTrailingSlash(service.url)} className={styles.footer__links__link}>
                       {service.name}
                     </Link>
                   </li>

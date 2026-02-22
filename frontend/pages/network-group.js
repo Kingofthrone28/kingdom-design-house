@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import SEOHead from '../components/SEOHead';
+import StructuredData from '../components/StructuredData';
 import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
 import ProcessSteps from '../components/ProcessSteps';  
@@ -17,6 +18,7 @@ export default function NetworkGroup() {
   return (
     <>
       <SEOHead {...seoData} />
+      <StructuredData />
       
       <Layout>
         <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />

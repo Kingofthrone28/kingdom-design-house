@@ -868,7 +868,7 @@ export const siteData = {
         {
           title: "Starter",
           description: "Perfect for small businesses or personal brands looking to establish a solid online presence.",
-          setupPrice: 1250,
+          setupPrice: 2500,
           features: [
             "Up to 5 pages",
             "Basic SEO",
@@ -885,7 +885,7 @@ export const siteData = {
         {
           title: "Growth",
           description: "Ideal for small-mid size businesses that need more customization and advanced features not available in Starter",
-          setupPrice: 1900,
+          setupPrice: 3800,
           features: [
             "Up to 10 pages",
             "Custom branding",
@@ -903,7 +903,7 @@ export const siteData = {
         {
           title: "Scale",
           description: "Designed for businesses looking for comprehensive, custom solutions and long-term growth.",
-          setupPrice: 2750,
+          setupPrice: 5500,
           features: [
             "Up to 15 pages",
             "Custom design (custom tailored)",
@@ -950,7 +950,7 @@ export const siteData = {
         {
           title: "Growth",
           description: "Ideal for growing businesses (15-30 devices) that need advanced network features and optimization.",
-          setupPrice: 4500, // Average of $5,000 - $8,000
+          setupPrice: 6500, // Average of $5,000 - $8,000
           priceRange: "$5,000 - $8,000",
           features: [
             "15-30 devices",
@@ -972,7 +972,7 @@ export const siteData = {
         {
           title: "Scale",
           description: "Designed for established businesses requiring comprehensive network solutions and maximum uptime.",
-          setupPrice: 6000, // Average of $10,000 - $15,000+
+          setupPrice: 12500, // Average of $10,000 - $15,000+
           priceRange: "$10,000 - $15,000+",
           features: [
             "Full office coverage",
@@ -1000,7 +1000,7 @@ export const siteData = {
         {
           title: "Starter",
           description: "Perfect for businesses looking to explore AI capabilities with basic automation.",
-          setupPrice: 1500,
+          setupPrice: 4000,
           features: [
             "AI consultation",
             "Basic chatbot setup",
@@ -1017,7 +1017,7 @@ export const siteData = {
         {
           title: "Growth",
           description: "Ideal for businesses ready to implement advanced AI solutions and RAG systems.",
-          setupPrice: 3000,
+          setupPrice: 6000,
           features: [
             "Advanced AI consultation",
             "RAG implementation",
@@ -1036,7 +1036,7 @@ export const siteData = {
         {
           title: "Scale",
           description: "Designed for enterprises requiring comprehensive AI solutions and custom development.",
-          setupPrice: 5000,
+          setupPrice: 8000,
           features: [
             "Enterprise AI strategy",
             "Custom RAG systems",

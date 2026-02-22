@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import SEOHead from '../components/SEOHead';
+import StructuredData from '../components/StructuredData';
 import ContactForm from '../components/ContactForm';
 import ChatJarvis from '../components/ChatJarvis';
 
@@ -17,6 +18,7 @@ export default function Contact() {
   return (
     <>
       <SEOHead {...seoData} />
+      <StructuredData />
       
       <Layout>
         <ContactForm />

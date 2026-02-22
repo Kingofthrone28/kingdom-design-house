@@ -26,6 +26,7 @@
     );
     transform: translateX(-50%);
     z-index: 1;
+    display: none;
   }
 
   &__steps {
@@ -79,7 +80,6 @@
 
     &__content {
       flex: 1;
-      max-width: 45%;
     }
 
     &__number {

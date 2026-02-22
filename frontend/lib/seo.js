@@ -10,7 +10,7 @@ export const seoConfig = {
     tagline: "Your All-In-One Partner for Web Development, IT, Networking & AI Solutions",
     description: "Professional web development, IT services, networking, and AI solutions serving Long Island, Queens, Brooklyn, and Manhattan. We solve business problems so you don't have to.",
     url: "https://kingdomdesignhouse.com",
-    logo: "https://kingdomdesignhouse.com/images/logo.png",
+    logo: "https://kingdomdesignhouse.com/images/kdh_logo.svg",
     phone: "347.927.8846",
     email: "info@kingdomdesignhouse.com"
   },

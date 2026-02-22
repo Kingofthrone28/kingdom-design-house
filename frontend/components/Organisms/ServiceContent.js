@@ -34,13 +34,6 @@ const ServiceContent = ({ serviceType = 'web-design', layout = null }) => {
     }
   };
 
-  // Debug logging
-  console.log('ServiceContent Debug:', {
-    currentLayout,
-    layoutClass,
-    availableStyles: Object.keys(styles).filter(key => key.includes('approachSteps'))
-  });
-
   return (
     <section className={styles.serviceContent}>
       <div className={styles.serviceContent__container}>

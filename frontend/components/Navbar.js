@@ -7,6 +7,7 @@ import PhoneIcon from './Atoms/PhoneIcon';
 import EmailIcon from './Atoms/EmailIcon';
 import MobileMenu from './Molecules/MobileMenu';
 import MobileToggle from './Atoms/MobileToggle';
+import { withTrailingSlash } from '../utils/url';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,14 +49,14 @@ const Navbar = () => {
         {/* Navigation Links */}
         <div className={styles.navbar__groups}>
           {navigation.map((item, index) => (
-            <Link key={index} href={item.route} className={styles.navbar__groups__link}>
+            <Link key={index} href={withTrailingSlash(item.route)} className={styles.navbar__groups__link}>
               {item.name}
             </Link>
           ))}
         </div>
 
         {/* CTA Button */}
-        <Link href={route}>
+        <Link href={withTrailingSlash(route)}>
           <Button variant="primary" size="large">
             {buttonText}
           </Button>

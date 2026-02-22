@@ -3,6 +3,7 @@ import styles from '../styles/OurGroups.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
 import Button from './Atoms/Button';
 import Link from 'next/link';
+import { withTrailingSlash } from '../utils/url';
 
 const OurGroups = ({ groupIntent = null }) => {
   const [activeGroup, setActiveGroup] = useState('web');
@@ -55,7 +56,7 @@ const OurGroups = ({ groupIntent = null }) => {
               <p className={styles.ourGroups__card__description}>
                 {group.description}
               </p>
-              <Link href={group.route}> 
+              <Link href={withTrailingSlash(group.route)}> 
                 <Button className={styles.ourGroups__card__button} variant="primary" size="large" onClick={() => handleGroupClick(group.id)}>{group.buttonText}</Button>
               </Link>
             </div>

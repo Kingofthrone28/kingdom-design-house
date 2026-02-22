@@ -42,17 +42,14 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
-# SPA fallback - only for non-existent routes
-# Netlify serves static files FIRST before applying redirects
-# This fallback only applies if no matching static file exists
-# For Next.js static export, this handles 404s gracefully
+# SEO-safe fallback for unknown routes.
+# Static files are still served first; unmatched paths should return 404
+# instead of a 200 homepage response to avoid soft-404 indexation issues.
 [[redirects]]
   from = "/*"
-  to = "/index.html"
-  status = 200
+  to = "/404.html"
+  status = 404
   force = false
-  # Note: With Next.js static export + trailingSlash: true,
-  # all pages are pre-rendered, so this mainly handles 404s
 
 [functions]
   directory = "netlify/functions"
