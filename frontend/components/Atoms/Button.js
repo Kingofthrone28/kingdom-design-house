@@ -40,31 +40,21 @@ const Button = ({
         size !== 'default' && styles[`button--${size}`]
     ].filter(Boolean).join(' ');
 
-    if (href) {
-        return (
-            <Link 
-                href={withTrailingSlash(href)}
-                className={buttonClasses}
-                aria-label={ariaLabel}
-                onClick={onClick}
-                {...props}
-            >
-                {children || buttonText}
-                <Arrow />
-            </Link>
-        );
-    }
+    const Element = href ? Link : 'button';
+    const elementProps = {
+        className: buttonClasses,
+        'aria-label': ariaLabel,
+        onClick,
+        ...(href ? { href: withTrailingSlash(href) } : {}),
+        ...props
+    };
 
+    
     return (
-        <button 
-            className={buttonClasses} 
-            aria-label={ariaLabel}
-            onClick={onClick}
-            {...props}
-        >
+        <Element {...elementProps}>
             {children || buttonText}
             <Arrow />
-        </button>
+        </Element>
     );
 };
 
