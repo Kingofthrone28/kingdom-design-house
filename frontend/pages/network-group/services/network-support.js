@@ -22,7 +22,7 @@ export default function NetworkSupport() {
       
       <Layout>
         <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="networkgroup" groupIntent="24/7 Network Support for Long Island Businesses" />
+        <GroupHeading groupName="networkgroup" groupIntent="NYC Network Support and Maintenance Services" />
         <ServiceContent serviceType="network-support" />
         <ProcessSteps />
         <ChatJarvis />

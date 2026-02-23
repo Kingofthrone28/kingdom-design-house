@@ -3,7 +3,6 @@ import Layout from '../../../components/Layout';
 import SEOHead from '../../../components/SEOHead';
 import StructuredData from '../../../components/StructuredData';
 import GroupHero from '../../../components/GroupHero';
-import OurGroups from '../../../components/OurGroups';
 import ServiceContent from '../../../components/Organisms/ServiceContent';
 import GroupHeading from '../../../components/Molecules/GroupHeading';
 import ProcessSteps from '../../../components/ProcessSteps';
@@ -23,7 +22,7 @@ export default function NetworkDesign() {
       
       <Layout>
         <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="networkgroup" groupIntent="Network Design & Architecture in Long Island NY" />
+        <GroupHeading groupName="networkgroup" groupIntent="Wireless Network Design in Long Island NY" />
         <ServiceContent serviceType="network-design" />
         <ProcessSteps />
         <ChatJarvis />

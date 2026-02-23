@@ -1,0 +1,84 @@
+@import './variables.scss';
+
+.caseStudyLetsTalk {
+  background-color: $primary-yellow;
+  padding: $spacing-4xl 0;
+  position: relative;
+
+  &__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: $spacing-lg;
+    transition: transform $transition-base;
+
+    &:hover {
+      transform: translateX(10px);
+    }
+
+    &:focus {
+      outline: 2px solid $primary-black;
+      outline-offset: 4px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__question {
+    font-size: $font-lg;
+    color: $primary-black;
+    margin: 0;
+    font-weight: $font-regular;
+  }
+
+  &__heading {
+    font-family: $font-secondary;
+    font-size: $font-5xl;
+    font-weight: $font-bold;
+    color: $primary-black;
+    margin: 0;
+    line-height: 1.2;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: $font-4xl;
+    }
+  }
+
+  &__arrow {
+    width: 60px;
+    height: 60px;
+    background-color: $primary-black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: $primary-white;
+    transition: transform $transition-base;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__button:hover &__arrow {
+    transform: rotate(45deg);
+  }
+}
+

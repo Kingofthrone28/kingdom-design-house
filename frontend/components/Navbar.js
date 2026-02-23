@@ -56,11 +56,9 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Link href={withTrailingSlash(route)}>
-          <Button variant="primary" size="large">
-            {buttonText}
-          </Button>
-        </Link>   
+        <Button href={route} variant="primary" size="large">
+          {buttonText}
+        </Button>
 
         {/* Mobile Menu Toggle */}
         <MobileToggle 

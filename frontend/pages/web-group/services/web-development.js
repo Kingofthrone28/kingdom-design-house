@@ -22,7 +22,7 @@ export default function WebDevelopment() {
       
       <Layout>
         <GroupHero groupName="webdevelopment" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="webdevelopment" groupIntent="Web Development Solutions for NYC Businesses" />
+        <GroupHeading groupName="webdevelopment" groupIntent="Custom Web Development in NYC for Business Growth" />
         <ServiceContent serviceType="web-development" />
         <ProcessSteps />
         <ChatJarvis />

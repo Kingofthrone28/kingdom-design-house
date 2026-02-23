@@ -22,7 +22,7 @@ export default function Support() {
       
       <Layout>
         <GroupHero groupName="websupport" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="websupport" groupIntent="Website Support & Maintenance in Long Island NY" />
+        <GroupHeading groupName="websupport" groupIntent="Website Support and Maintenance in New York" />
         <ServiceContent serviceType="support" />
         <ProcessSteps />
         <ChatJarvis />

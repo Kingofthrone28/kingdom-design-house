@@ -4,6 +4,7 @@ import styles from '../styles/Hero.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
 import VideoPlayer from './Organisms/VideoPlayer';
 import Button from './Atoms/Button';
+import Link from 'next/link';
 
 const Hero = ({ pageHeadline = null }) => {
   const { getHeroData } = useSiteData();
@@ -67,9 +68,10 @@ const Hero = ({ pageHeadline = null }) => {
       </div>
 
       {/* CTA Button */}
-      <Button variant="secondary" size="large">
-        Discover Our Work
-      </Button>
+      
+        <Button href="/case-studies/" variant="secondary" size="large">
+          Discover Our Work
+        </Button>
 
       {/* Diagonal Separator */}
       <div className={styles.hero__separator}/>

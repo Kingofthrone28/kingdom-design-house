@@ -241,7 +241,7 @@ export const siteData = {
     'web-development': {
       main: "CUSTOM WEB",
       highlight: "DEVELOPMENT",
-      sub: "FOR NYC BUSINESSES",
+      sub: "IN NYC FOR BUSINESSES",
       subHighlight: ""
     },
     'digital-marketing': {
@@ -253,25 +253,25 @@ export const siteData = {
     'support': {
       main: "WEBSITE SUPPORT &",
       highlight: "MAINTENANCE",
-      sub: "FOR LONG ISLAND",
+      sub: "IN NEW YORK",
       subHighlight: ""
     },
     'network-design': {
-      main: "NETWORK DESIGN &",
-      highlight: "ARCHITECTURE",
+      main: "WIRELESS NETWORK",
+      highlight: "DESIGN",
       sub: "IN LONG ISLAND NY",
       subHighlight: ""
     },
     'network-optimization': {
-      main: "NETWORK OPTIMIZATION &",
-      highlight: "IT PERFORMANCE",
+      main: "WIRELESS INFRASTRUCTURE",
+      highlight: "OPTIMIZATION",
       sub: "FOR NYC OFFICES",
       subHighlight: ""
     },
     'network-support': {
-      main: "24/7 NETWORK",
+      main: "NYC NETWORK",
       highlight: "SUPPORT",
-      sub: "FOR LONG ISLAND BUSINESSES",
+      sub: "& MAINTENANCE SERVICES",
       subHighlight: ""
     },
     'ai-development': {
@@ -289,7 +289,7 @@ export const siteData = {
     'ai-support': {
       main: "AI SUPPORT &",
       highlight: "MAINTENANCE",
-      sub: "FOR LONG ISLAND COMPANIES",
+      sub: "SERVICES IN NEW YORK",
       subHighlight: ""
     }
   },
@@ -472,11 +472,11 @@ export const siteData = {
     'web-development': {
       title: "Kingdom Design House — Web Group",
       mainContent: {
-        title: "Custom Web Development Solutions",
+        title: "Custom Web Development in NYC",
         paragraphs: [
-          "Build powerful, scalable web applications with our expert development team. We create custom solutions that grow with your business and deliver exceptional user experiences.",
-          "From front-end frameworks to back-end architecture, we use cutting-edge technologies to build robust, secure, and performant web applications.",
-          "Our development process ensures your application is not just functional, but optimized for speed, security, and scalability."
+          "At <strong>Kingdom Design House</strong>, we deliver custom web development in NYC for startups, small businesses, and growing teams that need reliable digital platforms.",
+          "From marketing websites to custom portals and web apps, we build secure, scalable systems with modern frameworks, clean architecture, and strong performance fundamentals.",
+          "Every project is designed for business outcomes: faster load times, smoother user journeys, and technical foundations that support SEO, lead generation, and long-term growth."
         ]
       },
       approach: {
@@ -552,10 +552,10 @@ export const siteData = {
     'network-design': {
       title: "Network Design Services",
       mainContent: {
-        title: "Comprehensive Network Solutions",
+        title: "Wireless Network Design in Long Island NY",
         paragraphs: [
-          "At <strong>Kingdom Design House</strong>, we provide complete network design services that ensure your business infrastructure is robust, scalable, and reliable. Our comprehensive approach covers every aspect of network implementation, from initial configuration to ongoing optimization and redundancy planning.",
-          "We understand that every business has unique networking requirements. That's why we don't offer one-size-fits-all solutions. Instead, we design custom networks that are tailored to your specific needs, ensuring optimal performance for your current operations while planning for future growth."
+          "We provide wireless network design in Long Island NY for offices and small businesses that need secure coverage, stable performance, and infrastructure that scales without constant rework.",
+          "Our team designs practical network solutions for small businesses across Long Island and NYC, including router/switch architecture, Wi-Fi planning, and resilient infrastructure for day-to-day operations."
         ]
       },
       approach: {
@@ -592,9 +592,9 @@ export const siteData = {
     'network-optimization': {
       title: "Network Testing & Optimization",
       mainContent: {
-        title: "Network Testing & Optimization",
+        title: "Wireless Infrastructure Design & Network Optimization",
         paragraphs: [
-          "A network isn't complete the moment the cables are plugged in or the WiFi access points are turned on. The real measure of a system is how it performs under pressure — during peak business hours, high data usage, or when multiple applications are running at once. At <strong>Kingdom Design House</strong>, we believe testing and optimization are the final, crucial steps in building a network that is reliable, efficient, and future-ready."
+          "Wireless infrastructure design in NYC is not just about installing equipment; it is about building dependable performance under real business load. We test and optimize your network for speed, coverage, stability, and security so teams can work without interruption."
         ]
       },
       approach: {
@@ -631,9 +631,9 @@ export const siteData = {
     'network-support': {
       title: "Network Support & Maintenance",
       mainContent: {
-        title: "Network Support & Maintenance",
+        title: "NYC Network Support & Maintenance",
         paragraphs: [
-          "A strong network doesn't just need to be installed — it needs to be maintained. Technology evolves, devices are added, and usage demands change over time. At <strong>Kingdom Design House</strong>, our Support & Maintenance services ensure your network stays reliable, efficient, and ready for the future. We partner with you beyond installation, making sure your systems continue to perform at their best."
+          "Our NYC network support and maintenance service helps businesses reduce downtime, resolve issues quickly, and keep critical systems operating at peak performance. We provide proactive care so your network remains stable as your users, devices, and requirements grow."
         ]
       },
       approach: {
@@ -712,46 +712,46 @@ export const siteData = {
       }
     },
     'support': {
-      title: "SEO Support & Growth Services",
+      title: "Website Support & Maintenance Services",
       mainContent: {
-        title: "SEO Support & Growth Services",
+        title: "Website Support and Maintenance in New York",
         paragraphs: [
-          "Launching a website is only the beginning. To stay visible online, your SEO needs ongoing care, updates, and optimization. At <strong>Kingdom Design House</strong>, our SEO Support services provide long-term guidance and hands-on improvements to keep your website competitive in search rankings, responsive to algorithm changes, and aligned with your business goals.",
-          "We see SEO as a continuous partnership — not a one-time project. Our team works alongside you to ensure your site not only performs well today but continues to grow tomorrow."
+          "Our website support and maintenance in New York helps businesses keep their sites secure, updated, and conversion-ready after launch.",
+          "From technical fixes and uptime monitoring to content edits and performance tuning, we provide ongoing website maintenance in New York so your team can focus on operations while your site stays reliable."
         ]
       },
       approach: {
-        title: "What Our SEO Support Covers",
+        title: "What Our Website Support Covers",
         steps: [
           {
             title: "Ongoing Technical Monitoring",
-            description: "We monitor your site's speed, crawlability, and mobile performance to catch and resolve issues before they impact your rankings. This includes fixing broken links, optimizing metadata, and keeping your sitemap updated."
+            description: "We continuously monitor uptime, page speed, and core functionality to catch issues before they impact users or lead flow."
           },
           {
-            title: "Keyword Tracking & Adjustments",
-            description: "Your market shifts over time, and so does search demand. We continuously track keyword performance and refine your strategy to ensure you're targeting the right terms that drive qualified traffic."
+            title: "Updates & Security Patching",
+            description: "We apply framework, plugin, and dependency updates with a maintenance workflow that prioritizes stability and security."
           },
           {
-            title: "Content Refresh & Optimization",
-            description: "Old content can lose value in search rankings. We revisit and refresh your site's key pages and blogs with updated data, improved structure, and optimized keywords — giving them new life and stronger visibility."
+            title: "Content & Page Edits",
+            description: "Need copy updates, image changes, or new sections? We handle day-to-day maintenance requests quickly so your site stays current."
           },
           {
-            title: "Analytics & Reporting",
-            description: "SEO is only valuable if you can measure it. We provide clear, actionable reports on traffic, keyword rankings, and conversions so you can see exactly how your SEO investment is paying off."
+            title: "Performance Improvements",
+            description: "We identify bottlenecks and optimize assets, scripts, and layout behavior to improve load speed and user experience."
           },
           {
-            title: "Strategic Consultation",
-            description: "Beyond maintenance, we act as your SEO advisors. We'll guide you on opportunities for new content, untapped keywords, and best practices to grow your authority and reach."
+            title: "Support Planning",
+            description: "We align your maintenance roadmap to releases, campaigns, and business priorities so your website supports ongoing growth."
           }
         ]
       },
       expertise: {
-        title: "Long-Term Benefits of SEO Support",
+        title: "Long-Term Benefits of Website Maintenance",
         items: [
-          "Consistent Visibility - Stay ahead of competitors with ongoing optimization",
-          "Sustained Traffic Growth - Build steady streams of organic visitors month after month",
-          "Higher ROI - Maximize your website investment with continued improvements",
-          "Adaptability - Stay resilient to search engine algorithm changes"
+          "Reliable Uptime - Keep your site available for leads and customers",
+          "Stronger Security - Reduce risk with consistent updates and monitoring",
+          "Faster Site Performance - Improve user experience across devices",
+          "Lower Long-Term Cost - Prevent larger issues with proactive maintenance"
         ]
       }
     },
@@ -826,11 +826,12 @@ export const siteData = {
       }
     },
     'ai-support': {
-      title: "AI Support & Optimization",
+      title: "AI Support & Maintenance Services",
       mainContent: {
-        title: "Why AI Needs Ongoing Support",
+        title: "AI Support and Maintenance for Production Systems",
         paragraphs: [
-          "Unlike traditional software, AI systems improve over time — but only if they're monitored and maintained. At <strong>Kingdom Design House</strong>, our AI Support services ensure that your solutions continue to evolve alongside your business, data, and industry trends."
+          "Our AI support and maintenance services keep production AI systems accurate, fast, and aligned with your real business data as operations evolve.",
+          "We monitor performance, retrain where needed, and maintain integrations so your AI tools remain reliable for customer-facing and internal workflows."
         ]
       },
       approach: {

@@ -1,0 +1,96 @@
+@import './variables.scss';
+
+.caseStudyProjectOverview {
+  background-color: $primary-black;
+  padding: $spacing-4xl 0;
+  position: relative;
+
+  &__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: $spacing-4xl;
+    align-items: center;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: 1fr;
+      gap: $spacing-2xl;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $font-4xl;
+    font-weight: $font-bold;
+    color: $primary-white;
+    margin: 0;
+    position: relative;
+    padding-bottom: $spacing-md;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background-color: $primary-yellow;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    border-radius: $radius-md;
+    padding: $spacing-lg;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &__infoItem {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  &__infoLabel {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $primary-yellow;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  &__infoValue {
+    font-size: $font-base;
+    color: $primary-white;
+    line-height: 1.6;
+  }
+
+  &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: $radius-md;
+  }
+}
+
+

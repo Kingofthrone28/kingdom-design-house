@@ -1,0 +1,74 @@
+@import './variables.scss';
+
+.caseStudyDirectoryCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  &:focus-visible {
+    outline: 2px solid $primary-yellow;
+    outline-offset: 5px;
+    border-radius: $radius-lg;
+  }
+
+  &__article {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: $radius-lg;
+    overflow: hidden;
+    height: 100%;
+    transition: transform $transition-base, box-shadow $transition-base, border-color $transition-base;
+  }
+
+  &:hover &__article {
+    transform: translateY(-6px);
+    border-color: $primary-yellow;
+    box-shadow: $shadow-xl;
+  }
+
+  &__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background-color: $primary-dark-gray;
+  }
+
+  &__image {
+    object-fit: cover;
+    transition: transform $transition-slow;
+  }
+
+  &:hover &__image {
+    transform: scale(1.05);
+  }
+
+  &__content {
+    padding: $spacing-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: $font-secondary;
+    font-size: $font-3xl;
+    color: $primary-white;
+    line-height: 1.15;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: $font-base;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  &__cta {
+    margin-top: $spacing-md;
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $primary-yellow;
+  }
+}

@@ -22,7 +22,7 @@ export default function NetworkOptimization() {
       
       <Layout>
         <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="networkgroup" groupIntent="Network Optimization & IT Performance for NYC Offices" />
+        <GroupHeading groupName="networkgroup" groupIntent="Wireless Infrastructure Design and Optimization NYC" />
         <ServiceContent serviceType="network-optimization" />
         <ProcessSteps />
         <ChatJarvis />

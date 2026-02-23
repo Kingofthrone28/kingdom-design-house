@@ -14,6 +14,7 @@ export const navbarData = {
     { name: "Home", route: "/" },
     { name: "About", route: "/about" },
     { name: "Services", route: "/services" },
+    { name: "Case Studies", route: "/case-studies" },
     { name: "The Web Group", route: "/web-group" },
     { name: "The Network Group", route: "/network-group" },
     { name: "The AI Group", route: "/ai-group" },
@@ -32,6 +33,7 @@ export const navbarData = {
       { name: "About", route: "/about" },
       { name: "Company Groups", hasSubmenu: true },
       { name: "Services", hasSubmenu: true },
+      { name: "Case Studies", route: "/case-studies" },
       { name: "Pricing", route: "/pricing" }
     ],
     companyGroupsSubmenu: [

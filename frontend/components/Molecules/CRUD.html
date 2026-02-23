@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple CRUD App (JSON + HTML + JavaScript)</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 2rem;
+      background: #f7f7f7;
+    }
+
+    h1, h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .card {
+      background: #fff;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    form {
+      display: grid;
+      gap: 0.75rem;
+      max-width: 400px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+      gap: 0.25rem;
+    }
+
+    input {
+      padding: 0.4rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+    }
+
+    button {
+      padding: 0.45rem 0.9rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    button.primary {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    button.secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    button.danger {
+      background: #dc2626;
+      color: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 0.45rem 0.6rem;
+      text-align: left;
+    }
+
+    th {
+      background: #f3f4f6;
+    }
+
+    pre {
+      background: #111827;
+      color: #e5e7eb;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      max-height: 250px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple CRUD App (JSON + JavaScript)</h1>
+
+  <!-- CREATE / UPDATE FORM -->
+  <div class="card">
+    <h2>Add / Edit User</h2>
+    <form id="userForm">
+      <!-- Hidden field to track which item is being edited -->
+      <input type="hidden" id="userId" />
+
+      <label>
+        Name
+        <input type="text" id="name" placeholder="e.g. Jane Doe" required />
+      </label>
+
+      <label>
+        Email
+        <input type="email" id="email" placeholder="e.g. jane@example.com" required />
+      </label>
+
+      <label>
+        Role
+        <input type="text" id="role" placeholder="e.g. Admin, Editor, Viewer" />
+      </label>
+
+      <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
+        <button type="submit" class="primary" id="submitBtn">Create</button>
+        <button type="button" class="secondary" id="cancelEditBtn">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- READ (LIST TABLE) -->
+  <div class="card">
+    <h2>User List</h2>
+    <table id="usersTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be injected by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RAW JSON VIEW -->
+  <div class="card">
+    <h2>Raw JSON Data</h2>
+    <pre id="jsonOutput">[]</pre>
+  </div>
+
+  <script>
+  
+    // --- DOM Elements ---
+    const userForm = document.getElementById("userForm");
+    const userIdInput = document.getElementById("userId");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const roleInput = document.getElementById("role");
+    const submitBtn = document.getElementById("submitBtn");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const usersTableBody = document.querySelector("#usersTable tbody");
+    const jsonOutput = document.getElementById("jsonOutput");
+
+    // --- RENDER FUNCTIONS ---
+    
+    // Render Empty Row
+    const renderEmptyRow = (emptyRow,cell) => { 
+      usersTableBody.innerHTML = "";
+         emptyRow = document.createElement("tr");
+         cell = document.createElement("td");
+         cell.colSpan = 5;
+         cell.textContent = "No users found.";
+ 
+         emptyRow.appendChild(cell);
+         usersTableBody.appendChild(emptyRow);
+         updateJSONView();
+         return;
+    }
+
+    // In-memory "database" — an array of objects (JSON-like structure)
+      let users = [
+      { id: 1, name: "Alice Johnson", email: "alice@example.com", role: "Admin" },
+      { id: 2, name: "Bob Smith", email: "bob@example.com", role: "Editor" }
+    ];
+
+    // Render Users in Table Rows
+    const renderUsersTable = () => {
+      usersTableBody.innerHTML = "";
+      users.forEach((user, index) => {
+        const row = document.createElement("tr");
+        let indexCell, 
+            nameCell, 
+            emailCell, 
+            roleCell;
+         
+          const getIndexCell = (cell, ref) => {
+            cell = document.createElement("td");
+              if(cell) {
+              cell.textContent = ref;
+              row.appendChild(cell);
+              }
+            return cell
+          }
+          
+          const getEditButton = (btn, id) => {
+            if(btn) {
+             btn.textContent = "Edit";
+             btn.className = "secondary";
+             btn.addEventListener("click", () => startEditUser(id));
+            }
+            return btn
+          } 
+          
+          const getDeleteButton = (btn, id) => {
+          if (btn) {
+           btn.textContent = "Delete";
+           btn.className = "danger";
+           btn.style.marginLeft = "0.35rem";
+           btn.addEventListener("click", () => deleteUser(id));
+          }
+           return btn
+          } 
+
+          const editBtn = document.createElement("button");
+          const deleteBtn = document.createElement("button");
+  
+          // // Index column
+          getIndexCell(indexCell,index+1);
+
+          // // Name
+          getIndexCell(nameCell,user.name);
+
+          // // Email
+          getIndexCell(emailCell,user.email);
+
+          // // Role
+          getIndexCell(roleCell,user.role || "-");
+
+          // Actions
+          const actionsCell = document.createElement("td");
+        
+          // Create Edit button, attach click handler to pass user ID values to input form
+          getEditButton(editBtn,user.id);
+
+          // Create Delete button, attach click handler to delete user by ID
+          getDeleteButton(deleteBtn,user.id);
+          
+          // Append buttons to actions cell
+          actionsCell.appendChild(editBtn);
+          actionsCell.appendChild(deleteBtn);
+        
+          row.appendChild(actionsCell);
+
+          usersTableBody.appendChild(row);
+        })
+    }  
+    
+    // Render the table rows based on `users` array
+    const renderTable = (emptyRow,cell) => {
+       if(!users.length) return renderEmptyRow();
+       renderUsersTable();
+      updateJSONView();
+    }
+
+    // Show the `users` array as formatted JSON
+    function updateJSONView() {
+      jsonOutput.textContent = JSON.stringify(users, null, 2);
+    }
+
+    // --- CRUD OPERATIONS ---
+
+    // CREATE / UPDATE (form submit)
+    userForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const role = roleInput.value.trim();
+      const currentId = userIdInput.value;
+
+      const inputData = { name, email, role };
+
+      if (!name || !email) return
+          
+      const updateUser = (id, data) => {
+        users = users.map(user => (user.id === id ? { ...user, ...data } : user));
+      };
+
+      const createUser = (data) => {
+        const nextId = users.length ? Math.max(...users.map(u => u.id)) + 1 : 1;
+        users = [...users, { id: nextId, ...data }];
+      };
+
+       // create a new user
+       if (!currentId) createUser(inputData);
+
+      // If `currentId` exists, update the existing user
+       updateUser(Number(currentId),inputData);
+
+      resetForm();
+      renderTable();
+    });
+
+    // LOAD user data into form for editing
+    const startEditUser = (id) => {
+      const user = users.find((u) => u.id === id);
+
+      if (!user) return;
+
+      const userData = { 
+        id: user.id,
+        name: user.name, 
+        email: user.email, 
+        role: user.role,
+        inputsMap : {
+          id: userIdInput,
+          name: nameInput,
+          email: emailInput,
+          role: roleInput
+        }
+      };
+      
+      Object.entries(userData).forEach(([key, value]) => {
+          console.log("key:", key, "value:", value);
+          const inputElement = userData.inputsMap[key];
+          (inputElement) ? inputElement.value = value : null;
+      })
+      submitBtn.textContent = "Update";
+    }
+
+    // DELETE user
+    function deleteUser(id) {
+      const confirmed = confirm("Are you sure you want to delete this user?");
+      if (!confirmed) return;
+
+      users = users.filter((u) => u.id !== id);
+      // If we were editing this user, reset form
+      if (userIdInput.value && Number(userIdInput.value) === id) {
+        resetForm();
+      }
+      renderTable();
+    }
+
+    // Reset form back to "Create" mode
+    function resetForm() {
+      userForm.reset();
+      userIdInput.value = "";
+      submitBtn.textContent = "Create";
+    }
+
+    // Cancel editing handler
+    cancelEditBtn.addEventListener("click", function () {
+      resetForm();
+    });
+
+    // Initial render
+    renderTable();
+  </script>
+</body>
+</html>

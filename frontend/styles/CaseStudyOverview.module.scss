@@ -1,0 +1,82 @@
+@import './variables.scss';
+
+.caseStudyOverview {
+  background: linear-gradient(to top, $primary-beige 0%, $primary-beige 50%, $primary-white 100%, $primary-white 100%);
+  padding: $spacing-4xl 0;
+  position: relative;
+
+  &__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-4xl;
+    align-items: center;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: 1fr;
+      gap: $spacing-2xl;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $font-4xl;
+    font-weight: $font-bold;
+    color: $primary-black;
+    margin: 0;
+    position: relative;
+    padding-bottom: $spacing-md;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background-color: $primary-yellow;
+    }
+  }
+
+  &__description {
+    font-size: $font-lg;
+    line-height: 1.8;
+    color: $primary-black;
+    
+    p {
+      margin: 0 0 $spacing-md 0;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: $radius-md;
+  }
+}
+
+
+

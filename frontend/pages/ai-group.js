@@ -4,7 +4,6 @@ import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
-import OurGroups from '../components/OurGroups';
 import ProcessSteps from '../components/ProcessSteps';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';

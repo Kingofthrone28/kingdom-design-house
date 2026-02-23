@@ -22,7 +22,7 @@ export default function AISupport() {
       
       <Layout>
         <GroupHero groupName="aigroup" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="aigroup" groupIntent="AI Support & Maintenance for Long Island Companies" />
+        <GroupHeading groupName="aigroup" groupIntent="AI Support and Maintenance Services in NY" />
         <ServiceContent serviceType="ai-support" />
         <ProcessSteps />
         <ChatJarvis />

@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../../styles/PricingPlans.module.scss';
-import Link from 'next/link';
 import {navbarData} from '../../data/navbarData';
 import Button from '../Atoms/Button';
 
@@ -98,11 +97,9 @@ const PricingPlans = ({
           The Enterprise Package is designed for corporations with unique requirements.
         </p>
         <div className={styles.pricingPlans__enterpriseAction}>
-          <Link href={`tel:${navbarData.contact.phone}`}>
-            <Button variant="secondary" size="large">
-              Schedule a Call
-            </Button>
-          </Link>
+          <Button href={`tel:${navbarData.contact.phone}`} variant="secondary" size="large">
+            Schedule a Call
+          </Button>
         </div>
       </div>
     </div>
