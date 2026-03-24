@@ -6,7 +6,6 @@ import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
 import WebStrategy from '../components/Organisms/WebStrategy';
 import ProcessSteps from '../components/ProcessSteps';
-import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { pageSeoData } from '../lib/seo';
 import { getPageHeadline } from '../data/siteData';
@@ -26,7 +25,6 @@ export default function WebGroup() {
         <ProcessSteps />
         <WebStrategy />
         <WhyChooseUs />
-        <ChatJarvis />
       </Layout>
     </>
   );

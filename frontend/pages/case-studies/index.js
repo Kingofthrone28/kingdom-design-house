@@ -3,7 +3,6 @@ import Layout from '../../components/Layout';
 import SEOHead from '../../components/SEOHead';
 import DiscoverOurWork from '../../components/Organisms/DiscoverOurWork';
 import CaseStudyLetsTalk from '../../components/Molecules/CaseStudyLetsTalk';
-import ChatJarvis from '../../components/ChatJarvis';
 import { getCaseStudiesDirectoryData } from '../../data/caseStudiesData';
 import { withTrailingSlash } from '../../utils/url';
 
@@ -51,7 +50,6 @@ export default function CaseStudiesDirectoryPage() {
           onClick={handleLetsTalkClick}
         />
 
-        <ChatJarvis />
       </Layout>
     </>
   );

@@ -7,6 +7,7 @@ import Footer from './Footer';
 import { SiteDataProvider } from '../contexts/SiteDataContext';
 import { LayoutProvider } from '../contexts/LayoutContext';
 import { getPageData, getdefaultValues } from '../data/siteData';
+import JarvisFloat from './JarvisFloat';
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -77,6 +78,7 @@ const Layout = ({ children }) => {
           </main>
           {showBreadcrumbs && <Breadcrumbs />}
           <Footer />
+          <JarvisFloat />
         </div>
       </LayoutProvider>
     </SiteDataProvider>

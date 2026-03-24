@@ -1,0 +1,42 @@
+@import 'variables';
+
+.jarvisFloat {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: $z-fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: $primary-black;
+  border: 2px solid $primary-yellow;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: $shadow-xl;
+  transition: transform $transition-base, box-shadow $transition-base;
+  overflow: hidden;
+
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 4px rgba($primary-yellow, 0.25), $shadow-xl;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &__image {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 54px;
+    height: 54px;
+    bottom: 20px;
+    right: 20px;
+  }
+}

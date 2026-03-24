@@ -6,7 +6,6 @@ import GroupHero from '../../../components/GroupHero';
 import GroupHeading from '../../../components/Molecules/GroupHeading';
 import ServiceContent from '../../../components/Organisms/ServiceContent';
 import ProcessSteps from '../../../components/ProcessSteps';
-import ChatJarvis from '../../../components/ChatJarvis';
 import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
 import { getPageHeadline } from '../../../data/siteData';
@@ -25,7 +24,6 @@ export default function AIGroupWebDesign() {
         <GroupHeading groupName="aigroup" groupIntent="AI Consulting Services for NYC Businesses" />
         <ServiceContent serviceType="ai-consulting" />
         <ProcessSteps />
-        <ChatJarvis />
         <WhyChooseUs />
       </Layout>
     </>

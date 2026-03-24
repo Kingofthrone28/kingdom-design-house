@@ -6,8 +6,6 @@ import GroupHero from '../../../components/GroupHero';
 import ServiceContent from '../../../components/Organisms/ServiceContent';
 import GroupHeading from '../../../components/Molecules/GroupHeading';
 import ProcessSteps from '../../../components/ProcessSteps';
-import ChatJarvis from '../../../components/ChatJarvis';
-import WhyChooseUs from '../../../components/WhyChooseUs';
 import { serviceSeoData } from '../../../lib/seo';
 import { getPageHeadline } from '../../../data/siteData';
 
@@ -22,11 +20,9 @@ export default function NetworkDesign() {
       
       <Layout>
         <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="networkgroup" groupIntent="Wireless Network Design in Long Island NY" />
-        <ServiceContent serviceType="network-design" />
+        <GroupHeading groupName="networkgroup" />
         <ProcessSteps />
-        <ChatJarvis />
-        <WhyChooseUs />
+        <ServiceContent serviceType="network-design" />
       </Layout>
     </>
   );

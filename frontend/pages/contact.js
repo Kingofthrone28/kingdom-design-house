@@ -3,7 +3,6 @@ import Layout from '../components/Layout';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 import ContactForm from '../components/ContactForm';
-import ChatJarvis from '../components/ChatJarvis';
 
 export default function Contact() {
   const seoData = {
@@ -22,7 +21,6 @@ export default function Contact() {
       
       <Layout>
         <ContactForm />
-        <ChatJarvis />
       </Layout>
     </>
   );

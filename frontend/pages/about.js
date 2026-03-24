@@ -6,7 +6,6 @@ import StructuredData from '../components/StructuredData';
 import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
 import ProcessSteps from '../components/ProcessSteps';
-import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { getAboutData } from '../data/siteData';
 import { pageSeoData } from '../lib/seo';
@@ -60,7 +59,6 @@ export default function About() {
           </div>
         </section>
         <ProcessSteps />
-        <ChatJarvis />
         <WhyChooseUs />  
       </Layout>
     </>

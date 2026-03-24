@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import SEOHead from '../../components/SEOHead';
 import CaseStudies from '../../components/Organisms/CaseStudies';
-import ChatJarvis from '../../components/ChatJarvis';
 
 // Case study data for Long Island Soft Play
 const SoftPlayCaseStudyData = {
@@ -74,7 +73,6 @@ export default function SoftPlayCaseStudy() {
       
       <Layout>
         <CaseStudies caseStudyData={SoftPlayCaseStudyData} />
-        <ChatJarvis />
       </Layout>
     </>
   );

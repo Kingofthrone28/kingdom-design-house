@@ -210,9 +210,9 @@ export const serviceSeoData = {
   },
 
   networkDesign: {
-    title: "Wireless Network Design in Long Island NY",
-    description: "Wireless network design in Long Island, NY with secure infrastructure for small businesses, offices, and home-office environments.",
-    keywords: "wireless network design long island, network solutions for small businesses long island ny, wireless network design nyc, network infrastructure ny",
+    title: "Network Design & Implementation in Long Island NY",
+    description: "Network design and implementation in Long Island NY for small businesses and offices. We design, install, and optimize wired and wireless infrastructure across Nassau County, Suffolk County, and NYC.",
+    keywords: "network design and implementation long island, network design and implementation nyc, network solutions for small businesses long island ny, wireless network design long island, network design nassau county, network infrastructure suffolk county",
     canonical: "/network-group/services/network-design/"
   },
 

@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import SEOHead from '../../components/SEOHead';
 import CaseStudies from '../../components/Organisms/CaseStudies';
-import ChatJarvis from '../../components/ChatJarvis';
 
 // Case study data for DermCare
 const dermcareCaseStudyData = {
@@ -74,7 +73,6 @@ export default function DermCareCaseStudy() {
       
       <Layout>
         <CaseStudies caseStudyData={dermcareCaseStudyData} />
-        <ChatJarvis />
       </Layout>
     </>
   );

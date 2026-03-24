@@ -257,8 +257,8 @@ export const siteData = {
       subHighlight: ""
     },
     'network-design': {
-      main: "WIRELESS NETWORK",
-      highlight: "DESIGN",
+      main: "NETWORK DESIGN &",
+      highlight: "IMPLEMENTATION",
       sub: "IN LONG ISLAND NY",
       subHighlight: ""
     },
@@ -552,10 +552,10 @@ export const siteData = {
     'network-design': {
       title: "Network Design Services",
       mainContent: {
-        title: "Wireless Network Design in Long Island NY",
+        title: "Network Design & Implementation for Long Island Businesses",
         paragraphs: [
-          "We provide wireless network design in Long Island NY for offices and small businesses that need secure coverage, stable performance, and infrastructure that scales without constant rework.",
-          "Our team designs practical network solutions for small businesses across Long Island and NYC, including router/switch architecture, Wi-Fi planning, and resilient infrastructure for day-to-day operations."
+          "We deliver full-scope network design and implementation for offices and small businesses across Long Island, including Nassau County, Suffolk County, and Freeport. Our team handles everything from initial planning through physical installation and configuration — so your infrastructure is built right the first time.",
+          "Whether you need wired routing and switching, Wi-Fi coverage, or a hybrid infrastructure built for growth, we design and implement solutions tailored to your environment. We serve businesses across Long Island and NYC that are tired of patching together unreliable networks and need a system that simply works."
         ]
       },
       approach: {
