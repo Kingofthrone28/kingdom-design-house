@@ -10,7 +10,6 @@ const path = require('path');
 const fs = require('fs');
 const { processHTML, chunkText } = require('../services/documentProcessor');
 const { uploadChunksToPinecone } = require('../services/documentProcessor');
-const { initializePinecone } = require('../services/pinecone');
 
 // Web scraping libraries (optional)
 let axios = null;
@@ -371,91 +370,81 @@ const checkMemoryUsage = () => {
 };
 
 /**
- * Processes all configured web pages with streaming approach
- * @returns {Promise<Array>} Array of all content chunks
+ * Processes all configured web pages with streaming upload per page.
+ * Chunks are uploaded to Pinecone immediately after each page is scraped
+ * so the allChunks array never accumulates more than one page's worth.
+ * @param {Function} [uploadFn] - Optional upload function override (used by scrapeWebsite)
+ * @returns {Promise<number>} Total chunks uploaded
  */
-const processAllWebPages = async () => {
+const processAllWebPages = async (uploadFn) => {
   loadLibraries();
-  
+
   if (!axios) {
     throw new Error('Web scraping requires axios package. Install with: npm install axios');
   }
-  
-  // Initialize base URL
+
   const baseUrl = getBaseUrl();
   console.log(`🌐 Using base URL: ${baseUrl}`);
-  
-  const allChunks = [];
+
   let processedPages = 0;
-  
-  // Process main pages with aggressive memory management
+  let totalChunks = 0;
+
+  const processAndUploadPage = async (page) => {
+    const chunks = await processWebPage(page);
+    if (chunks.length === 0) return;
+
+    if (uploadFn) {
+      await uploadFn(chunks);
+    }
+    totalChunks += chunks.length;
+    processedPages++;
+
+    checkMemoryUsage();
+    if (processedPages % WEB_CONFIG.options.forceGCInterval === 0 && global.gc) {
+      console.log('🧹 Forcing garbage collection...');
+      global.gc();
+    }
+  };
+
+  // Process main pages
   console.log('🌐 Processing main website pages...');
   for (let i = 0; i < WEB_CONFIG.pages.length; i++) {
     const page = WEB_CONFIG.pages[i];
     console.log(`📄 Processing page ${i + 1}/${WEB_CONFIG.pages.length}: ${page.title}`);
-    
     try {
-      const chunks = await processWebPage(page);
-      allChunks.push(...chunks);
-      processedPages++;
-      
-      // Check memory usage after each page
-      checkMemoryUsage();
-      
-      // Force garbage collection more frequently
-      if (processedPages % WEB_CONFIG.options.forceGCInterval === 0 && global.gc) {
-        console.log('🧹 Forcing garbage collection...');
-        global.gc();
-      }
-      
-      // Longer delay to allow memory cleanup
+      await processAndUploadPage(page);
       await new Promise(resolve => setTimeout(resolve, 500));
-      
     } catch (error) {
       console.error(`❌ Failed to process ${page.title}:`, error.message);
-      // Continue with next page instead of failing completely
     }
   }
-  
-  // Process service pages in much smaller batches
+
+  // Process service pages in small batches
   console.log('\n🔧 Processing service pages...');
-  const batchSize = WEB_CONFIG.options.maxPagesPerBatch; // Process only 3 pages at a time
+  const batchSize = WEB_CONFIG.options.maxPagesPerBatch;
   for (let i = 0; i < WEB_CONFIG.servicePages.length; i += batchSize) {
     const batch = WEB_CONFIG.servicePages.slice(i, i + batchSize);
     console.log(`📄 Processing service batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(WEB_CONFIG.servicePages.length / batchSize)}`);
-    
+
     for (const page of batch) {
       try {
-        const chunks = await processWebPage({
+        await processAndUploadPage({
           ...page,
           category: 'services',
           tags: ['services', 'offerings']
         });
-        allChunks.push(...chunks);
-        processedPages++;
-        
-        // Check memory after each page
-        checkMemoryUsage();
-        
-        // Force GC after each page in service batch
-        if (global.gc) {
-          global.gc();
-        }
-        
-        // Delay between pages
         await new Promise(resolve => setTimeout(resolve, 300));
-        
       } catch (error) {
         console.error(`❌ Failed to process service page ${page.title}:`, error.message);
       }
     }
-    
-    // Longer delay between batches
+
+    if (global.gc) global.gc();
     await new Promise(resolve => setTimeout(resolve, 1000));
   }
-  
-  console.log(`✅ Processed ${processedPages} pages total`);
-  return allChunks;
+
+  console.log(`✅ Processed ${processedPages} pages, ${totalChunks} chunks total`);
+  return totalChunks;
 };
 
 /**
@@ -506,37 +495,39 @@ async function scrapeWebsite() {
     console.log('🚀 Starting website content scraping...');
     checkMemoryUsage();
     
-    // Initialize Pinecone
-    console.log('🔗 Initializing Pinecone...');
-    await initializePinecone();
-    
-    // Process all web pages with streaming approach
-    const allChunks = await processAllWebPages();
-    checkMemoryUsage();
-    
-    if (allChunks.length === 0) {
-      console.log('⚠️  No content extracted from website');
-      return;
-    }
-    
-    // Upload to Pinecone (unless in dry-run mode)
+    // Dry-run: scrape and report without touching Pinecone
     if (global.DRY_RUN) {
-      console.log(`\n🔍 Dry run: Would upload ${allChunks.length} chunks to Pinecone`);
+      const sampleChunks = [];
+      const collectSample = async (chunks) => {
+        if (sampleChunks.length < 3) sampleChunks.push(...chunks.slice(0, 3 - sampleChunks.length));
+      };
+      const total = await processAllWebPages(collectSample);
+      checkMemoryUsage();
+      console.log(`\n🔍 Dry run: Would have uploaded ${total} chunks to Pinecone`);
       console.log('📋 Sample chunks:');
-      allChunks.slice(0, 3).forEach((chunk, index) => {
+      sampleChunks.forEach((chunk, index) => {
         console.log(`\n--- Chunk ${index + 1} ---`);
         console.log(`ID: ${chunk.id}`);
         console.log(`Title: ${chunk.metadata.title}`);
         console.log(`Content: ${chunk.content.substring(0, 200)}...`);
       });
-    } else {
-      // Upload in small batches to prevent memory issues
-      await uploadChunksInBatches(allChunks, 3); // Upload 3 chunks at a time
-      checkMemoryUsage();
+      console.log('\n🎉 Website scraping (dry run) completed!');
+      console.log(`📊 Total chunks processed: ${total}`);
+      return;
     }
-    
+
+    // Live run: stream-upload each page immediately as it is scraped
+    const uploadPage = (chunks) => uploadChunksInBatches(chunks, 3);
+    const total = await processAllWebPages(uploadPage);
+    checkMemoryUsage();
+
+    if (total === 0) {
+      console.log('⚠️  No content extracted from website');
+      return;
+    }
+
     console.log('\n🎉 Website scraping completed successfully!');
-    console.log(`📊 Total chunks processed: ${allChunks.length}`);
+    console.log(`📊 Total chunks processed: ${total}`);
     
   } catch (error) {
     console.error('❌ Website scraping failed:', error);

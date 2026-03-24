@@ -60,7 +60,9 @@ const chunkText = (text, chunkSize = 1000, overlap = 200) => {
     }
     
     chunks.push(chunk.trim());
-    start = start + chunk.length - overlap;
+    const nextStart = start + chunk.length - overlap;
+    if (nextStart <= start) break; // guard: ensure forward progress
+    start = nextStart;
   }
   
   return chunks.filter(chunk => chunk.length > 50); // Filter out very small chunks

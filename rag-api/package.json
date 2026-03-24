@@ -8,12 +8,12 @@
     "dev": "nodemon server.js",
     "populate": "node scripts/populate-index.js",
     "setup": "node scripts/setup-enhanced-rag.js",
-    "process-docs": "echo '⚠️  Document processing disabled due to critical memory leaks' && echo '💡 Use manual content addition to sample-documents.json instead'",
-    "scrape-web": "echo '⚠️  Web scraping disabled due to critical memory leaks' && echo '💡 Use manual content addition to sample-documents.json instead'",
+    "process-docs": "node scripts/process-documents.js",
+    "scrape-web": "node scripts/web-content-scraper.js",
     "test": "node test-connection.js"
   },
   "dependencies": {
-    "@pinecone-database/pinecone": "^1.1.0",
+    "@pinecone-database/pinecone": "^2.2.2",
     "axios": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",

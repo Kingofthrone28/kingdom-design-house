@@ -8,7 +8,6 @@
 require('dotenv').config();
 const { initializePinecone } = require('../services/pinecone');
 const { processDirectory, uploadChunksToPinecone } = require('../services/documentProcessor');
-const { processAllWebPages, uploadChunksToPinecone: uploadWebChunks } = require('../services/documentProcessor');
 const fs = require('fs');
 const path = require('path');
 
@@ -20,11 +19,11 @@ const SETUP_CONFIG = {
   // Process sample documents
   processSampleDocs: true,
   
-  // Process uploaded documents (DISABLED due to critical memory leaks)
-  processDocuments: false,
-  
-  // Scrape website content (permanently disabled due to severe memory leaks)
-  scrapeWebsite: false,
+  // Process uploaded documents
+  processDocuments: true,
+
+  // Scrape website content
+  scrapeWebsite: true,
   
   // Document processing options
   documentOptions: {
@@ -92,10 +91,9 @@ async function processSampleDocuments() {
     
     console.log(`Found ${sampleDocuments.length} sample documents`);
     
-    const chunks = [];
+    let totalChunks = 0;
     for (const doc of sampleDocuments) {
-      // Create chunks from sample documents
-      const docChunks = [{
+      const chunk = {
         id: doc.id,
         content: doc.content,
         metadata: {
@@ -107,13 +105,12 @@ async function processSampleDocuments() {
           totalChunks: 1,
           fileType: 'json'
         }
-      }];
-      
-      chunks.push(...docChunks);
+      };
+      // Upload one doc at a time — no accumulation
+      await uploadChunksToPinecone([chunk]);
+      totalChunks++;
     }
-    
-    await uploadChunksToPinecone(chunks);
-    console.log(`✅ Processed ${chunks.length} sample document chunks`);
+    console.log(`✅ Processed ${totalChunks} sample document chunks`);
     
   } catch (error) {
     console.error('❌ Error processing sample documents:', error.message);
@@ -127,10 +124,6 @@ async function processSampleDocuments() {
 async function processUploadedDocuments() {
   if (!SETUP_CONFIG.processDocuments) {
     console.log('⏭️  Skipping uploaded documents (disabled in config)');
-    console.log('⚠️  Document processing is permanently disabled due to critical memory leaks');
-    console.log('🚨 CRITICAL: Memory leaks are system-level and cannot be resolved through code optimization');
-    console.log('💡 Use manual content addition to sample-documents.json instead');
-    console.log('💡 The RAG system works perfectly with sample documents only');
     return;
   }
   
@@ -193,24 +186,19 @@ async function processUploadedDocuments() {
 async function scrapeWebsiteContent() {
   if (!SETUP_CONFIG.scrapeWebsite) {
     console.log('⏭️  Skipping website scraping (disabled in config)');
-    console.log('⚠️  Website scraping is permanently disabled due to severe memory leaks');
-    console.log('💡 The web scraping functionality has critical memory issues that cannot be resolved');
-    console.log('💡 Use manual content addition to sample-documents.json instead');
-    console.log('💡 Or use the minimal content processor: node scripts/web-content-minimal.js');
     return;
   }
   
   try {
     console.log('🌐 Scraping website content...');
     
-    // Import web scraper functionality
     const { processAllWebPages } = require('./web-content-scraper');
-    
-    const chunks = await processAllWebPages();
-    
-    if (chunks.length > 0) {
-      await uploadChunksToPinecone(chunks);
-      console.log(`✅ Processed ${chunks.length} website content chunks`);
+
+    // Upload each page's chunks immediately as they are scraped
+    const total = await processAllWebPages((chunks) => uploadChunksToPinecone(chunks));
+
+    if (total > 0) {
+      console.log(`✅ Processed ${total} website content chunks`);
     } else {
       console.log('⚠️  No website content scraped');
     }
