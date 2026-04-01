@@ -241,7 +241,7 @@ export const siteData = {
     'web-development': {
       main: "CUSTOM WEB",
       highlight: "DEVELOPMENT",
-      sub: "IN NYC FOR BUSINESSES",
+      sub: "FOR NYC SMALL BUSINESSES",
       subHighlight: ""
     },
     'digital-marketing': {
@@ -269,15 +269,15 @@ export const siteData = {
       subHighlight: ""
     },
     'network-support': {
-      main: "NYC NETWORK",
+      main: "MANAGED NETWORK",
       highlight: "SUPPORT",
-      sub: "& MAINTENANCE SERVICES",
+      sub: "FOR NYC BUSINESSES",
       subHighlight: ""
     },
     'ai-development': {
-      main: "AI DEVELOPMENT",
-      highlight: "SOLUTIONS",
-      sub: "IN LONG ISLAND NY",
+      main: "CUSTOM AI",
+      highlight: "DEVELOPMENT",
+      sub: "FOR LONG ISLAND & NYC",
       subHighlight: ""
     },
     'ai-consulting': {
@@ -287,9 +287,9 @@ export const siteData = {
       subHighlight: ""
     },
     'ai-support': {
-      main: "AI SUPPORT &",
-      highlight: "MAINTENANCE",
-      sub: "SERVICES IN NEW YORK",
+      main: "ONGOING AI",
+      highlight: "SUPPORT",
+      sub: "& OPTIMIZATION IN NEW YORK",
       subHighlight: ""
     }
   },

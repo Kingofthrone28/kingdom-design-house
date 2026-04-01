@@ -127,12 +127,12 @@ export const pageSeoData = {
   },
 
   webGroup: {
-    title: "Web Development in Long Island NY",
-    description: "We design & build modern websites for NYC businesses. Expert developers in Long Island deliver performance & SEO excellence.",
+    title: "Custom Web Design & Development for Long Island Businesses",
+    description: "Kingdom Design House builds conversion-focused websites for Long Island and NYC businesses. Fast, scalable, and built to rank.",
     keywords: "Web Development Long Island, Website Design NYC, WordPress Agency NY",
     canonical: "/web-group/",
-    ogTitle: "Web Development in Long Island NY",
-    ogDescription: "We design & build modern websites for NYC businesses. Expert developers in Long Island deliver performance & SEO excellence."
+    ogTitle: "Custom Web Design & Development for Long Island Businesses",
+    ogDescription: "Kingdom Design House builds conversion-focused websites for Long Island and NYC businesses. Fast, scalable, and built to rank."
   },
 
   networkGroup: {
@@ -175,8 +175,8 @@ export const pageSeoData = {
 // Service page SEO data
 export const serviceSeoData = {
   webDevelopment: {
-    title: "Custom Web Development in NYC",
-    description: "Custom web development in NYC for small and growing businesses. We build fast, scalable websites and web apps for New York teams.",
+    title: "Custom Web Development for NYC Small Businesses",
+    description: "We build fast, scalable websites and web apps for NYC small businesses — designed to grow with you. Long Island developers, local results.",
     keywords: "custom web development nyc, web development nyc, custom website development new york, long island web developer",
     canonical: "/web-group/services/web-development/"
   },
@@ -196,22 +196,22 @@ export const serviceSeoData = {
   },
 
   support: {
-    title: "Website Support and Maintenance in New York",
-    description: "Website support and maintenance in New York for businesses that need reliable updates, security, uptime, and ongoing technical care.",
+    title: "Website Maintenance & Support Plans for NY Businesses",
+    description: "Keep your site secure, fast, and up to date. Monthly website maintenance and support plans for New York businesses.",
     keywords: "website support and maintenance new york, website maintenance new york, web support nyc, website care long island",
     canonical: "/web-group/services/support/"
   },
 
   aiDevelopment: {
-    title: "AI App Development NY",
-    description: "Custom AI apps & automations for Long Island companies. Powered by GPT & cutting-edge tech.",
+    title: "Custom AI App Development for Long Island & NYC Businesses",
+    description: "We build custom AI tools and automations tailored to your business operations. From chatbots to workflow automation — built for Long Island and NYC companies.",
     keywords: "AI App Development NYC, Automation Software NY",
     canonical: "/ai-group/services/ai-development/"
   },
 
   networkDesign: {
-    title: "Network Design & Implementation in Long Island NY",
-    description: "Network design and implementation in Long Island NY for small businesses and offices. We design, install, and optimize wired and wireless infrastructure across Nassau County, Suffolk County, and NYC.",
+    title: "Business Network Design & Installation in Long Island NY",
+    description: "Professional network design and installation for Long Island businesses. Wired and wireless infrastructure for offices in Nassau, Suffolk, and NYC.",
     keywords: "network design and implementation long island, network design and implementation nyc, network solutions for small businesses long island ny, wireless network design long island, network design nassau county, network infrastructure suffolk county",
     canonical: "/network-group/services/network-design/"
   },
@@ -224,8 +224,8 @@ export const serviceSeoData = {
   },
 
   networkSupport: {
-    title: "NYC Network Support and Maintenance",
-    description: "NYC network support and maintenance for businesses that need proactive monitoring, fast troubleshooting, and reliable uptime.",
+    title: "Managed Network Support & Monitoring for NYC Businesses",
+    description: "Proactive network monitoring and fast troubleshooting for NYC businesses. Keep your office online with managed support from Long Island IT experts.",
     keywords: "nyc network support, network support and maintenance ny, managed network support long island",
     canonical: "/network-group/services/network-support/"
   },
@@ -238,8 +238,8 @@ export const serviceSeoData = {
   },
 
   aiSupport: {
-    title: "AI Support and Maintenance Services NY",
-    description: "AI support and maintenance services in NY including model tuning, monitoring, updates, and ongoing optimization for production AI systems.",
+    title: "Ongoing AI Support & Optimization Services for NY Businesses",
+    description: "We keep your AI systems running at peak performance. Ongoing support, model tuning, and monitoring for businesses in New York and Long Island.",
     keywords: "ai support and maintenance, ai support nyc, ai maintenance long island, ai model monitoring new york",
     canonical: "/ai-group/services/ai-support/"
   }

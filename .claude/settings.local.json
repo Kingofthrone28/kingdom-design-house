@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/test-rag-fixes.js)",
+      "Bash(node scripts/test-rag-fixes.js --post-fix)",
+      "Bash(node scripts/web-content-scraper.js --dry-run --url https://kingdomdesignhouse.com)",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); const {Pinecone} = require\\(''@pinecone-database/pinecone''\\); const p = new Pinecone\\({apiKey: process.env.PINECONE_API_KEY, environment: process.env.PINECONE_ENVIRONMENT}\\); console.log\\(''Pinecone constructor OK''\\)\")"
+    ]
+  }
+}
