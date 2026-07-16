@@ -1,7 +1,7 @@
-jest.mock('../server/leadService', () => ({ createLead: jest.fn() }));
+jest.mock('../server/leadService', () => ({ syncLead: jest.fn() }));
 
-const { createLead } = require('../server/leadService');
-const { processChat, fallbackResponse } = require('../server/chatService');
+const { syncLead } = require('../server/leadService');
+const { processChat, fallbackResponse, enrichStructuredInfo, completeConversation } = require('../server/chatService');
 
 const request = () => ({ headers: { 'x-forwarded-for': '203.0.113.10' }, socket: {} });
 
@@ -26,7 +26,7 @@ describe('Vercel chat service', () => {
 
   test('keeps chat successful when lead creation fails', async () => {
     fetch.mockResolvedValue({ ok: true, json: async () => ({ response: 'Hello', structuredInfo: { email: 'person@example.com', service_requested: 'Web Development' } }) });
-    createLead.mockResolvedValue({ status: 500, body: { message: 'CRM unavailable' } });
+    syncLead.mockResolvedValue({ status: 500, body: { message: 'CRM unavailable' } });
     const result = await processChat(request(), { message: 'I need a site' });
     expect(result.status).toBe(200);
     expect(result.body.response).toBe('Hello');
@@ -42,10 +42,38 @@ describe('Vercel chat service', () => {
     expect(result.body.botProtectionTriggered).toBe(true);
     expect(result.body.leadSkipped).toBe(true);
     expect(fetch).not.toHaveBeenCalled();
-    expect(createLead).not.toHaveBeenCalled();
+    expect(syncLead).not.toHaveBeenCalled();
   });
 
   test('fallback response retains contact information', () => {
     expect(fallbackResponse('test').response).toContain('info@kingdomdesignhouse.com');
+  });
+
+  test('recovers email and phone from earlier user messages when structured extraction omits them', () => {
+    const info = enrichStructuredInfo(
+      { service_requested: 'AI consultation' },
+      'My budget is $5k',
+      [
+        { role: 'user', content: 'Robert Towns, rtowns@example.com, 347-555-0199' },
+        { role: 'assistant', content: 'How can we help?' },
+      ],
+    );
+    expect(info).toMatchObject({
+      email: 'rtowns@example.com',
+      phone: '347-555-0199',
+      service_requested: 'AI consultation',
+    });
+  });
+
+  test('complete transcript includes the current user message and assistant response', () => {
+    expect(completeConversation(
+      [{ role: 'user', content: 'My name is Robert.' }],
+      'I need AI consultation.',
+      'We can help.',
+    )).toEqual([
+      { role: 'user', content: 'My name is Robert.' },
+      { role: 'user', content: 'I need AI consultation.' },
+      { role: 'assistant', content: 'We can help.' },
+    ]);
   });
 });

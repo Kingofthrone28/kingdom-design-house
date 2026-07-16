@@ -25,6 +25,18 @@ What brings you here today? I'd love to learn about your project and how we can 
   const [honeypot, setHoneypot] = useState(''); // Bot protection honeypot field
   const [pageLoadTime] = useState(Date.now()); // Track page load time for bot detection
   const messagesEndRef = useRef(null);
+  const conversationIdRef = useRef(null);
+
+  if (!conversationIdRef.current && typeof window !== 'undefined') {
+    const storageKey = 'kdh_chat_conversation_id';
+    const existingId = window.sessionStorage.getItem(storageKey);
+    const conversationId = existingId || (
+      window.crypto?.randomUUID?.() ||
+      `kdh-${Date.now()}-${Math.random().toString(36).slice(2)}`
+    );
+    window.sessionStorage.setItem(storageKey, conversationId);
+    conversationIdRef.current = conversationId;
+  }
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -69,6 +81,7 @@ What brings you here today? I'd love to learn about your project and how we can 
     try {
       // Use centralized HTTP client with bot protection fields
       const result = await sendRagChatMessage(inputMessage.trim(), messages, {
+        conversationId: conversationIdRef.current,
         website: honeypot, // Honeypot field (should be empty)
         pageLoadTime: pageLoadTime, // For timing validation
       });

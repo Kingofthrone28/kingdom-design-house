@@ -65,6 +65,7 @@ Never place OpenAI, Pinecone, HubSpot, SendGrid, or reCAPTCHA secrets in a `NEXT
 | Vercel | `RAG_API_URL` | Yes | Server-only | Development, Preview, Production |
 | Vercel | `HUBSPOT_ACCESS_TOKEN` | Yes | Secret | Preview and Production |
 | Vercel | `HUBSPOT_DEAL_PIPELINE_ID`, `HUBSPOT_DEAL_STAGE_ID`, `HUBSPOT_TICKET_PIPELINE_ID`, `HUBSPOT_TICKET_STAGE_ID` | Yes | Server-only | Preview and Production |
+| Vercel | `HUBSPOT_CONVERSATION_PROPERTY` | No | Server-only | Preview and Production |
 | Vercel | `ENABLE_*`, `RATE_LIMIT_*`, `MIN_SECONDS_*` | No | Server-only | Preview and Production |
 | Railway RAG | `OPENAI_API_KEY`, `PINECONE_API_KEY`, `PINECONE_INDEX_NAME` | Yes | Secret | Railway service |
 | Railway RAG | `OPENAI_MODEL`, `OPENAI_MAX_TOKENS`, `WEB_SCRAPING_URL` | No | Server-only | Railway service |
@@ -80,6 +81,8 @@ cp contact-server/env.example contact-server/.env
 ```
 
 Configure the same variable names in the owning Vercel or Railway project. Use distinct Vercel Development, Preview, and Production values. Changing a Vercel variable only affects new deployments, so redeploy after every configuration change. Any real credential previously committed to Git must be rotated; deleting the file does not remove it from repository history.
+
+The chat CRM synchronization expects a unique text property named `kdh_conversation_id` on both HubSpot deals and tickets. It uses that identifier to update the same records as a conversation develops. Set `HUBSPOT_CONVERSATION_PROPERTY` only if the HubSpot internal property name differs.
 
 ### Installation
 

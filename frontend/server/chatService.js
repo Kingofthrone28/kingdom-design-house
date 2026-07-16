@@ -1,5 +1,5 @@
 const { checkBotProtection } = require('./botProtection');
-const { createLead } = require('./leadService');
+const { syncLead } = require('./leadService');
 
 const fallbackResponse = message => ({
   response: `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.\n\nFor immediate assistance, please contact us:\n📞 Phone: 347.927.8846\n📧 Email: info@kingdomdesignhouse.com\n\nWe offer comprehensive packages for businesses of all sizes, including:\n• Web Development & Design\n• IT Services & Support\n• Networking Solutions\n• AI Integration\n\nWhat specific services are you interested in?`,
@@ -13,6 +13,25 @@ const fallbackResponse = message => ({
 });
 
 const hasValue = value => typeof value === 'string' && value.trim() !== '';
+const EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
+const PHONE_PATTERN = /(?:\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b/;
+
+const userConversationText = (message, conversationHistory = []) => [
+  ...conversationHistory
+    .filter(item => item?.role === 'user' && hasValue(item.content))
+    .map(item => item.content),
+  message,
+].join('\n');
+
+const enrichStructuredInfo = (info = {}, message, conversationHistory = []) => {
+  const text = userConversationText(message, conversationHistory);
+  return {
+    ...info,
+    email: text.match(EMAIL_PATTERN)?.[0]?.toLowerCase() || info.email || null,
+    phone: text.match(PHONE_PATTERN)?.[0] || info.phone || null,
+  };
+};
+
 const shouldCreateLead = info => {
   if (!info || typeof info !== 'object') return false;
   const hasEmail = hasValue(info.email);
@@ -33,7 +52,13 @@ const calculateDeliveryDate = timeline => {
   return new Date(Date.now() + days * 86400000).toISOString();
 };
 
-const transformLeadData = (info, originalMessage, conversationHistory = []) => ({
+const completeConversation = (conversationHistory, originalMessage, assistantResponse) => [
+  ...conversationHistory,
+  { role: 'user', content: originalMessage },
+  ...(hasValue(assistantResponse) ? [{ role: 'assistant', content: assistantResponse }] : []),
+];
+
+const transformLeadData = (info, originalMessage, conversationHistory = [], options = {}) => ({
   email: info.email, first_name: info.first_name, last_name: info.last_name, phone: info.phone,
   company: info.company, website: info.website, service_requested: info.service_requested,
   conversation_keywords: info.conversation_keywords, budget_range: info.budget_range, timeline: info.timeline,
@@ -41,7 +66,11 @@ const transformLeadData = (info, originalMessage, conversationHistory = []) => (
   budget_amount: extractBudgetAmount(info.budget_range), estimated_delivery_date: calculateDeliveryDate(info.timeline),
   project_description: info.project_description || originalMessage, description: info.project_description || originalMessage,
   priority_level: 'HIGH', assigned_team: 'KDH Sales Team', issue_type: 'Lead Follow-up',
-  conversation_history: conversationHistory.map(item => `${item.role}: ${item.content}`).join('\n'),
+  conversation_id: options.conversationId,
+  conversation_history: completeConversation(conversationHistory, originalMessage, options.assistantResponse)
+    .filter(item => hasValue(item?.content))
+    .map(item => `${item.role}: ${item.content}`)
+    .join('\n\n'),
   originalMessage, timestamp: new Date().toISOString(),
 });
 
@@ -84,16 +113,35 @@ const processChat = async (req, body) => {
     return { status: 200, body: { ...data, leadCreated: false, leadSkipped: true, leadSkipReason: 'Bot protection triggered' } };
   }
 
-  if (shouldCreateLead(data.structuredInfo)) {
-    const result = await createLead(transformLeadData(data.structuredInfo, message, body.conversationHistory || []));
+  const structuredInfo = enrichStructuredInfo(data.structuredInfo, message, body.conversationHistory || []);
+  data = { ...data, structuredInfo };
+
+  if (shouldCreateLead(structuredInfo)) {
+    const result = await syncLead(transformLeadData(
+      structuredInfo,
+      message,
+      body.conversationHistory || [],
+      { conversationId: body.conversationId, assistantResponse: data.response },
+    ));
     data = {
       ...data,
       leadCreated: result.status === 200,
       hubspotLead: result.status === 200 ? result.body.hubspotLead : null,
+      crmOperations: result.status === 200 ? result.body.operations : undefined,
       ...(result.status === 200 ? {} : { leadError: result.body.message || result.body.error }),
     };
   }
   return { status: 200, body: data };
 };
 
-module.exports = { processChat, fallbackResponse, shouldCreateLead, transformLeadData, extractBudgetAmount, calculateDeliveryDate, callRagApi };
+module.exports = {
+  processChat,
+  fallbackResponse,
+  shouldCreateLead,
+  transformLeadData,
+  enrichStructuredInfo,
+  completeConversation,
+  extractBudgetAmount,
+  calculateDeliveryDate,
+  callRagApi,
+};

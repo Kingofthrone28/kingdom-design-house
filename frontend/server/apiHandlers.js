@@ -1,5 +1,5 @@
 const { processChat } = require('./chatService');
-const { createLead } = require('./leadService');
+const { syncLead } = require('./leadService');
 
 const setCors = res => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,7 +33,7 @@ const leadHandler = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (bodySize(req) > 1024 * 1024) return res.status(413).json({ error: 'Payload too large' });
   if (!req.body || typeof req.body !== 'object') return res.status(400).json({ error: 'Invalid JSON' });
-  const result = await createLead(req.body);
+  const result = await syncLead(req.body);
   return res.status(result.status).json(result.body);
 };
 

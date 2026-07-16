@@ -54,8 +54,11 @@ describe('local chat-to-lead integration', () => {
           relevantDocs: [],
         });
       }
+      if (url.endsWith('/crm/v3/objects/contacts/search')) return jsonResponse({ results: [] });
       if (url.endsWith('/crm/v3/objects/contacts')) return jsonResponse({ id: 'contact-1' }, 201);
+      if (url.endsWith('/crm/v3/objects/deals/search')) return jsonResponse({ results: [] });
       if (url.endsWith('/crm/v3/objects/deals')) return jsonResponse({ id: 'deal-1' }, 201);
+      if (url.endsWith('/crm/v3/objects/tickets/search')) return jsonResponse({ results: [] });
       if (url.endsWith('/crm/v3/objects/tickets')) return jsonResponse({ id: 'ticket-1' }, 201);
       throw new Error(`Unexpected request: ${url}`);
     });
@@ -64,6 +67,7 @@ describe('local chat-to-lead integration', () => {
       method: 'POST', headers: { 'x-forwarded-for': '203.0.113.25' }, socket: {},
       body: {
         message: 'I need a website. Contact me at jane@example.com.',
+        conversationId: 'conversation-1',
         conversationHistory: [{ role: 'user', content: 'My name is Jane Doe.' }],
       },
     };
@@ -76,17 +80,23 @@ describe('local chat-to-lead integration', () => {
       leadCreated: true,
       hubspotLead: { contactId: 'contact-1', dealId: 'deal-1', ticketId: 'ticket-1', success: true },
     });
-    expect(requests).toHaveLength(4);
+    expect(requests).toHaveLength(7);
     expect(requests[0].body).toMatchObject({ skipLeadCreation: true, query: req.body.message });
-    expect(requests[1].body.properties).toMatchObject({ email: 'jane@example.com', firstname: 'Jane' });
-    expect(requests[2].body.associations[0]).toEqual({
+    expect(requests[1].body.filterGroups[0].filters[0]).toMatchObject({
+      propertyName: 'email',
+      value: 'jane@example.com',
+    });
+    expect(requests[2].body.properties).toMatchObject({ email: 'jane@example.com', firstname: 'Jane' });
+    expect(requests[4].body.associations[0]).toEqual({
       to: { id: 'contact-1' },
       types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 3 }],
     });
-    expect(requests[3].body.associations).toEqual([
+    expect(requests[6].body.associations).toEqual([
       { to: { id: 'contact-1' }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 16 }] },
       { to: { id: 'deal-1' }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 28 }] },
     ]);
-    expect(requests[3].body.properties.content).toContain('user: My name is Jane Doe.');
+    expect(requests[6].body.properties.content).toContain('user: My name is Jane Doe.');
+    expect(requests[6].body.properties.content).toContain('user: I need a website. Contact me at jane@example.com.');
+    expect(requests[6].body.properties.content).toContain('assistant: We can help with your website.');
   });
 });

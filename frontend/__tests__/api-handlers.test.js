@@ -3,7 +3,7 @@ const chatService = require('../server/chatService');
 const leadService = require('../server/leadService');
 
 jest.mock('../server/chatService', () => ({ processChat: jest.fn() }));
-jest.mock('../server/leadService', () => ({ createLead: jest.fn() }));
+jest.mock('../server/leadService', () => ({ syncLead: jest.fn() }));
 
 const response = () => {
   const res = { headers: {}, statusCode: 200, payload: undefined };
@@ -59,10 +59,10 @@ describe('Vercel API handlers', () => {
     await leadHandler({ method: 'GET', headers: {} }, res);
     expect(res.statusCode).toBe(405);
 
-    leadService.createLead.mockResolvedValue({ status: 200, body: { success: true } });
+    leadService.syncLead.mockResolvedValue({ status: 200, body: { success: true } });
     res = response();
     await leadHandler({ method: 'POST', headers: {}, body: { email: 'test@example.com' } }, res);
-    expect(leadService.createLead).toHaveBeenCalledWith({ email: 'test@example.com' });
+    expect(leadService.syncLead).toHaveBeenCalledWith({ email: 'test@example.com' });
     expect(res.statusCode).toBe(200);
   });
 });
