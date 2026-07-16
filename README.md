@@ -15,7 +15,7 @@ A modern, responsive website for Kingdom Design House featuring an AI-powered ch
 ### Hosted Services
 - **Vercel**: Next.js frontend plus `/api/chat` and `/api/send-lead` Node.js Functions
 - **Railway RAG API**: Express service with Pinecone and OpenAI integration
-- **Railway Contact Server**: Express service for reCAPTCHA validation and SendGrid email
+- **Vercel Contact API**: Same-origin Next.js Function for validation, reCAPTCHA, and Neo SMTP email
 - **HubSpot**: Contacts and deals created by the server-only Vercel lead service
 
 ## 🚀 Features
@@ -54,11 +54,10 @@ A modern, responsive website for Kingdom Design House featuring an AI-powered ch
 
 ### Environment Variables
 
-Never place OpenAI, Pinecone, HubSpot, SendGrid, or reCAPTCHA secrets in a `NEXT_PUBLIC_*` variable. Those values are embedded in browser JavaScript.
+Never place OpenAI, Pinecone, HubSpot, Neo SMTP, or reCAPTCHA secrets in a `NEXT_PUBLIC_*` variable. Those values are embedded in browser JavaScript.
 
 | Owner | Variable | Required | Visibility | Environments |
 | --- | --- | --- | --- | --- |
-| Vercel | `NEXT_PUBLIC_CONTACT_SERVER_URL` | Yes | Public | Development, Preview, Production |
 | Vercel | `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | Yes | Public | Development, Preview, Production |
 | Vercel | `NEXT_PUBLIC_SITE_URL` | Yes | Public | Development, Preview, Production |
 | Vercel | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`, `NEXT_PUBLIC_BING_SITE_VERIFICATION` | No | Public | Production |
@@ -67,17 +66,16 @@ Never place OpenAI, Pinecone, HubSpot, SendGrid, or reCAPTCHA secrets in a `NEXT
 | Vercel | `HUBSPOT_DEAL_PIPELINE_ID`, `HUBSPOT_DEAL_STAGE_ID`, `HUBSPOT_TICKET_PIPELINE_ID`, `HUBSPOT_TICKET_STAGE_ID` | Yes | Server-only | Preview and Production |
 | Vercel | `HUBSPOT_CONVERSATION_PROPERTY` | No | Server-only | Preview and Production |
 | Vercel | `ENABLE_*`, `RATE_LIMIT_*`, `MIN_SECONDS_*` | No | Server-only | Preview and Production |
+| Vercel | `NEO_SMTP_USER`, `NEO_SMTP_PASSWORD`, `BUSINESS_EMAIL` | Yes | Secret/server-only | Development, Preview, Production |
+| Vercel | `RECAPTCHA_SECRET_KEY`, `RECAPTCHA_MIN_SCORE` | Yes | Secret/server-only | Development, Preview, Production |
 | Railway RAG | `OPENAI_API_KEY`, `PINECONE_API_KEY`, `PINECONE_INDEX_NAME` | Yes | Secret | Railway service |
 | Railway RAG | `OPENAI_MODEL`, `OPENAI_MAX_TOKENS`, `WEB_SCRAPING_URL` | No | Server-only | Railway service |
-| Railway Contact | `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `BUSINESS_EMAIL` | Yes | Secret/server-only | Railway service |
-| Railway Contact | `RECAPTCHA_SECRET_KEY`, `RECAPTCHA_MIN_SCORE` | Yes | Secret/server-only | Railway service |
 
 Copy the sanitized templates and fill in local values:
 
 ```bash
 cp frontend/env.example frontend/.env.local
 cp rag-api/env.example rag-api/.env
-cp contact-server/env.example contact-server/.env
 ```
 
 Configure the same variable names in the owning Vercel or Railway project. Use distinct Vercel Development, Preview, and Production values. Changing a Vercel variable only affects new deployments, so redeploy after every configuration change. Any real credential previously committed to Git must be rotated; deleting the file does not remove it from repository history.
@@ -94,10 +92,6 @@ npm install
 
 # RAG API
 cd ../rag-api
-npm install
-
-# Contact server
-cd ../contact-server
 npm install
 ```
 
@@ -130,14 +124,7 @@ npm start
 # Runs on http://localhost:3001
 ```
 
-3. **Start the Contact Server**
-```bash
-cd contact-server
-npm run dev
-# Runs on http://localhost:8081
-```
-
-4. **Available RAG API Scripts**
+3. **Available RAG API Scripts**
 ```bash
 cd rag-api
 
@@ -305,6 +292,7 @@ The system includes multiple knowledge sources:
 4. Deploy the updated Railway RAG API first. It must honor `skipLeadCreation` before Vercel serves chat traffic, otherwise both services can write the same lead to HubSpot.
 5. Push a non-production branch and validate its Preview deployment before promoting the same revision to Production.
 6. Test `/api/chat`, `/api/send-lead`, the contact form, 404 handling, sitemap, robots file, and trailing-slash URLs. Review Function logs for RAG or HubSpot failures.
+   Vercel rewrites trailing-slash API requests back to their underlying Function routes while public pages retain canonical trailing slashes.
 7. Add `kingdomdesignhouse.com` and `www.kingdomdesignhouse.com` to the Vercel project. Set the apex as primary and configure `www` to redirect to it; Vercel manages HTTPS.
 
 ### Domain Cutover and Rollback
@@ -315,7 +303,8 @@ The system includes multiple knowledge sources:
 4. Keep Netlify deployed during the observation window. If a critical check fails, restore the recorded DNS records and investigate using Vercel Function logs.
 5. Remove `netlify.toml`, `netlify/functions`, and the Netlify site only after the observation window succeeds. They intentionally remain in this repository for rollback during migration.
 
-The RAG API and contact server remain on Railway. Their health endpoints should be checked before each Vercel promotion.
+The RAG API remains on Railway. The contact form runs as the same-origin Vercel
+`/api/contact` Function and sends through the existing Neo mailbox.
 
 ## 📝 API Endpoints
 
@@ -326,6 +315,7 @@ The RAG API and contact server remain on Railway. Their health endpoints should 
 ### Vercel Functions
 - `POST /api/chat` - Chat proxy, bot protection, and optional lead capture
 - `POST /api/send-lead` - Direct HubSpot lead creation
+- `POST /api/contact` - Validate contact submissions and send Neo SMTP notifications
 
 ## 🔧 Customization
 

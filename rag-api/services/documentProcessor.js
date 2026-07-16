@@ -490,6 +490,10 @@ const processDirectoryWithUpload = async (directoryPath, options = {}) => {
     }
   };
   
+  // Recursively scans a directory for files matching the allowed extensions.
+  // For each matching file, it calls processFile() to extract text, chunk it,
+  // and upload the chunks to Pinecone. If 'recursive' is true, it also
+  // descends into subdirectories.
   const scanDirectory = async (dir) => {
     const items = fs.readdirSync(dir);
     
@@ -498,9 +502,11 @@ const processDirectoryWithUpload = async (directoryPath, options = {}) => {
       const stat = fs.statSync(itemPath);
       
       if (stat.isDirectory() && recursive) {
+        // Recursively process subdirectories
         await scanDirectory(itemPath);
       } else if (stat.isFile()) {
         const ext = path.extname(item).toLowerCase();
+        // Only process files with supported extensions (e.g., .pdf, .docx, .html, .txt, .md)
         if (fileExtensions.includes(ext)) {
           await processFile(itemPath);
         }

@@ -136,31 +136,13 @@ export const sanitizeFormData = (formData) => {
 };
 
 /**
- * Submits form data to the Express.js contact server (SendGrid email service)
+ * Submits form data to the same-origin Vercel contact API.
  * @param {Object} formData - Sanitized form data
  * @returns {Promise<Object>} Submission result
  */
 export const submitContactForm = async (formData) => {
   try {
-    // Determine the contact server URL
-    // In production, use NEXT_PUBLIC_CONTACT_SERVER_URL environment variable
-    // In development, use localhost:8081 (default contact-server port)
-    const getServerUrl = () => {
-      // Check for production environment variable first
-      if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_CONTACT_SERVER_URL) {
-        return process.env.NEXT_PUBLIC_CONTACT_SERVER_URL;
-      }
-      
-      // In development, use localhost:8081
-      return 'http://localhost:8081';
-    };
-    
-    const serverUrl = getServerUrl();
-    
-    console.log('Submitting form to contact server:', `${serverUrl}/api/contact`);
-    
-    // Submit to Express contact server
-    const response = await fetch(`${serverUrl}/api/contact`, {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

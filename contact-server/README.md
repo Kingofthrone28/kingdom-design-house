@@ -1,6 +1,29 @@
-# Contact Form Server
+# Legacy Contact Form Server
 
-Express.js server for handling contact form submissions with Gmail integration and automated confirmation emails.
+This Railway/SendGrid service has been superseded by the same-origin Next.js
+`POST /api/contact` route in `frontend/pages/api/contact.js`.
+
+Production now sends through the existing Neo mailbox from a Vercel Function.
+Keep this directory temporarily for rollback only; do not add new contact-form
+behavior here.
+
+Configure these server-only variables in Vercel:
+
+```bash
+NEO_SMTP_USER=info@kingdomdesignhouse.com
+NEO_SMTP_PASSWORD=your-neo-mailbox-password
+BUSINESS_EMAIL=info@kingdomdesignhouse.com
+RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
+RECAPTCHA_MIN_SCORE=0.5
+```
+
+Enable third-party email access in Neo before testing SMTP. The frontend calls
+`/api/contact` on its own origin, so no Railway URL or CORS configuration is
+required.
+
+---
+
+## Previous Railway service
 
 ## Features
 
