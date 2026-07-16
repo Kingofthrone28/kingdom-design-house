@@ -71,7 +71,7 @@ const cleanupRequestStore = () => {
 };
 
 // Cleanup every hour
-setInterval(cleanupRequestStore, 60 * 60 * 1000);
+setInterval(cleanupRequestStore, 60 * 60 * 1000).unref();
 
 /**
  * Extracts client identifier from request
@@ -385,4 +385,3 @@ module.exports = {
   RATE_LIMITS,
   TIME_VALIDATION,
 };
-

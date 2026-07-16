@@ -569,7 +569,7 @@ const createHubSpotLead = async (leadData, conversationHistory = []) => {
  */
 const chatHandler = async (req, res) => {
   try {
-    const { query, conversationHistory = [] } = req.body;
+    const { query, conversationHistory = [], skipLeadCreation = false } = req.body;
 
     if (!query) {
       return res.status(400).json({ error: 'Query is required' });
@@ -595,8 +595,11 @@ const chatHandler = async (req, res) => {
       }
     }
 
-    // Create HubSpot lead
-    const hubspotLead = await createLeadIfPossible(structuredInfo, query, conversationHistory);
+    // Vercel owns CRM writes for migrated chat requests. Other callers retain
+    // the legacy Railway behavior until the Netlify rollback window closes.
+    const hubspotLead = skipLeadCreation
+      ? null
+      : await createLeadIfPossible(structuredInfo, query, conversationHistory);
 
     // Prepare response
     const chatResponse = {

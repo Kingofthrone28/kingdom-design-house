@@ -5,48 +5,6 @@
 
 import httpClient from './httpClient.js';
 
-const getRagApiUrl = () => {
-  const { hostname } = window.location;
-  
-  // Direct pattern matching for O(1) lookups
-  const endpointMap = new Map([
-    // Local development patterns
-    ['localhost', 'http://localhost:3001'],
-    ['127.0.0.1', 'http://localhost:3001'],
-    
-    // Production domain patterns - use primary domain for functions
-    ['kingdomdesignhouse.com', 'https://kingdomdesignhouse.com'],
-    
-    // Netlify patterns - use preview domain for functions
-    ['netlify.app', 'https://kingdom-design-house.netlify.app'],
-    ['netlify.com', 'https://kingdom-design-house.netlify.app'],
-    
-    // Railway patterns
-    ['railway.app', 'https://kingdom-design-house-production.up.railway.app']
-  ]);
-  
-  // O(n) single pass through patterns
-  for (const [pattern, baseUrl] of endpointMap) {
-    if (hostname.includes(pattern)) {
-      return baseUrl;
-    }
-  }
-  
-  // Default fallback
-  return window.location.origin;
-};
-
-const getRagApiPath = () => {
-  const { hostname } = window.location;
-  
-  // Netlify uses functions (including primary domain), others use direct API
-  if (hostname.includes('netlify.app') || hostname.includes('netlify.com') || hostname.includes('kingdomdesignhouse.com')) {
-    return '/.netlify/functions/chat-jarvis';
-  }
-  
-  return '/api/chat';
-};
-
 /**
  * Sends a chat message to the RAG API.
  * @param {string} message - User's message.
@@ -55,37 +13,9 @@ const getRagApiPath = () => {
  * @returns {Promise<object>} RAG API response.
  */
 export const sendRagChatMessage = async (message, conversationHistory = [], botProtectionFields = {}) => {
-  const baseUrl = getRagApiUrl();
-  const path = getRagApiPath();
-  const url = `${baseUrl}${path}`;
+  const payload = { message, conversationHistory, ...botProtectionFields };
   
-  // Debug logging for troubleshooting
-  console.log('RAG API Debug:', {
-    hostname: window.location.hostname,
-    baseUrl,
-    path,
-    fullUrl: url
-  });
-  
-  // Determine payload structure based on endpoint
-  let payload;
-  if (path.includes('/.netlify/functions/')) {
-    // Netlify functions expect 'message' plus bot protection fields
-    payload = { 
-      message, 
-      conversationHistory,
-      ...botProtectionFields // Include honeypot, pageLoadTime, etc.
-    };
-  } else {
-  // Direct RAG API expects 'query' plus bot protection fields
-  payload = { 
-      query: message, 
-      conversationHistory,
-      ...botProtectionFields
-    };
-  }
-  
-  return await httpClient(url, {
+  return await httpClient('/api/chat/', {
     method: 'POST',
     body: payload,
   });

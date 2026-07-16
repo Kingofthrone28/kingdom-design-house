@@ -151,12 +151,6 @@ export const submitContactForm = async (formData) => {
         return process.env.NEXT_PUBLIC_CONTACT_SERVER_URL;
       }
       
-      // In production (Netlify), use Railway deployment URL
-      if (typeof window !== 'undefined' && window.location.hostname.includes('netlify.app')) {
-        // Use Railway deployment URL for contact server
-        return process.env.NEXT_PUBLIC_CONTACT_SERVER_URL || 'https://kdh-contact-server-production.up.railway.app';
-      }
-      
       // In development, use localhost:8081
       return 'http://localhost:8081';
     };

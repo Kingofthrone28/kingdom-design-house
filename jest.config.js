@@ -4,6 +4,7 @@ module.exports = {
     '**/__tests__/**/*.test.js',
     '**/?(*.)+(spec|test).js'
   ],
+  testPathIgnorePatterns: ['/node_modules/', '/\\.next/'],
   collectCoverageFrom: [
     'netlify/functions/**/*.js',
     'rag-api/**/*.js',

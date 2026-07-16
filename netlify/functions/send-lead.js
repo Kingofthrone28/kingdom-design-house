@@ -99,7 +99,7 @@ exports.handler = async (event, context) => {
     }
 
     // HubSpot API configuration
-    const hubspotApiKey = process.env.HUBSPOT_API_KEY;
+    const hubspotApiKey = process.env.HUBSPOT_ACCESS_TOKEN;
     const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
 
     if (!hubspotApiKey || !hubspotPortalId) {
