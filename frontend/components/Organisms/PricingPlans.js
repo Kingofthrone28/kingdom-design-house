@@ -75,12 +75,6 @@ const PricingPlans = ({
                 ))}
               </ul>
             </div>
-
-            <div className={styles.pricingPlans__planAction}>
-              <Button variant="primary" size="large" onClick={scrollToChat}>
-                Get Started
-              </Button>
-            </div>
           </div>
         ))}
       </div>

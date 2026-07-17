@@ -16,13 +16,13 @@
 
   &__header {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr;
     gap: $spacing-4xl;
     align-items: start;
   }
 
   &__toggle {
-    justify-self: end;
+    justify-self: start;
     align-self: start;
   }
 

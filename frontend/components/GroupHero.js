@@ -65,7 +65,7 @@ const GroupHero = ({ groupName = 'default', pageHeadline = null }) => {
       </div>
 
       {/* CTA Button */}
-      <Button variant="primary" size="large" onClick={scrollToChat}>
+      <Button variant="primary" size="large" href="/pricing">
           {buttonText}
       </Button>
 
