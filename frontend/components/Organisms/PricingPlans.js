@@ -5,7 +5,7 @@ import Button from '../Atoms/Button';
 
 const PricingPlans = ({ 
   plans = [], 
-  isMonthly = false, 
+  isMonthly = true, 
   className = '' 
 }) => {
   const formatPrice = (price, isMonthly) => {

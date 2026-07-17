@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../styles/PricingToggle.module.scss';
 
 const PricingToggle = ({ 
-  isMonthly = false, 
+  isMonthly = true, 
   onToggle, 
   className = '' 
 }) => {

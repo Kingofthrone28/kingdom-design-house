@@ -11,7 +11,7 @@ import { pageSeoData } from '../lib/seo';
 import styles from '../styles/Pricing.module.scss';
 
 export default function Pricing() {
-  const [isMonthly, setIsMonthly] = useState(false);
+  const [isMonthly, setIsMonthly] = useState(true);
   const [selectedGroup, setSelectedGroup] = useState('web');
   
   const pricingData = getPricingData(selectedGroup);
