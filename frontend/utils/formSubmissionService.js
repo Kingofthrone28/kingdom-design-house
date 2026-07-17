@@ -129,7 +129,11 @@ export const sanitizeFormData = (formData) => {
   const sanitized = {};
   
   Object.entries(formData).forEach(([key, value]) => {
-    sanitized[key] = sanitizeInput(value);
+    // reCAPTCHA tokens are opaque, can exceed normal field limits, and must not
+    // be altered by text-oriented XSS cleanup before server verification.
+    sanitized[key] = key === 'recaptchaToken'
+      ? (typeof value === 'string' ? value.trim().slice(0, 4096) : '')
+      : sanitizeInput(value);
   });
   
   return sanitized;

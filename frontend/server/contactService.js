@@ -111,6 +111,7 @@ const verifyRecaptcha = async (token, ip) => {
       action: result.action || null,
       errorCodes: result['error-codes'] || [],
       minScore,
+      tokenLength: token.length,
     });
   }
 
