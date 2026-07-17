@@ -98,11 +98,23 @@ const verifyRecaptcha = async (token, ip) => {
 
   const result = await response.json();
   const minScore = Number.parseFloat(process.env.RECAPTCHA_MIN_SCORE || '0.5');
-  return Boolean(
+  const valid = Boolean(
     result.success
     && result.action === 'contact_form_submit'
     && Number(result.score) >= minScore
   );
+
+  if (!valid) {
+    console.warn('Contact reCAPTCHA rejected:', {
+      success: Boolean(result.success),
+      score: Number.isFinite(Number(result.score)) ? Number(result.score) : null,
+      action: result.action || null,
+      errorCodes: result['error-codes'] || [],
+      minScore,
+    });
+  }
+
+  return valid;
 };
 
 const createTransporter = () => {

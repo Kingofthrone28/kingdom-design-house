@@ -153,7 +153,12 @@ export const submitContactForm = async (formData) => {
     
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      return {
+        success: false,
+        errors: errorData.errors || {},
+        error: errorData.message || `HTTP error! status: ${response.status}`,
+        message: errorData.message || 'Failed to send message. Please try again.',
+      };
     }
     
     const result = await response.json();
