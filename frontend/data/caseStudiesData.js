@@ -1,22 +1,29 @@
-export const caseStudiesDirectoryData = [
-  {
-    slug: 'softplay',
-    title: 'Long Island Soft Play',
-    description:
-      'A luxury soft play rental website designed to showcase packages, emphasize safety, and increase booking conversions.',
-    imageSrc: '/images/softplaylaptop.png',
-    imageAlt: 'Long Island Soft Play website mockup',
-    href: '/case-studies/softplay/'
-  },
-  {
-    slug: 'dermcare',
-    title: 'DermCare Management',
-    description:
-      'A healthcare-focused website rebuild with clear service storytelling, stronger UX structure, and a scalable content foundation.',
-    imageSrc: '/images/dermcare.png',
-    imageAlt: 'DermCare Management responsive website preview',
-    href: '/case-studies/dermcare/'
-  }
-];
+// Compatibility exports. New code should import from data/caseStudies.
+export {
+  caseStudySummaries as caseStudiesDirectoryData,
+  getCaseStudySummaries as getCaseStudiesDirectoryData
+} from './caseStudies/summaries';
 
-export const getCaseStudiesDirectoryData = () => caseStudiesDirectoryData;
+export {
+  getCaseStudy,
+  getCaseStudySummaries,
+  validateCaseStudy
+} from './caseStudies';
+
+export { northwellData } from './caseStudies/northwell';
+export { dareMdData } from './caseStudies/daremd';
+export { dermCareData } from './caseStudies/dermcare';
+export { iinData } from './caseStudies/iin';
+export { softPlayData } from './caseStudies/softplay';
+
+import { northwellData } from './caseStudies/northwell';
+import { dareMdData } from './caseStudies/daremd';
+import { dermCareData } from './caseStudies/dermcare';
+import { iinData } from './caseStudies/iin';
+import { softPlayData } from './caseStudies/softplay';
+
+export const getNorthwellData = () => northwellData;
+export const getDareMdEditorialData = () => dareMdData;
+export const getDermCareEditorialData = () => dermCareData;
+export const getIinEditorialData = () => iinData;
+export const getSoftPlayEditorialData = () => softPlayData;

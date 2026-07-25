@@ -19,7 +19,7 @@ const GA_MEASUREMENT_ID = 'G-BEKZ5DH50B';
 
 const GoogleAnalytics = () => {
   const router = useRouter();
-  const { canTrackAnalytics, consent } = useGDPRConsent();
+  const { canTrackAnalytics, applyConsentSettings } = useGDPRConsent();
 
   // Track page views when route changes
   useEffect(() => {
@@ -48,23 +48,13 @@ const GoogleAnalytics = () => {
     };
   }, [router.pathname, router.events, canTrackAnalytics]);
 
-  // Initialize gtag with consent settings
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      // Update consent based on user preferences
-      window.gtag('consent', 'update', {
-        analytics_storage: canTrackAnalytics() ? 'granted' : 'denied',
-        ad_storage: consent.marketing ? 'granted' : 'denied',
-      });
-    }
-  }, [canTrackAnalytics, consent.marketing]);
-
   return (
     <>
       {/* Global Site Tag (gtag.js) - Always loaded for detection */}
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        onLoad={applyConsentSettings}
       />
       <Script
         id="google-analytics"

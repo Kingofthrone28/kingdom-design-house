@@ -29,7 +29,8 @@ export const useGDPRConsent = () => {
     hasConsent,
     hasAnyConsent,
     getConsentSummary,
-    logEvent
+    logEvent,
+    applyConsentSettings
   } = useGDPR();
 
   /**
@@ -244,7 +245,8 @@ export const useGDPRConsent = () => {
     // Direct access
     updateConsent,
     updatePreferences,
-    logEvent
+    logEvent,
+    applyConsentSettings
   };
 };
 

@@ -1,3 +1,5 @@
+import { pageData, defaultPageValues } from './site/pageRouting';
+
 // Global site data store
 export const siteData = {
   company: {
@@ -168,26 +170,8 @@ export const siteData = {
     ]
   },
 
-  // Page routing data for Layout component
-  pageData: {
-    group: {
-      'web-group': 'webgroup',
-      'network-group': 'networkgroup',
-      'ai-group': 'aigroup'
-    },
-    services: {
-      'web-group/services/web-development': 'web-development',
-      'web-group/services/web-design': 'web-design',
-      'web-group/services/digital-marketing': 'digital-marketing',
-      'web-group/services/support': 'support',
-    }
-  },
-
-  // Default fallback values for page routing
-  defaultValues: {
-    group: 'webgroup',
-    services: 'web-development'
-  },
+  pageData,
+  defaultValues: defaultPageValues,
   
   hero: {
     // Default/homepage headline
@@ -1214,19 +1198,6 @@ export const getPageData = () => {
 
 export const getdefaultValues = () => {
   return siteData.defaultValues;
-};
-
-// Update functions for dynamic content management
-export const updateSiteData = (section, newData) => {
-  if (siteData[section]) {
-    Object.assign(siteData[section], newData);
-  }
-  return siteData;
-};
-
-export const updateContactInfo = (newContactData) => {
-  Object.assign(siteData.contact, newContactData);
-  return siteData.contact;
 };
 
 // GEO (Generative Engine Optimization) data for services page

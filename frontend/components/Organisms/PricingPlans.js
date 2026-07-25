@@ -17,16 +17,6 @@ const PricingPlans = ({
     return `$${price.toLocaleString()}`;
   };
 
-  const scrollToChat = () => {
-    const chatSection = document.getElementById('chat-jarvis');
-    if (chatSection) {
-      chatSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
-
   return (
     <div className={`${styles.pricingPlans} ${className}`}>
       <div className={styles.pricingPlans__container}>

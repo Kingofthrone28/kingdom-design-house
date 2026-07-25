@@ -14,9 +14,7 @@ const EXCLUDED_FILES = new Set([
   '500.js'
 ]);
 
-const NOINDEX_ROUTES = new Set([
-  '/video-demo/'
-]);
+const NOINDEX_ROUTES = new Set();
 
 const PAGE_EXTENSIONS = new Set(['.js', '.jsx', '.ts', '.tsx']);
 

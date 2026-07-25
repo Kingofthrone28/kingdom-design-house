@@ -3,8 +3,8 @@ import Layout from '../../components/Layout';
 import SEOHead from '../../components/SEOHead';
 import DiscoverOurWork from '../../components/Organisms/DiscoverOurWork';
 import CaseStudyLetsTalk from '../../components/Molecules/CaseStudyLetsTalk';
-import { getCaseStudiesDirectoryData } from '../../data/caseStudiesData';
-import { withTrailingSlash } from '../../utils/url';
+import { getCaseStudySummaries } from '../../data/caseStudies/summaries';
+import { scrollToChatOrContact } from '../../utils/navigation';
 
 const caseStudiesSeoData = {
   title: 'Discover Our Work | Case Studies | Kingdom Design House',
@@ -22,20 +22,7 @@ const letsTalkData = {
 };
 
 export default function CaseStudiesDirectoryPage() {
-  const caseStudies = getCaseStudiesDirectoryData();
-
-  const handleLetsTalkClick = () => {
-    const chatSection = document.getElementById('chat-jarvis');
-    if (chatSection) {
-      chatSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-      return;
-    }
-
-    window.location.href = withTrailingSlash('/contact/');
-  };
+  const caseStudies = getCaseStudySummaries();
 
   return (
     <>
@@ -47,7 +34,7 @@ export default function CaseStudiesDirectoryPage() {
         <CaseStudyLetsTalk
           question={letsTalkData.question}
           heading={letsTalkData.heading}
-          onClick={handleLetsTalkClick}
+          onClick={() => scrollToChatOrContact()}
         />
 
       </Layout>

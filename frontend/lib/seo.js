@@ -160,15 +160,6 @@ export const pageSeoData = {
     canonical: "/services/",
     ogTitle: "Technology Services in Long Island",
     ogDescription: "Explore AI, web & network solutions tailored for NY businesses. Expert IT consultants serving Long Island & NYC."
-  },
-
-  videoDemo: {
-    title: "Video Component Demo | Interactive Video Showcase | Kingdom Design House | Long Island, NY",
-    description: "Experience our interactive video components and see how we showcase our work through engaging video content. Video player demos and showcase examples.",
-    keywords: "video component demo, interactive video showcase, video player Long Island, video content Queens, multimedia solutions Brooklyn, video development Manhattan",
-    canonical: "/video-demo/",
-    ogTitle: "Video Component Demo | Interactive Video Showcase | Kingdom Design House",
-    ogDescription: "Experience our interactive video components and see how we showcase our work through engaging video content."
   }
 };
 
@@ -323,7 +314,6 @@ export const generateSitemapUrls = () => {
     { url: '/ai-group/', priority: 0.8, changefreq: 'monthly' },
     { url: '/ai-group/services/ai-consulting/', priority: 0.7, changefreq: 'monthly' },
     { url: '/ai-group/services/ai-development/', priority: 0.7, changefreq: 'monthly' },
-    { url: '/ai-group/services/ai-support/', priority: 0.7, changefreq: 'monthly' },
-    { url: '/video-demo/', priority: 0.6, changefreq: 'monthly' }
+    { url: '/ai-group/services/ai-support/', priority: 0.7, changefreq: 'monthly' }
   ];
 };

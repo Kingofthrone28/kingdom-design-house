@@ -6,6 +6,7 @@ import { getServiceContentData } from '../../data/siteData';
 import { useLayout } from '../../contexts/LayoutContext';
 import Button from '../Atoms/Button';
 import LayoutToggle from '../Molecules/LayoutToggle';
+import { scrollToChatOrContact } from '../../utils/navigation';
 
 const ServiceContent = ({ serviceType = 'web-design', layout = null }) => {
   const serviceData = getServiceContentData(serviceType);
@@ -24,16 +25,6 @@ const ServiceContent = ({ serviceType = 'web-design', layout = null }) => {
   // Determine layout class
   const layoutClass = currentLayout === '2-column' ? styles['serviceContent__approachSteps--2column'] : styles['serviceContent__approachSteps--3column'];
   
-  const scrollToChat = () => {
-    const chatSection = document.getElementById('chat-jarvis');
-    if (chatSection) {
-      chatSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
-
   return (
     <section className={styles.serviceContent}>
       <div className={styles.serviceContent__container}>
@@ -102,7 +93,7 @@ const ServiceContent = ({ serviceType = 'web-design', layout = null }) => {
 
         {/* CTA Section */}
         <div className={styles.serviceContent__cta}>
-          <Button variant="primary" size="large" onClick={scrollToChat}>
+          <Button variant="primary" size="large" onClick={() => scrollToChatOrContact()}>
             Get Started Today
           </Button>
         </div>

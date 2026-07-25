@@ -3,22 +3,6 @@ import VideoPlayer from './Organisms/VideoPlayer';
 import styles from '../styles/VideoShowcase.module.scss';
 
 const VideoShowcase = () => {
-  const handleVideoPlay = () => {
-    console.log('Video started playing');
-  };
-
-  const handleVideoPause = () => {
-    console.log('Video paused');
-  };
-
-  const handleVideoEnded = () => {
-    console.log('Video ended');
-  };
-
-  const handleVideoError = (error) => {
-    console.error('Video error:', error);
-  };
-
   return (
     <section className={styles.videoShowcase}>
       <div className={styles.videoShowcase__container}>
@@ -39,10 +23,6 @@ const VideoShowcase = () => {
               loop={false}
               controls={true}
               className="videoPlayer--16-9"
-              onPlay={handleVideoPlay}
-              onPause={handleVideoPause}
-              onEnded={handleVideoEnded}
-              onError={handleVideoError}
             />
             <div className={styles.videoShowcase__featuredInfo}>
               <h3>Complete Business Transformation</h3>

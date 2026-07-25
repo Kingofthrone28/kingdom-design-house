@@ -2,17 +2,11 @@ import React from 'react';
 import styles from '../../styles/WebStrategy.module.scss';
 import { getWebStrategyData } from '../../data/siteData';
 import Image from 'next/image';
+import { scrollToChatOrContact } from '../../utils/navigation';
 
 const WebStrategy = () => {
   const strategyData = getWebStrategyData();
   const { steps, cta } = strategyData;
-
-  const scrollToChat = () => {
-    const chatSection = document.getElementById('chat-jarvis');
-    if (chatSection) {
-      chatSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
 
   return (
     <section className={styles.webStrategy}>
@@ -55,7 +49,7 @@ const WebStrategy = () => {
         
         {/* CTA Button */}
         <div className={styles.webStrategy__cta}>
-          <button className={styles.webStrategy__cta__button} onClick={() => scrollToChat()}>
+          <button className={styles.webStrategy__cta__button} onClick={() => scrollToChatOrContact()}>
             {cta.text}
             <span className={styles.webStrategy__cta__arrow}>→</span>
           </button>

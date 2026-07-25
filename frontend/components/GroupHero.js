@@ -32,16 +32,6 @@ const GroupHero = ({ groupName = 'default', pageHeadline = null }) => {
     highlight 
   } = pageHeadline || heroData.headline;
 
-  const scrollToChat = () => {
-    const chatSection = document.getElementById('chat-jarvis');
-    if (chatSection) {
-      chatSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
-
   return (
     <section className={styles.hero} style={{ backgroundImage: `url(${bgImage})` }}>
       <div className={styles[`hero__container--${groupName}`] || styles.hero__container}>

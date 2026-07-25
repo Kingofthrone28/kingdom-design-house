@@ -49,50 +49,23 @@ const VideoPlayer = ({
     onPause && onPause();
   };
 
-  const restartVideo = () => {
-    if (!videoRef.current) return;
-
-    try {
-      // Jump slightly into the timeline to avoid displaying a blank frame
-      videoRef.current.currentTime = 0.10;
-    } catch (error) {
-      console.warn('Unable to set video currentTime:', error);
-    }
-
-    const playPromise = videoRef.current.play();
-    if (playPromise && typeof playPromise.then === 'function') {
-      playPromise.catch((error) => {
-        console.warn('Video autoplay prevented on loop restart:', error);
-      });
-    }
-  };
-
   const handleEnded = () => {
     setIsPlaying(false);
-
-    if (loop) {
-      restartVideo();
-      return;
-    }
-
     onEnded && onEnded();
   };
 
   const handleError = (error) => {
     setHasError(true);
     setIsLoading(false);
-    console.error('Video error:', error);
     onError && onError(error);
   };
 
   const handleLoadedData = () => {
-    console.log('Video loaded data');
     setIsLoading(false);
     setHasError(false);
   };
 
   const handleCanPlay = () => {
-    console.log('Video can play');
     setIsLoading(false);
     setHasError(false);
   };

@@ -8,6 +8,7 @@ import EmailIcon from './Atoms/EmailIcon';
 import MobileMenu from './Molecules/MobileMenu';
 import MobileToggle from './Atoms/MobileToggle';
 import { withTrailingSlash } from '../utils/url';
+import { scrollToChatOrContact } from '../utils/navigation';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,17 +20,6 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const scrollToChat = () => {
-    const chatSection = document.getElementById('chat-jarvis');
-    if (chatSection) {
-      chatSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
- 
 
   return (
     <nav className={styles.navbar}>
@@ -73,7 +63,7 @@ const Navbar = () => {
             phone={phone}
             email={email}
             navigation={navigation}
-            onScrollToChat={scrollToChat}
+            onScrollToChat={() => scrollToChatOrContact()}
             groupName="webgroup"
           />
         )}
