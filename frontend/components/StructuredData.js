@@ -62,7 +62,7 @@ const StructuredData = ({ page, geoData, aioData }) => {
     : null;
 
   const graph = [
-    // WebSite with SearchAction
+    // WebSite. Do not advertise a SearchAction until the site has real search.
     {
       '@type': 'WebSite',
       '@id': webSiteId,

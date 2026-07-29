@@ -287,7 +287,7 @@ export const siteData = {
       buttonText: 'Web Group Site',
       bgImage: '/images/bg_web.png',
       logo: '/images/logo_web.svg',
-      route: '/web-group'
+      route: '/web-group/'
     },
     {
       id: 'networkgroup',
@@ -297,7 +297,7 @@ export const siteData = {
       buttonText: 'IT Group Site',
       bgImage: '/images/bg_it.png',
       logo: '/images/logo_it.svg',
-      route: '/network-group'
+      route: '/network-group/'
     },
     {
       id: 'aigroup',
@@ -307,7 +307,7 @@ export const siteData = {
       buttonText: 'AI Group Site',
       bgImage: '/images/bg_ai.png',
       logo: '/images/logo_ai.svg',
-      route: '/ai-group'
+      route: '/ai-group/'
     }
   ],
   
@@ -1065,47 +1065,47 @@ export const siteData = {
     webServices: [
       {
         name:'Web Development',
-        url:'/web-group/services/web-development'
+        url:'/web-group/services/web-development/'
       },
       {
       name:'Web Design',
-      url:'/web-group/services/web-design'
+      url:'/web-group/services/web-design/'
       },
       {
         name:'Digital Marketing',
-        url:'/web-group/services/digital-marketing'
+        url:'/web-group/services/digital-marketing/'
       },
       {
         name:'Support',
-        url:'/web-group/services/support'
+        url:'/web-group/services/support/'
       },
     ],
     networkServices: [
       {
         name:'Network Design',
-        url:'/network-group/services/network-design'
+        url:'/network-group/services/network-design/'
       },
       {
       name:'Network Optimization',
-      url:'/network-group/services/network-optimization'
+      url:'/network-group/services/network-optimization/'
       },
       { 
       name:'Network Support',
-      url:'/network-group/services/network-support',
+      url:'/network-group/services/network-support/',
       },
     ],
     aiServices: [
       {
         name:'AI Development',
-        url:'/ai-group/services/ai-development'
+        url:'/ai-group/services/ai-development/'
       },
       {
         name:'AI Consulting',
-        url:'/ai-group/services/ai-consulting'
+        url:'/ai-group/services/ai-consulting/'
       },
       {
         name:'AI Support',
-        url:'/ai-group/services/ai-support'
+        url:'/ai-group/services/ai-support/'
       },
     ],
     socialMedia: [

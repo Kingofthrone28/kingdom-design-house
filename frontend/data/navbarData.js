@@ -8,17 +8,17 @@ export const navbarData = {
   cta: {
     buttonText: "Book Now",
     ariaLabel: "Toggle menu",
-    route: "/contact"
+    route: "/contact/"
   },
   navigation: [
     { name: "Home", route: "/" },
-    { name: "About", route: "/about" },
-    { name: "Services", route: "/services" },
-    { name: "Case Studies", route: "/case-studies" },
-    { name: "The Web Group", route: "/web-group" },
-    { name: "The Network Group", route: "/network-group" },
-    { name: "The AI Group", route: "/ai-group" },
-    { name: "Pricing", route: "/pricing" }
+    { name: "About", route: "/about/" },
+    { name: "Services", route: "/services/" },
+    { name: "Case Studies", route: "/case-studies/" },
+    { name: "The Web Group", route: "/web-group/" },
+    { name: "The Network Group", route: "/network-group/" },
+    { name: "The AI Group", route: "/ai-group/" },
+    { name: "Pricing", route: "/pricing/" }
   ],
   companyGroups: [
     "The Web Group",
@@ -30,32 +30,32 @@ export const navbarData = {
   navBarGroup: {
     navLinks: [
       { name: "Home", route: "/" },
-      { name: "About", route: "/about" },
+      { name: "About", route: "/about/" },
       { name: "Company Groups", hasSubmenu: true },
       { name: "Services", hasSubmenu: true },
-      { name: "Case Studies", route: "/case-studies" },
-      { name: "Pricing", route: "/pricing" }
+      { name: "Case Studies", route: "/case-studies/" },
+      { name: "Pricing", route: "/pricing/" }
     ],
     companyGroupsSubmenu: [
-      { name: "The Web Group", route: "/web-group" },
-      { name: "The Network Group", route: "/network-group" },
-      { name: "The AI Group", route: "/ai-group" }
+      { name: "The Web Group", route: "/web-group/" },
+      { name: "The Network Group", route: "/network-group/" },
+      { name: "The AI Group", route: "/ai-group/" }
     ],
     webServicesSubmenu: [
-      { name: "Web Design", route: "/web-group/services/web-design" },
-      { name: "Web Development", route: "/web-group/services/web-development" },
-      { name: "Digital Marketing", route: "/web-group/services/digital-marketing" },
-      { name: "Support", route: "/web-group/services/support" }
+      { name: "Web Design", route: "/web-group/services/web-design/" },
+      { name: "Web Development", route: "/web-group/services/web-development/" },
+      { name: "Digital Marketing", route: "/web-group/services/digital-marketing/" },
+      { name: "Support", route: "/web-group/services/support/" }
     ],
     networkServicesSubmenu: [
-      { name: "Network Design", route: "/network-group/services/network-design" },
-      { name: "Network Optimization", route: "/network-group/services/network-optimization" },
-      { name: "Network Support", route: "/network-group/services/network-support" }
+      { name: "Network Design", route: "/network-group/services/network-design/" },
+      { name: "Network Optimization", route: "/network-group/services/network-optimization/" },
+      { name: "Network Support", route: "/network-group/services/network-support/" }
     ],
     aiServicesSubmenu: [
-      { name: "AI Development", route: "/ai-group/services/ai-development" },
-      { name: "AI Consulting", route: "/ai-group/services/ai-consulting" },
-      { name: "AI Support", route: "/ai-group/services/ai-support" }
+      { name: "AI Development", route: "/ai-group/services/ai-development/" },
+      { name: "AI Consulting", route: "/ai-group/services/ai-consulting/" },
+      { name: "AI Support", route: "/ai-group/services/ai-support/" }
     ]
   }
 };

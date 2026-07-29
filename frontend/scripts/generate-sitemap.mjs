@@ -14,10 +14,6 @@ const EXCLUDED_FILES = new Set([
   '500.js'
 ]);
 
-const NOINDEX_ROUTES = new Set([
-  '/case-studies/northwell-concept/'
-]);
-
 const PAGE_EXTENSIONS = new Set(['.js', '.jsx', '.ts', '.tsx']);
 
 const toPosixPath = (filePath) => filePath.split(path.sep).join('/');
@@ -57,24 +53,6 @@ const toRoute = (relativeFilePath) => {
   return `/${segments.join('/')}/`;
 };
 
-const getPriority = (route) => {
-  if (route === '/') {
-    return '1.0';
-  }
-
-  const depth = route.split('/').filter(Boolean).length;
-  if (depth === 1) {
-    return '0.9';
-  }
-  if (depth === 2) {
-    return '0.8';
-  }
-
-  return '0.7';
-};
-
-const getChangeFreq = (route) => (route === '/' ? 'weekly' : 'monthly');
-
 const collectPageFiles = async (directoryPath) => {
   const entries = await fs.readdir(directoryPath, { withFileTypes: true });
   const files = [];
@@ -95,8 +73,6 @@ const collectPageFiles = async (directoryPath) => {
   return files;
 };
 
-const formatDate = (date) => date.toISOString().slice(0, 10);
-
 const main = async () => {
   const pageFiles = await collectPageFiles(PAGES_DIR);
   const routes = [...new Set(
@@ -105,10 +81,7 @@ const main = async () => {
       .map(toRoute)
       .filter(Boolean)
   )]
-    .filter((route) => !NOINDEX_ROUTES.has(route))
     .sort();
-
-  const lastmod = formatDate(new Date());
 
   const urlsXml = routes
     .map((route) => {
@@ -116,9 +89,6 @@ const main = async () => {
       return [
         '  <url>',
         `    <loc>${loc}</loc>`,
-        `    <lastmod>${lastmod}</lastmod>`,
-        `    <changefreq>${getChangeFreq(route)}</changefreq>`,
-        `    <priority>${getPriority(route)}</priority>`,
         '  </url>'
       ].join('\n');
     })

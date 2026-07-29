@@ -5,6 +5,15 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
+  },
+  async redirects() {
+    return [
+      {
+        source: '/case-studies/northwell-concept/',
+        destination: '/case-studies/northwell/',
+        permanent: true
+      }
+    ];
   }
 }
 
