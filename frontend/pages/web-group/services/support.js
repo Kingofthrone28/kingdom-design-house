@@ -1,31 +1,5 @@
-import React from 'react';
-import Layout from '../../../components/Layout';
-import SEOHead from '../../../components/SEOHead';
-import StructuredData from '../../../components/StructuredData';
-import GroupHero from '../../../components/GroupHero';
-import GroupHeading from '../../../components/Molecules/GroupHeading';
-import ServiceContent from '../../../components/Organisms/ServiceContent';
-import ProcessSteps from '../../../components/ProcessSteps';
-import WhyChooseUs from '../../../components/WhyChooseUs';
-import { serviceSeoData } from '../../../lib/seo';
-import { getPageHeadline } from '../../../data/siteData';
+import AgencyServicePage from '../../../components/Organisms/AgencyServicePage';
 
-export default function Support() {
-  const seoData = serviceSeoData.support;
-  const pageHeadline = getPageHeadline('support');
-  
-  return (
-    <>
-      <SEOHead {...seoData} />
-      <StructuredData />
-      
-      <Layout>
-        <GroupHero groupName="websupport" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="websupport" groupIntent="Website Support and Maintenance in New York" />
-        <ServiceContent serviceType="support" />
-        <ProcessSteps />
-        <WhyChooseUs />
-      </Layout>
-    </>
-  );
+export default function WebsiteSupport() {
+  return <AgencyServicePage serviceType="support" />;
 }

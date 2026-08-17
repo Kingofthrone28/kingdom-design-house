@@ -1,29 +1,5 @@
-import React from 'react';
-import Layout from '../../../components/Layout';
-import SEOHead from '../../../components/SEOHead';
-import StructuredData from '../../../components/StructuredData';
-import GroupHero from '../../../components/GroupHero';
-import GroupHeading from '../../../components/Molecules/GroupHeading';
-import ServiceContent from '../../../components/Organisms/ServiceContent';
-import ProcessSteps from '../../../components/ProcessSteps';
-import { serviceSeoData } from '../../../lib/seo';
-import { getPageHeadline } from '../../../data/siteData';
+import AgencyServicePage from '../../../components/Organisms/AgencyServicePage';
 
 export default function NetworkSupport() {
-  const seoData = serviceSeoData.networkSupport;
-  const pageHeadline = getPageHeadline('network-support');
-  
-  return (
-    <>
-      <SEOHead {...seoData} />
-      <StructuredData />
-      
-      <Layout>
-        <GroupHero groupName="networkgroup" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="networkgroup" groupIntent="NYC Network Support and Maintenance Services" />
-        <ServiceContent serviceType="network-support" />
-        <ProcessSteps />
-      </Layout>
-    </>
-  );
+  return <AgencyServicePage serviceType="network-support" />;
 }
