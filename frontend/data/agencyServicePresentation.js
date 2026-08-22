@@ -116,7 +116,7 @@ export const agencyServicePresentation = {
     focus: 'Monitoring · Data · Optimization',
     eyebrow: 'Ongoing support that keeps production AI accurate and relevant',
     displayTitle: ['AI that', 'keeps', 'learning.'],
-    showcaseAsset: '/images/bg_ai.png',
+    showcaseAsset: '/images/AI_data.png',
     showcaseAlt: 'Artificial intelligence network visualization'
   }
 };

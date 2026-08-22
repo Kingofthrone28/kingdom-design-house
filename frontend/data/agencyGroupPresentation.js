@@ -173,7 +173,7 @@ export const agencyGroupPresentation = {
       label: 'Connected capabilities',
       title: ['Built around', 'your business data.'],
       intro: 'Strategy, model selection, RAG, deployment, monitoring, and feature expansion operate as one system—not disconnected deliverables.',
-      asset: '/images/bg_ai.png',
+      asset: '/images/AI_data.png',
       assetAlt: 'Artificial intelligence network visualization',
       stageCode: 'KDH / AI / STRATEGY TO SUPPORT'
     },
