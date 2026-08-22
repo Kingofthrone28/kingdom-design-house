@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { agencyServicePresentation, agencyServiceTypes, getAgencyServicePresentation } from '../data/agencyServicePresentation';
+import { agencyGroupTypes, getAgencyGroupPresentation } from '../data/agencyGroupPresentation';
 import { serviceSeoData } from '../lib/seo';
 import { getPageHeadline, getServiceContentData } from '../data/siteData';
 import { pageData } from '../data/site/pageRouting';
@@ -95,5 +96,61 @@ describe('agency service content and motion behavior', () => {
     expect(motionSource).toContain("data-motion-enabled', 'reduced'");
     expect(stylesSource).toContain('@media (prefers-reduced-motion: reduce)');
     expect(stylesSource).toMatch(/\.motionContent[\s\S]*opacity:\s*1/);
+  });
+});
+
+describe('agency group landings', () => {
+  const groupPages = {
+    web: { path: 'pages/web-group.js', seoKey: 'webGroup' },
+    network: { path: 'pages/network-group.js', seoKey: 'networkGroup' },
+    ai: { path: 'pages/ai-group.js', seoKey: 'aiGroup' }
+  };
+  const landingSource = fs.readFileSync(
+    path.join(process.cwd(), 'components/Organisms/AgencyGroupLanding.js'),
+    'utf8'
+  );
+
+  test('covers Web, Network, and AI with valid service content and visual assets', () => {
+    expect([...agencyGroupTypes].sort()).toEqual(Object.keys(groupPages).sort());
+
+    agencyGroupTypes.forEach((groupType) => {
+      const presentation = getAgencyGroupPresentation(groupType);
+      const assetPath = path.join(process.cwd(), 'public', presentation.capabilities.asset);
+
+      expect(presentation.services.items.length).toBeGreaterThanOrEqual(3);
+      expect(fs.existsSync(assetPath)).toBe(true);
+
+      presentation.services.items.forEach(({ serviceType, href }) => {
+        expect(getServiceContentData(serviceType).approach.steps.length).toBeGreaterThan(0);
+        expect(href).toMatch(new RegExp(`/${serviceType}/$`));
+      });
+    });
+  });
+
+  test.each(Object.entries(groupPages))(
+    'renders the shared template on the %s group route while preserving SEO',
+    (groupType, { path: pagePath, seoKey }) => {
+      const pageSource = fs.readFileSync(path.join(process.cwd(), pagePath), 'utf8');
+
+      expect(pageSource).toContain('AgencyGroupLanding');
+      expect(pageSource).toContain(`groupType=\"${groupType}\"`);
+      expect(pageSource).toContain(`pageSeoData.${seoKey}`);
+      expect(pageSource).not.toContain('GroupHeading');
+    }
+  );
+
+  test('sources service topics and capabilities while using shared one-shot motion', () => {
+    expect(landingSource).toContain('getServiceContentData(config.serviceType)');
+    expect(landingSource).toContain('content.approach.steps.map');
+    expect(landingSource).toContain('content.expertise.items');
+    expect(landingSource).toContain('useSectionMotion');
+    expect(landingSource).toContain('data-motion-section');
+    expect(landingSource).toContain('AgencyAnimatedTitle');
+  });
+
+  test('rejects unknown group types instead of silently falling back', () => {
+    expect(() => getAgencyGroupPresentation('missing-group')).toThrow(
+      'Unknown agency group type: missing-group'
+    );
   });
 });

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import AgencyAnimatedTitle from '../Atoms/AgencyAnimatedTitle';
 import useSectionMotion from '../../hooks/useSectionMotion';
 import styles from '../../styles/AgencyServiceTemplate.module.scss';
 
@@ -23,36 +24,6 @@ const createPreview = (description, maximum = 150) => {
   return `${shortened.slice(0, lastSpace > 80 ? lastSpace : maximum).trim()}…`;
 };
 
-const AnimatedTitleLine = ({ text, offset, accent = false, compact = false }) => {
-  let characterCursor = offset;
-
-  return (
-    <span
-      className={`${styles.heroLine} ${accent ? styles.yellow : ''} ${compact ? styles.heroLineCompact : ''}`}
-      aria-hidden="true"
-    >
-      {text.split(' ').map((word, wordIndex) => {
-        const wordOffset = characterCursor;
-        characterCursor += word.length + 1;
-
-        return (
-          <span key={`${word}-${wordIndex}`} className={styles.heroWord}>
-            {Array.from(word).map((character, characterIndex) => (
-              <span
-                key={`${character}-${characterIndex}`}
-                className={styles.heroCharacter}
-                style={{ '--char-delay': `${(wordOffset + characterIndex) * 18}ms` }}
-              >
-                {character}
-              </span>
-            ))}
-          </span>
-        );
-      })}
-    </span>
-  );
-};
-
 export default function AgencyServiceTemplate({
   serviceType,
   presentation,
@@ -63,7 +34,6 @@ export default function AgencyServiceTemplate({
 }) {
   const motionRootRef = useSectionMotion();
   const heroLines = [headline.main, headline.highlight, headline.sub].filter(Boolean);
-  let heroOffset = 0;
   const expertiseItems = content.expertise?.items || [];
   const approachSteps = content.approach?.steps || [];
 
@@ -80,19 +50,7 @@ export default function AgencyServiceTemplate({
         <div className={styles.shell}>
           <p className={styles.eyebrow}>{presentation.eyebrow}</p>
           <h1 className={styles.heroTitle} aria-label={heroLines.join(' ')}>
-            {heroLines.map((line, index) => {
-              const offset = heroOffset;
-              heroOffset += line.length + 1;
-              return (
-                <AnimatedTitleLine
-                  key={line}
-                  text={line}
-                  offset={offset}
-                  accent={index === 1}
-                  compact={index === heroLines.length - 1 && heroLines.length > 2}
-                />
-              );
-            })}
+            <AgencyAnimatedTitle lines={heroLines} />
           </h1>
           <div className={styles.heroFooter}>
             <p>{content.mainContent.paragraphs[0].replace(/<[^>]+>/g, '')}</p>

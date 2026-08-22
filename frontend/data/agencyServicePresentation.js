@@ -56,7 +56,7 @@ export const agencyServicePresentation = {
     focus: 'Infrastructure · WiFi · Uptime',
     eyebrow: 'Business network architecture designed for dependable performance',
     displayTitle: ['Connected', 'by', 'design.'],
-    showcaseAsset: '/images/bg_it.png',
+    showcaseAsset: '/images/bg_cable.png',
     showcaseAlt: 'Abstract high-speed network infrastructure visualization'
   },
   'network-optimization': {

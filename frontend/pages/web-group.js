@@ -1,18 +1,11 @@
-import React from 'react';
 import Layout from '../components/Layout';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
-import GroupHero from '../components/GroupHero';
-import GroupHeading from '../components/Molecules/GroupHeading';
-import WebStrategy from '../components/Organisms/WebStrategy';
-import ProcessSteps from '../components/ProcessSteps';
-import WhyChooseUs from '../components/WhyChooseUs';
+import AgencyGroupLanding from '../components/Organisms/AgencyGroupLanding';
 import { pageSeoData } from '../lib/seo';
-import { getPageHeadline } from '../data/siteData';
 
 export default function WebGroup() {
   const seoData = pageSeoData.webGroup;
-  const pageHeadline = getPageHeadline('webGroup');
   
   return (
     <>
@@ -20,11 +13,7 @@ export default function WebGroup() {
       <StructuredData />
       
       <Layout>
-        <GroupHero groupName="webgroup" pageHeadline={pageHeadline} />
-        <GroupHeading groupName="webgroup" groupIntent="Web Development & SEO Experts in New York" />
-        <ProcessSteps />
-        <WebStrategy />
-        <WhyChooseUs />
+        <AgencyGroupLanding groupType="web" />
       </Layout>
     </>
   );

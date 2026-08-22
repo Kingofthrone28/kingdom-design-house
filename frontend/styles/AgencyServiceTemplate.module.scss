@@ -118,6 +118,29 @@ $yellow: #ffd400;
     $ink;
 }
 
+.groupLandingHero {
+  background-position: center;
+  background-size: cover;
+}
+
+.webLandingHero {
+  background:
+    linear-gradient(90deg, rgba($ink, 0.98) 0%, rgba($ink, 0.89) 52%, rgba($ink, 0.73) 100%),
+    url('/images/bg_web.png') center / cover no-repeat;
+}
+
+.networkLandingHero {
+  background:
+    linear-gradient(90deg, rgba($ink, 0.98) 0%, rgba($ink, 0.88) 52%, rgba($ink, 0.72) 100%),
+    url('/images/bg_cable.png') center / cover no-repeat;
+}
+
+.aiLandingHero {
+  background:
+    linear-gradient(90deg, rgba($ink, 0.97) 0%, rgba($ink, 0.86) 52%, rgba($ink, 0.72) 100%),
+    url('/images/bg_ai.png') center / cover no-repeat;
+}
+
 .rings {
   position: absolute;
   top: 80px;
@@ -279,6 +302,11 @@ $yellow: #ffd400;
   dd { margin-top: 3px; color: #b7b8b2; font-size: 0.77rem; }
 }
 
+.groupLandingFacts dd {
+  color: #e2e0d8;
+  font-weight: 600;
+}
+
 .twoColumn {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -296,6 +324,15 @@ $yellow: #ffd400;
   line-height: 0.9;
 
   span { color: #bea200; }
+}
+
+.displayLine,
+.displayAccentLine {
+  display: block;
+}
+
+.displayLine {
+  color: inherit !important;
 }
 
 .prose {
@@ -408,6 +445,130 @@ $yellow: #ffd400;
   transition: transform 220ms ease;
 }
 
+.groupServicesSection {
+  padding: 128px 0;
+  color: #fff;
+  background: $ink;
+  --wipe-color: #{$yellow};
+}
+
+.groupServicesHeader {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: end;
+  gap: clamp(60px, 10vw, 150px);
+}
+
+.groupServicesIntro {
+  max-width: 440px;
+  margin: 0 0 8px;
+  color: #a7a9a2;
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.groupServiceList {
+  margin-top: 86px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.groupServiceCard {
+  padding: 32px 0 38px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.groupServiceCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+
+  span {
+    color: $yellow;
+    font-size: 0.65rem;
+    font-weight: 800;
+  }
+
+  p {
+    margin: 0;
+    color: #f3efe6;
+    font-size: 0.67rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+}
+
+.groupServiceCardBody {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(60px, 10vw, 150px);
+  align-items: end;
+
+  h3 {
+    max-width: 660px;
+    margin: 12px 0 20px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: clamp(2.7rem, 4.5vw, 5rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    text-transform: uppercase;
+  }
+}
+
+.groupServiceName {
+  margin: 0;
+  color: $yellow;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.groupServiceDescription {
+  max-width: 650px;
+  margin: 0 0 24px;
+  color: #a7a9a2;
+  font-size: 0.86rem;
+  line-height: 1.7;
+
+  strong { color: #f4f1e8; }
+}
+
+.groupServiceLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid $yellow;
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+
+  span { color: $yellow; }
+}
+
+.groupTopicList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+  li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 13px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  span { color: $yellow; font-size: 0.6rem; }
+  strong { font-size: 0.72rem; line-height: 1.45; }
+}
+
 .expertiseSection {
   padding: 124px 0;
   background: #efede6;
@@ -475,6 +636,16 @@ $yellow: #ffd400;
   object-fit: contain;
   padding: 58px 34px 24px;
   filter: drop-shadow(0 26px 25px rgba(31, 29, 22, 0.14));
+}
+
+.groupVisualStage {
+  min-height: 610px;
+  background: $ink;
+}
+
+.groupVisualImage {
+  padding: 0;
+  object-fit: contain;
 }
 
 .delivery {
@@ -610,7 +781,9 @@ $yellow: #ffd400;
   .twoColumn,
   .expertiseGrid,
   .deliveryHeader,
-  .whyGrid {
+  .whyGrid,
+  .groupServicesHeader,
+  .groupServiceCardBody {
     grid-template-columns: 1fr;
     gap: 60px;
   }
@@ -620,6 +793,10 @@ $yellow: #ffd400;
   .expertiseSection,
   .delivery,
   .whyUs { padding: 92px 0; }
+
+  .groupServicesSection { padding: 92px 0; }
+  .groupServiceList { margin-top: 64px; }
+  .groupVisualStage { min-height: 480px; }
 
   .deviceStage { min-height: 440px; }
   .deliveryList { grid-template-columns: repeat(3, 1fr); margin-top: 60px; }
@@ -638,6 +815,9 @@ $yellow: #ffd400;
   .displayHeading { font-size: clamp(3.3rem, 15vw, 5rem); }
   .expertiseCopy ul li { grid-template-columns: 1fr; gap: 5px; }
   .deviceStage { min-height: 330px; }
+  .groupVisualStage { min-height: 390px; }
+  .groupServiceCardBody { gap: 42px; }
+  .groupServiceCardBody h3 { font-size: clamp(2.8rem, 13vw, 4.3rem); }
   .deliveryList { grid-template-columns: 1fr 1fr; }
   .whyGrid h2 { font-size: clamp(3.6rem, 16vw, 5.4rem); }
   .cta { padding: 94px 16px 100px; }
