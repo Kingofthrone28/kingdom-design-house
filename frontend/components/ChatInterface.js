@@ -1,287 +1,120 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from '../styles/ChatInterface.module.scss';
+import Link from 'next/link';
 import Image from 'next/image';
+import styles from '../styles/ChatInterface.module.scss';
 import { sendRagChatMessage } from '../utils/index.js';
 import { formatResponse, renderFormattedResponse } from '../utils/responseFormatter.js';
+import { contactHref } from '../utils/acquisition';
+import { sessionRead, sessionWrite, trackAcquisition, trackConfirmedLead, getAttribution } from '../utils/analytics';
+import { newSessionId } from '../utils/inquirySession';
 
-const ChatInterface = ({ isOpen, onClose }) => {
-  const initMessage = {
-    role: 'assistant',
-    content: `👋 Hello! I'm Jarvis, your AI assistant from Kingdom Design House.
+const WELCOME = { role: 'assistant', content: "Hello! I’m Jarvis, Kingdom Design House’s AI assistant. Ask about websites, business applications, AI automation, or pricing. If you want a follow-up, share your business project and contact details. Please don’t send patient information, passwords, or other sensitive data. You can also use Contact to reach KDH directly." };
+const HISTORY_KEY = 'kdh_chat_history';
+const ID_KEY = 'kdh_chat_conversation_id';
 
-I'm here to help you with:
-• 🌐 Web Development & Design (The Web Group)
-• 🔧 IT Services & Networking (The Network Group)  
-• 🤖 AI Integration & Tools (The AI Group)
-
-What brings you here today? I'd love to learn about your project and how we can help! 
-
-💡 Pro tip: Share your name and email if you'd like a personalized proposal!`
-  };
-  const [messages, setMessages] = useState([initMessage]);
+export default function ChatInterface({ isOpen, onClose, context = {}, starter = '' }) {
+  const [messages, setMessages] = useState([WELCOME]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState('connected'); // 'connected', 'slow', 'offline'
-  const [honeypot, setHoneypot] = useState(''); // Bot protection honeypot field
-  const [pageLoadTime] = useState(Date.now()); // Track page load time for bot detection
-  const messagesEndRef = useRef(null);
+  const [honeypot, setHoneypot] = useState('');
+  const [hydrated, setHydrated] = useState(false);
+  const [pageLoadTime] = useState(Date.now());
   const conversationIdRef = useRef(null);
-
-  if (!conversationIdRef.current && typeof window !== 'undefined') {
-    const storageKey = 'kdh_chat_conversation_id';
-    const existingId = window.sessionStorage.getItem(storageKey);
-    const conversationId = existingId || (
-      window.crypto?.randomUUID?.() ||
-      `kdh-${Date.now()}-${Math.random().toString(36).slice(2)}`
-    );
-    window.sessionStorage.setItem(storageKey, conversationId);
-    conversationIdRef.current = conversationId;
-  }
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const inFlight = useRef(false);
+  const dialogRef = useRef(null);
+  const inputRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    conversationIdRef.current = sessionRead(ID_KEY) || newSessionId();
+    sessionWrite(ID_KEY, conversationIdRef.current);
+    try {
+      const saved = JSON.parse(sessionRead(HISTORY_KEY) || 'null');
+      if (Array.isArray(saved) && saved.length) {
+        const valid = saved.filter(item => ['user', 'assistant'].includes(item?.role) && typeof item.content === 'string').slice(-60);
+        if (valid.length) setMessages(valid);
+      }
+    } catch { /* Use the welcome message when storage is unavailable. */ }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (hydrated) sessionWrite(HISTORY_KEY, JSON.stringify(messages.slice(-60)));
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [messages, hydrated]);
+
+  useEffect(() => {
+    if (!isOpen || !dialogRef.current) return;
+    const dialog = dialogRef.current;
+    dialog.showModal(); // Native modal supplies inert background and keyboard focus containment.
+    inputRef.current?.focus();
+    const priorOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { if (dialog.open) dialog.close(); document.body.style.overflow = priorOverflow; };
+  }, [isOpen]);
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
-
-    const userMessage = {
-      role: 'user',
-      content: inputMessage.trim()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
+    const text = inputMessage.trim();
+    if (!text || inFlight.current || !hydrated) return;
+    inFlight.current = true;
     setIsLoading(true);
-
-    const assistantMessage = (data) => {
-      // Ensure data exists and has required properties
-      if (!data) {
-        return {
-          role: 'assistant',
-          content: 'Sorry, I encountered an error processing your request. Please try again.',
-          structuredInfo: null,
-          leadCreated: false
-        };
-      }
-
-      return {
-        role: 'assistant',
-        content: data.response || 'Sorry, I encountered an error processing your request. Please try again.',
-        structuredInfo: data.structuredInfo || null,
-        leadCreated: data.leadCreated || false
-      };
-    }
-
-
+    setMessages(prev => [...prev, { role: 'user', content: text }]);
+    setInputMessage('');
+    trackAcquisition('chat_message_sent', context);
     try {
-      // Use centralized HTTP client with bot protection fields
-      const result = await sendRagChatMessage(inputMessage.trim(), messages, {
-        conversationId: conversationIdRef.current,
-        website: honeypot, // Honeypot field (should be empty)
-        pageLoadTime: pageLoadTime, // For timing validation
+      const result = await sendRagChatMessage(text, messages, {
+        conversationId: conversationIdRef.current, website: honeypot, pageLoadTime,
+        ...context, ...getAttribution(),
       });
-
-      if (result.success) {
-        setMessages(prev => [...prev, assistantMessage(result.data)]);
-        setConnectionStatus('connected');
-      } else {
-        // Handle specific error types
-        if (result.error?.isTimeout) {
-          setConnectionStatus('slow');
-          throw new Error('Request timed out. Please try again.');
-        } else if (result.error?.isNetworkError) {
-          setConnectionStatus('offline');
-          throw new Error('Network error. Please check your connection.');
-        } else {
-          throw new Error(result.error?.message || 'Failed to send message');
-        }
-      }
-    } catch (error) {
-      console.error('Chat error:', error);
-      
-      let errorContent;
-      if (error.message.includes('timed out')) {
-        errorContent = `⏱️ **Connection Timeout**
-        
-I'm experiencing slow response times, likely due to network conditions. This is common in public WiFi environments.
-
-**Quick Solutions:**
-• Try refreshing the page
-• Check your internet connection
-• Consider using mobile data if WiFi is slow
-
-I'm still here to help! Please try your message again.`;
-      } else if (error.message.includes('Network error')) {
-        errorContent = `🌐 **Network Connection Issue**
-        
-I'm having trouble connecting to my servers. This often happens with:
-• Public WiFi restrictions
-• Network firewalls
-• Temporary connectivity issues
-
-**Please try:**
-• Refreshing the page
-• Switching to mobile data
-• Checking your internet connection
-
-I'll be here when you're ready to continue!`;
-      } else {
-        errorContent = `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.
-
-For immediate assistance, please contact us:
-📞 Phone: 347.927.8846
-📧 Email: info@kingdomdesignhouse.com
-
-We offer comprehensive packages for businesses of all sizes, including:
-• Web Development & Design
-• IT Services & Support  
-• Networking Solutions
-• AI Integration
-
-What specific services are you interested in?`;
-      }
-      
-      const errorMessage = {
-        role: 'assistant',
-        content: errorContent
-      };
-      setMessages(prev => [...prev, errorMessage]);
+      if (!result.success) throw new Error('Chat unavailable');
+      const data = result.data || {};
+      const accepted = data.leadCreated === true && data.hubspotLead?.success === true;
+      trackConfirmedLead('chat', conversationIdRef.current, accepted, context);
+      setMessages(prev => [...prev, {
+        role: 'assistant', content: data.response || 'I could not answer that. Please try again or use Contact.',
+        leadCreated: accepted,
+        leadError: Boolean(data.leadError),
+      }]);
+    } catch {
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Jarvis is unavailable right now. Please try again or use the Contact link below to send your project inquiry directly.' }]);
     } finally {
+      inFlight.current = false;
       setIsLoading(false);
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
+      inputRef.current?.focus();
     }
   };
 
   if (!isOpen) return null;
-
-  return (
-    <div className={styles.chatInterface}>
-      <div className={styles.chatInterface__overlay} onClick={onClose}></div>
-      <div className={styles.chatInterface__modal}>
-        <div className={styles.chatInterface__header}>
-          <div className={styles.chatInterface__title}>
-            <div className={styles.chatInterface__avatar}>
-            <Image src="/images/Jarvis.png" alt="Chat with Jarvis" width={80} height={80} />
-            </div>
-            <div>
-              <h3>Chat with Jarvis</h3>
-              <p>AI Assistant</p>
-              {connectionStatus === 'slow' && (
-                <span className={styles.connectionStatus} style={{color: '#ffa500'}}>
-                  ⚠️ Slow connection
-                </span>
-              )}
-              {connectionStatus === 'offline' && (
-                <span className={styles.connectionStatus} style={{color: '#ff4444'}}>
-                  🔴 Connection issues
-                </span>
-              )}
-            </div>
-          </div>
-          <button 
-            className={styles.chatInterface__close}
-            onClick={onClose}
-            aria-label="Close chat"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path 
-                d="M15 5L5 15M5 5L15 15" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
+  const fallback = { ...context, cta: 'chat-fallback' };
+  return <div className={styles.chatInterface}>
+    <dialog ref={dialogRef} className={styles.chatInterface__modal} aria-labelledby="jarvis-title" onCancel={event => { event.preventDefault(); onClose(); }}>
+      <div className={styles.chatInterface__header}>
+        <div className={styles.chatInterface__title}>
+          <Image src="/images/Jarvis.png" alt="" width={40} height={40} />
+          <div><h2 id="jarvis-title">Chat with Jarvis</h2><p>Kingdom Design House AI assistant</p></div>
         </div>
-
-        <div className={styles.chatInterface__messages}>
-          {messages.map((message, index) => (
-            <div 
-              key={index} 
-              className={`${styles.chatInterface__message} ${
-                message.role === 'user' 
-                  ? styles['chatInterface__message--user'] 
-                  : styles['chatInterface__message--assistant']
-              }`}
-            >
-              <div className={styles.chatInterface__message__content}>
-                {message.role === 'assistant' ? (
-                  renderFormattedResponse(formatResponse(message.content || 'No response available'))
-                ) : (
-                  message.content || 'No message content'
-                )}
-              </div>
-              {message.leadCreated && (
-                <div className={styles.chatInterface__lead__notification}>
-                  ✅ Lead information saved to our CRM
-                </div>
-              )}
-            </div>
-          ))}
-          
-          {isLoading && (
-            <div className={`${styles.chatInterface__message} ${styles['chatInterface__message--assistant']}`}>
-              <div className={styles.chatInterface__typing}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          )}
-          
-          <div ref={messagesEndRef} />
-        </div>
-
-        <div className={styles.chatInterface__input}>
-          {/* Honeypot field - hidden from users, bots will fill it */}
-          <input
-            type="text"
-            name="website"
-            value={honeypot}
-            onChange={(e) => setHoneypot(e.target.value)}
-            style={{ display: 'none' }}
-            tabIndex="-1"
-            autoComplete="off"
-            aria-hidden="true"
-          />
-          <textarea
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Type your message here..."
-            rows="1"
-            disabled={isLoading}
-          />
-          <button 
-            onClick={sendMessage}
-            disabled={!inputMessage.trim() || isLoading}
-            className={styles.chatInterface__send}
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path 
-                d="M18 2L9 11L18 2ZM9 11L2 8L9 11ZM9 11L18 18L9 11Z" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
+        <button className={styles.chatInterface__close} onClick={onClose} aria-label="Close chat">✕</button>
       </div>
-    </div>
-  );
-};
-
-export default ChatInterface;
+      <div className={styles.chatInterface__messages} role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions">
+        {messages.map((message, index) => <div key={index} className={`${styles.chatInterface__message} ${styles[`chatInterface__message--${message.role === 'user' ? 'user' : 'assistant'}`]}`}>
+          <div className={styles.chatInterface__message__content}>
+            {message.role === 'assistant' ? renderFormattedResponse(formatResponse(message.content)) : message.content}
+          </div>
+          {message.leadCreated && <p className={styles.chatInterface__lead__notification}>Your inquiry has been received for follow-up.</p>}
+          {message.leadError && <p role="status">Your inquiry could not be saved. Please use Contact below.</p>}
+        </div>)}
+        {isLoading && <p role="status">Jarvis is responding…</p>}
+        <div ref={messagesEndRef} />
+      </div>
+      {starter && <button type="button" className={styles.starter} onClick={() => { setInputMessage(starter); inputRef.current?.focus(); }}>Start with: {starter}</button>}
+      <p className={styles.fallback}><Link href={contactHref(fallback)} onClick={() => { trackAcquisition('service_cta_click', fallback); onClose(); }}>Prefer a person? Send a Contact inquiry</Link></p>
+      <form className={styles.chatInterface__input} onSubmit={event => { event.preventDefault(); sendMessage(); }}>
+        <input type="text" name="website" value={honeypot} onChange={event => setHoneypot(event.target.value)} hidden tabIndex="-1" autoComplete="off" />
+        <textarea ref={inputRef} value={inputMessage} onChange={event => setInputMessage(event.target.value)} onKeyDown={event => {
+          if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); sendMessage(); }
+        }} aria-label="Message to Jarvis" placeholder="Ask about your business project…" maxLength={4000} rows="2" disabled={isLoading} />
+        <button type="submit" disabled={!inputMessage.trim() || isLoading || !hydrated} className={styles.chatInterface__send} aria-label="Send message">Send</button>
+      </form>
+    </dialog>
+  </div>;
+}

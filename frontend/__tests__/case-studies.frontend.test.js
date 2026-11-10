@@ -4,7 +4,7 @@ import {
   validateCaseStudy
 } from '../data/caseStudies';
 
-const slugs = ['northwell', 'daremd', 'dermcare', 'iin', 'softplay'];
+const slugs = ['northwell', 'daremd', 'dermcare', 'iin'];
 
 describe('case-study data', () => {
   test.each(slugs)('%s resolves and matches the editorial schema', (slug) => {

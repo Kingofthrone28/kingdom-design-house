@@ -1,5 +1,6 @@
 const { checkBotProtection } = require('./botProtection');
 const { syncLead } = require('./leadService');
+const { inquiryContext, approvedAttribution } = require('../utils/acquisition');
 
 const fallbackResponse = message => ({
   response: `Hello! I'm Jarvis from Kingdom Design House. I'm currently experiencing some technical difficulties with my AI services, but I'd be happy to help you with your project needs.\n\nFor immediate assistance, please contact us:\n📞 Phone: 347.927.8846\n📧 Email: info@kingdomdesignhouse.com\n\nWe offer comprehensive packages for businesses of all sizes, including:\n• Web Development & Design\n• IT Services & Support\n• Networking Solutions\n• AI Integration\n\nWhat specific services are you interested in?`,
@@ -67,6 +68,9 @@ const transformLeadData = (info, originalMessage, conversationHistory = [], opti
   project_description: info.project_description || originalMessage, description: info.project_description || originalMessage,
   priority_level: 'HIGH', assigned_team: 'KDH Sales Team', issue_type: 'Lead Follow-up',
   conversation_id: options.conversationId,
+  ...inquiryContext(options),
+  ...approvedAttribution(options),
+  selfReportedSource: typeof options.selfReportedSource === 'string' ? options.selfReportedSource.trim().replace(/\u0000/g, '').slice(0, 200) : '',
   conversation_history: completeConversation(conversationHistory, originalMessage, options.assistantResponse)
     .filter(item => hasValue(item?.content))
     .map(item => `${item.role}: ${item.content}`)
@@ -114,18 +118,19 @@ const processChat = async (req, body) => {
   }
 
   const structuredInfo = enrichStructuredInfo(data.structuredInfo, message, body.conversationHistory || []);
-  data = { ...data, structuredInfo };
+  // Only this server's CRM owner can confirm an inquiry; never trust upstream flags.
+  data = { ...data, structuredInfo, leadCreated: false, hubspotLead: null };
 
   if (shouldCreateLead(structuredInfo)) {
     const result = await syncLead(transformLeadData(
       structuredInfo,
       message,
       body.conversationHistory || [],
-      { conversationId: body.conversationId, assistantResponse: data.response },
+      { ...inquiryContext(body), ...approvedAttribution(body), selfReportedSource: body.selfReportedSource, conversationId: body.conversationId, assistantResponse: data.response },
     ));
     data = {
       ...data,
-      leadCreated: result.status === 200,
+      leadCreated: result.status === 200 && result.body?.success === true && result.body?.hubspotLead?.success === true,
       hubspotLead: result.status === 200 ? result.body.hubspotLead : null,
       crmOperations: result.status === 200 ? result.body.operations : undefined,
       ...(result.status === 200 ? {} : { leadError: result.body.message || result.body.error }),

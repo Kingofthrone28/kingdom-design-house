@@ -40,9 +40,7 @@ const SEOHead = ({
       <meta name="author" content={seoConfig.company.name} />
       <meta name="language" content="en-US" />
       <meta name="geo.region" content="US-NY" />
-      <meta name="geo.placename" content="Long Island, New York" />
-      <meta name="geo.position" content={`${seoConfig.location.coordinates.latitude};${seoConfig.location.coordinates.longitude}`} />
-      <meta name="ICBM" content={`${seoConfig.location.coordinates.latitude}, ${seoConfig.location.coordinates.longitude}`} />
+      <meta name="geo.placename" content="Freeport, New York" />
       
       {/* Canonical URL */}
       <link rel="canonical" href={fullCanonical} />
@@ -68,18 +66,16 @@ const SEOHead = ({
       <meta property="og:locale" content="en_US" />
       
       {/* Business-specific Open Graph tags */}
-      <meta property="business:contact_data:street_address" content="3 Charlick Place" />
       <meta property="business:contact_data:locality" content="Freeport" />
       <meta property="business:contact_data:region" content="NY" />
-      <meta property="business:contact_data:postal_code" content="11520" />
       <meta property="business:contact_data:country_name" content="United States" />
       <meta property="business:contact_data:phone_number" content={seoConfig.company.phone} />
       <meta property="business:contact_data:email" content={seoConfig.company.email} />
       
       {/* Twitter Card Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content={seoConfig.social.twitter} />
-      <meta name="twitter:creator" content={seoConfig.social.twitter} />
+      {seoConfig.social.twitter && <meta name="twitter:site" content={seoConfig.social.twitter} />}
+      {seoConfig.social.twitter && <meta name="twitter:creator" content={seoConfig.social.twitter} />}
       <meta name="twitter:title" content={ogTitle || fullTitle} />
       <meta name="twitter:description" content={ogDescription || description || seoConfig.company.description} />
       <meta name="twitter:image" content={fullOgImage} />

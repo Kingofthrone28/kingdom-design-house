@@ -1,88 +1,37 @@
-/**
- * @fileoverview Google Analytics Component
- * 
- * This component manages Google Analytics tracking with GDPR compliance.
- * The gtag script is always loaded for detection but tracking is controlled by consent.
- * Analytics data collection is denied by default until user gives consent.
- * 
- * @author Kingdom Design House Development Team
- * @version 1.0.0
- * @since 2024
- */
-
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
-import { useGDPRConsent } from '../hooks/useGDPRConsent';
+import { useGDPR } from '../contexts/GDPRContext';
+import { GA_MEASUREMENT_ID, captureAttribution, trackPageView } from '../utils/analytics';
+import { normalizePath } from '../utils/acquisition';
 
-const GA_MEASUREMENT_ID = 'G-BEKZ5DH50B';
-
-const GoogleAnalytics = () => {
+export default function GoogleAnalytics() {
   const router = useRouter();
-  const { canTrackAnalytics, applyConsentSettings } = useGDPRConsent();
-
-  // Track page views when route changes
+  const { consent } = useGDPR();
+  const ready = useRef(false);
   useEffect(() => {
-    if (!canTrackAnalytics()) {
-      return;
-    }
-
-    const handleRouteChange = (url) => {
-      // Send pageview with custom URL
-      if (window.gtag) {
-        window.gtag('config', GA_MEASUREMENT_ID, {
-          page_path: url,
-          anonymize_ip: true, // GDPR compliance
-        });
-      }
-    };
-
-    // Track initial page view
-    handleRouteChange(router.pathname);
-
-    // Subscribe to route changes
-    router.events.on('routeChangeComplete', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.pathname, router.events, canTrackAnalytics]);
-
-  return (
-    <>
-      {/* Global Site Tag (gtag.js) - Always loaded for detection */}
-      <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        onLoad={applyConsentSettings}
-      />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            
-            // Set default consent - deny all until user consents
-            gtag('consent', 'default', {
-              'analytics_storage': 'denied',
-              'ad_storage': 'denied',
-              'anonymize_ip': true
-            });
-            
-            // Configure GA but tracking will be controlled by consent
-            gtag('config', '${GA_MEASUREMENT_ID}', {
-              page_path: window.location.pathname,
-              anonymize_ip: true,
-              cookie_flags: 'SameSite=None;Secure'
-            });
-          `,
-        }}
-      />
-    </>
-  );
-};
-
-export default GoogleAnalytics;
+    if (!consent.analytics) return;
+    const change = url => { captureAttribution(); if (ready.current) trackPageView(url); };
+    // The initial view is emitted by onReady, subsequent navigation by this listener.
+    router.events.on('routeChangeComplete', change);
+    return () => router.events.off('routeChangeComplete', change);
+  }, [consent.analytics, router.events]);
+  if (!consent.analytics) return null;
+  return <Script id="kdh-ga4" src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" onReady={() => {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+    window.gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: consent.marketing ? 'granted' : 'denied' });
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID, {
+      send_page_view: false,
+      page_location: `https://kingdomdesignhouse.com${normalizePath(window.location.pathname)}`,
+      page_referrer: '',
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
+    ready.current = true;
+    captureAttribution();
+    trackPageView(router.asPath);
+  }} />;
+}

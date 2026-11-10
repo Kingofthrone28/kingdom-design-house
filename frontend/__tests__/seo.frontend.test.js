@@ -4,6 +4,7 @@ import { navbarData } from '../data/navbarData';
 import { caseStudySummaries } from '../data/caseStudies/summaries';
 import { siteData } from '../data/siteData';
 import { withTrailingSlash } from '../utils/url';
+import publication from '../data/site/publication.json';
 
 const SITE_URL = 'https://kingdomdesignhouse.com';
 
@@ -66,8 +67,11 @@ describe('sitemap', () => {
   const locations = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)]
     .map(([, location]) => location);
 
-  test('lists only the 24 unique canonical public URLs', () => {
-    expect(locations).toHaveLength(24);
+  test('lists only eligible published canonical URLs', () => {
+    const eligible = publication.filter(page => page.published && page.indexable && !page.redirect);
+    expect(locations).toEqual(eligible.map(page => `${SITE_URL}${page.path}`).sort());
+    expect(locations).not.toContain(`${SITE_URL}/ai-group/solutions/crm-automation/`);
+    expect(locations.join(' ')).not.toContain('mock-drafts');
     expect(new Set(locations).size).toBe(locations.length);
 
     locations.forEach((location) => {

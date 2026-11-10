@@ -29,7 +29,7 @@ export default function AgencyServicePage({ serviceType, draftMode = false }) {
   return (
     <>
       <SEOHead {...seoProps} />
-      <StructuredData />
+      <StructuredData page={{ url: seo.canonical, name: seo.title, description: seo.description, service: content.title, breadcrumbs: [{ name: 'Home', url: '/' }, { name: presentation.groupLabel, url: presentation.groupName === 'aigroup' ? '/ai-group/' : presentation.groupName === 'networkgroup' ? '/network-group/' : '/web-group/' }, { name: content.title, url: seo.canonical }] }} />
       <Layout>
         <AgencyServiceTemplate
           serviceType={serviceType}

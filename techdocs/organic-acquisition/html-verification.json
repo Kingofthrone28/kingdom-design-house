@@ -1,0 +1,172 @@
+{
+  "eligibleRoutes": 27,
+  "failures": [
+    "/about/: expected one H1",
+    "/pricing/: expected one H1"
+  ],
+  "checks": [
+    {
+      "route": "/",
+      "title": "Websites, Business Apps & AI Automation | Long Island & NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/about/",
+      "title": "About Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/about/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/ai-group/",
+      "title": "AI Solutions in Long Island NY | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/ai-group/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/ai-group/services/ai-consulting/",
+      "title": "AI Consulting Services NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/ai-group/services/ai-consulting/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/ai-group/services/ai-development/",
+      "title": "Custom AI App Development for Long Island & NYC Businesses | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/ai-group/services/ai-development/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/ai-group/services/ai-support/",
+      "title": "Ongoing AI Support & Optimization Services for NY Businesses | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/ai-group/services/ai-support/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/ai-group/solutions/ai-lead-assistant/",
+      "title": "AI Lead Assistant & Jarvis Demo | Long Island & NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/ai-group/solutions/ai-lead-assistant/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/case-studies/",
+      "title": "Discover Our Work | Case Studies | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/case-studies/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/case-studies/daremd/",
+      "title": "David Dare MD Case Study | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/case-studies/daremd/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/case-studies/dermcare/",
+      "title": "DermCare Management Case Study | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/case-studies/dermcare/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/case-studies/iin/",
+      "title": "Institute for Integrative Nutrition Contributions | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/case-studies/iin/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/case-studies/northwell/",
+      "title": "Northwell Health Professional Experience | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/case-studies/northwell/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/contact/",
+      "title": "Contact Us | Get Your Free Consultation | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/contact/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/guides/custom-ai-assistant-vs-chatbot/",
+      "title": "Custom AI Assistant vs Chatbot: Fit, Costs & Maintenance | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/guides/custom-ai-assistant-vs-chatbot/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/industries/healthcare-websites/",
+      "title": "Healthcare Website Design & Development | Long Island & NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/industries/healthcare-websites/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/locations/freeport-ny/",
+      "title": "Websites & AI Automation in Freeport, NY | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/locations/freeport-ny/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/network-group/",
+      "title": "Network Design & IT Support NY | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/network-group/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/network-group/services/network-design/",
+      "title": "Business Network Design & Installation in Long Island NY | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/network-group/services/network-design/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/network-group/services/network-optimization/",
+      "title": "Wireless Infrastructure Design and Optimization NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/network-group/services/network-optimization/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/network-group/services/network-support/",
+      "title": "Managed Network Support & Monitoring for NYC Businesses | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/network-group/services/network-support/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/pricing/",
+      "title": "Pricing for Web & AI Services | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/pricing/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/services/",
+      "title": "Technology Services in Long Island | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/services/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/web-group/",
+      "title": "Custom Web Design & Development for Long Island Businesses | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/web-group/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/web-group/services/digital-marketing/",
+      "title": "SEO & Digital Marketing | Long Island & NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/web-group/services/digital-marketing/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/web-group/services/support/",
+      "title": "Website Support & Maintenance | Long Island & NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/web-group/services/support/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/web-group/services/web-design/",
+      "title": "Web Design Services | Long Island & NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/web-group/services/web-design/",
+      "structuredGraphs": 1
+    },
+    {
+      "route": "/web-group/services/web-development/",
+      "title": "Web Development & Business Apps | Long Island & NYC | Kingdom Design House",
+      "canonical": "https://kingdomdesignhouse.com/web-group/services/web-development/",
+      "structuredGraphs": 1
+    }
+  ],
+  "browserPreview": "Pending: no browser backend was available. No visual or keyboard verification is claimed."
+}

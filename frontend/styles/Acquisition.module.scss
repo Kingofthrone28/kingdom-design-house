@@ -1,0 +1,24 @@
+.section { max-width: 1200px; padding: clamp(32px, 6vw, 88px) 24px; margin: 0 auto; color: #181916; line-height: 1.7; overflow-wrap: anywhere;
+  h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.15; margin: 0 0 24px; }
+  h3 { margin: 28px 0 12px; font-size: 1.25rem; }
+  p { margin: 0 0 18px; }
+  ul, ol { padding-left: 22px; }
+  a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
+}
+.eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: .78rem; font-weight: 700; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; align-items: center;justify-content: center; }
+.primary, .secondary { display: inline-flex; justify-content: center; align-items: center; gap: 12px; min-height: 48px; padding: 14px 22px; border: 1px solid currentColor; border-radius: 4px; font: inherit; font-weight: 600; cursor: pointer; text-decoration: none !important; line-height: 1.4; }
+.primary { color: #151612 !important; background: #f4da2d; border-color: #f4da2d; }
+.secondary { background: transparent; color: inherit; }
+.actions :focus-visible, .section :focus-visible { outline: 3px solid #5272d1; outline-offset: 4px; }
+.pricing { margin: 24px 0 36px; font-size: .95rem; p { margin-top: 18px; } }
+.tableScroll { overflow-x: auto; table { width: 100%; border-collapse: collapse; text-align: left; min-width: 340px; } caption { text-align: left; padding: 0 0 14px; font-weight: 700; } th, td { padding: 14px 12px; border-bottom: 1px solid #ccc; } thead { background: #ffd400; } }
+.proof { border-left: 4px solid #deba18; padding: 0 24px; margin: 32px 0; }
+.faqs { margin: 24px 0; details { border-bottom: 1px solid #ccc; padding: 18px 0; } summary { cursor: pointer; font-weight: 600; min-height: 32px; } p { padding-top: 16px; } }
+.related { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-top: 32px; }
+.hero { color: #f7f6ef; background: #181916; padding: clamp(48px, 8vw, 100px) 24px; h1 { font-size: clamp(2.4rem, 5vw, 4.6rem); line-height: 1.1; max-width: 950px; margin: 20px 0 24px; } p { max-width: 760px; line-height: 1.7; } }
+.shell { max-width: 1152px; margin: auto; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 32px 0; article { border: 1px solid #c9c8c0; padding: 24px; } img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 16px; } h3 { margin-top: 0; } }
+.comparison { td, th { vertical-align: top; } }
+@media (max-width: 720px) { .grid, .cards { grid-template-columns: 1fr; gap: 24px; } .actions { align-items: stretch; flex-direction: column; } .primary, .secondary { width: 100%; box-sizing: border-box; } .section { padding: 36px 20px; } }
