@@ -1,0 +1,154 @@
+[
+  {
+    "path": "/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/about/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/ai-group/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/ai-group/services/ai-consulting/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/ai-group/services/ai-development/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/ai-group/services/ai-support/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/ai-group/solutions/ai-lead-assistant/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/ai-group/solutions/crm-automation/",
+    "published": false,
+    "indexable": false,
+    "reason": "Staging HubSpot workflow example has not been verified."
+  },
+  {
+    "path": "/case-studies/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/case-studies/daremd/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/case-studies/dermcare/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/case-studies/iin/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/case-studies/northwell-concept/",
+    "published": false,
+    "indexable": false,
+    "redirect": "/case-studies/northwell/"
+  },
+  {
+    "path": "/case-studies/northwell/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/contact/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/guides/custom-ai-assistant-vs-chatbot/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/industries/healthcare-websites/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/locations/freeport-ny/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/mock-drafts/[draft]/",
+    "published": false,
+    "indexable": false
+  },
+  {
+    "path": "/network-group/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/network-group/services/network-design/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/network-group/services/network-optimization/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/network-group/services/network-support/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/pricing/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/services/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/web-group/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/web-group/services/digital-marketing/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/web-group/services/support/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/web-group/services/web-design/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/web-group/services/web-development/",
+    "published": true,
+    "indexable": true
+  }
+]

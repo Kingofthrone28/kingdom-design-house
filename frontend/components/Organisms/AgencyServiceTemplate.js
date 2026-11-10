@@ -1,15 +1,15 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import AgencyAnimatedTitle from '../Atoms/AgencyAnimatedTitle';
 import useSectionMotion from '../../hooks/useSectionMotion';
+import InquiryCTA from '../InquiryCTA';
+import ServiceDecisionContent from '../ServiceDecisionContent';
 import styles from '../../styles/AgencyServiceTemplate.module.scss';
 
 const whyChooseUs = [
-  'With over 10 years of experience in web development and software engineering, Kingdom Design House has established itself as a trusted partner for businesses seeking innovative digital solutions.',
-  'Our team creates scalable applications, automates complex workflows, and implements modern technology on robust system architectures designed to adapt to future growth. Every engagement is tailored to improve efficiency and produce measurable business outcomes.'
+  'Based in Freeport, serving Long Island and NYC, with remote delivery. Review our project contributions and professional experience to see how we approach website and application work.',
+  'We agree on deliverables, responsibilities, and acceptance checks before building. Commercial outcomes depend on your audience, offer, and ongoing operation; we measure inquiries rather than promise a growth rate.'
 ];
 
-const Arrow = () => <span aria-hidden="true">↗</span>;
 
 const splitExpertiseItem = (item) => {
   const separatorIndex = item.indexOf(' - ');
@@ -54,7 +54,7 @@ export default function AgencyServiceTemplate({
           </h1>
           <div className={styles.heroFooter}>
             <p>{content.mainContent.paragraphs[0].replace(/<[^>]+>/g, '')}</p>
-            <Link href="/contact/" className={styles.textLink}>Start a project <Arrow /></Link>
+            <InquiryCTA service={serviceType} cta="service-hero" label={content.buyerGuide?.cta || 'Discuss your project'} starter={content.buyerGuide?.starter} />
           </div>
         </div>
       </section>
@@ -181,11 +181,13 @@ export default function AgencyServiceTemplate({
         </div>
       </section>
 
+      <ServiceDecisionContent guide={content.buyerGuide} service={serviceType} group={presentation.groupName === 'aigroup' ? 'ai' : 'web'} />
+
       <section className={`${styles.cta} ${styles.motionSection}`} data-motion-section data-parallax-section>
         <div className={`${styles.ctaInner} ${styles.motionContent} ${styles.parallaxSlow}`}>
           <p className={styles.label}>Ready to build what’s next?</p>
           <h2>Let’s make your<br /><span>next move matter.</span></h2>
-          <Link href="/contact/" className={styles.ctaButton}>Get started today <Arrow /></Link>
+          <InquiryCTA service={serviceType} label={content.buyerGuide?.cta || 'Discuss your project'} starter={content.buyerGuide?.starter} />
         </div>
       </section>
     </article>

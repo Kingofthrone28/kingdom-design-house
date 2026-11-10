@@ -5,6 +5,9 @@ import useSectionMotion from '../../hooks/useSectionMotion';
 import { getPageHeadline, getProcessData, getServiceContentData } from '../../data/siteData';
 import { getAgencyGroupPresentation } from '../../data/agencyGroupPresentation';
 import styles from '../../styles/AgencyServiceTemplate.module.scss';
+import PricingSummary from '../PricingSummary';
+import InquiryCTA from '../InquiryCTA';
+import acquisitionStyles from '../../styles/Acquisition.module.scss';
 
 const Arrow = () => <span aria-hidden="true">↗</span>;
 
@@ -44,7 +47,7 @@ export default function AgencyGroupLanding({ groupType }) {
           </h1>
           <div className={styles.heroFooter}>
             <p>{presentation.heroDescription}</p>
-            <Link href="/contact/" className={styles.textLink}>{presentation.heroCta} <Arrow /></Link>
+            <InquiryCTA cta="hub" service={groupType === 'ai' ? 'ai-development' : groupType === 'web' ? 'web-development' : 'network-design'} label={presentation.heroCta} />
           </div>
         </div>
       </section>
@@ -156,11 +159,24 @@ export default function AgencyGroupLanding({ groupType }) {
         </div>
       </section>
 
+      {['web', 'ai'].includes(groupType) && <section className={acquisitionStyles.section}>
+        <p className={acquisitionStyles.eyebrow}>Based in Freeport • Serving Long Island and NYC • Remote delivery</p>
+        <h2>{groupType === 'web' ? 'Choose the next step for your website.' : 'See what an assistant can do.'}</h2>
+        <p>{groupType === 'web' ? 'Start with design for a clearer customer journey, development for a website or business application, digital marketing for content and measurement, or support for ongoing care. Each service page explains deliverables, scope boundaries, project evidence, and questions to ask before committing.' : 'Start with a workflow assessment, build a scoped assistant, and agree on ongoing evaluation and maintenance. Jarvis is a working example of answering service questions, gathering project information, and handing inquiries to HubSpot. Responses can be incorrect; a person should review consequential decisions.'}</p>
+        <div className={acquisitionStyles.proof}>
+          {groupType === 'web' ? <><p><Link href="/industries/healthcare-websites/">Healthcare websites</Link> — existing David Dare MD and DermCare portfolio examples.</p></> : <><p><Link href="/ai-group/solutions/ai-lead-assistant/">Explore and try the Jarvis lead assistant</Link></p><p><Link href="/guides/custom-ai-assistant-vs-chatbot/">Compare a custom assistant and a chatbot</Link></p></>}
+        </div>
+        <PricingSummary group={groupType} />
+        <p>Scope, content readiness, integrations, and review cycles determine the schedule. Published packages do not include unlimited development, third-party usage charges, or a guaranteed business outcome.</p>
+        <InquiryCTA cta="hub" service={groupType === 'ai' ? 'ai-development' : 'web-development'} label={groupType === 'ai' ? 'Discuss your AI workflow' : 'Plan your website or business app'} />
+        <Link href="/locations/freeport-ny/">Our Freeport base and regional coverage ↗</Link>
+      </section>}
+
       <section className={`${styles.cta} ${styles.motionSection}`} data-motion-section data-parallax-section>
         <div className={`${styles.ctaInner} ${styles.motionContent} ${styles.parallaxSlow}`}>
           <p className={styles.label}>{presentation.cta.label}</p>
           <h2>{presentation.cta.title[0]}<br /><span>{presentation.cta.title[1]}</span></h2>
-          <Link href="/contact/" className={styles.ctaButton}>{presentation.cta.button} <Arrow /></Link>
+          <InquiryCTA cta="hub" service={groupType === 'ai' ? 'ai-development' : groupType === 'web' ? 'web-development' : 'network-design'} label={presentation.cta.button} />
         </div>
       </section>
     </article>

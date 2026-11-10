@@ -4,7 +4,7 @@ import { pageData, defaultPageValues } from './site/pageRouting';
 export const siteData = {
   company: {
     name: "Kingdom Design House",
-    tagline: "Your All-In-One Partner for Web Development / IT / Networking & AI Solutions in NY",
+    tagline: "Websites, business applications, and AI automation. Based in Freeport, serving Long Island and NYC.",
     description: "We solve business problems so you don't have to."
   },
   
@@ -66,6 +66,8 @@ export const siteData = {
           { value: "", label: "Select a service" },
           { value: "web-development", label: "Web Development" },
           { value: "web-design", label: "Web Design" },
+          { value: "support", label: "Website Support" },
+          { value: "ai-support", label: "AI Support" },
           { value: "digital-marketing", label: "Digital Marketing" },
           { value: "it-services", label: "IT Services" },
           { value: "network-design", label: "Network Design" },
@@ -77,6 +79,7 @@ export const siteData = {
           { value: "other", label: "Other" }
         ]
       },
+      selfReportedSource: { label: "How did you hear about us? (optional)", type: "text", required: false, placeholder: "Search, a recommendation, social media, or something else", validation: { maxLength: 200 } },
       message: {
         label: "Project Details",
         type: "textarea",
@@ -113,14 +116,14 @@ export const siteData = {
         type: "email",
         label: "Email",
         value: "info@kingdomdesignhouse.com",
-        description: "We respond within 24 hours",
+        description: "Send your project inquiry",
         action: "mailto:info@kingdomdesignhouse.com"
       },
       {
         type: "location",
         label: "Service Area",
-        value: "Long Island, NY",
-        description: "Queens • Brooklyn • Manhattan",
+        value: "Freeport, Long Island, NY",
+        description: "Serving Long Island and NYC • Remote delivery",
         action: null
       }
     ]
@@ -153,7 +156,7 @@ export const siteData = {
       services: [
         { name: 'Network Design', slug: 'network-design', description: 'Custom network architecture and planning' },
         { name: 'Network Optimization', slug: 'network-optimization', description: 'Performance tuning and enhancement' },
-        { name: 'Network Support', slug: 'network-support', description: '24/7 network monitoring and maintenance' }
+        { name: 'Network Support', slug: 'network-support', description: 'Network monitoring and maintenance' }
       ]
     }
   },
@@ -185,6 +188,7 @@ export const siteData = {
 
   // Page-specific headlines for unique H1s
   pageHeadlines: {
+    home: { main: "WE SOLVE BUSINESS", highlight: "PROBLEMS", sub: "SO YOU", subHighlight: "DON'T HAVE TO" },
     about: {
       main: "ABOUT",
       highlight: "KINGDOM DESIGN HOUSE",
@@ -219,25 +223,25 @@ export const siteData = {
     'web-design': {
       main: "WEB DESIGN",
       highlight: "SERVICES",
-      sub: "FOR NYC BRANDS",
+      sub: "FOR LONG ISLAND & NYC",
       subHighlight: ""
     },
     'web-development': {
       main: "CUSTOM WEB",
       highlight: "DEVELOPMENT",
-      sub: "FOR NYC SMALL BUSINESSES",
+      sub: "FOR LONG ISLAND & NYC",
       subHighlight: ""
     },
     'digital-marketing': {
       main: "DIGITAL MARKETING &",
       highlight: "SEO SERVICES",
-      sub: "IN NEW YORK CITY",
+      sub: "IN LONG ISLAND & NYC",
       subHighlight: ""
     },
     'support': {
       main: "WEBSITE SUPPORT &",
       highlight: "MAINTENANCE",
-      sub: "IN NEW YORK",
+      sub: "IN LONG ISLAND & NYC",
       subHighlight: ""
     },
     'network-design': {
@@ -335,7 +339,7 @@ export const siteData = {
   
   whyChooseUs: {
     title: "Why Choose Us",
-    description: "With over 10 years of experience in web development and software engineering, Kingdom Design House has established itself as a trusted partner for businesses seeking innovative digital solutions. Our team specializes in creating scalable web applications, automating complex workflows, and implementing cutting-edge AI-driven tools that transform how organizations operate. We pride ourselves on delivering robust system architectures that not only meet current needs but also adapt to future growth. Our commitment to client satisfaction is reflected in our results-driven approach, where every project is tailored to maximize efficiency and drive measurable business outcomes."
+    description: "Based in Freeport, Kingdom Design House builds websites, business applications, and AI automation for Long Island and NYC businesses. We agree on deliverables, responsibilities, and a review process before building. Explore the portfolio for project contributions and professional experience, or try Jarvis to see a working assistant."
   },
 
   // Web Strategy process data
@@ -412,7 +416,7 @@ export const siteData = {
     'web-design': {
       title: "Web Design",
       mainContent: {
-        title: "Award-Winning, Purpose-Built Web Design",
+        title: "Purpose-Built Web Design",
         paragraphs: [
           "Transform your online presence with websites that are as <strong>innovative</strong> as they are <strong>impactful</strong>. At <strong>Kingdom Design House</strong>, we combine design, development, and strategy to deliver digital experiences that not only reflect your brand but also support your long-term growth.",
           "Your website should tell your story — and our collaborative approach ensures that story is crafted with intention. From early planning to launch, we involve you at every stage, creating a process that is clear, engaging, and client-focused.",
@@ -456,9 +460,9 @@ export const siteData = {
     'web-development': {
       title: "Kingdom Design House — Web Group",
       mainContent: {
-        title: "Custom Web Development in NYC",
+        title: "Custom Web Development for Long Island & NYC",
         paragraphs: [
-          "At <strong>Kingdom Design House</strong>, we deliver custom web development in NYC for startups, small businesses, and growing teams that need reliable digital platforms.",
+          "At <strong>Kingdom Design House</strong>, we build websites and business applications from Freeport for Long Island and NYC businesses, including projects for startups, small businesses, and growing teams that need reliable digital platforms.",
           "From marketing websites to custom portals and web apps, we build secure, scalable systems with modern frameworks, clean architecture, and strong performance fundamentals.",
           "Every project is designed for business outcomes: faster load times, smoother user journeys, and technical foundations that support SEO, lead generation, and long-term growth."
         ]
@@ -791,7 +795,7 @@ export const siteData = {
           },
           {
             title: "The Power of RAG (Retrieval-Augmented Generation)",
-            description: "One standout technique we use is RAG, which blends large language models with your company's proprietary data. Instead of relying solely on generic AI, RAG ensures responses are grounded in your actual documents, policies, or records. This creates AI that is accurate, context-aware, and directly relevant to your business."
+            description: "One standout technique we use is RAG, which blends large language models with your company's proprietary data. RAG retrieves context from approved documents for the model to use. Retrieval can miss information, and generated answers may still be incorrect. We define evaluation questions and a human fallback."
           },
           {
             title: "Testing & Deployment",
@@ -902,7 +906,7 @@ export const siteData = {
             "Full site maintenance",
             "Advanced SEO",
             "Content marketing",
-            "AISEO on search (ChatGPT)",
+            "Search-friendly content structure",
             "Back linking",
             "Internal Linking"
           ]
@@ -951,7 +955,7 @@ export const siteData = {
             "Advanced monitoring",
             "Performance optimization",
             "Security management",
-            "24/7 support"
+            "Support within agreed service hours"
           ]
         },
         {
@@ -970,7 +974,7 @@ export const siteData = {
           ],
           monthlySupport: 600,
           supportFeatures: [
-            "24/7 monitoring",
+            "Monitoring within agreed support scope",
             "Proactive maintenance",
             "Advanced security",
             "Performance optimization",
@@ -1032,7 +1036,7 @@ export const siteData = {
           ],
           monthlySupport: 800,
           supportFeatures: [
-            "24/7 monitoring",
+            "Monitoring within agreed support scope",
             "Continuous optimization",
             "Advanced analytics",
             "Custom feature development",
@@ -1121,9 +1125,652 @@ export const siteData = {
     companyInfo: { 
       phone: '347.927.8846', 
       email: 'info@kingdomdesignhouse.com',
-      address: "3 Charlick Place, Freeport, NY 11520",
+      address: "Based in Freeport, serving Long Island and NYC. Remote delivery available.",
     },  
    }
+};
+
+// Buyer guidance extends the existing service content used by shared page templates.
+siteData.serviceContent["web-development"].buyerGuide = {
+  "heading": "A website or business app your team can use.",
+  "problem": "If your website hides your services, forms lose inquiries, or staff copy information between tools, start with the workflow. We build marketing websites, portals, and business applications around the tasks your customers and team need to complete.",
+  "deliverables": [
+    "A written scope, page or workflow map, and integration requirements",
+    "Responsive implementation, agreed CMS or application features, and inquiry paths",
+    "Testing of core workflows, launch checklist, and handoff documentation"
+  ],
+  "boundaries": "A brochure website package does not include an unlimited custom application. Authentication, complex data migration, external APIs, hosting, software licenses, and ongoing operations are scoped separately. You provide access, approved content, and feedback; we agree on acceptance checks before development.",
+  "pricingBasis": "Published Web packages provide a starting point for websites. Application pricing depends on roles, workflows, data, integrations, and testing requirements. Confirm what is included in a written proposal.",
+  "proof": [
+    {
+      "href": "/case-studies/iin/",
+      "label": "IIN contribution overview",
+      "detail": "Professional engineering contributions to enrollment workflows; not presented as a verified KDH agency engagement."
+    }
+  ],
+  "faqs": [
+    [
+      "Can you build a business application instead of a marketing site?",
+      "Yes. We first define users, permissions, data, workflows, and integrations, then quote the application scope separately from a website package."
+    ],
+    [
+      "Can we keep our existing CMS?",
+      "We review its access, templates, data, and integration limits before recommending an extension or migration."
+    ],
+    [
+      "How long will development take?",
+      "The schedule depends on the approved scope, content readiness, integrations, and review cycles. Milestones are agreed after discovery."
+    ],
+    [
+      "Will the site generate leads automatically?",
+      "We can implement clear inquiry paths and measurement. Traffic, visitor fit, and commercial results require ongoing review; no lead volume is guaranteed."
+    ],
+    [
+      "Do you work outside Long Island?",
+      "KDH is based in Freeport, serves Long Island and NYC, and can deliver projects remotely."
+    ]
+  ],
+  "cta": "Discuss your website or business app",
+  "starter": "I need a website or business application. What should we scope first?",
+  "related": [
+    {
+      "href": "/web-group/services/web-design/",
+      "label": "Web design"
+    },
+    {
+      "href": "/ai-group/services/ai-development/",
+      "label": "AI development"
+    }
+  ]
+};
+siteData.serviceContent["web-design"].buyerGuide = {
+  "heading": "Make your offer easier to understand.",
+  "problem": "When customers cannot find the right service or know what to do next, a redesign needs more than a new visual style. We clarify page structure, content hierarchy, mobile navigation, and inquiry paths for your audience.",
+  "deliverables": [
+    "Discovery notes, page inventory, and a proposed information structure",
+    "Wireframes and responsive page designs for agreed templates",
+    "Design review, implementation handoff, and agreed accessibility and mobile checks"
+  ],
+  "boundaries": "We agree on pages, templates, revisions, and whether development is included. Photography, brand identity creation, ongoing copywriting, and extensive content migration require their own scope. You approve factual claims and supply assets you have permission to use.",
+  "pricingBasis": "Web package totals below cover the published package scope. A design-only engagement or larger redesign is quoted by templates, content needs, implementation work, and review rounds.",
+  "proof": [
+    {
+      "href": "/case-studies/daremd/",
+      "label": "David Dare MD portfolio",
+      "detail": "Treatment information hierarchy and appointment pathways; contribution details are described in the portfolio."
+    }
+  ],
+  "faqs": [
+    [
+      "Can you redesign without replacing everything?",
+      "We review the existing structure and identify the pages, navigation, and interactions that need attention."
+    ],
+    [
+      "Is development included?",
+      "The proposal states whether the work includes implementation, a design handoff, or both."
+    ],
+    [
+      "Can you help organize our content?",
+      "Yes. We can map key messages and page structure. Content production and migration volumes are agreed separately."
+    ],
+    [
+      "Will the design work on phones?",
+      "Responsive layouts and checks of agreed mobile journeys form part of the design scope."
+    ],
+    [
+      "Does a redesign guarantee more inquiries?",
+      "No. We can improve clarity and make inquiry paths measurable, then evaluate results with real visitors."
+    ]
+  ],
+  "cta": "Plan your website redesign",
+  "starter": "I am planning a website redesign. How do we decide what needs to change?",
+  "related": [
+    {
+      "href": "/web-group/services/web-development/",
+      "label": "Web development"
+    },
+    {
+      "href": "/industries/healthcare-websites/",
+      "label": "Healthcare website guidance"
+    }
+  ]
+};
+siteData.serviceContent["digital-marketing"].buyerGuide = {
+  "heading": "Connect useful content to a measurable next step.",
+  "problem": "Traffic alone does not explain whether people can find your services or become customers. We review technical search foundations, service content, internal links, and inquiry measurement so you can see where the funnel needs work.",
+  "deliverables": [
+    "A technical and content audit with prioritized actions",
+    "Agreed improvements to metadata, indexing, internal links, and service content",
+    "Consent-aware conversion measurement and a reporting framework tied to inquiries"
+  ],
+  "boundaries": "Search rankings, inclusion in AI answers, and inquiry volumes are not guaranteed. Media spend, paid campaign management, large content programs, and social publishing require an explicit scope. Account access and historical Search Console and GA4 data are dependencies.",
+  "pricingBasis": "SEO setup is part of the relevant published Web package scope. Ongoing marketing work depends on the audit, pages, content production, and reporting cadence; a support price is not an unlimited marketing retainer.",
+  "proof": [
+    {
+      "href": "/guides/custom-ai-assistant-vs-chatbot/",
+      "label": "Assistant comparison guide",
+      "detail": "Useful buyer education connected to a relevant service and inquiry path."
+    }
+  ],
+  "faqs": [
+    [
+      "Do you guarantee a first-page ranking?",
+      "No. Search platforms decide what to index and show. We focus on useful content and technical foundations that can be reviewed."
+    ],
+    [
+      "How do you measure success?",
+      "Review search impressions and clicks, then confirmed inquiries, qualified conversations, consultations, proposals, and revenue. Keep engagement separate from leads."
+    ],
+    [
+      "Can you optimize for AI search?",
+      "We apply conventional SEO: accessible text, internal links, accurate metadata, and structured data that matches visible content. Inclusion in AI answers is not guaranteed."
+    ],
+    [
+      "Do I need paid ads?",
+      "Not necessarily. We first assess whether organic demand and the existing website support your goals. Paid campaigns are a separate decision and scope."
+    ],
+    [
+      "When should we review progress?",
+      "Review the funnel weekly and compare 28-day search periods. Evaluate inquiry quality and commercial outcomes after 60–90 days before expanding content."
+    ]
+  ],
+  "cta": "Discuss your organic acquisition goals",
+  "starter": "I want to understand how service content and inquiry tracking could help my business.",
+  "related": [
+    {
+      "href": "/web-group/services/support/",
+      "label": "Website support"
+    },
+    {
+      "href": "/locations/freeport-ny/",
+      "label": "Freeport and regional coverage"
+    }
+  ]
+};
+siteData.serviceContent["support"].buyerGuide = {
+  "heading": "Keep your website useful after launch.",
+  "problem": "Broken forms, outdated content, plugin changes, and slow pages can interrupt the customer journey. We start with an audit and agree on routine maintenance, update priorities, and a process for reporting issues.",
+  "deliverables": [
+    "An agreed maintenance scope and access inventory",
+    "Scheduled updates, content changes, or performance work within the selected plan",
+    "Checks of key inquiry paths, reporting, and handoff notes for changes"
+  ],
+  "boundaries": "Response times, service hours, backups, and monitoring must be agreed in writing. Support does not promise uninterrupted uptime or unlimited development. Emergency recovery, major redesigns, hosting, licenses, and new integrations may require separate work.",
+  "pricingBasis": "Published Web support prices are $150, $250, and $500 per month for the corresponding package scope. Existing websites are assessed before recommending a plan. Setup totals below apply to website projects, not automatically to support-only work.",
+  "proof": [
+    {
+      "href": "/case-studies/dermcare/",
+      "label": "DermCare Management portfolio",
+      "detail": "Modular content and responsive templates illustrate a maintainable structure; no ongoing support contract or uptime result is asserted."
+    }
+  ],
+  "faqs": [
+    [
+      "Can you support a site you did not build?",
+      "We review its framework, hosting, dependencies, access, and existing issues before confirming scope."
+    ],
+    [
+      "Are content edits included?",
+      "The plan defines the kinds and volume of edits included. Larger content changes and new features are estimated separately."
+    ],
+    [
+      "Is support available 24/7?",
+      "Service hours, response targets, and any emergency arrangements must be explicitly agreed."
+    ],
+    [
+      "Will you check our contact form?",
+      "Key inquiry paths can be included in the maintenance checklist with safe test procedures and delivery checks."
+    ],
+    [
+      "Can we add features later?",
+      "Yes. We assess new features separately and agree on cost, schedule, and acceptance checks."
+    ]
+  ],
+  "cta": "Discuss website support",
+  "starter": "I need help maintaining an existing website. What access and details do you need?",
+  "related": [
+    {
+      "href": "/web-group/services/web-development/",
+      "label": "Development for new features"
+    },
+    {
+      "href": "/web-group/services/digital-marketing/",
+      "label": "Organic content and measurement"
+    }
+  ]
+};
+siteData.serviceContent["ai-development"].buyerGuide = {
+  "heading": "Start with a business task, then choose the AI.",
+  "problem": "When staff repeatedly answer the same questions or transfer information between tools, an assistant may help. We scope the knowledge sources, actions, permissions, handoff, and failure cases before building a prototype.",
+  "deliverables": [
+    "A workflow map, approved knowledge sources, and success and failure criteria",
+    "A prototype assistant or integration with scoped permissions and a human fallback",
+    "Evaluation examples, integration checks, deployment notes, and an update process"
+  ],
+  "boundaries": "AI responses can be incomplete or incorrect. Human review is required for consequential decisions. Model usage, hosting, vector storage, external licenses, data cleanup, and ongoing evaluation are scoped separately. Do not use the public demo for sensitive records or patient information.",
+  "pricingBasis": "Published AI setup totals start at $4,000 with support from $300 per month. The final scope depends on retrieval sources, integrations, actions, evaluation, and operating requirements. Third-party usage charges are separate and vary with traffic and configuration.",
+  "proof": [
+    {
+      "href": "/ai-group/solutions/ai-lead-assistant/",
+      "label": "Jarvis lead assistant",
+      "detail": "A working KDH assistant with retrieval, structured inquiry extraction, Contact fallback, and a HubSpot handoff implemented in this repository."
+    },
+    {
+      "href": "/case-studies/iin/",
+      "label": "IIN contribution overview",
+      "detail": "Professional integration and enrollment workflow experience; not an AI deployment claim or verified KDH agency engagement."
+    }
+  ],
+  "faqs": [
+    [
+      "How is a custom assistant different from a basic chatbot?",
+      "A fixed flow suits predictable questions. A custom assistant can retrieve approved knowledge and connect to tools, but needs more evaluation, maintenance, and oversight."
+    ],
+    [
+      "Can it connect to our CRM?",
+      "We scope supported APIs, field mapping, permissions, retries, and failure handling. Jarvis has an implemented HubSpot handoff; your integration requires its own scope and verification."
+    ],
+    [
+      "Will it always answer correctly?",
+      "No. We test representative questions, provide a human fallback, and define tasks the assistant must not perform."
+    ],
+    [
+      "What costs continue after launch?",
+      "Support, model usage, hosting, retrieval storage, integration subscriptions, and content updates may continue. We identify these in the proposal rather than promise a fixed usage bill."
+    ],
+    [
+      "Can I try an example?",
+      "Use the Jarvis demo for business questions and avoid sensitive information. It is a working assistant and may create a follow-up inquiry if you provide project and contact details."
+    ]
+  ],
+  "cta": "Scope your AI assistant or workflow",
+  "starter": "I want to automate a business workflow. How do we check whether an AI assistant is a good fit?",
+  "related": [
+    {
+      "href": "/ai-group/solutions/ai-lead-assistant/",
+      "label": "Try the lead assistant"
+    },
+    {
+      "href": "/guides/custom-ai-assistant-vs-chatbot/",
+      "label": "Custom assistant vs chatbot"
+    }
+  ]
+};
+
+// Keep service introductions aligned with the buyer guidance and evidence boundaries.
+siteData.serviceContent["web-development"].title = "Web Development";
+siteData.serviceContent["web-development"].mainContent = {"title": "Build around the tasks your customers and team need to complete.", "paragraphs": ["From a service website to a scoped business application, we agree on users, data, permissions, content, and integrations before selecting an implementation approach."]};
+siteData.serviceContent["web-design"].title = "Web Design";
+siteData.serviceContent["web-design"].mainContent = {"title": "Clarify the journey from first visit to inquiry.", "paragraphs": ["We work through page structure, responsive layouts, content hierarchy, and review rounds with you. The proposal states whether the engagement includes implementation, a design handoff, or both."]};
+siteData.serviceContent["digital-marketing"].title = "Digital Marketing";
+siteData.serviceContent["digital-marketing"].mainContent = {"title": "Useful content and a measurable inquiry path.", "paragraphs": ["We review crawlability, metadata, service content, internal links, and consent-aware measurement. Search rankings, AI citations, and commercial results are evaluated over time and are not guaranteed."]};
+siteData.serviceContent["support"].title = "Website Support";
+siteData.serviceContent["support"].mainContent = {"title": "Plan ongoing care around the website you operate.", "paragraphs": ["Start with an access and dependency review, then agree on maintenance, content changes, monitoring, and service hours. New features and emergency work are assessed separately."]};
+siteData.serviceContent["ai-development"].title = "AI Development";
+siteData.serviceContent["ai-development"].mainContent = {"title": "Build an assistant around an approved workflow.", "paragraphs": ["Define the knowledge sources, permissions, integration requirements, representative test questions, and a human fallback. Retrieval and generated answers still require review; ongoing usage and evaluation are part of the operating plan."]};
+
+// Published destinations use the same data store and shared page components.
+siteData.destinations = {
+  "freeport": {
+    "path": "/locations/freeport-ny/",
+    "title": "Websites & AI Automation in Freeport, NY",
+    "description": "Kingdom Design House is based in Freeport, serving Long Island and NYC with websites, business applications, and AI automation. Remote delivery available.",
+    "eyebrow": "Freeport, Long Island, New York",
+    "heading": "Based in Freeport. Built around your business.",
+    "intro": "Kingdom Design House builds websites, business applications, and AI automation from Freeport for businesses across Long Island and NYC. Projects can be delivered remotely, with discovery, reviews, and handoff coordinated online. This is our actual base, not a separate regional office network.",
+    "service": "web-development",
+    "cta": "location",
+    "ctaLabel": "Discuss your Long Island or NYC project",
+    "starter": "My business is on Long Island or in NYC. Can we discuss a website or automation project?",
+    "sections": [
+      {
+        "title": "Work with a Freeport-based partner",
+        "paragraphs": [
+          "Tell us what your business does, who needs to use the website or application, and where the current process gets stuck. We can review a website, discuss a redesign or business app, or assess a repetitive task for automation.",
+          "Serving Long Island includes Nassau and Suffolk businesses; our regional service area also includes NYC. Delivery arrangements and any on-site work are agreed during scoping. Contact us before planning an in-person visit."
+        ]
+      },
+      {
+        "title": "Choose the right starting point",
+        "paragraphs": [
+          "Web design clarifies the customer journey. Web development implements websites and business applications. AI development starts with the workflow, data, permissions, and human handoff. Ongoing support is scoped separately."
+        ]
+      }
+    ],
+    "proof": [
+      {
+        "href": "/case-studies/iin/",
+        "label": "Institute for Integrative Nutrition",
+        "detail": "Professional contributions to engineering and enrollment workflows. The relationship is not presented as a verified KDH agency engagement."
+      },
+      {
+        "href": "/case-studies/northwell/",
+        "label": "Northwell Health",
+        "detail": "Paul Solomon’s professional employment experience as a Northwell Health Software Engineer, including patient dashboard and provider discovery contributions."
+      },
+      {
+        "href": "/case-studies/daremd/",
+        "label": "David Dare MD",
+        "detail": "A patient-focused orthopedic website with clear service pathways, responsive design, and streamlined appointment calls to action."
+      },
+      {
+        "href": "/case-studies/dermcare/",
+        "label": "DermCare Management",
+        "detail": "A healthcare-focused website rebuild with clear service storytelling, stronger UX structure, and a scalable content foundation."
+      }
+    ],
+    "faqs": [
+      [
+        "Are you based in Freeport?",
+        "Yes. Freeport is KDH’s base. We serve Long Island and NYC and offer remote delivery."
+      ],
+      [
+        "Can we work together remotely?",
+        "Yes. Discovery, design reviews, development feedback, and handoff can be coordinated online."
+      ],
+      [
+        "Do you have offices in every area you serve?",
+        "No. The regional coverage describes where we work with businesses, not additional office locations."
+      ],
+      [
+        "What should I send before a consultation?",
+        "Share your current website if you have one, the problem you want to solve, the main users, and any timeline or budget constraints. Avoid confidential records."
+      ]
+    ],
+    "related": [
+      {
+        "href": "/web-group/",
+        "label": "Web services"
+      },
+      {
+        "href": "/ai-group/",
+        "label": "AI services"
+      },
+      {
+        "href": "/case-studies/",
+        "label": "Portfolio and professional experience"
+      }
+    ]
+  },
+  "lead-assistant": {
+    "path": "/ai-group/solutions/ai-lead-assistant/",
+    "title": "AI Lead Assistant & Jarvis Demo | Long Island & NYC",
+    "description": "Try Jarvis, KDH’s working AI assistant for service questions and business inquiry handoff. Learn how qualification, HubSpot delivery, costs, and limitations work.",
+    "eyebrow": "The AI Group / Working example",
+    "heading": "A service conversation with a clear next step.",
+    "intro": "Jarvis is the working assistant on this website. It answers questions using approved knowledge and retrieved site content, gathers business project details during a conversation, and can pass a follow-up inquiry to HubSpot. Open the demo to ask about a service, scope, or pricing. Providing contact and project details may create a real inquiry; do not use it for test submissions or sensitive information.",
+    "service": "ai-development",
+    "serviceSchema": "AI lead assistant development",
+    "cta": "assistant-demo",
+    "ctaLabel": "Discuss an assistant for your business",
+    "starter": "Show me how an AI assistant could answer service questions and hand a business inquiry to a person.",
+    "demo": true,
+    "pricingGroup": "ai",
+    "sections": [
+      {
+        "title": "What the demo can demonstrate",
+        "paragraphs": [
+          "Ask about KDH’s Web and AI services, compare package setup and support prices, or describe a business workflow. Jarvis uses the site’s retrieval service for grounded answers and extracts structured contact and project information for follow-up. It can still misunderstand a question or use outdated retrieved information.",
+          "Homepage, floating, and service-page buttons open the same conversation for the browser tab session. Service starters are editable drafts; they do not send a message automatically."
+        ]
+      },
+      {
+        "title": "Qualification and human handoff",
+        "paragraphs": [
+          "Useful qualification includes the requested service, project description, business, budget, and timeline when the visitor chooses to provide them. The server requires an email plus a service, description, or another inquiry indicator before attempting CRM synchronization.",
+          "The implemented HubSpot workflow upserts the contact and attempts related deal and follow-up ticket synchronization when enough project detail is available. Contact acceptance confirms receipt; a deal or ticket can still fail separately. The assistant offers a Contact form fallback, and a person must review the inquiry and follow up. It does not book a consultation or promise a response automatically."
+        ]
+      },
+      {
+        "title": "Design for failure and ongoing care",
+        "paragraphs": [
+          "Test irrelevant questions, missing data, ambiguous service requests, API failures, and failed handoffs. Keep actions restricted, review answers against approved content, and give visitors a way to reach a person.",
+          "Knowledge sources need refreshing when services, prices, or contributions change. Model and retrieval usage, hosting, integration subscriptions, and evaluation are operating costs in addition to the published setup and support scope."
+        ]
+      },
+      {
+        "title": "What this example does not prove",
+        "paragraphs": [
+          "This working example does not establish a measured increase in leads, sales, or revenue. Evaluate a proposed assistant against your own workflow and measurement baseline.",
+          "The public demo is for business inquiries. It is not a patient intake system, an emergency channel, or an autonomous decision-maker. Avoid patient data, credentials, and confidential records."
+        ]
+      }
+    ],
+    "proof": [
+      {
+        "href": "/guides/custom-ai-assistant-vs-chatbot/",
+        "label": "Custom assistant vs chatbot",
+        "detail": "Compare simpler fixed flows with retrieval and integration requirements before choosing a build."
+      }
+    ],
+    "faqs": [
+      [
+        "Does opening the demo create a lead?",
+        "No. Opening a chat is engagement. An inquiry is confirmed only after the server reports successful CRM acceptance."
+      ],
+      [
+        "Can the handoff fail?",
+        "Yes. CRM contact, deal, or ticket operations can fail. A Contact fallback stays available, and failed CRM acceptance is not counted as a lead."
+      ],
+      [
+        "Does the assistant replace a person?",
+        "No. It can help with discovery and collecting information. People review requests, confirm scope, and handle decisions and follow-up."
+      ],
+      [
+        "What does an assistant cost?",
+        "Published AI setup totals are $4,000, $6,000, and $8,000, with corresponding support at $300, $500, and $800 per month. Integrations and operating usage depend on the agreed scope."
+      ],
+      [
+        "Can I try it without sharing contact details?",
+        "Yes. Ask a business or service question. Contact details are needed only if you want a follow-up inquiry."
+      ]
+    ],
+    "related": [
+      {
+        "href": "/ai-group/services/ai-development/",
+        "label": "AI development"
+      },
+      {
+        "href": "/ai-group/",
+        "label": "The AI Group"
+      }
+    ]
+  },
+  "healthcare": {
+    "path": "/industries/healthcare-websites/",
+    "title": "Healthcare Website Design & Development | Long Island & NYC",
+    "description": "Plan a clear healthcare business website using David Dare MD and DermCare Management portfolio examples. KDH is based in Freeport, serving Long Island and NYC.",
+    "eyebrow": "Healthcare / Websites and content structure",
+    "heading": "Help visitors find the right information.",
+    "intro": "A healthcare website has to make practice information, services, and contact pathways easy to navigate. KDH’s portfolio includes David Dare MD and DermCare Management website contributions. These examples support a conversation about content structure, responsive design, and development; they do not establish clinical outcomes or compliance certifications.",
+    "service": "web-design",
+    "serviceSchema": "Healthcare website design and development",
+    "cta": "healthcare",
+    "ctaLabel": "Discuss your healthcare business website",
+    "starter": "I am planning a healthcare business website. How do we scope content, navigation, and inquiry paths?",
+    "pricingGroup": "web",
+    "sections": [
+      {
+        "title": "Start with the visitor’s task",
+        "paragraphs": [
+          "For a practice website, people may need to understand a treatment area, find practical information, or reach the appropriate office. For a healthcare management organization, the visitor may be a physician exploring services and resources. These journeys need different structures and calls to action."
+        ]
+      },
+      {
+        "title": "Agree on deliverables and review",
+        "paragraphs": [
+          "A website scope can include a content inventory, page map, responsive designs, implementation, and checks of the agreed service and contact journeys. The organization supplies and approves medical or business content and appoints the people responsible for reviewing it.",
+          "Scheduling integrations, data migration, identity systems, and content production are scoped separately. A public marketing website should link to the appropriate approved patient service instead of routing patient records through a general business inquiry."
+        ]
+      },
+      {
+        "title": "A business inquiry has a specific boundary",
+        "paragraphs": [
+          "Use KDH Contact or Jarvis to discuss a website project. Do not submit patient information, medical questions, or emergency requests. This website is not a patient intake service.",
+          "Any regulated-data handling, security assessment, accessibility requirements, vendor agreements, and specialized review need their own defined scope and qualified review. Portfolio presence alone is not a compliance claim."
+        ]
+      }
+    ],
+    "proof": [
+      {
+        "href": "/case-studies/daremd/",
+        "label": "David Dare MD",
+        "detail": "Portfolio contribution: responsive orthopedic website presentation, treatment information hierarchy, and appointment calls to action. No clinical or conversion lift is claimed."
+      },
+      {
+        "href": "/case-studies/dermcare/",
+        "label": "DermCare Management",
+        "detail": "Portfolio contribution: service navigation, physician-focused content, and modular responsive templates. The engagement relationship is not asserted as independently verified."
+      }
+    ],
+    "faqs": [
+      [
+        "Do the examples show measured patient outcomes?",
+        "No. They illustrate website work and content journeys, not patient outcomes, booking increases, or healthcare compliance."
+      ],
+      [
+        "Can you connect scheduling tools?",
+        "We review the selected vendor, supported integration method, access, data flow, and review responsibilities before confirming scope."
+      ],
+      [
+        "Who approves treatment information?",
+        "Your organization’s designated reviewers must approve clinical information and factual claims."
+      ],
+      [
+        "Can patients send information through KDH’s form?",
+        "No. KDH’s form and Jarvis are for business project inquiries. Patients should use their provider’s approved channels."
+      ],
+      [
+        "How is the project priced?",
+        "Web packages provide a starting point. The proposal accounts for page templates, approved content, integrations, migration, and specialized review requirements."
+      ]
+    ],
+    "related": [
+      {
+        "href": "/web-group/services/web-design/",
+        "label": "Web design"
+      },
+      {
+        "href": "/web-group/services/web-development/",
+        "label": "Web development"
+      },
+      {
+        "href": "/web-group/services/support/",
+        "label": "Website support"
+      }
+    ]
+  },
+  "assistant-guide": {
+    "path": "/guides/custom-ai-assistant-vs-chatbot/",
+    "title": "Custom AI Assistant vs Chatbot: Fit, Costs & Maintenance",
+    "description": "Compare fixed-flow chatbots and custom AI assistants by task fit, setup, operating costs, integrations, maintenance, and human oversight. Includes the Jarvis example.",
+    "eyebrow": "Buyer guide / Choosing a useful tool",
+    "heading": "Custom AI assistant or chatbot? Start with the task.",
+    "intro": "The labels overlap: many products called chatbots already use generative AI. A more useful comparison is a fixed flow or FAQ tool versus an assistant that retrieves business knowledge and can connect to other systems. Choose based on the task, information, operating cost, and review your team can support.",
+    "service": "ai-consulting",
+    "cta": "guide",
+    "ctaLabel": "Discuss which approach fits your workflow",
+    "starter": "Help me compare a fixed-flow chatbot with a custom AI assistant for my business.",
+    "comparison": [
+      [
+        "Good fit",
+        "A small, predictable set of questions or a guided form.",
+        "Questions across changing documents or workflows that need scoped integration."
+      ],
+      [
+        "Setup",
+        "Define paths, answers, and fallback rules.",
+        "Define knowledge sources, retrieval, prompts, permissions, integrations, and evaluations."
+      ],
+      [
+        "Operating costs",
+        "Subscription or hosting fees; some tools also charge for messages or seats.",
+        "Model usage, retrieval storage, hosting, integration services, and support; costs vary with use."
+      ],
+      [
+        "Maintenance",
+        "Update answers, paths, and broken links.",
+        "Refresh sources, test retrieval and answer quality, review model changes, and monitor integration failures."
+      ],
+      [
+        "Integrations",
+        "Often sufficient for a form-to-email or supported built-in connector.",
+        "Useful for specific API workflows, but requires field mapping, permissions, retries, and failure handling."
+      ],
+      [
+        "Human oversight",
+        "People review ambiguous requests and keep answers current.",
+        "People review errors and consequential decisions, approve actions, and maintain escalation routes."
+      ]
+    ],
+    "sections": [
+      {
+        "title": "When a simpler flow is enough",
+        "paragraphs": [
+          "A short FAQ, service selector, or structured inquiry form can be easier to operate than an open-ended assistant. If every visitor needs the same few choices, define those choices clearly and provide a person to contact when the flow does not fit."
+        ]
+      },
+      {
+        "title": "When retrieval and integration add value",
+        "paragraphs": [
+          "A custom assistant may be useful when visitors ask varied questions across approved information or staff need a specific workflow spanning tools. Start with a narrow task and representative test questions. An assistant still needs accurate sources and explicit rules for what it may do."
+        ]
+      },
+      {
+        "title": "Compare the full cost of operation",
+        "paragraphs": [
+          "Compare implementation effort, subscription and usage charges, hosting, storage, integration licenses, support, and the time people spend maintaining and reviewing the system. Avoid choosing based only on the demo or setup price.",
+          "KDH publishes AI setup totals from $4,000 and support from $300 per month. These are package starting points, not a guaranteed total operating bill. A simpler existing tool may be more appropriate for a small, fixed task."
+        ]
+      },
+      {
+        "title": "Decide how a person takes over",
+        "paragraphs": [
+          "Define a clear handoff for uncertainty, missing information, and integration failure. Keep consequential decisions with people, restrict actions, and avoid collecting sensitive records in a public business demo.",
+          "Jarvis demonstrates service questions and an implemented HubSpot inquiry handoff. Opening it is engagement; successful CRM acceptance or Contact notification delivery is the point at which KDH records an inquiry."
+        ]
+      }
+    ],
+    "proof": [
+      {
+        "href": "/ai-group/solutions/ai-lead-assistant/",
+        "label": "Explore Jarvis",
+        "detail": "Try a service conversation before deciding whether a similar assistant fits your workflow."
+      }
+    ],
+    "faqs": [
+      [
+        "Is an AI assistant always better?",
+        "No. A fixed flow or ordinary form may solve the problem with less cost and maintenance."
+      ],
+      [
+        "Can an assistant make mistakes with approved sources?",
+        "Yes. Retrieval can miss context and generated answers can be incorrect. Use evaluation questions, clear limitations, and human escalation."
+      ],
+      [
+        "What should I prepare before choosing?",
+        "List common questions, approved sources, systems involved, expected usage, who maintains the content, and the decisions a person must review."
+      ],
+      [
+        "Will either option increase sales?",
+        "Neither guarantees sales. Measure confirmed inquiries and qualified commercial outcomes against a real baseline."
+      ]
+    ],
+    "related": [
+      {
+        "href": "/ai-group/services/ai-development/",
+        "label": "AI development"
+      },
+      {
+        "href": "/ai-group/services/ai-consulting/",
+        "label": "AI consulting"
+      },
+      {
+        "href": "/pricing/",
+        "label": "Published pricing"
+      }
+    ]
+  }
 };
 
 // Helper functions
@@ -1200,156 +1847,18 @@ export const getdefaultValues = () => {
   return siteData.defaultValues;
 };
 
-// GEO (Generative Engine Optimization) data for services page
+// Search and assistant summaries use the same approved positioning as visible content.
 export const geoData = {
-  title: "Technology Solutions & AI Services",
-  expertise: "Full-service technology company specializing in web development, IT solutions, networking, and AI services with 10+ years of combined experience",
-  content: [
-    "Kingdom Design House is a <strong>full-service technology company</strong> providing comprehensive solutions for businesses across Long Island, Queens, Brooklyn, and Manhattan. Our team combines <strong>10+ years of combined experience</strong> in web development, IT infrastructure, network design, and artificial intelligence.",
-    "We specialize in delivering <strong>tailored technology solutions</strong> that drive business growth, improve operational efficiency, and enhance customer experiences. From custom web applications to AI-powered automation systems, we help businesses leverage cutting-edge technology to achieve their goals.",
-    "Our proven track record includes <strong>100+ successful technology implementations</strong> with a <strong>98% client retention rate</strong>, demonstrating our commitment to delivering exceptional results and ongoing support for our clients."
-  ],
-  authoritySignals: [
-    { 
-      type: "Business Registration", 
-      description: "Registered LLC in New York State since 2020",
-      verification: "NYS Business Entity Database"
-    },
-    { 
-      type: "Technical Expertise", 
-      description: "10+ years combined experience in web development and AI",
-      verification: "Portfolio and client testimonials"
-    },
-    { 
-      type: "Client Base", 
-      description: "50+ businesses served across New York Metropolitan Area",
-      verification: "Client case studies and references"
-    },
-    { 
-      type: "Project Success", 
-      description: "100+ successful technology implementations",
-      verification: "Project documentation and client feedback"
-    }
-  ],
-  technicalCapabilities: [
-    {
-      category: "Programming Languages",
-      items: ["JavaScript", "Python", "TypeScript", "HTML/CSS", "SQL"]
-    },
-    {
-      category: "Frameworks & Libraries",
-      items: ["React", "Next.js", "Node.js", "Express.js", "Django", "Flask"]
-    },
-    {
-      category: "Cloud Platforms",
-      items: ["AWS", "Google Cloud", "Microsoft Azure", "Netlify", "Vercel"]
-    },
-    {
-      category: "Databases",
-      items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Firebase"]
-    }
-  ],
-  facts: [
-    { 
-      term: "Business Founded", 
-      definition: "Kingdom Design House LLC established in 2020",
-      source: "NYS Business Entity Database"
-    },
-    { 
-      term: "Team Experience", 
-      definition: "10+ years combined experience in technology development",
-      source: "Team member portfolios and certifications"
-    },
-    { 
-      term: "Client Retention Rate", 
-      definition: "98% client retention rate based on ongoing support contracts",
-      source: "Internal business metrics and client surveys"
-    },
-    { 
-      term: "Project Success Rate", 
-      definition: "100+ successful technology implementations with 0% failure rate",
-      source: "Project completion reports and client testimonials"
-    }
-  ],
-  caseStudies: [
-    {
-      title: "AI Chatbot Implementation for E-commerce",
-      challenge: "Local e-commerce business needed intelligent customer service automation",
-      solution: "Developed custom AI chatbot using Python, machine learning algorithms, and natural language processing",
-      results: "40% increase in customer satisfaction, 60% reduction in support ticket volume",
-      technologies: ["Python", "Machine Learning", "NLP", "AWS", "React"]
-    },
-    {
-      title: "Web Application for Healthcare Provider",
-      challenge: "Healthcare provider required secure patient management system",
-      solution: "Built custom web application with HIPAA compliance, secure authentication, and real-time data processing",
-      results: "60% improvement in patient management efficiency, 99.9% uptime achieved",
-      technologies: ["React", "Node.js", "PostgreSQL", "AWS", "Security Protocols"]
-    },
-    {
-      title: "Network Infrastructure for Financial Services",
-      challenge: "Financial services company needed secure, scalable network infrastructure",
-      solution: "Designed and implemented enterprise-grade network with security protocols, monitoring, and redundancy",
-      results: "99.9% uptime, enhanced security compliance, 50% improvement in network performance",
-      technologies: ["Cisco", "Network Security", "Monitoring Tools", "Redundancy Systems"]
-    }
-  ],
-  definitions: [
-    { 
-      term: "AI Solutions", 
-      explanation: "Artificial intelligence services including chatbots, automation, machine learning implementations, and intelligent data processing systems",
-      usage: "Used for automating business processes, improving customer service, and enhancing operational efficiency"
-    },
-    { 
-      term: "Web Development", 
-      explanation: "Custom web application development using modern frameworks, responsive design, and scalable architecture",
-      usage: "Creating business websites, e-commerce platforms, web applications, and digital solutions"
-    },
-    { 
-      term: "IT Services", 
-      explanation: "Information technology support, infrastructure management, system administration, and technical consulting",
-      usage: "Providing ongoing technical support, system maintenance, and IT infrastructure management"
-    },
-    { 
-      term: "Networking Solutions", 
-      explanation: "Network design, implementation, optimization, security, and ongoing support for business networks",
-      usage: "Setting up secure business networks, optimizing network performance, and providing network support"
-    }
-  ]
+  title: "Websites, Business Applications & AI Automation",
+  expertise: "Based in Freeport, serving Long Island and NYC, with remote delivery",
+  content: ["Kingdom Design House builds websites, business applications, and AI automation. Review the portfolio for project contributions and professional experience, and try Jarvis for a working AI assistant example."],
+  authoritySignals: [], facts: [], caseStudies: [], technicalCapabilities: [], definitions: []
 };
-
-// AIO (AI Optimization) data for services page
 export const aioData = {
-  title: "Technology Services & AI Solutions",
-  facts: [
-    { label: "Years in Business", value: "4+ years" },
-    { label: "Team Experience", value: "10+ years combined" },
-    { label: "Technologies Mastered", value: "15+ programming languages and frameworks" },
-    { label: "AI Projects", value: "20+ AI implementations" },
-    { label: "Client Satisfaction", value: "98% client retention rate" }
-  ],
-  technologies: [
-    { name: "React", description: "Modern web development framework" },
-    { name: "Node.js", description: "Server-side JavaScript runtime" },
-    { name: "Python", description: "AI and machine learning development" },
-    { name: "AWS", description: "Cloud computing and infrastructure" },
-    { name: "AI/ML", description: "Artificial intelligence and machine learning" }
-  ],
+  title: "Technology Services",
+  facts: [], technologies: [], definitions: [], examples: [],
   services: [
-    { name: "Web Development", description: "Custom web applications and responsive websites" },
-    { name: "IT Services", description: "Information technology support and infrastructure management" },
-    { name: "Networking Solutions", description: "Network design, optimization, and support services" },
-    { name: "AI Solutions", description: "Artificial intelligence consulting, development, and support" }
-  ],
-  definitions: [
-    { term: "AI Solutions", definition: "Artificial intelligence services including chatbots, automation, and machine learning implementations" },
-    { term: "Web Development", definition: "Custom web application development using modern frameworks and technologies" },
-    { term: "IT Services", definition: "Information technology support, maintenance, and infrastructure management" },
-    { term: "Networking", definition: "Network design, implementation, optimization, and ongoing support services" }
-  ],
-  examples: [
-    { title: "AI Chatbot Implementation", description: "Developed intelligent customer service chatbot for local e-commerce business, increasing customer satisfaction by 40%" },
-    { title: "Web Application Development", description: "Built custom web application for healthcare provider, improving patient management efficiency by 60%" },
-    { title: "Network Infrastructure Setup", description: "Designed and implemented secure network infrastructure for financial services company, ensuring 99.9% uptime" }
+    { name: "Web Development", description: "Websites and business applications" },
+    { name: "AI Development", description: "Knowledge assistants and workflow automation" }
   ]
 };

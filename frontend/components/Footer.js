@@ -113,6 +113,14 @@ const Footer = () => {
               </ul>
             </div>
 
+            <div className={styles.footer__links__section}>
+              <h3 className={styles.footer__links__title}>Explore KDH</h3>
+              <ul className={styles.footer__links__list}>
+                <li><Link href="/locations/freeport-ny/" className={styles.footer__links__link}>Freeport and regional coverage</Link></li>
+                <li><Link href="/ai-group/solutions/ai-lead-assistant/" className={styles.footer__links__link}>Jarvis lead assistant</Link></li>
+                <li><Link href="/guides/custom-ai-assistant-vs-chatbot/" className={styles.footer__links__link}>Assistant comparison guide</Link></li>
+              </ul>
+            </div>
             {/* Social Media */}
             <div className={styles.footer__links__section}>
               <h3 className={styles.footer__links__title}>Social Media</h3>

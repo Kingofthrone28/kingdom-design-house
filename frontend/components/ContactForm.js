@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { inquiryContext } from '../utils/acquisition';
+import { getAttribution, trackConfirmedLead, trackOnce } from '../utils/analytics';
+import { startSubmission, finishSubmission, editSubmission } from '../utils/inquirySession';
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { getContactFormData } from '../data/siteData';
 import { handleFormSubmission } from '../utils/formSubmissionService';
@@ -8,6 +12,10 @@ import PhoneIcon from './Atoms/PhoneIcon';
 import EmailIcon from './Atoms/EmailIcon';
 
 const ContactFormInner = () => {
+  const router = useRouter();
+  const context = useMemo(() => inquiryContext(router.query), [router.query]);
+  const submissionRef = useRef({ id: null, pending: false, delivered: false });
+  const serviceEdited = useRef(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
   const formConfig = getContactFormData();
   const [formData, setFormData] = useState({
@@ -16,15 +24,25 @@ const ContactFormInner = () => {
     phone: '',
     company: '',
     service: '',
-    message: ''
+    message: '',
+    selfReportedSource: ''
   });
   
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
+  useEffect(() => {
+    if (router.isReady && context.service && !serviceEdited.current) {
+      setFormData(prev => ({ ...prev, service: context.service }));
+    }
+    if (router.isReady && context.cta === 'assistant-demo') trackOnce('demo_request_start', 'assistant-demo', context);
+  }, [router.isReady, context]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (!editSubmission(submissionRef.current)) return;
+    if (name === 'service') serviceEdited.current = true;
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -41,6 +59,7 @@ const ContactFormInner = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!startSubmission(submissionRef.current)) return;
     
     // Clear any previous errors
     setErrors({});
@@ -52,8 +71,11 @@ const ContactFormInner = () => {
       email: formData.email?.trim() || '',
       phone: formData.phone?.trim() || '', // Optional field - empty string is valid
       company: formData.company?.trim() || '',
+      message: formData.message?.trim() || '',
+      selfReportedSource: formData.selfReportedSource?.trim() || '',
+      ...context,
       service: formData.service?.trim() || '',
-      message: formData.message?.trim() || ''
+      ...getAttribution()
     };
     
     setIsSubmitting(true);
@@ -75,6 +97,8 @@ const ContactFormInner = () => {
       const result = await handleFormSubmission(formDataWithRecaptcha, formConfig);
       
       if (result.success) {
+        submissionRef.current.delivered = true;
+        trackConfirmedLead('contact_form', submissionRef.current.id, result.notificationDelivered === true, { ...context, service: cleanedFormData.service });
         setSubmitStatus({
           type: 'success',
           message: result.message
@@ -86,7 +110,8 @@ const ContactFormInner = () => {
           phone: '',
           company: '',
           service: '',
-          message: ''
+          message: '',
+          selfReportedSource: ''
         });
       } else {
         setErrors(result.errors || {});
@@ -101,6 +126,7 @@ const ContactFormInner = () => {
         message: 'An unexpected error occurred. Please try again.'
       });
     } finally {
+      finishSubmission(submissionRef.current, submissionRef.current.delivered);
       setIsSubmitting(false);
     }
   };
@@ -227,7 +253,7 @@ const ContactFormInner = () => {
             <h2 className={styles.contactForm__sectionTitle}>Send Us a Message</h2>
             
             {submitStatus && (
-              <div className={`${styles.contactForm__status} ${styles[`contactForm__status--${submitStatus.type}`]}`}>
+              <div role="status" className={`${styles.contactForm__status} ${styles[`contactForm__status--${submitStatus.type}`]}`}>
                 {submitStatus.message}
               </div>
             )}
@@ -245,6 +271,8 @@ const ContactFormInner = () => {
 
               {renderField('service', formConfig.fields.service)}
               {renderField('message', formConfig.fields.message)}
+              {renderField('selfReportedSource', formConfig.fields.selfReportedSource)}
+              <p>For business inquiries only. Please do not include patient information, passwords, or confidential records.</p>
 
               <Button 
                 type="submit" 

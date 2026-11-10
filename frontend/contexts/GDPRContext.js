@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useReducer
 } from 'react';
+import { setAnalyticsConsent } from '../utils/analytics';
 
 export const GDPR_ACTIONS = {
   HYDRATE: 'HYDRATE',
@@ -164,11 +165,13 @@ export const GDPRProvider = ({ children }) => {
 
   useEffect(() => {
     if (!state.hydrated) return;
-    localStorage.setItem('gdpr-consent', JSON.stringify(state.consent));
-    localStorage.setItem('gdpr-preferences', JSON.stringify(state.preferences));
-    localStorage.setItem('gdpr-audit', JSON.stringify(state.audit));
-    localStorage.setItem('gdpr-consent-given', String(state.audit.consentGiven));
-    if (state.audit.consentDate) localStorage.setItem('gdpr-consent-date', state.audit.consentDate);
+    try {
+      localStorage.setItem('gdpr-consent', JSON.stringify(state.consent));
+      localStorage.setItem('gdpr-preferences', JSON.stringify(state.preferences));
+      localStorage.setItem('gdpr-audit', JSON.stringify(state.audit));
+      localStorage.setItem('gdpr-consent-given', String(state.audit.consentGiven));
+      if (state.audit.consentDate) localStorage.setItem('gdpr-consent-date', state.audit.consentDate);
+    } catch { /* Keep consent in memory if browser storage is unavailable. */ }
   }, [state.hydrated, state.consent, state.preferences, state.audit]);
 
   const clearNonEssentialData = useCallback(() => {
@@ -192,19 +195,24 @@ export const GDPRProvider = ({ children }) => {
   }, [state.consent.analytics, state.consent.marketing]);
 
   useEffect(() => {
+    setAnalyticsConsent(state.hydrated && state.consent.analytics);
     if (state.hydrated) applyConsentSettings();
-  }, [state.hydrated, applyConsentSettings]);
+  }, [state.hydrated, state.consent.analytics, applyConsentSettings]);
 
   const value = useMemo(() => ({
     consent: state.consent,
     preferences: state.preferences,
     ui: state.ui,
     audit: state.audit,
-    updateConsent: (payload) => dispatch({ type: GDPR_ACTIONS.SET_CONSENT, payload }),
+    updateConsent: (payload) => {
+      if (typeof payload.analytics === 'boolean') setAnalyticsConsent(payload.analytics);
+      dispatch({ type: GDPR_ACTIONS.SET_CONSENT, payload });
+    },
     updatePreferences: (payload) => dispatch({ type: GDPR_ACTIONS.SET_PREFERENCES, payload }),
     setBannerVisible: (payload) => dispatch({ type: GDPR_ACTIONS.SET_BANNER_VISIBLE, payload }),
     setModalOpen: (modalType, payload) => dispatch({ type: GDPR_ACTIONS.SET_MODAL_OPEN, modalType, payload }),
     withdrawConsent: () => {
+      setAnalyticsConsent(false);
       dispatch({ type: GDPR_ACTIONS.WITHDRAW_CONSENT });
       clearNonEssentialData();
     },

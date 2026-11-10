@@ -26,7 +26,7 @@ const VideoShowcase = () => {
             />
             <div className={styles.videoShowcase__featuredInfo}>
               <h3>Complete Business Transformation</h3>
-              <p>Watch Jarvis help a local business increase their sales conversion rate by 300%</p>
+              <p>See Jarvis answer service questions and guide a business inquiry. Try the assistant to explore your own project.</p>
             </div>
           </div>
         </div>

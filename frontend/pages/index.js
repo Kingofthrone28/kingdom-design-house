@@ -9,6 +9,7 @@ import ProcessSteps from '../components/ProcessSteps';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { pageSeoData } from '../lib/seo';
+import { getPageHeadline } from '../data/siteData';
 import VideoShowcase from '../components/VideoShowcase';
 export default function Home() {
   const seoData = pageSeoData.home;
@@ -16,10 +17,10 @@ export default function Home() {
   return (
     <>
       <SEOHead {...seoData} />
-      <StructuredData />
+      <StructuredData page={{ url: seoData.canonical, name: seoData.title, description: seoData.description }} />
       
       <Layout>
-        <Hero />
+        <Hero pageHeadline={getPageHeadline('home')} />
         <OurGroups groupIntent="Web, AI & IT Services in Long Island NY" />
         <ServicesSection />
         <VideoShowcase />

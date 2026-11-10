@@ -7,6 +7,7 @@ import GroupHero from '../components/GroupHero';
 import GroupHeading from '../components/Molecules/GroupHeading';
 import ProcessSteps from '../components/ProcessSteps';
 import WhyChooseUs from '../components/WhyChooseUs';
+import UIUXExperience from '../components/Organisms/UIUXExperience';
 import { getAboutData } from '../data/siteData';
 import { pageSeoData } from '../lib/seo';
 import styles from '../styles/About.module.scss';
@@ -58,6 +59,7 @@ export default function About() {
             </div>
           </div>
         </section>
+        <UIUXExperience />
         <ProcessSteps />
         <WhyChooseUs />  
       </Layout>

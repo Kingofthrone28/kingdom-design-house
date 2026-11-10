@@ -9,7 +9,7 @@ const PricingGroup = ({
 }) => {
   return (
     <div className={`${styles.pricingGroup} ${className}`}>
-      <h1 className={styles.pricingGroup__title}>Pricing Plans</h1>
+      <h2 className={styles.pricingGroup__title}>Package details</h2>
       <div className={styles.pricingGroup__tabs}>
         <Button 
           className={`${styles.pricingGroup__tab} ${selectedGroup === 'web' ? styles['pricingGroup__tab--active'] : ''}`}

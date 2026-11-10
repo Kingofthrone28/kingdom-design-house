@@ -167,7 +167,8 @@ export const submitContactForm = async (formData) => {
     
     const result = await response.json();
     return {
-      success: true,
+      success: result.success === true,
+      notificationDelivered: result.success === true && result.notificationDelivered === true,
       data: result.data,
       message: result.message || 'Message sent successfully! We\'ll get back to you soon.'
     };

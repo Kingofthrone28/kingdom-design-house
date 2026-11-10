@@ -1,265 +1,73 @@
-/**
- * @fileoverview Google Analytics Utility Functions
- * 
- * Helper functions for tracking events, conversions, and user interactions
- * with Google Analytics in a GDPR-compliant manner.
- * 
- * @author Kingdom Design House Development Team
- * @version 1.0.0
- * @since 2024
- */
-
-const GA_MEASUREMENT_ID = 'G-BEKZ5DH50B';
-
-/**
- * Tracks a page view
- * @param {string} url - Page URL to track
- */
-export const trackPageView = (url) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', GA_MEASUREMENT_ID, {
-      page_path: url,
-      anonymize_ip: true,
-    });
+import { inquiryContext, normalizePath, approvedAttribution, CAMPAIGNS } from './acquisition';
+export const GA_MEASUREMENT_ID = 'G-BEKZ5DH50B';
+const EVENTS = new Set(['service_cta_click', 'chat_open', 'chat_message_sent', 'demo_request_start', 'generate_lead']);
+let analyticsConsent = false;
+const completed = new Set();
+const once = new Set();
+const ATTRIBUTION_KEY = 'kdh_analytics_attribution';
+// Storage may be blocked. Guards still work for the mounted application.
+export const sessionRead = key => { try { return window.sessionStorage.getItem(key); } catch { return null; } };
+export const sessionWrite = (key, value) => { try { window.sessionStorage.setItem(key, value); } catch { /* unavailable */ } };
+export const setAnalyticsConsent = allowed => {
+  analyticsConsent = allowed === true;
+  if (!analyticsConsent && typeof window !== 'undefined') {
+    try { window.sessionStorage.removeItem(ATTRIBUTION_KEY); } catch { /* unavailable */ }
   }
 };
-
-/**
- * Tracks a custom event
- * @param {string} action - Event action (e.g., 'click', 'submit', 'view')
- * @param {string} category - Event category (e.g., 'Button', 'Form', 'Video')
- * @param {string} label - Event label (e.g., 'Contact Form', 'Pricing Plan')
- * @param {number} value - Event value (optional numeric value)
- */
-export const trackEvent = (action, category, label, value = null) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    const eventParams = {
-      event_category: category,
-      event_label: label,
-    };
-
-    if (value !== null) {
-      eventParams.value = value;
-    }
-
-    window.gtag('event', action, eventParams);
-  }
+export const getAttribution = () => {
+  if (!analyticsConsent) return {};
+  try { return approvedAttribution(JSON.parse(sessionRead(ATTRIBUTION_KEY) || '{}')); } catch { return {}; }
 };
-
-/**
- * Tracks button clicks
- * @param {string} buttonName - Name of the button clicked
- */
-export const trackButtonClick = (buttonName) => {
-  trackEvent('click', 'Button', buttonName);
+export const captureAttribution = () => {
+  if (!analyticsConsent || sessionRead(ATTRIBUTION_KEY)) return;
+  const query = new URLSearchParams(window.location.search);
+  let attributionSource = 'unknown_direct';
+  try {
+    const host = new URL(document.referrer).hostname;
+    if (/(^|\.)google\.[a-z.]+$/.test(host)) attributionSource = 'google';
+    else if (/(^|\.)bing\.com$/.test(host)) attributionSource = 'bing';
+    else if (/(^|\.)linkedin\.com$/.test(host)) attributionSource = 'linkedin';
+    else if (/(^|\.)instagram\.com$/.test(host)) attributionSource = 'instagram';
+    else if (host !== window.location.hostname) attributionSource = 'referral';
+  } catch { /* No referrer remains unknown/direct. */ }
+  sessionWrite(ATTRIBUTION_KEY, JSON.stringify(approvedAttribution({
+    attributionSource,
+    attributionCampaign: CAMPAIGNS.includes(query.get('utm_campaign')) ? query.get('utm_campaign') : '',
+    landingPath: normalizePath(window.location.pathname),
+  })));
 };
-
-/**
- * Tracks form submissions
- * @param {string} formName - Name of the form submitted
- */
-export const trackFormSubmission = (formName) => {
-  trackEvent('submit', 'Form', formName);
+export const trackAcquisition = (event, values = {}) => {
+  if (!EVENTS.has(event) || !analyticsConsent || typeof window === 'undefined' || !window.gtag) return false;
+  const context = inquiryContext(values);
+  const page_path = normalizePath(window.location.pathname);
+  const params = {
+    page_path,
+    page_location: `https://kingdomdesignhouse.com${page_path}`,
+    page_referrer: '',
+    ...Object.fromEntries(Object.entries(context).filter(([, value]) => value)),
+    ...getAttribution(),
+  };
+  if (['contact_form', 'chat'].includes(values.method)) params.method = values.method;
+  window.gtag('event', event, params);
+  return true;
 };
-
-/**
- * Tracks chat interactions
- * @param {string} action - Chat action (e.g., 'open', 'close', 'send_message')
- */
-export const trackChatInteraction = (action) => {
-  trackEvent(action, 'Chat', 'Jarvis AI Chat');
+export const trackOnce = (event, localKey, values) => {
+  const key = `${event}:${localKey}`;
+  if (once.has(key)) return false;
+  once.add(key);
+  return trackAcquisition(event, values);
 };
-
-/**
- * Tracks video interactions
- * @param {string} action - Video action (e.g., 'play', 'pause', 'complete')
- * @param {string} videoTitle - Title of the video
- */
-export const trackVideoInteraction = (action, videoTitle) => {
-  trackEvent(action, 'Video', videoTitle);
+// IDs are local deduplication keys; never sent to GA. No replay after consent changes.
+export const trackConfirmedLead = (method, localId, confirmed, context = {}) => {
+  if (confirmed !== true || !localId || !['contact_form', 'chat'].includes(method)) return false;
+  const key = `kdh_conversion_${method}_${localId}`;
+  if (completed.has(key) || sessionRead(key)) return false;
+  completed.add(key);
+  sessionWrite(key, 'confirmed');
+  return trackAcquisition('generate_lead', { ...context, method });
 };
-
-/**
- * Tracks pricing plan views
- * @param {string} planName - Name of the pricing plan viewed
- */
-export const trackPricingView = (planName) => {
-  trackEvent('view', 'Pricing', planName);
-};
-
-/**
- * Tracks service interest
- * @param {string} serviceName - Name of the service
- */
-export const trackServiceInterest = (serviceName) => {
-  trackEvent('interest', 'Service', serviceName);
-};
-
-/**
- * Tracks lead generation
- * @param {string} source - Lead source (e.g., 'contact_form', 'chat', 'phone')
- */
-export const trackLeadGeneration = (source) => {
-  trackEvent('generate_lead', 'Lead', source);
-};
-
-/**
- * Tracks scroll depth
- * @param {number} percentage - Scroll percentage (25, 50, 75, 100)
- */
-export const trackScrollDepth = (percentage) => {
-  trackEvent('scroll', 'Engagement', `${percentage}%`, percentage);
-};
-
-/**
- * Tracks time on page
- * @param {number} seconds - Time spent on page in seconds
- */
-export const trackTimeOnPage = (seconds) => {
-  trackEvent('time_on_page', 'Engagement', `${seconds} seconds`, seconds);
-};
-
-/**
- * Tracks external link clicks
- * @param {string} url - External URL clicked
- */
-export const trackExternalLink = (url) => {
-  trackEvent('click', 'External Link', url);
-};
-
-/**
- * Tracks file downloads
- * @param {string} fileName - Name of the file downloaded
- */
-export const trackFileDownload = (fileName) => {
-  trackEvent('download', 'File', fileName);
-};
-
-/**
- * Tracks search queries
- * @param {string} searchTerm - Search term entered
- */
-export const trackSearch = (searchTerm) => {
-  trackEvent('search', 'Search', searchTerm);
-};
-
-/**
- * Tracks errors
- * @param {string} errorMessage - Error message
- * @param {string} errorLocation - Where the error occurred
- */
-export const trackError = (errorMessage, errorLocation) => {
-  trackEvent('error', 'Error', `${errorLocation}: ${errorMessage}`);
-};
-
-/**
- * Tracks conversions (e.g., contact form submission, lead capture)
- * @param {string} conversionType - Type of conversion
- * @param {number} value - Conversion value (optional)
- */
-export const trackConversion = (conversionType, value = null) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    const conversionParams = {
-      send_to: GA_MEASUREMENT_ID,
-      value: value,
-      currency: 'USD',
-    };
-
-    window.gtag('event', 'conversion', {
-      ...conversionParams,
-      event_category: 'Conversion',
-      event_label: conversionType,
-    });
-  }
-};
-
-/**
- * Sets user properties
- * @param {Object} properties - User properties to set
- */
-export const setUserProperties = (properties) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('set', 'user_properties', properties);
-  }
-};
-
-/**
- * Updates consent settings
- * @param {boolean} analyticsConsent - Analytics consent status
- * @param {boolean} adConsent - Advertising consent status
- */
-export const updateConsentSettings = (analyticsConsent, adConsent) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('consent', 'update', {
-      analytics_storage: analyticsConsent ? 'granted' : 'denied',
-      ad_storage: adConsent ? 'granted' : 'denied',
-    });
-  }
-};
-
-/**
- * Tracks custom dimensions
- * @param {string} dimensionName - Name of the custom dimension
- * @param {string} dimensionValue - Value of the custom dimension
- */
-export const trackCustomDimension = (dimensionName, dimensionValue) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('set', dimensionName, dimensionValue);
-  }
-};
-
-/**
- * Tracks exceptions
- * @param {string} description - Exception description
- * @param {boolean} fatal - Whether the exception was fatal
- */
-export const trackException = (description, fatal = false) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'exception', {
-      description: description,
-      fatal: fatal,
-    });
-  }
-};
-
-/**
- * Tracks timing (performance metrics)
- * @param {string} category - Timing category
- * @param {string} variable - Timing variable
- * @param {number} value - Timing value in milliseconds
- * @param {string} label - Timing label
- */
-export const trackTiming = (category, variable, value, label = '') => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'timing_complete', {
-      name: variable,
-      value: value,
-      event_category: category,
-      event_label: label,
-    });
-  }
-};
-
-export default {
-  trackPageView,
-  trackEvent,
-  trackButtonClick,
-  trackFormSubmission,
-  trackChatInteraction,
-  trackVideoInteraction,
-  trackPricingView,
-  trackServiceInterest,
-  trackLeadGeneration,
-  trackScrollDepth,
-  trackTimeOnPage,
-  trackExternalLink,
-  trackFileDownload,
-  trackSearch,
-  trackError,
-  trackConversion,
-  setUserProperties,
-  updateConsentSettings,
-  trackCustomDimension,
-  trackException,
-  trackTiming,
+export const trackPageView = url => {
+  if (!analyticsConsent || typeof window === 'undefined' || !window.gtag) return;
+  const page_path = normalizePath(url);
+  window.gtag('event', 'page_view', { page_path, page_location: `https://kingdomdesignhouse.com${page_path}`, page_referrer: '' });
 };

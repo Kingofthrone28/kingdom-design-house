@@ -322,3 +322,28 @@
     }
   }
 }
+.chatInterface { padding: 0; pointer-events: none; }
+.chatInterface__modal {
+  pointer-events: auto;
+  border: 0;
+  padding: 0;
+  margin: auto;
+  height: min(720px, 92dvh);
+  max-height: calc(100dvh - 24px);
+  width: min(560px, calc(100vw - 24px));
+  &::backdrop { background: rgba(0, 0, 0, .75); }
+}
+.chatInterface__header { flex-shrink: 0; padding: 16px; }
+.chatInterface__title h2 { font-size: 1.15rem; margin: 0; }
+.chatInterface__messages { min-height: 0; overscroll-behavior: contain; }
+.chatInterface__input { flex-shrink: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+.chatInterface__close, .chatInterface__send { min-width: 44px; min-height: 44px; }
+.starter { margin: 8px 16px; padding: 12px; text-align: left; background: #f3f1e8; border: 1px solid #555; border-radius: 6px; color: #222; cursor: pointer; max-height: 90px; overflow: auto; flex-shrink: 0; }
+.fallback { margin: 8px 16px; font-size: .9rem; flex-shrink: 0; a { color: #222; text-decoration: underline; } }
+@media (max-width: 600px) {
+  .chatInterface__modal { height: calc(100dvh - 12px); max-height: calc(100dvh - 12px); }
+  .chatInterface__messages { padding: 12px; }
+}
+
+.chatInterface__input textarea { min-width: 0; }
+.chatInterface__modal :focus-visible { outline: 3px solid #4263b9; outline-offset: 2px; }

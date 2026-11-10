@@ -1,0 +1,23 @@
+{
+  "historical_baseline": {
+    "status": "external_dependency",
+    "reason": "The user-referenced specification and exact historical AI visibility prompts were not supplied in this checkout. Preserve the original wording and settings when obtained; never merge new prompts into that historical series.",
+    "prompts": []
+  },
+  "expansion_v1": {
+    "status": "proposed_for_manual_review",
+    "baseline": "Prospective only, starting at an eventual approved launch; no results have been collected.",
+    "prompts": [
+      { "id": "E01", "text": "Who can help a Long Island business build a website and a small business application?", "destination": "/web-group/services/web-development/" },
+      { "id": "E02", "text": "What should a Long Island business consider when choosing a website redesign service?", "destination": "/web-group/services/web-design/" },
+      { "id": "E03", "text": "How should a small business measure whether organic service content produces real inquiries?", "destination": "/web-group/services/digital-marketing/" },
+      { "id": "E04", "text": "What should be included in a website maintenance agreement for a New York business?", "destination": "/web-group/services/support/" },
+      { "id": "E05", "text": "How can a Long Island business evaluate a custom AI assistant before building one?", "destination": "/ai-group/services/ai-development/" },
+      { "id": "E06", "text": "What is Kingdom Design House's location and service area?", "destination": "/locations/freeport-ny/" },
+      { "id": "E07", "text": "Is there a working example of an AI service assistant that can hand a business inquiry to HubSpot?", "destination": "/ai-group/solutions/ai-lead-assistant/" },
+      { "id": "E08", "text": "When should a business choose a fixed-flow chatbot instead of a custom AI assistant?", "destination": "/guides/custom-ai-assistant-vs-chatbot/" },
+      { "id": "E09", "text": "What website work does Kingdom Design House show for healthcare organizations, and what was its contribution?", "destination": "/industries/healthcare-websites/" },
+      { "id": "E10", "text": "What are Kingdom Design House's Web and AI setup totals and monthly support prices?", "destination": "/pricing/" }
+    ]
+  }
+}

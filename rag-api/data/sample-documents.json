@@ -1,163 +1,132 @@
 [
   {
-    "id": "web-design-1",
-    "title": "Web Design Services",
-    "content": "Transform your online presence with award-winning, purpose-built web design. At Kingdom Design House, we combine design, development, and strategy to deliver digital experiences that reflect your brand and support long-term growth. Our collaborative approach involves you at every stage, creating a process that is clear, engaging, and client-focused. We immerse ourselves in your industry and brand identity to deliver a site that speaks directly to your audience while driving measurable results. Our approach includes Discovery (understanding business goals and challenges), Research & Insight (studying market and competition), UX & Structure (creating intuitive user flows), Content Alignment (determining key messages), and Design Execution (visually striking and strategically effective designs).",
-    "category": "web-design",
-    "tags": ["web design", "ux ui design", "creative direction", "mobile responsive", "brand identity", "user experience"]
+    "id": "web-development-1",
+    "title": "A website or business app your team can use.",
+    "category": "web-development",
+    "tags": [
+      "web-development",
+      "approved-service-content"
+    ],
+    "content": "If your website hides your services, forms lose inquiries, or staff copy information between tools, start with the workflow. We build marketing websites, portals, and business applications around the tasks your customers and team need to complete.\nDeliverables:\nA written scope, page or workflow map, and integration requirements\nResponsive implementation, agreed CMS or application features, and inquiry paths\nTesting of core workflows, launch checklist, and handoff documentation\nScope:\nA brochure website package does not include an unlimited custom application. Authentication, complex data migration, external APIs, hosting, software licenses, and ongoing operations are scoped separately. You provide access, approved content, and feedback; we agree on acceptance checks before development.\nPricing basis:\nPublished Web packages provide a starting point for websites. Application pricing depends on roles, workflows, data, integrations, and testing requirements. Confirm what is included in a written proposal.\nCan you build a business application instead of a marketing site? Yes. We first define users, permissions, data, workflows, and integrations, then quote the application scope separately from a website package.\nCan we keep our existing CMS? We review its access, templates, data, and integration limits before recommending an extension or migration.\nHow long will development take? The schedule depends on the approved scope, content readiness, integrations, and review cycles. Milestones are agreed after discovery.\nWill the site generate leads automatically? We can implement clear inquiry paths and measurement. Traffic, visitor fit, and commercial results require ongoing review; no lead volume is guaranteed.\nDo you work outside Long Island? KDH is based in Freeport, serves Long Island and NYC, and can deliver projects remotely.\nIIN contribution overview: Professional engineering contributions to enrollment workflows; not presented as a verified KDH agency engagement. https://kingdomdesignhouse.com/case-studies/iin/"
   },
   {
-    "id": "web-development-1",
-    "title": "Web Development Services",
-    "content": "Build powerful, scalable web applications with our expert development team. We create custom solutions that grow with your business and deliver exceptional user experiences. From front-end frameworks to back-end architecture, we use cutting-edge technologies to build robust, secure, and performant web applications. Our development process ensures your application is optimized for speed, security, and scalability. Our approach includes Technical Planning (analyzing requirements and creating technical roadmap), Architecture Design (scalable system architecture), and Development & Testing (building with industry best practices and continuous testing). We specialize in Front-end Development (React, Next.js, Vue.js), Back-end Development (Node.js, Python, PHP), and Database Design (MySQL, PostgreSQL, MongoDB).",
-    "category": "web-development",
-    "tags": ["web development", "custom applications", "react", "nextjs", "nodejs", "database design", "scalable solutions"]
+    "id": "web-design-1",
+    "title": "Make your offer easier to understand.",
+    "category": "web-design",
+    "tags": [
+      "web-design",
+      "approved-service-content"
+    ],
+    "content": "When customers cannot find the right service or know what to do next, a redesign needs more than a new visual style. We clarify page structure, content hierarchy, mobile navigation, and inquiry paths for your audience.\nDeliverables:\nDiscovery notes, page inventory, and a proposed information structure\nWireframes and responsive page designs for agreed templates\nDesign review, implementation handoff, and agreed accessibility and mobile checks\nScope:\nWe agree on pages, templates, revisions, and whether development is included. Photography, brand identity creation, ongoing copywriting, and extensive content migration require their own scope. You approve factual claims and supply assets you have permission to use.\nPricing basis:\nWeb package totals below cover the published package scope. A design-only engagement or larger redesign is quoted by templates, content needs, implementation work, and review rounds.\nCan you redesign without replacing everything? We review the existing structure and identify the pages, navigation, and interactions that need attention.\nIs development included? The proposal states whether the work includes implementation, a design handoff, or both.\nCan you help organize our content? Yes. We can map key messages and page structure. Content production and migration volumes are agreed separately.\nWill the design work on phones? Responsive layouts and checks of agreed mobile journeys form part of the design scope.\nDoes a redesign guarantee more inquiries? No. We can improve clarity and make inquiry paths measurable, then evaluate results with real visitors.\nDavid Dare MD portfolio: Treatment information hierarchy and appointment pathways; contribution details are described in the portfolio. https://kingdomdesignhouse.com/case-studies/daremd/"
   },
   {
     "id": "digital-marketing-1",
-    "title": "Digital Marketing & Technical SEO",
-    "content": "A stunning website means little if no one can find it. At Kingdom Design House, we pair handcrafted design and development with digital marketing strategies and technical SEO that ensure your site gets discovered, ranks well, and converts visitors into customers. We focus on proven SEO fundamentals, applying best practices from the ground up so your site is optimized for performance, user experience, and long-term growth. Our technical SEO process includes Site Architecture & Crawlability (logical structure for search engines), Page Speed & Performance (lightning-fast loading), Mobile Optimization (flawless mobile performance), On-Page Technical Elements (metadata, schema markup, canonical tags), and Indexing & Error Resolution (monitoring and fixing crawl errors).",
+    "title": "Connect useful content to a measurable next step.",
     "category": "digital-marketing",
-    "tags": ["digital marketing", "technical seo", "search engine optimization", "page speed", "mobile optimization", "analytics"]
+    "tags": [
+      "digital-marketing",
+      "approved-service-content"
+    ],
+    "content": "Traffic alone does not explain whether people can find your services or become customers. We review technical search foundations, service content, internal links, and inquiry measurement so you can see where the funnel needs work.\nDeliverables:\nA technical and content audit with prioritized actions\nAgreed improvements to metadata, indexing, internal links, and service content\nConsent-aware conversion measurement and a reporting framework tied to inquiries\nScope:\nSearch rankings, inclusion in AI answers, and inquiry volumes are not guaranteed. Media spend, paid campaign management, large content programs, and social publishing require an explicit scope. Account access and historical Search Console and GA4 data are dependencies.\nPricing basis:\nSEO setup is part of the relevant published Web package scope. Ongoing marketing work depends on the audit, pages, content production, and reporting cadence; a support price is not an unlimited marketing retainer.\nDo you guarantee a first-page ranking? No. Search platforms decide what to index and show. We focus on useful content and technical foundations that can be reviewed.\nHow do you measure success? Review search impressions and clicks, then confirmed inquiries, qualified conversations, consultations, proposals, and revenue. Keep engagement separate from leads.\nCan you optimize for AI search? We apply conventional SEO: accessible text, internal links, accurate metadata, and structured data that matches visible content. Inclusion in AI answers is not guaranteed.\nDo I need paid ads? Not necessarily. We first assess whether organic demand and the existing website support your goals. Paid campaigns are a separate decision and scope.\nWhen should we review progress? Review the funnel weekly and compare 28-day search periods. Evaluate inquiry quality and commercial outcomes after 60–90 days before expanding content.\nAssistant comparison guide: Useful buyer education connected to a relevant service and inquiry path. https://kingdomdesignhouse.com/guides/custom-ai-assistant-vs-chatbot/"
   },
   {
     "id": "support-1",
-    "title": "SEO Support & Growth Services",
-    "content": "Launching a website is only the beginning. To stay visible online, your SEO needs ongoing care, updates, and optimization. At Kingdom Design House, our SEO Support services provide long-term guidance and hands-on improvements to keep your website competitive in search rankings, responsive to algorithm changes, and aligned with your business goals. We see SEO as a continuous partnership — not a one-time project. Our support covers Ongoing Technical Monitoring (speed, crawlability, mobile performance), Keyword Tracking & Adjustments (refining strategy for qualified traffic), Content Refresh & Optimization (updating key pages with improved structure), Analytics & Reporting (clear, actionable reports on traffic and conversions), and Strategic Consultation (guidance on new content and best practices).",
+    "title": "Keep your website useful after launch.",
     "category": "support",
-    "tags": ["seo support", "ongoing optimization", "keyword tracking", "content refresh", "analytics reporting", "strategic consultation"]
-  },
-  {
-    "id": "network-design-1",
-    "title": "Network Design Services",
-    "content": "At Kingdom Design House, we provide complete network design services that ensure your business infrastructure is robust, scalable, and reliable. Our comprehensive approach covers every aspect of network implementation, from initial configuration to ongoing optimization and redundancy planning. We design custom networks tailored to your specific needs, ensuring optimal performance for current operations while planning for future growth. Our services include Router & Switch Configuration (custom setups for optimal performance, eliminating bottlenecks and improving speeds), WiFi Design & Optimization (seamless coverage, eliminating dead zones and ensuring seamless roaming), Network Load Balancing (intelligent traffic distribution, preventing bottlenecks and improving reliability), and Redundancy & Uptime Assurance (business continuity planning with backup systems and failover protection).",
-    "category": "network-design",
-    "tags": ["network design", "router configuration", "switch setup", "wifi optimization", "load balancing", "redundancy", "uptime assurance"]
-  },
-  {
-    "id": "network-optimization-1",
-    "title": "Network Testing & Optimization",
-    "content": "A network isn't complete the moment cables are plugged in or WiFi access points are turned on. The real measure of a system is how it performs under pressure — during peak business hours, high data usage, or when multiple applications are running at once. At Kingdom Design House, we believe testing and optimization are the final, crucial steps in building a network that is reliable, efficient, and future-ready. Our optimization services include Real-World Performance Testing (rigorous testing to simulate actual business conditions, speed tests, and multi-user stress tests), Coverage & Signal Verification (measuring signal strength throughout workspace to eliminate dead zones and weak spots), Bandwidth & Load Optimization (evaluating bandwidth distribution and making adjustments to prioritize business-critical functions), and Continuous Improvement (ongoing monitoring and adjustments to keep your network performing at its best).",
-    "category": "network-optimization",
-    "tags": ["network optimization", "performance testing", "signal verification", "bandwidth optimization", "load testing", "continuous improvement"]
-  },
-  {
-    "id": "network-support-1",
-    "title": "Network Support & Maintenance",
-    "content": "A strong network doesn't just need to be installed — it needs to be maintained. Technology evolves, devices are added, and usage demands change over time. At Kingdom Design House, our Support & Maintenance services ensure your network stays reliable, efficient, and ready for the future. We partner with you beyond installation, making sure your systems continue to perform at their best. Our support services include Proactive Support (monitoring and evaluating your network to identify potential weak spots before they cause disruptions), Routine Updates & System Care (handling firmware updates, configuration adjustments, and optimization tasks), Responsive Troubleshooting (quick diagnosis and resolution of problems to minimize downtime), and Long-Term Partnership (growing with you, adjusting your network as your team expands and needs evolve).",
-    "category": "network-support",
-    "tags": ["network support", "maintenance", "proactive support", "troubleshooting", "system updates", "long-term partnership"]
-  },
-  {
-    "id": "ai-consulting-1",
-    "title": "AI Consulting Services",
-    "content": "Artificial Intelligence isn't just a buzzword — it's a set of tools and techniques that can fundamentally change how businesses operate. At Kingdom Design House, our consulting services focus on helping you cut through the hype and uncover practical AI applications that align with your specific business goals. Our AI consulting process includes Strategic Assessment (in-depth review of workflows, data, and current technology stack to identify AI opportunities), Building an AI Roadmap (step-by-step roadmap for implementation with clear metrics for success), and Collaborative Guidance (partnership approach with training, support, and clear actionable plans). We help you understand how your existing data assets can be leveraged and what AI technologies are best suited for your business needs.",
-    "category": "ai-consulting",
-    "tags": ["ai consulting", "strategic assessment", "ai roadmap", "business intelligence", "workflow optimization", "data analysis"]
+    "tags": [
+      "support",
+      "approved-service-content"
+    ],
+    "content": "Broken forms, outdated content, plugin changes, and slow pages can interrupt the customer journey. We start with an audit and agree on routine maintenance, update priorities, and a process for reporting issues.\nDeliverables:\nAn agreed maintenance scope and access inventory\nScheduled updates, content changes, or performance work within the selected plan\nChecks of key inquiry paths, reporting, and handoff notes for changes\nScope:\nResponse times, service hours, backups, and monitoring must be agreed in writing. Support does not promise uninterrupted uptime or unlimited development. Emergency recovery, major redesigns, hosting, licenses, and new integrations may require separate work.\nPricing basis:\nPublished Web support prices are $150, $250, and $500 per month for the corresponding package scope. Existing websites are assessed before recommending a plan. Setup totals below apply to website projects, not automatically to support-only work.\nCan you support a site you did not build? We review its framework, hosting, dependencies, access, and existing issues before confirming scope.\nAre content edits included? The plan defines the kinds and volume of edits included. Larger content changes and new features are estimated separately.\nIs support available 24/7? Service hours, response targets, and any emergency arrangements must be explicitly agreed.\nWill you check our contact form? Key inquiry paths can be included in the maintenance checklist with safe test procedures and delivery checks.\nCan we add features later? Yes. We assess new features separately and agree on cost, schedule, and acceptance checks.\nDermCare Management portfolio: Modular content and responsive templates illustrate a maintainable structure; no ongoing support contract or uptime result is asserted. https://kingdomdesignhouse.com/case-studies/dermcare/"
   },
   {
     "id": "ai-development-1",
-    "title": "AI Development Services",
-    "content": "Once the plan is in place, our AI Development services transform strategy into working systems. At Kingdom Design House, we build and customize AI tools designed to fit directly into your operations — whether that's customer-facing automation, smarter search systems, or internal assistants. Our development process includes Custom-Built AI Applications (tools that handle your unique needs, from AI chatbots to recommendation engines), The Power of RAG (Retrieval-Augmented Generation that blends large language models with your company's proprietary data for accurate, context-aware responses), and Testing & Deployment (rigorous testing for accuracy, scalability, and usability with seamless integration into existing workflows). We create AI systems that don't just function — they enhance the way your business operates daily.",
+    "title": "Start with a business task, then choose the AI.",
     "category": "ai-development",
-    "tags": ["ai development", "custom ai applications", "rag implementation", "chatbot development", "machine learning", "workflow automation"]
+    "tags": [
+      "ai-development",
+      "approved-service-content"
+    ],
+    "content": "When staff repeatedly answer the same questions or transfer information between tools, an assistant may help. We scope the knowledge sources, actions, permissions, handoff, and failure cases before building a prototype.\nDeliverables:\nA workflow map, approved knowledge sources, and success and failure criteria\nA prototype assistant or integration with scoped permissions and a human fallback\nEvaluation examples, integration checks, deployment notes, and an update process\nScope:\nAI responses can be incomplete or incorrect. Human review is required for consequential decisions. Model usage, hosting, vector storage, external licenses, data cleanup, and ongoing evaluation are scoped separately. Do not use the public demo for sensitive records or patient information.\nPricing basis:\nPublished AI setup totals start at $4,000 with support from $300 per month. The final scope depends on retrieval sources, integrations, actions, evaluation, and operating requirements. Third-party usage charges are separate and vary with traffic and configuration.\nHow is a custom assistant different from a basic chatbot? A fixed flow suits predictable questions. A custom assistant can retrieve approved knowledge and connect to tools, but needs more evaluation, maintenance, and oversight.\nCan it connect to our CRM? We scope supported APIs, field mapping, permissions, retries, and failure handling. Jarvis has an implemented HubSpot handoff; your integration requires its own scope and verification.\nWill it always answer correctly? No. We test representative questions, provide a human fallback, and define tasks the assistant must not perform.\nWhat costs continue after launch? Support, model usage, hosting, retrieval storage, integration subscriptions, and content updates may continue. We identify these in the proposal rather than promise a fixed usage bill.\nCan I try an example? Use the Jarvis demo for business questions and avoid sensitive information. It is a working assistant and may create a follow-up inquiry if you provide project and contact details.\nJarvis lead assistant: A working KDH assistant with retrieval, structured inquiry extraction, Contact fallback, and a HubSpot handoff implemented in this repository. https://kingdomdesignhouse.com/ai-group/solutions/ai-lead-assistant/\nIIN contribution overview: Professional integration and enrollment workflow experience; not an AI deployment claim or verified KDH agency engagement. https://kingdomdesignhouse.com/case-studies/iin/"
   },
   {
-    "id": "ai-support-1",
-    "title": "AI Support & Optimization",
-    "content": "Unlike traditional software, AI systems improve over time — but only if they're monitored and maintained. At Kingdom Design House, our AI Support services ensure that your solutions continue to evolve alongside your business, data, and industry trends. Our support services include Continuous Monitoring & Fine-Tuning (tracking AI performance to ensure accuracy, relevance, and speed while preventing model decay), Updating With New Data (continually feeding new data into your models so your AI reflects the current state of your business), and Advisory & Feature Expansion (acting as advisors for expanding AI capabilities with additional features like voice interfaces, analytics dashboards, or workflow automation). We help you extend the value of your initial AI investment and keep your systems sharp, relevant, and ahead of the curve.",
-    "category": "ai-support",
-    "tags": ["ai support", "ai optimization", "model monitoring", "data updates", "feature expansion", "continuous improvement"]
+    "id": "destination-freeport",
+    "title": "Websites & AI Automation in Freeport, NY",
+    "category": "website",
+    "tags": [
+      "freeport",
+      "approved-public-content"
+    ],
+    "content": "Kingdom Design House builds websites, business applications, and AI automation from Freeport for businesses across Long Island and NYC. Projects can be delivered remotely, with discovery, reviews, and handoff coordinated online. This is our actual base, not a separate regional office network.\nWork with a Freeport-based partner\nTell us what your business does, who needs to use the website or application, and where the current process gets stuck. We can review a website, discuss a redesign or business app, or assess a repetitive task for automation.\nServing Long Island includes Nassau and Suffolk businesses; our regional service area also includes NYC. Delivery arrangements and any on-site work are agreed during scoping. Contact us before planning an in-person visit.\nChoose the right starting point\nWeb design clarifies the customer journey. Web development implements websites and business applications. AI development starts with the workflow, data, permissions, and human handoff. Ongoing support is scoped separately.\nAre you based in Freeport? Yes. Freeport is KDH’s base. We serve Long Island and NYC and offer remote delivery.\nCan we work together remotely? Yes. Discovery, design reviews, development feedback, and handoff can be coordinated online.\nDo you have offices in every area you serve? No. The regional coverage describes where we work with businesses, not additional office locations.\nWhat should I send before a consultation? Share your current website if you have one, the problem you want to solve, the main users, and any timeline or budget constraints. Avoid confidential records.\nInstitute for Integrative Nutrition: Professional contributions to engineering and enrollment workflows. The relationship is not presented as a verified KDH agency engagement.\nNorthwell Health: Paul Solomon’s professional employment experience as a Northwell Health Software Engineer, including patient dashboard and provider discovery contributions.\nDavid Dare MD: A patient-focused orthopedic website with clear service pathways, responsive design, and streamlined appointment calls to action.\nDermCare Management: A healthcare-focused website rebuild with clear service storytelling, stronger UX structure, and a scalable content foundation.\nhttps://kingdomdesignhouse.com/locations/freeport-ny/"
   },
   {
-    "id": "pricing-web-1",
-    "title": "Web Group Pricing Plans",
-    "content": "Web Group offers three pricing tiers: Starter Plan ($2,500 one-time setup, $150/month support) - perfect for small businesses with up to 5 pages, basic SEO, site branding, and contact forms. Growth Plan ($3,800 one-time setup, $250/month support) - ideal for small-mid businesses with up to 10 pages, custom branding, SEO for 10 pages, lead generation forms, and CRM integration. Scale Plan ($5,500 one-time setup, $500/month support) - designed for comprehensive solutions with up to 15 pages, custom design, web animations, advanced SEO setup, content marketing, and CRM integration. All plans include monthly support with content updates, reporting, and maintenance.",
+    "id": "destination-lead-assistant",
+    "title": "AI Lead Assistant & Jarvis Demo | Long Island & NYC",
+    "category": "website",
+    "tags": [
+      "lead-assistant",
+      "approved-public-content"
+    ],
+    "content": "Jarvis is the working assistant on this website. It answers questions using approved knowledge and retrieved site content, gathers business project details during a conversation, and can pass a follow-up inquiry to HubSpot. Open the demo to ask about a service, scope, or pricing. Providing contact and project details may create a real inquiry; do not use it for test submissions or sensitive information.\nWhat the demo can demonstrate\nAsk about KDH’s Web and AI services, compare package setup and support prices, or describe a business workflow. Jarvis uses the site’s retrieval service for grounded answers and extracts structured contact and project information for follow-up. It can still misunderstand a question or use outdated retrieved information.\nHomepage, floating, and service-page buttons open the same conversation for the browser tab session. Service starters are editable drafts; they do not send a message automatically.\nQualification and human handoff\nUseful qualification includes the requested service, project description, business, budget, and timeline when the visitor chooses to provide them. The server requires an email plus a service, description, or another inquiry indicator before attempting CRM synchronization.\nThe implemented HubSpot workflow upserts the contact and attempts related deal and follow-up ticket synchronization when enough project detail is available. Contact acceptance confirms receipt; a deal or ticket can still fail separately. The assistant offers a Contact form fallback, and a person must review the inquiry and follow up. It does not book a consultation or promise a response automatically.\nDesign for failure and ongoing care\nTest irrelevant questions, missing data, ambiguous service requests, API failures, and failed handoffs. Keep actions restricted, review answers against approved content, and give visitors a way to reach a person.\nKnowledge sources need refreshing when services, prices, or contributions change. Model and retrieval usage, hosting, integration subscriptions, and evaluation are operating costs in addition to the published setup and support scope.\nWhat this example does not prove\nThis working example does not establish a measured increase in leads, sales, or revenue. Evaluate a proposed assistant against your own workflow and measurement baseline.\nThe public demo is for business inquiries. It is not a patient intake system, an emergency channel, or an autonomous decision-maker. Avoid patient data, credentials, and confidential records.\nDoes opening the demo create a lead? No. Opening a chat is engagement. An inquiry is confirmed only after the server reports successful CRM acceptance.\nCan the handoff fail? Yes. CRM contact, deal, or ticket operations can fail. A Contact fallback stays available, and failed CRM acceptance is not counted as a lead.\nDoes the assistant replace a person? No. It can help with discovery and collecting information. People review requests, confirm scope, and handle decisions and follow-up.\nWhat does an assistant cost? Published AI setup totals are $4,000, $6,000, and $8,000, with corresponding support at $300, $500, and $800 per month. Integrations and operating usage depend on the agreed scope.\nCan I try it without sharing contact details? Yes. Ask a business or service question. Contact details are needed only if you want a follow-up inquiry.\nCustom assistant vs chatbot: Compare simpler fixed flows with retrieval and integration requirements before choosing a build.\nhttps://kingdomdesignhouse.com/ai-group/solutions/ai-lead-assistant/"
+  },
+  {
+    "id": "destination-healthcare",
+    "title": "Healthcare Website Design & Development | Long Island & NYC",
+    "category": "website",
+    "tags": [
+      "healthcare",
+      "approved-public-content"
+    ],
+    "content": "A healthcare website has to make practice information, services, and contact pathways easy to navigate. KDH’s portfolio includes David Dare MD and DermCare Management website contributions. These examples support a conversation about content structure, responsive design, and development; they do not establish clinical outcomes or compliance certifications.\nStart with the visitor’s task\nFor a practice website, people may need to understand a treatment area, find practical information, or reach the appropriate office. For a healthcare management organization, the visitor may be a physician exploring services and resources. These journeys need different structures and calls to action.\nAgree on deliverables and review\nA website scope can include a content inventory, page map, responsive designs, implementation, and checks of the agreed service and contact journeys. The organization supplies and approves medical or business content and appoints the people responsible for reviewing it.\nScheduling integrations, data migration, identity systems, and content production are scoped separately. A public marketing website should link to the appropriate approved patient service instead of routing patient records through a general business inquiry.\nA business inquiry has a specific boundary\nUse KDH Contact or Jarvis to discuss a website project. Do not submit patient information, medical questions, or emergency requests. This website is not a patient intake service.\nAny regulated-data handling, security assessment, accessibility requirements, vendor agreements, and specialized review need their own defined scope and qualified review. Portfolio presence alone is not a compliance claim.\nDo the examples show measured patient outcomes? No. They illustrate website work and content journeys, not patient outcomes, booking increases, or healthcare compliance.\nCan you connect scheduling tools? We review the selected vendor, supported integration method, access, data flow, and review responsibilities before confirming scope.\nWho approves treatment information? Your organization’s designated reviewers must approve clinical information and factual claims.\nCan patients send information through KDH’s form? No. KDH’s form and Jarvis are for business project inquiries. Patients should use their provider’s approved channels.\nHow is the project priced? Web packages provide a starting point. The proposal accounts for page templates, approved content, integrations, migration, and specialized review requirements.\nDavid Dare MD: Portfolio contribution: responsive orthopedic website presentation, treatment information hierarchy, and appointment calls to action. No clinical or conversion lift is claimed.\nDermCare Management: Portfolio contribution: service navigation, physician-focused content, and modular responsive templates. The engagement relationship is not asserted as independently verified.\nhttps://kingdomdesignhouse.com/industries/healthcare-websites/"
+  },
+  {
+    "id": "destination-assistant-guide",
+    "title": "Custom AI Assistant vs Chatbot: Fit, Costs & Maintenance",
+    "category": "website",
+    "tags": [
+      "assistant-guide",
+      "approved-public-content"
+    ],
+    "content": "The labels overlap: many products called chatbots already use generative AI. A more useful comparison is a fixed flow or FAQ tool versus an assistant that retrieves business knowledge and can connect to other systems. Choose based on the task, information, operating cost, and review your team can support.\nWhen a simpler flow is enough\nA short FAQ, service selector, or structured inquiry form can be easier to operate than an open-ended assistant. If every visitor needs the same few choices, define those choices clearly and provide a person to contact when the flow does not fit.\nWhen retrieval and integration add value\nA custom assistant may be useful when visitors ask varied questions across approved information or staff need a specific workflow spanning tools. Start with a narrow task and representative test questions. An assistant still needs accurate sources and explicit rules for what it may do.\nCompare the full cost of operation\nCompare implementation effort, subscription and usage charges, hosting, storage, integration licenses, support, and the time people spend maintaining and reviewing the system. Avoid choosing based only on the demo or setup price.\nKDH publishes AI setup totals from $4,000 and support from $300 per month. These are package starting points, not a guaranteed total operating bill. A simpler existing tool may be more appropriate for a small, fixed task.\nDecide how a person takes over\nDefine a clear handoff for uncertainty, missing information, and integration failure. Keep consequential decisions with people, restrict actions, and avoid collecting sensitive records in a public business demo.\nJarvis demonstrates service questions and an implemented HubSpot inquiry handoff. Opening it is engagement; successful CRM acceptance or Contact notification delivery is the point at which KDH records an inquiry.\nIs an AI assistant always better? No. A fixed flow or ordinary form may solve the problem with less cost and maintenance.\nCan an assistant make mistakes with approved sources? Yes. Retrieval can miss context and generated answers can be incorrect. Use evaluation questions, clear limitations, and human escalation.\nWhat should I prepare before choosing? List common questions, approved sources, systems involved, expected usage, who maintains the content, and the decisions a person must review.\nWill either option increase sales? Neither guarantees sales. Measure confirmed inquiries and qualified commercial outcomes against a real baseline.\nExplore Jarvis: Try a service conversation before deciding whether a similar assistant fits your workflow.\nhttps://kingdomdesignhouse.com/guides/custom-ai-assistant-vs-chatbot/"
+  },
+  {
+    "id": "pricing-web",
+    "title": "web package pricing",
     "category": "pricing",
-    "tags": ["web pricing", "starter plan", "growth plan", "scale plan", "web development", "monthly support"]
+    "tags": [
+      "pricing",
+      "web"
+    ],
+    "content": "Starter: $2,500 setup total; $150/month recurring support.\nGrowth: $3,800 setup total; $250/month recurring support.\nScale: $5,500 setup total; $500/month recurring support.\nSix-month setup payment option: setup total split across six payments; rounding may require a final adjustment. Support is separate. Scope and third-party costs must be confirmed in the proposal. Network package ranges remain subject to the published pricing page."
   },
   {
-    "id": "pricing-network-1",
-    "title": "Networking & Security Services Pricing Tiers",
-    "content": "Network Group offers three pricing tiers: Starter Plan ($2,000-$3,500 one-time setup, $200/month support) - perfect for small offices (5-15 devices) with 1 router, 1-2 switches, 1-2 access points, basic firewall, up to 8-12 data drops, minimal wiring, and basic security setup. Growth Plan ($5,000-$8,000 one-time setup, $350/month support) - ideal for growing businesses (15-30 devices) with mesh Wi-Fi, managed switches with VLANs, robust firewall + VPN, better cabling coverage, Power over Ethernet (PoE), and more access points. Scale Plan ($10,000-$15,000+ one-time setup, $600/month support) - designed for enterprises with full office coverage, redundancy, zero-trust setups, cloud backups, advanced endpoint protection, high throughput routing, and multisite connectivity. All plans include monitoring, performance optimization, and support.",
+    "id": "pricing-network",
+    "title": "network package pricing",
     "category": "pricing",
-    "tags": ["network pricing", "it services", "networking", "router setup", "wifi optimization", "network security", "security services", "vlan", "vpn", "endpoint protection"]
+    "tags": [
+      "pricing",
+      "network"
+    ],
+    "content": "Starter: $2,000 - $3,500 setup range; $200/month recurring support.\nGrowth: $5,000 - $8,000 setup range; $350/month recurring support.\nScale: $10,000 - $15,000+ setup range; $600/month recurring support.\nSix-month setup payment option: setup total split across six payments; rounding may require a final adjustment. Support is separate. Scope and third-party costs must be confirmed in the proposal. Network package ranges remain subject to the published pricing page."
   },
   {
-    "id": "pricing-ai-1",
-    "title": "AI Group Pricing Plans",
-    "content": "AI Group offers three pricing tiers: Starter Plan ($4,000 one-time setup, $300/month support) - perfect for businesses exploring AI with AI consultation, basic chatbot setup, simple automation, and initial training. Growth Plan ($6,000 one-time setup, $500/month support) - ideal for businesses ready for advanced AI with advanced AI consultation, RAG implementation, custom AI applications, data integration, and advanced training. Scale Plan ($8,000 one-time setup, $800/month support) - designed for enterprises with enterprise AI strategy, custom RAG systems, advanced AI applications, full data integration, custom development, and API integrations. All plans include monitoring, optimization, and strategic consultation.",
+    "id": "pricing-ai",
+    "title": "ai package pricing",
     "category": "pricing",
-    "tags": ["ai pricing", "ai consultation", "chatbot", "rag implementation", "ai development", "machine learning"]
+    "tags": [
+      "pricing",
+      "ai"
+    ],
+    "content": "Starter: $4,000 setup total; $300/month recurring support.\nGrowth: $6,000 setup total; $500/month recurring support.\nScale: $8,000 setup total; $800/month recurring support.\nSix-month setup payment option: setup total split across six payments; rounding may require a final adjustment. Support is separate. Scope and third-party costs must be confirmed in the proposal. Network package ranges remain subject to the published pricing page."
   },
   {
-    "id": "pricing-enterprise-1",
-    "title": "Enterprise Solutions",
-    "content": "Enterprise Package is designed for corporations with unique requirements needing custom development, interactive features, and integration with other tools or systems. This is a fully tailored solution with no upfront cost. Payment terms are discussed based on scope and complexity. May include SaaS tools, CI/CD pipelines, backend or frontend frameworks, RESTFUL API integration, reporting dashboards, OAuth, 2FA Authentication, LLM solutions and more. Contact us to schedule a consultation for your enterprise needs.",
-    "category": "pricing",
-    "tags": ["enterprise", "custom solutions", "saas", "api integration", "authentication", "llm solutions"]
-  },
-  {
-    "id": "pricing-payment-1",
-    "title": "Payment Options",
-    "content": "We offer flexible payment options for all plans: Monthly payments - a budget-friendly option to finance your one-time setup over 3 or 6 months. Total amount - pay the one-time setup in full or choose a percentage to start the project with a balance at the end. Financing is only included on one-time setup fees. All monthly support fees are billed separately. We accept various payment methods and can discuss custom payment terms for enterprise clients.",
-    "category": "pricing",
-    "tags": ["payment options", "monthly payments", "financing", "budget friendly", "payment terms"]
-  },
-  {
-    "id": "process-1",
-    "title": "Our Development Process",
-    "content": "Our process includes: 1) Discovery - understanding your needs and goals, 2) Planning - creating a detailed project roadmap, 3) Implementation - building your solution, 4) Optimization - fine-tuning for performance, 5) Launch - deploying your project, 6) Maintenance - ongoing support and updates.",
-    "category": "process",
-    "tags": ["process", "development", "discovery", "planning", "implementation", "launch", "maintenance"]
-  },
-  {
-    "id": "company-info-1",
-    "title": "About Kingdom Design House",
-    "content": "Kingdom Design House has over 10 years of experience in web development and software engineering. We are your all-in-one partner for web development, IT services, networking, and AI solutions. Our team is dedicated to solving business problems so you don't have to.",
+    "id": "company-approved",
+    "title": "KDH positioning and evidence boundaries",
     "category": "company",
-    "tags": ["about", "company", "experience", "team", "mission"]
-  },
-  {
-    "id": "contact-1",
-    "title": "Contact Information",
-    "content": "You can reach us at info@kingdomdesignhouse.com or call us at 347.927.8846. We're available Monday through Friday, 9 AM to 6 PM EST. For urgent matters, please call our business phone number.",
-    "category": "contact",
-    "tags": ["contact", "email", "phone", "hours", "support"]
-  },
-  {
-    "id": "seo-1",
-    "title": "SEO Optimization Services",
-    "content": "We provide comprehensive SEO optimization services including keyword research, on-page optimization, technical SEO, content strategy, and performance monitoring. Our SEO services help improve your website's visibility and drive organic traffic.",
-    "category": "seo",
-    "tags": ["seo", "search engine optimization", "keywords", "traffic", "visibility"]
-  },
-  {
-    "id": "maintenance-1",
-    "title": "Website Maintenance & Support",
-    "content": "We offer ongoing website maintenance and support services including security updates, performance monitoring, content updates, backup management, and technical support. Our maintenance plans ensure your website stays secure, fast, and up-to-date.",
-    "category": "maintenance",
-    "tags": ["maintenance", "support", "updates", "security", "backup", "monitoring"]
-  },
-  {
-    "id": "consultation-1",
-    "title": "Free Consultation",
-    "content": "We offer free consultations to discuss your project needs, provide recommendations, and give you an accurate quote. During the consultation, we'll understand your goals, assess your current situation, and propose the best solution for your business.",
-    "category": "consultation",
-    "tags": ["consultation", "free", "quote", "recommendations", "assessment"]
-  },
-  {
-    "id": "pricing-comparison-1",
-    "title": "Pricing Plan Comparison",
-    "content": "Compare our pricing plans: Web Group - Starter ($2,500 setup, $150/month), Growth ($3,800 setup, $250/month), Scale ($5,500 setup, $500/month). Network Group - Starter ($2,000-$3,500 setup, $200/month), Growth ($5,000-$8,000 setup, $350/month), Scale ($10,000-$15,000+ setup, $600/month). AI Group - Starter ($4,000 setup, $300/month), Growth ($6,000 setup, $500/month), Scale ($8,000 setup, $800/month). Enterprise solutions are custom quoted. All plans include monthly support, monitoring, and optimization.",
-    "category": "pricing",
-    "tags": ["pricing comparison", "plan comparison", "web plans", "network plans", "ai plans", "enterprise", "networking security"]
-  },
-  {
-    "id": "pricing-features-1",
-    "title": "What's Included in Each Plan",
-    "content": "All plans include: Monthly support with content updates, performance monitoring, security updates, backup management, and technical support. Web plans include SEO optimization, responsive design, and CMS integration. Network plans include router/switch configuration, WiFi optimization, load balancing, and redundancy setup. AI plans include consultation, implementation, training, and ongoing optimization. Enterprise plans are fully customized based on your specific requirements.",
-    "category": "pricing",
-    "tags": ["plan features", "what's included", "support", "monitoring", "optimization", "customization"]
+    "tags": [
+      "company",
+      "portfolio"
+    ],
+    "content": "Kingdom Design House is based in Freeport, serving Long Island and NYC, with remote delivery. Services include websites, business applications, AI automation, and networking. Northwell is Paul Solomon’s professional employment experience, not a KDH agency engagement. IIN represents professional contributions; a KDH agency engagement is not verified. David Dare MD and DermCare are portfolio contributions; do not invent engagement details, outcomes, certifications, or compliance claims. No sales or lead growth percentage is verified. Contact: info@kingdomdesignhouse.com; 347.927.8846. Use Contact or Jarvis for business inquiries only; never solicit patient records or credentials."
   }
 ]
