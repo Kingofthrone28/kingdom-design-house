@@ -1,5 +1,3 @@
-import { sharedEditorialCta } from './factory';
-
 export const northwellData = {
   seo: {
     title: 'Northwell Health Professional Experience | Kingdom Design House',
@@ -61,6 +59,5 @@ export const northwellData = {
       src: '/images/northwell_trans.png',
       alt: 'Northwell Health responsive digital experience shown across desktop and mobile devices'
     }
-  },
-  callToAction: sharedEditorialCta
+  }
 };

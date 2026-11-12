@@ -1,12 +1,3 @@
-export const sharedEditorialCta = {
-  eyebrow: 'Have a complex story to tell?',
-  heading: [
-    [{ text: 'Let’s make it' }],
-    [{ text: 'impossible to ignore.', emphasis: true }]
-  ],
-  link: { label: 'Start a conversation', href: '/contact/', icon: '↗' }
-};
-
 export const createEditorialCaseStudy = ({
   seo,
   client,
@@ -79,6 +70,5 @@ export const createEditorialCaseStudy = ({
     description: solutions,
     features,
     devicePreview: image
-  },
-  callToAction: sharedEditorialCta
+  }
 });

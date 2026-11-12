@@ -13,6 +13,9 @@ import groupStyles from '../../styles/AgencyServiceTemplate.module.scss';
 import styles from '../../styles/AcquisitionPage.module.scss';
 
 const presentations = {
+  'web-planning': { group: 'web', lines: ['Map the journey.', 'Define the scope.', 'Plan the handoff.'] },
+  'search-measurement': { group: 'web', lines: ['Measure the search.', 'Verify the inquiry.', 'Review the opportunity.'] },
+  'network-review': { group: 'network', lines: ['Review the devices.', 'Trace the path.', 'Plan the change.'] },
   'assistant-guide': { group: 'ai', lines: ['Custom AI assistant', 'or chatbot?', 'Start with the task.'] },
   'lead-assistant': { group: 'ai', lines: ['A service conversation', 'with a clear', 'next step.'] },
   healthcare: { group: 'web', lines: ['Help visitors find', 'the right', 'information.'] },
@@ -37,13 +40,14 @@ export default function AcquisitionPage({ destination }) {
   return <>
     <SEOHead title={page.title} description={page.description} canonical={page.path} />
     <StructuredData page={{ url: page.path, name: page.title, description: page.description, service: page.serviceSchema, breadcrumbs: [{ name: 'Home', url: '/' }, { name: page.title, url: page.path }] }} />
-    <Layout groupName={presentation.group === 'ai' ? 'aigroup' : 'webgroup'}>
+    <Layout groupName={presentation.group === 'ai' ? 'aigroup' : presentation.group === 'network' ? 'networkgroup' : 'webgroup'}>
       <article ref={motionRootRef} className={`${groupStyles.page} ${styles.page}`}>
         <header className={`${groupStyles.hero} ${groupStyles.groupLandingHero} ${groupStyles[`${presentation.group}LandingHero`]}`} data-parallax-section>
           <div className={groupStyles.rings} aria-hidden="true" />
           <div className={groupStyles.shell}>
             <p className={groupStyles.eyebrow}>{page.eyebrow}</p>
-            <h1 className={groupStyles.heroTitle} aria-label={page.heading}>
+            <h1 className={groupStyles.heroTitle}>
+              <span className={groupStyles.srOnly}>{page.heading}</span>
               <AgencyAnimatedTitle lines={presentation.lines} />
             </h1>
             <div className={groupStyles.heroFooter}><p>{page.intro}</p>{inquiry}</div>
@@ -58,7 +62,7 @@ export default function AcquisitionPage({ destination }) {
 
         <section id="overview" className={groupStyles.intro}>
           <div className={groupStyles.shell}>
-            {page.sections.map((section, index) => <section key={section.title} className={`${styles.contentRow} ${groupStyles.motionSection}`} data-motion-section>
+            {page.sections.map((section, index) => <section id={section.id} key={section.title} className={`${styles.contentRow} ${groupStyles.motionSection}`} data-motion-section>
               <div className={`${groupStyles.twoColumn} ${groupStyles.motionContent}`}>
                 <div><p className={groupStyles.label}>{number(index + 1)} / Overview</p><Heading>{section.title}</Heading></div>
                 <div className={groupStyles.prose}>{section.paragraphs.map(text => <p key={text}>{text}</p>)}</div>

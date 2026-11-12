@@ -150,5 +150,20 @@
     "path": "/web-group/services/web-development/",
     "published": true,
     "indexable": true
+  },
+  {
+    "path": "/guides/business-network-review/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/guides/search-and-lead-measurement/",
+    "published": true,
+    "indexable": true
+  },
+  {
+    "path": "/guides/web-project-planning/",
+    "published": true,
+    "indexable": true
   }
 ]

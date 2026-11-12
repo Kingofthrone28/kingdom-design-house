@@ -1,0 +1,232 @@
+{
+  "network-review": {
+    "path": "/guides/business-network-review/",
+    "title": "Business Network Review: Devices, Segmentation & Incidents",
+    "description": "Prepare a network review with device, ISP, VLAN, Wi-Fi and incident checklists. Includes an illustrative small-business network, not a customer deployment.",
+    "eyebrow": "Network planning / Review checklist",
+    "heading": "Prepare for a business network review.",
+    "intro": "Bring the current device inventory, building layout, ISP details and a record of the failing task. This checklist helps distinguish incident support, performance tuning and a new network design.",
+    "service": "network-design",
+    "cta": "guide",
+    "ctaLabel": "Plan My Business Network",
+    "starter": "I would like to review my business network, device inventory and connectivity requirements.",
+    "sections": [
+      {
+        "title": "Record what exists",
+        "paragraphs": [
+          "List routers, switches, access points, firmware and management owners. Record uplinks, VLANs, IP ranges, DHCP/DNS services, ISP handoffs and any secondary connection. Keep credentials in an approved secure channel, not a public inquiry.",
+          "Mark user locations, walls, cabling, PoE requirements and latency-sensitive voice or video applications. Record where and when a problem occurs, then compare a wired client with Wi-Fi at the same time."
+        ]
+      },
+      {
+        "id": "network-example",
+        "title": "Example small-business network architecture",
+        "paragraphs": [
+          "Internet / ISP \u2192 Firewall / Gateway \u2192 Core switch \u2192 Wireless access points and wired clients. Example segments: VLAN 10 \u2014 Staff; VLAN 20 \u2014 Voice; VLAN 30 \u2014 Guest; VLAN 40 \u2014 IoT.",
+          "This is an example only, not a customer installation. Actual segmentation depends on devices, business requirements, risk, building layout and existing systems. VLANs require explicit routing/firewall rules; assigning a VLAN number alone does not enforce isolation.",
+          "Design checks include uplink capacity, switch ports and PoE budget, guest isolation, approved inter-VLAN paths, device management access and failover behavior. Dual ISPs can still share a physical failure point."
+        ]
+      },
+      {
+        "title": "Keep a useful incident record",
+        "paragraphs": [
+          "Record the time, affected device and location, original task, network path, observed signal or connectivity result, and relevant log reference. Distinguish an ISP problem from a client, access-point or configuration issue.",
+          "For a change, retain the previous configuration, approval, maintenance window, rollback plan and post-change connectivity check. This is a proposed documentation format, not an uptime or response-time commitment."
+        ]
+      },
+      {
+        "title": "Compare a baseline with the same test",
+        "paragraphs": [
+          "Review RSSI and SNR for coverage, channel utilization for contention, and packet loss, latency, jitter and throughput for the affected application. Repeat tests at the same locations and comparable client load.",
+          "A speed test is one path at one moment. It does not establish roaming quality or coverage across a building. Optimization may help existing equipment; physical coverage, cabling or hardware limits can require a separately scoped design."
+        ]
+      }
+    ],
+    "proof": [
+      {
+        "href": "/network-group/services/network-design/",
+        "label": "Network design decisions",
+        "detail": "Use the illustrative architecture to prepare requirements, not as proof of a particular deployment."
+      }
+    ],
+    "faqs": [
+      [
+        "Must we buy new access points?",
+        "Not automatically. Confirm firmware support, capacity, placement, management access and cabling before recommending replacement."
+      ],
+      [
+        "Does this checklist include a security assessment?",
+        "No. Cybersecurity/SOC work and regulated requirements require explicit specialist scope."
+      ],
+      [
+        "What should we measure first?",
+        "Record the original failing task and location, compare wired and wireless paths, then choose measurements that test the suspected cause."
+      ]
+    ],
+    "related": [
+      {
+        "href": "/network-group/services/network-support/",
+        "label": "Network incident support"
+      },
+      {
+        "href": "/network-group/services/network-optimization/",
+        "label": "Measured network optimization"
+      }
+    ]
+  },
+  "search-measurement": {
+    "path": "/guides/search-and-lead-measurement/",
+    "title": "Search Traffic, Delivered Inquiries & Qualified Leads",
+    "description": "Separate impressions, clicks, CTA engagement, confirmed inquiry delivery and revenue. Plan Search Console, GA4 and AI citation reporting without ranking guarantees.",
+    "eyebrow": "SEO / Measurement planning",
+    "heading": "Trace search visibility to a qualified conversation.",
+    "intro": "A useful report records where a prospect entered, whether the inquiry arrived and what the business did next. More clicks alone do not establish more qualified leads. This is a measurement framework, not a claim of measured campaign results.",
+    "service": "digital-marketing",
+    "cta": "guide",
+    "ctaLabel": "Get an SEO & Lead Review",
+    "starter": "I want to review search intent, inquiry delivery and qualified lead measurement.",
+    "sections": [
+      {
+        "title": "Map the query to the page",
+        "paragraphs": [
+          "Export Search Console query/page pairs for comparable periods. Identify queries with relevant intent, the pages shown and whether multiple pages compete for the same task. Record impressions and clicks separately from inquiry behavior.",
+          "Inspect crawlability, canonicals, metadata and visible service answers before expanding content. Prioritize the page that can answer the buyer question with evidence and a clear next step."
+        ]
+      },
+      {
+        "title": "Treat delivery as a distinct event",
+        "paragraphs": [
+          "In this repository, a CTA click, chat opening or chat message is engagement. A form is recorded as an inquiry only after the server confirms notification delivery; a Jarvis handoff requires confirmed CRM acceptance. Opening the assistant does not book a meeting.",
+          "Review GA4 and any GTM configuration with consent rules. Keep personal information and transcripts out of analytics payloads. Test failed submissions and failed integrations as well as success; a button click must not become a delivered lead."
+        ]
+      },
+      {
+        "title": "Use a business-reviewed funnel",
+        "paragraphs": [
+          "Track impression \u2192 click \u2192 CTA engagement \u2192 successful lead \u2192 qualified lead \u2192 booked meeting \u2192 client. Keep a record of the stage definition, source of confirmation and owner for each stage.",
+          "Qualification, scheduling and revenue need business follow-up. Compare source, inquiry quality and actual opportunities rather than treating every delivered request as a sale. Consent and missing attribution can leave gaps; label them instead of inventing a source."
+        ]
+      },
+      {
+        "title": "Benchmark AI citations consistently",
+        "paragraphs": [
+          "Choose fixed buyer prompts, record the engine, date, answer and cited URL, and repeat the same set. Results vary across prompts, engines and time; one answer does not establish a permanent AI ranking.",
+          "Useful original evidence, relevant third-party authority and conventional SEO can support discoverability. There is no guarantee of a ranking, traffic, leads, AI citation or backlink placement."
+        ]
+      }
+    ],
+    "proof": [
+      {
+        "href": "/ai-group/solutions/ai-lead-assistant/",
+        "label": "Jarvis handoff example",
+        "detail": "An implementation example of engagement versus confirmed CRM acceptance, not proof of sales lift."
+      }
+    ],
+    "faqs": [
+      [
+        "Is a CTA click a lead?",
+        "No. It indicates engagement. Confirm successful delivery before counting an inquiry."
+      ],
+      [
+        "How long does SEO take?",
+        "There is no fixed result deadline. Review comparable search periods and delivered inquiry quality; timing depends on indexing, demand, site changes and competition."
+      ],
+      [
+        "Can AI citations be guaranteed?",
+        "No. Benchmark the same prompts and engines over time, and record the observed citations without promising future inclusion."
+      ]
+    ],
+    "related": [
+      {
+        "href": "/web-group/services/digital-marketing/",
+        "label": "SEO and lead review"
+      },
+      {
+        "href": "/web-group/services/web-design/",
+        "label": "Landing-page journey design"
+      }
+    ]
+  },
+  "web-planning": {
+    "path": "/guides/web-project-planning/",
+    "title": "Website & Application Planning: Scope, Ownership & Failure",
+    "description": "Prepare a website redesign or business application brief with workflow maps, CMS and data decisions, API failure handling, delivery checks and support boundaries.",
+    "eyebrow": "Web planning / Project checklist",
+    "heading": "Scope the journey, data and operating responsibilities.",
+    "intro": "Before a redesign or application build, record who uses the system, what they need to do, which content works today and what happens when a dependency fails. This is a project planning artifact, not a customer result.",
+    "service": "web-development",
+    "cta": "guide",
+    "ctaLabel": "Review My Web Application or Workflow",
+    "starter": "I want to scope a website or application workflow, dependencies and acceptance checks.",
+    "sections": [
+      {
+        "title": "Inventory the existing journey",
+        "paragraphs": [
+          "List current URLs, useful content, top landing pages, navigation, forms and known delivery issues. Map the visitor\u2019s task from search intent to service answer, relevant proof and inquiry. Preserve useful URLs and brand assets when they still serve that task.",
+          "On mobile, check whether the offer and next step are understandable, the form requests appropriate information, and a successful submission actually arrives. Distinguish visual friction from an integration failure."
+        ]
+      },
+      {
+        "title": "Choose rendering and data ownership",
+        "paragraphs": [
+          "Stable public content may suit static generation; frequently changing or personalized data may require server rendering or an authenticated application request. Define freshness and access requirements before selecting an architecture.",
+          "Agree what editors manage in the CMS and what transactional state belongs in an application database. Record account ownership, roles, licenses, migration volumes and handoff access. A brochure website package does not include an unlimited custom application."
+        ]
+      },
+      {
+        "title": "Plan an integration failure before launch",
+        "paragraphs": [
+          "For each API, record the data fields, allowed actions, timeout, retry limit and owner. Identify actions that must be idempotent so a retry or duplicate webhook cannot repeat a transaction.",
+          "For form notifications and CRM handoffs, define confirmation and failure states. A button click is engagement, not proof of delivery. Agree how a user retries, reaches a person or learns that the action failed."
+        ]
+      },
+      {
+        "title": "Separate launch from ongoing operation",
+        "paragraphs": [
+          "Agree on acceptance checks for core workflows, permissions, migration and release rollback. Document deployment access, cache invalidation, backup/restore ownership and the previous working version.",
+          "State whether hosting, licenses, content production, routine support and emergency recovery are included. Template count, integrations, data cleanup, roles and testing drive cost; commercial results are not guaranteed."
+        ]
+      }
+    ],
+    "proof": [
+      {
+        "href": "/case-studies/iin/",
+        "label": "IIN contribution overview",
+        "detail": "Professional enrollment and integration contributions; not presented as a verified KDH agency engagement."
+      },
+      {
+        "href": "/case-studies/daremd/",
+        "label": "David Dare MD portfolio",
+        "detail": "A service-information and appointment-path example with the contribution described in the portfolio."
+      }
+    ],
+    "faqs": [
+      [
+        "Who owns the code?",
+        "The proposal defines ownership and repository handoff; third-party software retains its license terms. Agree on accounts and access before work starts."
+      ],
+      [
+        "Can we retain our current CMS?",
+        "Review supported templates, APIs, access, content and migration constraints before choosing extension or replacement."
+      ],
+      [
+        "Is support included with a build?",
+        "Confirm the plan, service hours, checks and exclusions separately. A launch does not imply unlimited ongoing development."
+      ]
+    ],
+    "related": [
+      {
+        "href": "/web-group/services/web-design/",
+        "label": "Website design and redesign"
+      },
+      {
+        "href": "/web-group/services/web-development/",
+        "label": "Custom development"
+      },
+      {
+        "href": "/web-group/services/support/",
+        "label": "Website maintenance scope"
+      }
+    ]
+  }
+}

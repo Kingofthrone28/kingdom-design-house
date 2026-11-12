@@ -1,0 +1,62 @@
+{
+  "heading": "Choose the work your business needs first.",
+  "problem": "KDH primarily builds web platforms that connect business systems and AI workflows that reduce repetitive manual work. Business network infrastructure and support are a secondary capability for the office those systems depend on.",
+  "deliverables": [
+    "Web: service-site redesigns, customer portals, forms connected to CRM, quote/booking workflows and outdated frontend rebuilds.",
+    "AI: internal knowledge and customer support assistants, CRM automation, intake/qualification, document retrieval and structured AI workflows.",
+    "Network: office Wi-Fi redesign, VLAN segmentation, redundancy/failover, routing, switching and connectivity troubleshooting."
+  ],
+  "boundaries": "Each engagement defines deliverables and acceptance checks. A website package is not an unlimited application; an AI assistant is not an autonomous decision-maker; network support does not include every hardware, ISP or cybersecurity cost. Use the individual service pages to compare responsibilities.",
+  "pricingBasis": "Published Web, AI and Network packages are on the pricing page. Page/template count, data migration, roles, integrations, source quality, evaluation effort, device count and service hours affect scope. Third-party licenses, hosting and usage costs are confirmed separately.",
+  "proof": [
+    {
+      "href": "/case-studies/iin/",
+      "label": "Web: IIN contribution overview",
+      "detail": "Professional engineering and enrollment workflow contributions; not presented as a verified KDH agency engagement."
+    },
+    {
+      "href": "/ai-group/solutions/ai-lead-assistant/",
+      "label": "AI: Jarvis working demonstration",
+      "detail": "Retrieval, service questions and a structured inquiry handoff, with a Contact fallback. No revenue or lead-lift result is claimed."
+    },
+    {
+      "href": "/guides/business-network-review/#network-example",
+      "label": "Network: example planning artifact",
+      "detail": "An illustrative device and segmentation checklist, not a claimed customer installation."
+    }
+  ],
+  "faqs": [
+    [
+      "Should we start with Web or AI?",
+      "If visitors cannot understand the offer or submit an inquiry, review the website journey first. If staff repeatedly search documents or copy data between tools, map that workflow and compare ordinary automation with AI."
+    ],
+    [
+      "Can we improve an existing system?",
+      "Start with access, dependencies and the failing task. A focused integration, redesign or configuration change may be enough."
+    ],
+    [
+      "How do we compare cost?",
+      "Compare setup, ongoing support, third-party costs and staff review time. Confirm scope and ownership before choosing a package."
+    ]
+  ],
+  "cta": "Get a technology review",
+  "starter": "Help me decide whether my next project needs a website change, AI workflow, or network review.",
+  "related": [
+    {
+      "href": "/web-group/",
+      "label": "Explore Web Solutions"
+    },
+    {
+      "href": "/ai-group/",
+      "label": "Explore AI Solutions"
+    },
+    {
+      "href": "/pricing/",
+      "label": "Compare published package scope"
+    },
+    {
+      "href": "/guides/custom-ai-assistant-vs-chatbot/",
+      "label": "Compare AI with a simpler workflow"
+    }
+  ]
+}

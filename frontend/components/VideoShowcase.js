@@ -2,7 +2,7 @@ import React from 'react';
 import VideoPlayer from './Organisms/VideoPlayer';
 import styles from '../styles/VideoShowcase.module.scss';
 
-const VideoShowcase = () => {
+const VideoShowcase = ({ authorityOverview = false }) => {
   return (
     <section className={styles.videoShowcase}>
       <div className={styles.videoShowcase__container}>
@@ -10,7 +10,7 @@ const VideoShowcase = () => {
           Jarvis in <span className={styles.videoShowcase__title__highlight}>Action</span>
         </h2>
         <p className={styles.videoShowcase__description}>
-          See how we transform businesses through innovative web solutions and AI integration with Jarvis capturing real-time data.
+          {authorityOverview ? 'Watch the KDH assistant answer service questions and guide an inquiry. This demonstration is not a claim of measured sales or lead growth.' : 'See how we transform businesses through innovative web solutions and AI integration with Jarvis capturing real-time data.'}
         </p>
         
         <div className={styles.videoShowcase__grid}>
@@ -25,7 +25,7 @@ const VideoShowcase = () => {
               className="videoPlayer--16-9"
             />
             <div className={styles.videoShowcase__featuredInfo}>
-              <h3>Complete Business Transformation</h3>
+              <h3>{authorityOverview ? 'A working service assistant' : 'Complete Business Transformation'}</h3>
               <p>See Jarvis answer service questions and guide a business inquiry. Try the assistant to explore your own project.</p>
             </div>
           </div>

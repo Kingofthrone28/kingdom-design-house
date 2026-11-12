@@ -30,7 +30,7 @@ export const agencyServicePresentation = {
     serviceLabel: 'Digital marketing',
     market: 'Long Island & NYC',
     focus: 'SEO · Performance · Visibility',
-    eyebrow: 'Technical SEO and digital growth built around measurable outcomes',
+    eyebrow: 'Search intent, useful service content and confirmed inquiry measurement',
     displayTitle: ['Found.', 'Chosen.', 'Growing.'],
     showcaseAsset: '/images/seo.png',
     showcaseAlt: 'Search engine optimization illustration'
@@ -42,8 +42,8 @@ export const agencyServicePresentation = {
     serviceLabel: 'Website support',
     market: 'Long Island & NYC',
     focus: 'Security · Speed · Reliability',
-    eyebrow: 'Ongoing website care for secure, fast, dependable performance',
-    displayTitle: ['Always on.', 'Always', 'improving.'],
+    eyebrow: 'Website maintenance with agreed checks, service hours and responsibilities',
+    displayTitle: ['Check.', 'Update.', 'Verify.'],
     showcaseAsset: '/images/maintenance.png',
     showcaseAlt: 'Website maintenance and performance improvement illustration'
   },
@@ -64,7 +64,7 @@ export const agencyServicePresentation = {
     groupName: 'networkgroup',
     groupLabel: 'The Network Group',
     serviceLabel: 'Network optimization',
-    market: 'NYC offices',
+    market: 'Long Island & NYC',
     focus: 'Coverage · Speed · Stability',
     eyebrow: 'Wireless infrastructure tested and tuned under real business load',
     displayTitle: ['Faster.', 'Stronger.', 'Smarter.'],
@@ -77,9 +77,9 @@ export const agencyServicePresentation = {
     groupLabel: 'The Network Group',
     serviceLabel: 'Network support',
     market: 'Long Island & NYC',
-    focus: 'Monitoring · Response · Uptime',
-    eyebrow: 'Proactive network support that keeps critical systems available',
-    displayTitle: ['Uptime', 'without', 'uncertainty.'],
+    focus: 'Monitoring · Triage · Connectivity',
+    eyebrow: 'Business connectivity diagnosis with agreed coverage and responsibilities',
+    displayTitle: ['Report.', 'Trace.', 'Verify.'],
     showcaseAsset: '/images/maintenance.png',
     showcaseAlt: 'Proactive network support and maintenance illustration'
   },
@@ -114,8 +114,8 @@ export const agencyServicePresentation = {
     serviceLabel: 'AI support',
     market: 'Long Island & NYC',
     focus: 'Monitoring · Data · Optimization',
-    eyebrow: 'Ongoing support that keeps production AI accurate and relevant',
-    displayTitle: ['AI that', 'keeps', 'learning.'],
+    eyebrow: 'Production AI review for Long Island and NYC businesses',
+    displayTitle: ['Inspect.', 'Evaluate.', 'Update.'],
     showcaseAsset: '/images/AI_data.png',
     showcaseAlt: 'Artificial intelligence network visualization'
   }

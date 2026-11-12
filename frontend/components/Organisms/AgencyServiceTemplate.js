@@ -49,7 +49,8 @@ export default function AgencyServiceTemplate({
         <div className={styles.rings} aria-hidden="true" />
         <div className={styles.shell}>
           <p className={styles.eyebrow}>{presentation.eyebrow}</p>
-          <h1 className={styles.heroTitle} aria-label={heroLines.join(' ')}>
+          <h1 className={styles.heroTitle}>
+            <span className={styles.srOnly}>{heroLines.join(' ')}</span>
             <AgencyAnimatedTitle lines={heroLines} />
           </h1>
           <div className={styles.heroFooter}>
@@ -117,9 +118,9 @@ export default function AgencyServiceTemplate({
         <div className={`${styles.shell} ${styles.expertiseGrid} ${styles.motionContent}`}>
           <div className={`${styles.expertiseCopy} ${styles.parallaxReverse}`}>
             <p className={styles.label}>03 / {content.expertise?.title || 'Service Expertise'}</p>
-            <h2 className={styles.displayHeading}>Built for now.<br /><span>Ready for next.</span></h2>
+            <h2 className={styles.displayHeading}>{content.expertise?.title}</h2>
             <p className={styles.expertiseIntro}>
-              The right tools, architecture, and operating discipline come together as one connected service built around your goals.
+              {content.expertise?.intro}
             </p>
             <ul>
               {expertiseItems.map((item) => {
@@ -150,26 +151,26 @@ export default function AgencyServiceTemplate({
         <div className={`${styles.shell} ${styles.motionContent}`}>
           <div className={styles.deliveryHeader}>
             <div className={styles.parallaxSlow}>
-              <p className={styles.label}>04 / {process.title}</p>
-              <h2 className={styles.displayHeading}>Clear at<br /><span>every stage.</span></h2>
+              <p className={styles.label}>04 / Decisions before scope</p>
+              <h2 className={styles.displayHeading}>{content.decisions?.title || 'Clear at every stage.'}</h2>
             </div>
             <div className={`${styles.principles} ${styles.parallaxReverse}`}>
-              <p>{process.principlesTitle}</p>
-              <ul>{process.principles.map((principle) => <li key={principle}>{principle}</li>)}</ul>
+              <p>{content.decisions?.intro || process.principlesTitle}</p>
+              <ul>{(content.decisions?.questions || process.principles).map((principle) => <li key={principle}>{principle}</li>)}</ul>
             </div>
           </div>
-          <ol className={styles.deliveryList}>
+          {!content.decisions && <ol className={styles.deliveryList}>
             {process.steps.map((step) => (
               <li key={step.number}>
                 <span>{String(step.number).padStart(2, '0')}</span>
                 <strong>{step.title}</strong>
               </li>
             ))}
-          </ol>
+          </ol>}
         </div>
       </section>
 
-      <section className={`${styles.whyUs} ${styles.motionSection}`} data-motion-section data-parallax-section>
+      {!content.buyerGuide && <section className={`${styles.whyUs} ${styles.motionSection}`} data-motion-section data-parallax-section>
         <div className={`${styles.shell} ${styles.motionContent}`}>
           <p className={styles.label}>05 / Why choose us</p>
           <div className={styles.whyGrid}>
@@ -179,14 +180,14 @@ export default function AgencyServiceTemplate({
             </div>
           </div>
         </div>
-      </section>
+      </section>}
 
-      <ServiceDecisionContent guide={content.buyerGuide} service={serviceType} group={presentation.groupName === 'aigroup' ? 'ai' : 'web'} />
+      <ServiceDecisionContent guide={content.buyerGuide} service={serviceType} group={presentation.groupName === 'aigroup' ? 'ai' : presentation.groupName === 'networkgroup' ? 'network' : 'web'} />
 
       <section className={`${styles.cta} ${styles.motionSection}`} data-motion-section data-parallax-section>
         <div className={`${styles.ctaInner} ${styles.motionContent} ${styles.parallaxSlow}`}>
-          <p className={styles.label}>Ready to build what’s next?</p>
-          <h2>Let’s make your<br /><span>next move matter.</span></h2>
+          <p className={styles.label}>{presentation.serviceLabel} / Next step</p>
+          <h2>{content.buyerGuide?.cta || 'Discuss your project'}</h2>
           <InquiryCTA service={serviceType} label={content.buyerGuide?.cta || 'Discuss your project'} starter={content.buyerGuide?.starter} />
         </div>
       </section>
