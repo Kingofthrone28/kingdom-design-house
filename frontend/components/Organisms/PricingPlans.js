@@ -36,8 +36,9 @@ const PricingPlans = ({
                 {formatPrice(plan.setupPrice, isMonthly)}
               </div>
               <div className={styles.pricingPlans__priceLabel}>
-                {isMonthly ? '(monthly payment)' : '(one time setup)'}
+                {isMonthly ? '(approx. per month for six setup payments)' : '(one time setup)'}
               </div>
+              <p>Setup total: ${plan.setupPrice.toLocaleString()}{plan.priceRange ? ` (published range: ${plan.priceRange})` : ''}. Support is billed separately.</p>
             </div>
 
             <div className={styles.pricingPlans__planFeatures}>

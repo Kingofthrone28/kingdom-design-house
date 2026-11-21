@@ -1,16 +1,8 @@
-export const sharedEditorialCta = {
-  eyebrow: 'Have a complex story to tell?',
-  heading: [
-    [{ text: 'Let’s make it' }],
-    [{ text: 'impossible to ignore.', emphasis: true }]
-  ],
-  link: { label: 'Start a conversation', href: '/contact/', icon: '↗' }
-};
-
 export const createEditorialCaseStudy = ({
   seo,
   client,
   industry,
+  relationship,
   services,
   focus,
   heroCopy,
@@ -33,7 +25,8 @@ export const createEditorialCaseStudy = ({
     link: { label: 'Explore the story', href: '#story', icon: '↓' }
   },
   projectDetails: [
-    { label: 'Client', value: client.replace('|', ' ') },
+    { label: relationship ? 'Organization' : 'Project', value: client.replace('|', ' ') },
+    ...(relationship ? [{ label: 'Relationship', value: relationship }] : []),
     { label: 'Industry', value: industry },
     { label: 'Services', value: services },
     { label: 'Focus', value: focus }
@@ -77,6 +70,5 @@ export const createEditorialCaseStudy = ({
     description: solutions,
     features,
     devicePreview: image
-  },
-  callToAction: sharedEditorialCta
+  }
 });

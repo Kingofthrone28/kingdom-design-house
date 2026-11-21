@@ -3,12 +3,13 @@ import { createEditorialCaseStudy } from './factory';
 export const dareMdData = createEditorialCaseStudy({
   seo: {
     title: 'David Dare MD Case Study | Kingdom Design House',
-    description: 'Explore how Kingdom Design House created a responsive, patient-focused website for David Dare MD, an orthopedic and sports medicine practice.',
+    description: 'Review the David Dare MD portfolio contribution: responsive website structure, treatment information, and appointment pathways.',
     canonical: '/case-studies/daremd/',
     keywords: 'case study, web design, development, orthopedics, sports medicine, healthcare, David Dare MD',
     ogImage: '/images/daremd.png'
   },
   client: 'David Dare|MD',
+  relationship: 'Portfolio contribution · Engagement relationship not independently verified',
   industry: 'Orthopedics · Sports Medicine',
   services: 'Strategy · UX/UI · Development',
   focus: 'Patient education · Appointments',

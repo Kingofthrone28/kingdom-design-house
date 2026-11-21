@@ -1,0 +1,228 @@
+@import './variables.scss';
+
+.experience {
+  --experience-ink: #10110f;
+  --experience-yellow: #ffd400;
+  --experience-cream: #f5ecd8;
+
+  padding: clamp(90px, 10vw, 140px) 0;
+  overflow: hidden;
+  color: #f7f3e9;
+  background:
+    radial-gradient(circle at 92% 5%, rgba(255, 212, 0, 0.09), transparent 28%),
+    var(--experience-ink);
+}
+
+.shell {
+  width: min(1180px, calc(100% - 64px));
+  margin: 0 auto;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: end;
+  gap: clamp(60px, 10vw, 150px);
+  margin-bottom: clamp(64px, 8vw, 96px);
+
+  h2 {
+    margin: 22px 0 0;
+    font-family: $font-secondary;
+    font-size: clamp(4rem, 7vw, 7.4rem);
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 0.89;
+    text-transform: uppercase;
+
+    span {
+      color: var(--experience-yellow);
+    }
+  }
+}
+
+.eyebrow {
+  position: relative;
+  margin: 0 0 0 24px;
+  color: var(--experience-yellow);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -24px;
+    width: 15px;
+    height: 2px;
+    background: var(--experience-yellow);
+  }
+}
+
+.intro {
+  max-width: 450px;
+  margin: 0 0 8px;
+  color: rgba(247, 243, 233, 0.64);
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.7;
+}
+
+.experienceList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.experienceItem {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.34fr) 1fr;
+  gap: clamp(32px, 7vw, 100px);
+  padding: clamp(38px, 5vw, 62px) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+
+  > span {
+    color: var(--experience-yellow);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+  }
+
+  p {
+    max-width: 150px;
+    margin: 0;
+    color: rgba(247, 243, 233, 0.52);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.55;
+    text-transform: uppercase;
+  }
+}
+
+.entryHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+
+  h3 {
+    max-width: 760px;
+    margin: 0;
+    font-family: $font-secondary;
+    font-size: clamp(2rem, 4vw, 4.4rem);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+}
+
+.caseStudyLink {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 7px;
+  color: #f7f3e9;
+  border-bottom: 1px solid var(--experience-yellow);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  span {
+    color: var(--experience-yellow);
+  }
+}
+
+.description {
+  max-width: 890px;
+  margin: 28px 0 32px;
+  color: rgba(247, 243, 233, 0.72);
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  line-height: 1.78;
+}
+
+.capabilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 8px 11px;
+    color: var(--experience-cream);
+    border: 1px solid rgba(255, 212, 0, 0.36);
+    font-size: 0.6rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 820px) {
+  .shell {
+    width: min(680px, calc(100% - 40px));
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .experienceItem {
+    grid-template-columns: 100px 1fr;
+    gap: 28px;
+  }
+
+  .entryHeading {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .shell {
+    width: calc(100% - 32px);
+  }
+
+  .header h2 {
+    font-size: clamp(3.8rem, 18vw, 5.4rem);
+  }
+
+  .experienceItem {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .meta {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+
+    p {
+      max-width: none;
+      text-align: right;
+    }
+  }
+
+  .entryHeading h3 {
+    font-size: clamp(2.35rem, 12vw, 3.8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caseStudyLink {
+    transition: none;
+  }
+}

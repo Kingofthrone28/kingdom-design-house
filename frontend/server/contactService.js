@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const { inquiryContext, approvedAttribution, contextDescription } = require('../utils/acquisition');
 
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
@@ -25,6 +26,11 @@ const normalizeFormData = (body = {}) => ({
   service: cleanText(body.service, 100),
   message: cleanText(body.message, 2000),
   recaptchaToken: cleanText(body.recaptchaToken, 4096),
+  ...inquiryContext(body),
+  // Preserve existing editable service input and validation (including legacy callers).
+  service: cleanText(body.service, 100),
+  ...approvedAttribution(body),
+  selfReportedSource: cleanText(body.selfReportedSource, 200),
 });
 
 const validateFormData = (data) => {
@@ -154,6 +160,8 @@ const createMessages = (data) => {
         data.phone && `Phone: ${data.phone}`,
         data.company && `Company: ${data.company}`,
         `Service: ${data.service}`,
+        contextDescription(data),
+        data.selfReportedSource && `Self-reported source: ${data.selfReportedSource}`,
         `Submitted: ${submitted}`,
         '',
         data.message,
@@ -164,6 +172,8 @@ const createMessages = (data) => {
         ${safe.phone ? `<p><strong>Phone:</strong> ${safe.phone}</p>` : ''}
         ${safe.company ? `<p><strong>Company:</strong> ${safe.company}</p>` : ''}
         <p><strong>Service:</strong> ${safe.service}</p>
+        <p><strong>Inquiry context:</strong><br>${escapeHtml(contextDescription(data)).replace(/\n/g, '<br>')}</p>
+        ${safe.selfReportedSource ? `<p><strong>Self-reported source:</strong> ${safe.selfReportedSource}</p>` : ''}
         <p><strong>Submitted:</strong> ${submitted}</p>
         <h2>Project Details</h2><p>${safe.message.replace(/\n/g, '<br>')}</p>`,
     },
@@ -207,7 +217,8 @@ const processContactSubmission = async (req) => {
 
   const transporter = createTransporter();
   const messages = createMessages(data);
-  await transporter.sendMail(messages.business);
+  const notification = await transporter.sendMail(messages.business);
+  if (!notification?.accepted?.length) throw new Error('Business notification was not accepted by the mail server.');
 
   try {
     await transporter.sendMail(messages.confirmation);
@@ -219,6 +230,7 @@ const processContactSubmission = async (req) => {
     status: 200,
     body: {
       success: true,
+      notificationDelivered: true,
       message: 'Message sent successfully! We\'ll get back to you soon.',
       data: {
         name: data.name,

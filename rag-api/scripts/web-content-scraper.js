@@ -67,64 +67,11 @@ const WEB_CONFIG = {
   baseUrl: null,
   
   // Pages to scrape
-  pages: [
-    {
-      path: '/',
-      title: 'Home Page',
-      category: 'website',
-      tags: ['home', 'landing', 'overview']
-    },
-    {
-      path: '/about',
-      title: 'About Us',
-      category: 'website',
-      tags: ['about', 'company', 'team']
-    },
-    {
-      path: '/pricing',
-      title: 'Pricing Plans',
-      category: 'website',
-      tags: ['pricing', 'plans', 'cost']
-    },
-    {
-      path: '/web-group',
-      title: 'Web Group Services',
-      category: 'website',
-      tags: ['web', 'development', 'design']
-    },
-    {
-      path: '/network-group',
-      title: 'Network Group Services',
-      category: 'website',
-      tags: ['network', 'it', 'infrastructure']
-    },
-    {
-      path: '/ai-group',
-      title: 'AI Group Services',
-      category: 'website',
-      tags: ['ai', 'artificial intelligence', 'automation']
-    }
-  ],
-  
-  // Service pages to scrape
-  servicePages: [
-    // Web Group Services
-    { path: '/web-group/services/web-design', title: 'Web Design Services' },
-    { path: '/web-group/services/web-development', title: 'Web Development Services' },
-    { path: '/web-group/services/digital-marketing', title: 'Digital Marketing Services' },
-    { path: '/web-group/services/support', title: 'Web Support Services' },
-    
-    // Network Group Services
-    { path: '/network-group/services/network-design', title: 'Network Design Services' },
-    { path: '/network-group/services/network-optimization', title: 'Network Optimization Services' },
-    { path: '/network-group/services/network-support', title: 'Network Support Services' },
-    
-    // AI Group Services
-    { path: '/ai-group/services/ai-consulting', title: 'AI Consulting Services' },
-    { path: '/ai-group/services/ai-development', title: 'AI Development Services' },
-    { path: '/ai-group/services/ai-support', title: 'AI Support Services' }
-  ],
-  
+  pages: require('../../frontend/data/site/publication.json')
+    .filter(page => page.published && page.indexable && !page.redirect && !page.path.includes('['))
+    .map(page => ({ path: page.path, title: page.path === '/' ? 'Kingdom Design House' : page.path.split('/').filter(Boolean).join(' / '), category: 'website', tags: ['approved-public-content'] })),
+  servicePages: [], // All eligible service and proof routes are included above, once.
+
   // Processing options - Aggressive memory optimization
   options: {
     chunkSize: 300,  // Further reduced for memory efficiency
@@ -555,7 +502,7 @@ Options:
 
 Base URL Detection:
   - Development: http://localhost:3000
-  - Production: https://kingdom-design-house.netlify.app
+  - Production: https://kingdomdesignhouse.com
   - Custom: Use --url flag or WEB_SCRAPING_URL environment variable
 
 Pages to scrape:

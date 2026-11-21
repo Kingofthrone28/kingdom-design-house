@@ -10,7 +10,7 @@ export default function WebGroup() {
   return (
     <>
       <SEOHead {...seoData} />
-      <StructuredData />
+      <StructuredData page={{ url: seoData.canonical, name: seoData.title, description: seoData.description }} />
       
       <Layout>
         <AgencyGroupLanding groupType="web" />

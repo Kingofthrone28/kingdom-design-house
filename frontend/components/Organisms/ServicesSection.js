@@ -13,7 +13,7 @@ import { withTrailingSlash } from '../../utils/url';
  * 
  * Services data is imported from the centralized siteData object.
  */
-const ServicesSection = () => {
+const ServicesSection = ({ authorityOverview = false }) => {
   const services = siteData.services;
 
   return (
@@ -24,15 +24,19 @@ const ServicesSection = () => {
             Our <span className={styles.highlight}>Services</span>
           </h2>
           <p className={styles.subtitle}>
-            Comprehensive solutions for your business needs
+            {authorityOverview ? 'Web and AI are our primary build services. Network infrastructure supports your office.' : 'Comprehensive solutions for your business needs'}
           </p>
         </div>
 
         <div className={styles.groupsGrid}>
-          {Object.entries(services).map(([groupName, groupData]) => (
+          {(authorityOverview ? ['Web Group', 'AI Group', 'Network Group'].map(name => [name, services[name]]) : Object.entries(services)).map(([groupName, groupData]) => (
             <div key={groupName} className={styles.groupCard}>
               <h3 className={styles.groupTitle}>{groupName}</h3>
-              <p className={styles.groupDescription}>{groupData.description}</p>
+              <p className={styles.groupDescription}>{authorityOverview ? {
+                'Web Group': 'Primary: redesign a service website, build a portal, connect forms to CRM, create quote or booking workflows, or rebuild an outdated frontend.',
+                'AI Group': 'Primary: retrieve internal knowledge, support customer questions, qualify intake, connect CRM workflows, or search approved documents.',
+                'Network Group': 'Secondary: redesign office Wi-Fi, segment VLANs, plan ISP failover, configure routing and switching, or troubleshoot connectivity.'
+              }[groupName] : groupData.description}</p>
               
               <ul className={styles.servicesList}>
                 {groupData.services.map((service) => (

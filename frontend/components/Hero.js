@@ -4,9 +4,9 @@ import styles from '../styles/Hero.module.scss';
 import { useSiteData } from '../contexts/SiteDataContext';
 import VideoPlayer from './Organisms/VideoPlayer';
 import Button from './Atoms/Button';
-import Link from 'next/link';
+import InquiryCTA from './InquiryCTA';
 
-const Hero = ({ pageHeadline = null }) => {
+const Hero = ({ pageHeadline = null, tagline, ctaLabel = 'Book a free consultation' }) => {
   const { getHeroData } = useSiteData();
   const heroData = getHeroData();
   
@@ -52,7 +52,7 @@ const Hero = ({ pageHeadline = null }) => {
 
         {/* Tagline */}
         <p className={styles.hero__tagline}>
-          Your All-In-One Partner for <span className={styles.hero__headline__highlight}>Web Development / IT / Networking & AI Solutions in NY</span>
+          {tagline || <>Your All-In-One Partner for <span className={styles.hero__headline__highlight}>Web Development / IT / Networking & AI Solutions in Freeport and Long Island NY</span></>}
         </p>
 
         {/* Main Headline */}
@@ -65,6 +65,7 @@ const Hero = ({ pageHeadline = null }) => {
             <span className={styles.hero__headline__highlight}>{subHighlight}</span>
           </h1>
         </div>
+        <InquiryCTA cta="hero" label={ctaLabel} starter="I would like to discuss a website, business application, or AI automation project." />
       </div>
 
       {/* CTA Button */}

@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
-import ChatInterface from './ChatInterface';
+import React from 'react';
+import { useJarvis } from '../contexts/JarvisContext';
+import { trackAcquisition } from '../utils/analytics';
 import styles from '../styles/ChatJarvis.module.scss';
 import Button from './Atoms/Button';
 import { useSiteData } from '../contexts/SiteDataContext';
 import Image from 'next/image';
 
 const ChatJarvis = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const { openJarvis } = useJarvis();
   const { getChatData } = useSiteData();
   const chatData = getChatData();
   const { buttonText } = chatData || { buttonText: "Chat with Jarvis" };
     
 
   const handleChatClick = () => {
-    setIsChatOpen(!isChatOpen);
+    const context = { cta: 'homepage', sourcePath: '/' };
+    trackAcquisition('service_cta_click', context);
+    openJarvis(context);
   };
 
   return (
@@ -33,11 +36,6 @@ const ChatJarvis = () => {
         <div className={`${styles.chatJarvis__splash} ${styles['chatJarvis__splash--right']}`}/>
       </div>
 
-      {/* Chat Interface Modal */}
-      <ChatInterface 
-        isOpen={isChatOpen} 
-        onClose={() => handleChatClick()} 
-      />
     </section>
   );
 };

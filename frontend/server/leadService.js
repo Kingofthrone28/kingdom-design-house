@@ -1,4 +1,5 @@
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
+const { contextDescription } = require('../utils/acquisition');
 const MAX_RETRIES = 3;
 const REQUEST_TIMEOUT_MS = 10000;
 const CONVERSATION_PROPERTY = process.env.HUBSPOT_CONVERSATION_PROPERTY || 'kdh_conversation_id';
@@ -82,7 +83,7 @@ const dealProperties = lead => compactProperties({
   pipeline: process.env.HUBSPOT_DEAL_PIPELINE_ID || 'default',
   amount: String(extractBudgetAmount(lead.budget_range) || 0),
   closedate: calculateCloseDate(lead.timeline),
-  description: `Service: ${lead.service_requested || 'Not specified'}\nBudget: ${lead.budget_range || 'Not specified'}\nTimeline: ${lead.timeline || 'Not specified'}\nKeywords: ${lead.conversation_keywords || 'None'}`,
+  description: `Service: ${lead.service_requested || 'Not specified'}\nBudget: ${lead.budget_range || 'Not specified'}\nTimeline: ${lead.timeline || 'Not specified'}\nKeywords: ${lead.conversation_keywords || 'None'}\n${contextDescription(lead)}\nSelf-reported source: ${typeof lead.selfReportedSource === 'string' ? lead.selfReportedSource.slice(0, 200) : 'Not provided'}`,
   [CONVERSATION_PROPERTY]: lead.conversation_id,
 });
 
@@ -94,6 +95,8 @@ const ticketProperties = lead => compactProperties({
     `Phone: ${lead.phone || 'Not provided'}`,
     `Company: ${lead.company || 'Not provided'}`,
     `Service: ${lead.service_requested || 'General Inquiry'}`,
+    contextDescription(lead),
+    `Self-reported source: ${typeof lead.selfReportedSource === 'string' ? lead.selfReportedSource.slice(0, 200) : 'Not provided'}`,
     `Budget: ${lead.budget_range || 'Not specified'}`,
     `Timeline: ${lead.timeline || 'Not specified'}`,
     `Project: ${lead.project_description || lead.originalMessage || 'Not provided'}`,
@@ -180,6 +183,7 @@ const syncLead = async lead => {
   try {
     const contactResult = await upsertContact(lead);
     const contact = contactResult.record;
+    if (!contact?.id) throw new Error('HubSpot did not return an accepted contact record.');
     const synchronizedLead = contactResult.lead;
     let deal = null;
     let ticket = null;

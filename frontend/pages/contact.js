@@ -7,17 +7,17 @@ import ContactForm from '../components/ContactForm';
 export default function Contact() {
   const seoData = {
     title: "Contact Us | Get Your Free Consultation | Kingdom Design House",
-    description: "Ready to start your project? Contact Kingdom Design House for a free consultation. Web development, IT services, and AI solutions in Long Island, NY. Call 347.927.8846",
+    description: "Ready to start your project? Contact Kingdom Design House for a free consultation. Based in Freeport, serving Long Island and NYC with remote delivery.",
     keywords: "contact us, free consultation, web development consultation, IT services Long Island, AI solutions consultation",
     canonical: "/contact/",
     ogTitle: "Contact Us | Kingdom Design House",
-    ogDescription: "Ready to start your project? Contact Kingdom Design House for a free consultation. Web development, IT services, and AI solutions in Long Island, NY.",
+    ogDescription: "Ready to start your project? Contact Kingdom Design House for a free consultation. Websites, business applications, and AI automation. Based in Freeport, serving Long Island and NYC.",
   };
 
   return (
     <>
       <SEOHead {...seoData} />
-      <StructuredData />
+      <StructuredData page={{ url: seoData.canonical, name: seoData.title, description: seoData.description }} />
       
       <Layout>
         <ContactForm />

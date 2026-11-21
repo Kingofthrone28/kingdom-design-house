@@ -39,7 +39,7 @@ const GroupHero = ({ groupName = 'default', pageHeadline = null }) => {
         {/* Tagline */}
         <p className={styles.hero__tagline}>
 
-          Your #1 Partner for  <span className={styles.hero__headline__highlight}>{tagline}</span>
+          Your partner for <span className={styles.hero__headline__highlight}>{tagline}</span>
         </p>
 
         {/* Main Headline */}

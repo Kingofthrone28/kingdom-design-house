@@ -11,8 +11,7 @@ const DiscoverOurWork = ({ caseStudies = getCaseStudiesDirectoryData() }) => {
           <p className={styles.discoverOurWork__eyebrow}>Case Studies</p>
           <h1 className={styles.discoverOurWork__title}>Discover Our Work</h1>
           <p className={styles.discoverOurWork__description}>
-            Real projects, measurable outcomes, and practical solutions across web,
-            UX, and development.
+            Project contributions and professional experience across web, UX, and development. Each story describes the work and its context.
           </p>
         </div>
       </section>

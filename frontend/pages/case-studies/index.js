@@ -1,15 +1,17 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import SEOHead from '../../components/SEOHead';
+import StructuredData from '../../components/StructuredData';
 import DiscoverOurWork from '../../components/Organisms/DiscoverOurWork';
 import CaseStudyLetsTalk from '../../components/Molecules/CaseStudyLetsTalk';
 import { getCaseStudySummaries } from '../../data/caseStudies/summaries';
-import { scrollToChatOrContact } from '../../utils/navigation';
+import { useJarvis } from '../../contexts/JarvisContext';
+import { trackAcquisition } from '../../utils/analytics';
 
 const caseStudiesSeoData = {
   title: 'Discover Our Work | Case Studies | Kingdom Design House',
   description:
-    'Discover real client work from Kingdom Design House, including web design, development, and SEO case studies across Long Island and NYC.',
+    'Explore website projects and professional contributions, including David Dare MD, DermCare, IIN, and Northwell employment experience.',
   canonical: '/case-studies/',
   keywords:
     'case studies, web design portfolio, web development case studies, Long Island web agency, NYC website projects',
@@ -22,11 +24,13 @@ const letsTalkData = {
 };
 
 export default function CaseStudiesDirectoryPage() {
+  const { openJarvis } = useJarvis();
   const caseStudies = getCaseStudySummaries();
 
   return (
     <>
       <SEOHead {...caseStudiesSeoData} />
+      <StructuredData page={{ url: caseStudiesSeoData.canonical, name: caseStudiesSeoData.title, description: caseStudiesSeoData.description }} />
 
       <Layout>
         <DiscoverOurWork caseStudies={caseStudies} />
@@ -34,7 +38,7 @@ export default function CaseStudiesDirectoryPage() {
         <CaseStudyLetsTalk
           question={letsTalkData.question}
           heading={letsTalkData.heading}
-          onClick={() => scrollToChatOrContact()}
+          onClick={() => { trackAcquisition('service_cta_click', { cta: 'proof', sourcePath: '/case-studies/' }); openJarvis({ cta: 'proof' }); }}
         />
 
       </Layout>

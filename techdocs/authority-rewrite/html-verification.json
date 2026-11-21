@@ -1,0 +1,173 @@
+{
+  "checkedRoutes": 11,
+  "failures": [],
+  "checks": [
+    {
+      "route": "/services/",
+      "h1": [
+        "WEB DEVELOPMENT & AI AUTOMATIONFOR LONG ISLAND BUSINESSES "
+      ],
+      "title": "Web Development & AI Automation for Long Island Businesses | Kingdom Design House",
+      "description": "Explore websites, portals, AI workflows and business networking from KDH. Compare use cases, relevant work and the next step for your Long Island business.",
+      "canonical": "https://kingdomdesignhouse.com/services/",
+      "ogTitle": "Web Development & AI Automation for Long Island Businesses",
+      "ogDescription": "Explore websites, portals, AI workflows and business networking from KDH. Compare use cases, relevant work and the next step for your Long Island business.",
+      "ogImage": "https://kingdomdesignhouse.com/images/iin_devices_new.png",
+      "schemaGraphs": 1,
+      "internalLinks": 56,
+      "issues": []
+    },
+    {
+      "route": "/ai-group/services/ai-consulting/",
+      "h1": [
+        "AI CONSULTING FOR LONG ISLAND & NYC BUSINESSES"
+      ],
+      "title": "AI Consulting: Decide What to Automate | Long Island & NYC | Kingdom Design House",
+      "description": "Compare AI with rules-based automation. Review workflows, sources, human approvals, MVP scope and operating costs before deciding what to build with KDH.",
+      "canonical": "https://kingdomdesignhouse.com/ai-group/services/ai-consulting/",
+      "ogTitle": "AI Consulting: Decide What to Automate | Long Island & NYC",
+      "ogDescription": "Compare AI with rules-based automation. Review workflows, sources, human approvals, MVP scope and operating costs before deciding what to build with KDH.",
+      "ogImage": "https://kingdomdesignhouse.com/images/rocket.png",
+      "schemaGraphs": 1,
+      "internalLinks": 40,
+      "issues": []
+    },
+    {
+      "route": "/ai-group/services/ai-support/",
+      "h1": [
+        "AI ASSISTANT SUPPORT, EVALUATION & MONITORING FOR LONG ISLAND & NYC"
+      ],
+      "title": "AI Assistant Support, Evaluation & Monitoring | KDH | Kingdom Design House",
+      "description": "Review retrieval failures, unsupported answers, integrations and usage costs. Plan knowledge updates, regression evaluation and escalation for your AI assistant.",
+      "canonical": "https://kingdomdesignhouse.com/ai-group/services/ai-support/",
+      "ogTitle": "AI Assistant Support, Evaluation & Monitoring | KDH",
+      "ogDescription": "Review retrieval failures, unsupported answers, integrations and usage costs. Plan knowledge updates, regression evaluation and escalation for your AI assistant.",
+      "ogImage": "https://kingdomdesignhouse.com/images/AI_data.png",
+      "schemaGraphs": 1,
+      "internalLinks": 40,
+      "issues": []
+    },
+    {
+      "route": "/network-group/services/network-support/",
+      "h1": [
+        "BUSINESS NETWORK SUPPORT FOR LONG ISLAND & NYC"
+      ],
+      "title": "Business Network Support | Long Island & NYC | Kingdom Design House",
+      "description": "Review router, switch and Wi-Fi support with KDH. See incident triage, DNS/DHCP checks, service-hour boundaries, vendor dependencies and monthly pricing.",
+      "canonical": "https://kingdomdesignhouse.com/network-group/services/network-support/",
+      "ogTitle": "Business Network Support | Long Island & NYC",
+      "ogDescription": "Review router, switch and Wi-Fi support with KDH. See incident triage, DNS/DHCP checks, service-hour boundaries, vendor dependencies and monthly pricing.",
+      "ogImage": "https://kingdomdesignhouse.com/images/maintenance.png",
+      "schemaGraphs": 1,
+      "internalLinks": 40,
+      "issues": []
+    },
+    {
+      "route": "/web-group/services/digital-marketing/",
+      "h1": [
+        "TECHNICAL SEO & ORGANIC GROWTH FOR LONG ISLAND BUSINESSES"
+      ],
+      "title": "Technical SEO, GEO & Lead Measurement | Long Island | Kingdom Design House",
+      "description": "Map search intent to service pages and delivered inquiries. Explore KDH\u2019s technical SEO workflow, local entity checks, AI citation benchmarks and reporting limits.",
+      "canonical": "https://kingdomdesignhouse.com/web-group/services/digital-marketing/",
+      "ogTitle": "Technical SEO, GEO & Lead Measurement | Long Island",
+      "ogDescription": "Map search intent to service pages and delivered inquiries. Explore KDH\u2019s technical SEO workflow, local entity checks, AI citation benchmarks and reporting limits.",
+      "ogImage": "https://kingdomdesignhouse.com/images/seo.png",
+      "schemaGraphs": 1,
+      "internalLinks": 42,
+      "issues": []
+    },
+    {
+      "route": "/network-group/services/network-optimization/",
+      "h1": [
+        "BUSINESS WI-FI & NETWORK OPTIMIZATION FOR LONG ISLAND & NYC"
+      ],
+      "title": "Business Wi-Fi & Network Optimization | Long Island & NYC | Kingdom Design House",
+      "description": "Diagnose coverage, contention and capacity with baseline RF and network measurements. Compare post-change tests, speed-test limits and optimization scope.",
+      "canonical": "https://kingdomdesignhouse.com/network-group/services/network-optimization/",
+      "ogTitle": "Business Wi-Fi & Network Optimization | Long Island & NYC",
+      "ogDescription": "Diagnose coverage, contention and capacity with baseline RF and network measurements. Compare post-change tests, speed-test limits and optimization scope.",
+      "ogImage": "https://kingdomdesignhouse.com/images/discovery.png",
+      "schemaGraphs": 1,
+      "internalLinks": 40,
+      "issues": []
+    },
+    {
+      "route": "/network-group/services/network-design/",
+      "h1": [
+        "BUSINESS NETWORK DESIGN & INFRASTRUCTURE PLANNING FOR LONG ISLAND & NYC"
+      ],
+      "title": "Network Architecture & Office Infrastructure Planning | KDH | Kingdom Design House",
+      "description": "Plan routing, switching, Wi-Fi, VLANs and failover for a Long Island or NYC office. Review equipment reuse, architecture examples, deliverables and cost drivers.",
+      "canonical": "https://kingdomdesignhouse.com/network-group/services/network-design/",
+      "ogTitle": "Network Architecture & Office Infrastructure Planning | KDH",
+      "ogDescription": "Plan routing, switching, Wi-Fi, VLANs and failover for a Long Island or NYC office. Review equipment reuse, architecture examples, deliverables and cost drivers.",
+      "ogImage": "https://kingdomdesignhouse.com/images/bg_cable.png",
+      "schemaGraphs": 1,
+      "internalLinks": 40,
+      "issues": []
+    },
+    {
+      "route": "/web-group/services/web-design/",
+      "h1": [
+        "WEBSITE DESIGN & REDESIGN FOR LONG ISLAND BUSINESSES"
+      ],
+      "title": "Website Design & Redesign for Long Island Businesses | Kingdom Design House",
+      "description": "Review landing pages, mobile navigation, search intent and inquiry friction. Explore KDH\u2019s design deliverables, portfolio contributions, scope and pricing.",
+      "canonical": "https://kingdomdesignhouse.com/web-group/services/web-design/",
+      "ogTitle": "Website Design & Redesign for Long Island Businesses",
+      "ogDescription": "Review landing pages, mobile navigation, search intent and inquiry friction. Explore KDH\u2019s design deliverables, portfolio contributions, scope and pricing.",
+      "ogImage": "https://kingdomdesignhouse.com/images/design.png",
+      "schemaGraphs": 1,
+      "internalLinks": 42,
+      "issues": []
+    },
+    {
+      "route": "/web-group/services/web-development/",
+      "h1": [
+        "CUSTOM WEB DEVELOPMENT FOR LONG ISLAND & NYC"
+      ],
+      "title": "Custom Web Development: Workflows & Integrations | KDH | Kingdom Design House",
+      "description": "Plan rendering, authentication, data ownership and API failure handling for a Long Island or NYC website or application. Review scope, work and pricing.",
+      "canonical": "https://kingdomdesignhouse.com/web-group/services/web-development/",
+      "ogTitle": "Custom Web Development: Workflows & Integrations | KDH",
+      "ogDescription": "Plan rendering, authentication, data ownership and API failure handling for a Long Island or NYC website or application. Review scope, work and pricing.",
+      "ogImage": "https://kingdomdesignhouse.com/images/iin_devices_new.png",
+      "schemaGraphs": 1,
+      "internalLinks": 42,
+      "issues": []
+    },
+    {
+      "route": "/web-group/services/support/",
+      "h1": [
+        "WEBSITE MAINTENANCE & SUPPORT FOR LONG ISLAND BUSINESSES"
+      ],
+      "title": "Website Maintenance: Checks, Scope & Monthly Prices | KDH | Kingdom Design House",
+      "description": "Compare website maintenance for Long Island businesses: form delivery, dependencies, errors, content and integration checks, with explicit service boundaries.",
+      "canonical": "https://kingdomdesignhouse.com/web-group/services/support/",
+      "ogTitle": "Website Maintenance: Checks, Scope & Monthly Prices | KDH",
+      "ogDescription": "Compare website maintenance for Long Island businesses: form delivery, dependencies, errors, content and integration checks, with explicit service boundaries.",
+      "ogImage": "https://kingdomdesignhouse.com/images/maintenance.png",
+      "schemaGraphs": 1,
+      "internalLinks": 42,
+      "issues": []
+    },
+    {
+      "route": "/ai-group/services/ai-development/",
+      "h1": [
+        "CUSTOM AI DEVELOPMENT FOR LONG ISLAND & NYC BUSINESSES"
+      ],
+      "title": "Custom AI Development: RAG, Evaluation & Handoff | KDH | Kingdom Design House",
+      "description": "Build a scoped assistant for Long Island or NYC business workflows. Review approved sources, permissions, failure cases, human handoff and the Jarvis demo.",
+      "canonical": "https://kingdomdesignhouse.com/ai-group/services/ai-development/",
+      "ogTitle": "Custom AI Development: RAG, Evaluation & Handoff | KDH",
+      "ogDescription": "Build a scoped assistant for Long Island or NYC business workflows. Review approved sources, permissions, failure cases, human handoff and the Jarvis demo.",
+      "ogImage": "https://kingdomdesignhouse.com/images/Jarvis.png",
+      "schemaGraphs": 1,
+      "internalLinks": 42,
+      "issues": []
+    }
+  ],
+  "responsiveVisualReview": "Unavailable: Browser runtime reported no available browsers. No visual or keyboard pass is claimed.",
+  "deployment": "Not deployed. Offline export only; no external assistant index writes."
+}

@@ -32,7 +32,7 @@ const Button = ({
         
     const { getNavbarData } = useSiteData();
     const navbarData = getNavbarData();
-    const { buttonText, ariaLabel } = navbarData.cta;
+    const { buttonText } = navbarData.cta;
 
     const buttonClasses = [
         styles.button,
@@ -43,7 +43,6 @@ const Button = ({
     const Element = href ? Link : 'button';
     const elementProps = {
         className: buttonClasses,
-        'aria-label': ariaLabel,
         onClick,
         ...(href ? { href: withTrailingSlash(href) } : {}),
         ...props

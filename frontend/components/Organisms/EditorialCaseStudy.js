@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import VideoPlayer from './VideoPlayer';
 import styles from '../../styles/EditorialCaseStudy.module.scss';
 
@@ -22,8 +21,7 @@ const EditorialCaseStudy = ({ data }) => {
     video,
     impact,
     approach,
-    experience,
-    callToAction
+    experience
   } = data;
 
   return (
@@ -135,15 +133,6 @@ const EditorialCaseStudy = ({ data }) => {
         </div>
       </section>
 
-      <section className={styles.nextStep}>
-        <div className={styles.shell}>
-          <span>{callToAction.eyebrow}</span>
-          <h2>{renderLines(callToAction.heading)}</h2>
-          <Link href={callToAction.link.href} className={styles.cta}>
-            {callToAction.link.label} <span aria-hidden="true">{callToAction.link.icon}</span>
-          </Link>
-        </div>
-      </section>
     </article>
   );
 };

@@ -9,6 +9,7 @@ import PricingPlans from '../components/Organisms/PricingPlans';
 import { getPricingData } from '../data/siteData';
 import { pageSeoData } from '../lib/seo';
 import styles from '../styles/Pricing.module.scss';
+import acquisitionStyles from '../styles/Acquisition.module.scss';
 
 export default function Pricing() {
   const [isMonthly, setIsMonthly] = useState(true);
@@ -29,7 +30,7 @@ export default function Pricing() {
   return (
     <>
       <SEOHead {...seoData} />
-      <StructuredData />
+      <StructuredData page={{ url: seoData.canonical, name: seoData.title, description: seoData.description }} />
       
       <Layout>
         <section className={styles.pricing}>

@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import ChatInterface from './ChatInterface';
+import { useJarvis } from '../contexts/JarvisContext';
+import { trackAcquisition } from '../utils/analytics';
 import styles from '../styles/JarvisFloat.module.scss';
 
 const JarvisFloat = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const { openJarvis, isOpen } = useJarvis();
 
   return (
     <>
       <button
         className={styles.jarvisFloat}
-        onClick={() => setIsChatOpen(!isChatOpen)}
+        onClick={() => { trackAcquisition('service_cta_click', { cta: 'floating' }); openJarvis({ cta: 'floating' }); }}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
         aria-label="Chat with Jarvis"
       >
         <Image
@@ -22,10 +25,6 @@ const JarvisFloat = () => {
         />
       </button>
 
-      <ChatInterface
-        isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
-      />
     </>
   );
 };

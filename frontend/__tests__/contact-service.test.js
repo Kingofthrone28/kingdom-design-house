@@ -29,7 +29,7 @@ describe('contact service', () => {
     process.env.BUSINESS_EMAIL = 'info@kingdomdesignhouse.com';
     process.env.RECAPTCHA_SECRET_KEY = 'test-secret';
     process.env.RECAPTCHA_MIN_SCORE = '0.5';
-    sendMail = jest.fn().mockResolvedValue({ messageId: 'message-id' });
+    sendMail = jest.fn().mockResolvedValue({ messageId: 'message-id', accepted: ['info@kingdomdesignhouse.com'], rejected: [] });
     nodemailer.createTransport.mockReturnValue({ sendMail });
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
@@ -45,6 +45,7 @@ describe('contact service', () => {
     const result = await processContactSubmission(request());
 
     expect(result.status).toBe(200);
+    expect(result.body.notificationDelivered).toBe(true);
     expect(nodemailer.createTransport).toHaveBeenCalledWith(expect.objectContaining({
       host: 'smtp0001.neo.space',
       port: 587,
@@ -64,7 +65,7 @@ describe('contact service', () => {
 
   test('succeeds when only the visitor confirmation fails', async () => {
     sendMail
-      .mockResolvedValueOnce({ messageId: 'business-message' })
+      .mockResolvedValueOnce({ messageId: 'business-message', accepted: ['info@kingdomdesignhouse.com'], rejected: [] })
       .mockRejectedValueOnce(new Error('confirmation unavailable'));
 
     const result = await processContactSubmission(request());
@@ -108,4 +109,30 @@ describe('contact service', () => {
     expect(limited.status).toBe(429);
     expect(limited.headers['Retry-After']).toBeDefined();
   });
+  test('does not confirm delivery when SMTP rejects the business recipient', async () => {
+    sendMail.mockResolvedValueOnce({ accepted: [], rejected: ['info@kingdomdesignhouse.com'] });
+    await expect(processContactSubmission(request())).rejects.toThrow('not accepted');
+    expect(sendMail).toHaveBeenCalledTimes(1);
+  });
+
+  test('does not send a confirmation when business notification delivery throws', async () => {
+    sendMail.mockRejectedValueOnce(new Error('SMTP unavailable'));
+    await expect(processContactSubmission(request())).rejects.toThrow('SMTP unavailable');
+    expect(sendMail).toHaveBeenCalledTimes(1);
+  });
+
+  test('includes sanitized context and separate self-reported source in the existing notification', async () => {
+    await processContactSubmission(request({ ...validBody,
+      service: 'ai-development', cta: 'assistant-demo', sourcePath: '/ai-group/?email=secret@example.com',
+      attributionSource: 'google', attributionCampaign: 'ai-assistant', landingPath: '/?email=secret@example.com',
+      selfReportedSource: '<script>A recommendation</script>',
+    }));
+    const notification = sendMail.mock.calls[0][0];
+    expect(notification.text).toContain('cta: assistant-demo');
+    expect(notification.text).toContain('Self-reported source:');
+    expect(notification.text).not.toContain('secret@example.com');
+    expect(notification.html).toContain('&lt;script&gt;');
+    expect(notification.html).not.toContain('<script>');
+  });
+
 });

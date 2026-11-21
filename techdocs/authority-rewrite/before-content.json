@@ -1,0 +1,1063 @@
+{
+  "headlines": {
+    "home": {
+      "main": "WE SOLVE BUSINESS",
+      "highlight": "PROBLEMS",
+      "sub": "SO YOU",
+      "subHighlight": "DON'T HAVE TO"
+    },
+    "about": {
+      "main": "ABOUT",
+      "highlight": "KINGDOM DESIGN HOUSE",
+      "sub": "",
+      "subHighlight": ""
+    },
+    "services": {
+      "main": "OUR",
+      "highlight": "TECHNOLOGY SERVICES",
+      "sub": "IN LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "webGroup": {
+      "main": "WEB DEVELOPMENT &",
+      "highlight": "DESIGN SERVICES",
+      "sub": "IN LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "networkGroup": {
+      "main": "IT NETWORK DESIGN &",
+      "highlight": "SUPPORT SERVICES",
+      "sub": "IN LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "aiGroup": {
+      "main": "AI SOLUTIONS &",
+      "highlight": "AUTOMATION SERVICES",
+      "sub": "IN LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "web-design": {
+      "main": "WEB DESIGN",
+      "highlight": "SERVICES",
+      "sub": "FOR LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "web-development": {
+      "main": "CUSTOM WEB",
+      "highlight": "DEVELOPMENT",
+      "sub": "FOR LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "digital-marketing": {
+      "main": "DIGITAL MARKETING &",
+      "highlight": "SEO SERVICES",
+      "sub": "IN LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "support": {
+      "main": "WEBSITE SUPPORT &",
+      "highlight": "MAINTENANCE",
+      "sub": "IN LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "network-design": {
+      "main": "NETWORK DESIGN &",
+      "highlight": "IMPLEMENTATION",
+      "sub": "IN LONG ISLAND NY",
+      "subHighlight": ""
+    },
+    "network-optimization": {
+      "main": "WIRELESS INFRASTRUCTURE",
+      "highlight": "OPTIMIZATION",
+      "sub": "FOR NYC OFFICES",
+      "subHighlight": ""
+    },
+    "network-support": {
+      "main": "MANAGED NETWORK",
+      "highlight": "SUPPORT",
+      "sub": "FOR NYC BUSINESSES",
+      "subHighlight": ""
+    },
+    "ai-development": {
+      "main": "CUSTOM AI",
+      "highlight": "DEVELOPMENT",
+      "sub": "FOR LONG ISLAND & NYC",
+      "subHighlight": ""
+    },
+    "ai-consulting": {
+      "main": "AI CONSULTING",
+      "highlight": "SERVICES",
+      "sub": "FOR NYC BUSINESSES",
+      "subHighlight": ""
+    },
+    "ai-support": {
+      "main": "ONGOING AI",
+      "highlight": "SUPPORT",
+      "sub": "& OPTIMIZATION IN NEW YORK",
+      "subHighlight": ""
+    }
+  },
+  "content": {
+    "web-design": {
+      "title": "Web Design",
+      "mainContent": {
+        "title": "Clarify the journey from first visit to inquiry.",
+        "paragraphs": [
+          "We work through page structure, responsive layouts, content hierarchy, and review rounds with you. The proposal states whether the engagement includes implementation, a design handoff, or both."
+        ]
+      },
+      "approach": {
+        "title": "Our Approach to Modern Web Design",
+        "steps": [
+          {
+            "title": "Discovery",
+            "description": "We begin with an in-depth consultation to uncover your business goals, challenges, and vision. This allows us to design a clear project roadmap, ensuring your website is built with both present needs and future growth in mind."
+          },
+          {
+            "title": "Research & Insight",
+            "description": "Our team studies your market, competition, and customer behavior to inform our design strategy. This research allows us to position your website to stand out while aligning with your audience's expectations."
+          },
+          {
+            "title": "UX & Structure",
+            "description": "We focus on creating user flows, wireframes, and architecture that make your site intuitive and functional. This stage ensures the right foundation for usability, clarity, and scalability."
+          },
+          {
+            "title": "Content Alignment",
+            "description": "Working with you, we determine the key messages and assets your website needs to highlight. Every section and piece of content is designed to build trust, inspire action, and guide users toward conversion."
+          },
+          {
+            "title": "Design Execution",
+            "description": "With a strong foundation in place, our team designs a site that is both visually striking and strategically effective. From responsive layouts to engaging visuals, we ensure your website represents your brand with style and precision."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Expertise You Can Rely On",
+        "items": [
+          "UX/UI Design - Intuitive and user-first experiences",
+          "Creative Direction - Visual storytelling that fits your brand",
+          "Mobile-Responsive Development - Optimized for every device"
+        ]
+      },
+      "buyerGuide": {
+        "heading": "Make your offer easier to understand.",
+        "problem": "When customers cannot find the right service or know what to do next, a redesign needs more than a new visual style. We clarify page structure, content hierarchy, mobile navigation, and inquiry paths for your audience.",
+        "deliverables": [
+          "Discovery notes, page inventory, and a proposed information structure",
+          "Wireframes and responsive page designs for agreed templates",
+          "Design review, implementation handoff, and agreed accessibility and mobile checks"
+        ],
+        "boundaries": "We agree on pages, templates, revisions, and whether development is included. Photography, brand identity creation, ongoing copywriting, and extensive content migration require their own scope. You approve factual claims and supply assets you have permission to use.",
+        "pricingBasis": "Web package totals below cover the published package scope. A design-only engagement or larger redesign is quoted by templates, content needs, implementation work, and review rounds.",
+        "proof": [
+          {
+            "href": "/case-studies/daremd/",
+            "label": "David Dare MD portfolio",
+            "detail": "Treatment information hierarchy and appointment pathways; contribution details are described in the portfolio."
+          }
+        ],
+        "faqs": [
+          [
+            "Can you redesign without replacing everything?",
+            "We review the existing structure and identify the pages, navigation, and interactions that need attention."
+          ],
+          [
+            "Is development included?",
+            "The proposal states whether the work includes implementation, a design handoff, or both."
+          ],
+          [
+            "Can you help organize our content?",
+            "Yes. We can map key messages and page structure. Content production and migration volumes are agreed separately."
+          ],
+          [
+            "Will the design work on phones?",
+            "Responsive layouts and checks of agreed mobile journeys form part of the design scope."
+          ],
+          [
+            "Does a redesign guarantee more inquiries?",
+            "No. We can improve clarity and make inquiry paths measurable, then evaluate results with real visitors."
+          ]
+        ],
+        "cta": "Plan your website redesign",
+        "starter": "I am planning a website redesign. How do we decide what needs to change?",
+        "related": [
+          {
+            "href": "/web-group/services/web-development/",
+            "label": "Web development"
+          },
+          {
+            "href": "/industries/healthcare-websites/",
+            "label": "Healthcare website guidance"
+          }
+        ]
+      }
+    },
+    "web-development": {
+      "title": "Web Development",
+      "mainContent": {
+        "title": "Build around the tasks your customers and team need to complete.",
+        "paragraphs": [
+          "From a service website to a scoped business application, we agree on users, data, permissions, content, and integrations before selecting an implementation approach."
+        ]
+      },
+      "approach": {
+        "title": "Our Development Process",
+        "steps": [
+          {
+            "title": "Technical Planning",
+            "description": "We analyze your requirements and create a comprehensive technical roadmap that outlines architecture, technology stack, and development milestones."
+          },
+          {
+            "title": "Architecture Design",
+            "description": "Our team designs scalable system architecture that can handle current needs while planning for future growth and feature additions."
+          },
+          {
+            "title": "Development & Testing",
+            "description": "We build your application using industry best practices, with continuous testing to ensure quality, performance, and security at every step."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Development Expertise",
+        "items": [
+          "Front-end Development - React, Next.js, Vue.js",
+          "Back-end Development - Node.js, Python, PHP",
+          "Database Design - MySQL, PostgreSQL, MongoDB"
+        ]
+      },
+      "buyerGuide": {
+        "heading": "A website or business app your team can use.",
+        "problem": "If your website hides your services, forms lose inquiries, or staff copy information between tools, start with the workflow. We build marketing websites, portals, and business applications around the tasks your customers and team need to complete.",
+        "deliverables": [
+          "A written scope, page or workflow map, and integration requirements",
+          "Responsive implementation, agreed CMS or application features, and inquiry paths",
+          "Testing of core workflows, launch checklist, and handoff documentation"
+        ],
+        "boundaries": "A brochure website package does not include an unlimited custom application. Authentication, complex data migration, external APIs, hosting, software licenses, and ongoing operations are scoped separately. You provide access, approved content, and feedback; we agree on acceptance checks before development.",
+        "pricingBasis": "Published Web packages provide a starting point for websites. Application pricing depends on roles, workflows, data, integrations, and testing requirements. Confirm what is included in a written proposal.",
+        "proof": [
+          {
+            "href": "/case-studies/iin/",
+            "label": "IIN contribution overview",
+            "detail": "Professional engineering contributions to enrollment workflows; not presented as a verified KDH agency engagement."
+          }
+        ],
+        "faqs": [
+          [
+            "Can you build a business application instead of a marketing site?",
+            "Yes. We first define users, permissions, data, workflows, and integrations, then quote the application scope separately from a website package."
+          ],
+          [
+            "Can we keep our existing CMS?",
+            "We review its access, templates, data, and integration limits before recommending an extension or migration."
+          ],
+          [
+            "How long will development take?",
+            "The schedule depends on the approved scope, content readiness, integrations, and review cycles. Milestones are agreed after discovery."
+          ],
+          [
+            "Will the site generate leads automatically?",
+            "We can implement clear inquiry paths and measurement. Traffic, visitor fit, and commercial results require ongoing review; no lead volume is guaranteed."
+          ],
+          [
+            "Do you work outside Long Island?",
+            "KDH is based in Freeport, serves Long Island and NYC, and can deliver projects remotely."
+          ]
+        ],
+        "cta": "Discuss your website or business app",
+        "starter": "I need a website or business application. What should we scope first?",
+        "related": [
+          {
+            "href": "/web-group/services/web-design/",
+            "label": "Web design"
+          },
+          {
+            "href": "/ai-group/services/ai-development/",
+            "label": "AI development"
+          }
+        ]
+      }
+    },
+    "network-it": {
+      "title": "Network & IT Services",
+      "mainContent": {
+        "title": "Building Networks That Work as Hard as You Do",
+        "paragraphs": [
+          "Your business relies on seamless connectivity — whether it's sharing files, video conferencing, or serving customers online. At <strong>Kingdom Design House</strong>, our IT & Networking Group provides custom-designed network solutions built to maximize speed, reliability, and scalability.",
+          "We don't believe in one-size-fits-all setups. Every router, switch, and WiFi access point is configured with your business environment in mind, ensuring your systems perform smoothly today and are ready for tomorrow's growth."
+        ]
+      },
+      "approach": {
+        "title": "Our Process: From Blueprint to Deployment",
+        "steps": [
+          {
+            "title": "Discovery & Assessment",
+            "description": "We begin by understanding your unique requirements: How many users and devices will be on your network? Do you need high-performance connectivity for video, data, or cloud systems? Is your team scaling, requiring flexible upgrades in the future? By gathering this information upfront, we design a plan that eliminates bottlenecks and sets the foundation for efficiency."
+          },
+          {
+            "title": "Strategic Planning",
+            "description": "With your goals in mind, we create a network architecture blueprint. This plan outlines router placement and configuration for stable, fast data routing, switch setup for reliable communication between devices, WiFi design to ensure strong coverage throughout your workspace, and structured cabling recommendations for long-term performance. This stage ensures your network is not only functional but also built to grow with you."
+          },
+          {
+            "title": "Network Design & Implementation",
+            "description": "This is where planning becomes reality. Our team configures routers and switches to handle your exact workload, designs WiFi layouts for seamless roaming, coverage, and optimized performance, ensures load balancing so traffic flows efficiently across devices, and sets up redundancy measures to minimize downtime and interruptions. We carefully test every component before launch, ensuring your network is both stable and future-proof."
+          },
+          {
+            "title": "Testing & Optimization",
+            "description": "Before handing over your system, we run real-world tests to guarantee performance: speed and load testing, signal strength verification across your space, device compatibility checks, and fine-tuning to remove any weak spots. The result: a smooth, reliable network that supports your daily operations with ease."
+          },
+          {
+            "title": "Support & Maintenance",
+            "description": "Networking is not a \"set it and forget it\" service. As technology evolves, so do your needs. That's why we offer routine performance checks, troubleshooting and updates, and scalable adjustments as your business expands. We don't just build your network — we partner with you to keep it running at peak efficiency."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Network & IT Expertise",
+        "items": [
+          "Network Infrastructure - Routers, switches, and structured cabling",
+          "WiFi Design & Optimization - Seamless coverage and performance",
+          "Security & Redundancy - Protecting your business data and uptime",
+          "Scalable Solutions - Networks that grow with your business"
+        ]
+      }
+    },
+    "network-design": {
+      "title": "Network Design Services",
+      "mainContent": {
+        "title": "Network Design & Implementation for Long Island Businesses",
+        "paragraphs": [
+          "We deliver full-scope network design and implementation for offices and small businesses across Long Island, including Nassau County, Suffolk County, and Freeport. Our team handles everything from initial planning through physical installation and configuration — so your infrastructure is built right the first time.",
+          "Whether you need wired routing and switching, Wi-Fi coverage, or a hybrid infrastructure built for growth, we design and implement solutions tailored to your environment. We serve businesses across Long Island and NYC that are tired of patching together unreliable networks and need a system that simply works."
+        ]
+      },
+      "approach": {
+        "title": "Our Network Design Services",
+        "steps": [
+          {
+            "title": "Router & Switch Configuration",
+            "description": "Routers and switches are the backbone of any business network. At Kingdom Design House, we specialize in configuring these devices to ensure your systems handle the exact workload your business demands. A properly configured router ensures your data packets are transferred quickly, securely, and efficiently, while switches allow devices across your network to communicate seamlessly. Together, they form the traffic controllers that keep your business moving without interruptions. We don't believe in \"plug-and-play\" solutions for professional environments. Every configuration is customized to your office size, device count, and the type of data you use most. For example, a small office might need a lightweight setup optimized for shared drives and video calls, while a larger company may require advanced VLANs and port management to separate traffic between departments. By tailoring the configuration, we eliminate bottlenecks, improve speeds, and create a system that grows with your business. Our approach doesn't stop at initial setup. We test every router and switch against real-world workloads, ensuring that file transfers, cloud applications, and collaboration tools work without lag or packet loss. With proper configuration, your network becomes invisible to your team — it simply works, so you can focus on business."
+          },
+          {
+            "title": "WiFi Design & Optimization",
+            "description": "A strong and reliable WiFi network is no longer optional — it's a business essential. At Kingdom Design House, we design WiFi systems that provide seamless coverage, ensuring your entire workspace is free of dead zones and connectivity drops. Our process begins with mapping your physical environment, taking into account walls, interference, and the number of devices connected at once. This allows us to strategically place access points for maximum coverage and performance. One of the most important aspects of WiFi optimization is seamless roaming. In a modern office, staff need to move freely from one space to another without losing connection. We configure systems so devices automatically transition between access points without interruption — whether you're on a video call, presenting wirelessly, or transferring large files. Our optimization process goes beyond coverage. We fine-tune frequency bands, channel selection, and bandwidth allocation to ensure every device gets the speed it needs. Whether your business runs on video conferencing, cloud collaboration, or point-of-sale systems, we create a wireless environment where performance is consistent, stable, and ready for the demands of a growing workforce."
+          },
+          {
+            "title": "Network Load Balancing",
+            "description": "In today's digital-first workplace, businesses depend on multiple devices and applications running simultaneously. Without proper management, this traffic can overwhelm your network, leading to slowdowns and inefficiency. That's where network load balancing comes in. At Kingdom Design House, we implement systems that intelligently distribute network traffic, ensuring no single device or connection point becomes a bottleneck. Load balancing creates a smoother experience by spreading demand evenly across available resources. For example, in an office where multiple employees are video conferencing while others upload files to the cloud, traffic can spike unexpectedly. Our load balancing setups ensure that bandwidth is allocated fairly and efficiently, preventing any one task from slowing down the entire network. Beyond performance, load balancing improves reliability. If one connection or path becomes overloaded, traffic is automatically rerouted to maintain consistent speeds. This type of optimization is essential for businesses that rely heavily on digital collaboration, real-time communication, or high-volume data transfers. With a properly balanced system, your network won't just meet today's demands — it will be ready for tomorrow's."
+          },
+          {
+            "title": "Redundancy & Uptime Assurance",
+            "description": "Downtime is costly. Even a brief interruption can halt communication, stall transactions, and disrupt daily operations. At Kingdom Design House, we design redundancy measures to keep your business online, even when unexpected issues arise. Redundancy is about creating backup systems — additional routers, switches, or connections that automatically take over if the primary system fails. A reliable network isn't just about speed; it's about consistency. By implementing redundant pathways, we make sure that if one component experiences an issue, another seamlessly steps in. This can be as simple as having a secondary router ready to activate or as advanced as building multiple switches into your infrastructure to prevent single points of failure. We also test failover systems under real conditions to ensure they perform when needed. The result is peace of mind: knowing that your business won't grind to a halt because of one faulty device or connection. Redundancy transforms your network from a fragile system into a resilient backbone, giving your team the confidence to work without fear of interruptions."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Network Design Expertise",
+        "items": [
+          "Router & Switch Configuration - Custom setups for optimal performance",
+          "WiFi Design & Optimization - Seamless coverage and roaming",
+          "Network Load Balancing - Intelligent traffic distribution",
+          "Redundancy & Uptime Assurance - Business continuity planning"
+        ]
+      }
+    },
+    "network-optimization": {
+      "title": "Network Testing & Optimization",
+      "mainContent": {
+        "title": "Wireless Infrastructure Design & Network Optimization",
+        "paragraphs": [
+          "Wireless infrastructure design in NYC is not just about installing equipment; it is about building dependable performance under real business load. We test and optimize your network for speed, coverage, stability, and security so teams can work without interruption."
+        ]
+      },
+      "approach": {
+        "title": "Our Network Optimization Services",
+        "steps": [
+          {
+            "title": "Real-World Performance Testing",
+            "description": "Once a network is installed, we put it through rigorous testing to simulate actual business conditions. This includes speed tests, data transfer benchmarks, and multi-user stress tests to ensure routers, switches, and WiFi systems deliver consistent performance. Our process identifies potential weak points before they become problems, giving you confidence that your system will run smoothly from day one."
+          },
+          {
+            "title": "Coverage & Signal Verification",
+            "description": "For WiFi networks, coverage is everything. We measure signal strength throughout your workspace to eliminate dead zones and weak spots. Using advanced tools, we test for interference from walls, competing networks, or other devices. If we detect performance drops, we adjust placement, fine-tune frequencies, or recommend additional access points to ensure seamless roaming and reliable connectivity in every corner of your business."
+          },
+          {
+            "title": "Bandwidth & Load Optimization",
+            "description": "Testing isn't only about speed — it's also about efficiency. We evaluate how bandwidth is distributed across devices and applications, making adjustments to prioritize business-critical functions like video conferencing, cloud access, and point-of-sale systems. By optimizing load distribution, we prevent bottlenecks and guarantee smooth performance, even during peak usage."
+          },
+          {
+            "title": "Continuous Improvement",
+            "description": "Optimization is not a one-time event. As your business evolves and the number of connected devices grows, we provide ongoing monitoring and adjustments to keep your network performing at its best. This proactive approach ensures your system adapts to new demands, software updates, and expansions without compromising stability or speed."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Network Optimization Expertise",
+        "items": [
+          "Real-World Performance Testing - Comprehensive stress testing and benchmarking",
+          "Coverage & Signal Verification - Eliminating dead zones and weak spots",
+          "Bandwidth & Load Optimization - Efficient distribution and prioritization",
+          "Continuous Improvement - Ongoing monitoring and proactive adjustments"
+        ]
+      }
+    },
+    "network-support": {
+      "title": "Network Support & Maintenance",
+      "mainContent": {
+        "title": "NYC Network Support & Maintenance",
+        "paragraphs": [
+          "Our NYC network support and maintenance service helps businesses reduce downtime, resolve issues quickly, and keep critical systems operating at peak performance. We provide proactive care so your network remains stable as your users, devices, and requirements grow."
+        ]
+      },
+      "approach": {
+        "title": "Our Network Support Services",
+        "steps": [
+          {
+            "title": "Proactive Support That Prevents Problems",
+            "description": "We believe the best support is proactive, not reactive. Instead of waiting for issues to arise, we regularly monitor and evaluate your network to identify potential weak spots before they cause disruptions. This includes reviewing router and switch performance, testing WiFi coverage, and ensuring load distribution is functioning properly. By staying ahead of problems, we save your business valuable time and resources."
+          },
+          {
+            "title": "Routine Updates & System Care",
+            "description": "Networking hardware and software require regular updates to maintain peak performance. We handle firmware updates, configuration adjustments, and optimization tasks that keep your systems current. These updates not only improve stability and speed but also extend the lifespan of your equipment, ensuring you get the most from your investment."
+          },
+          {
+            "title": "Responsive Troubleshooting When You Need It",
+            "description": "Even with careful planning and maintenance, unexpected issues can happen. When they do, our team is ready to respond quickly. Whether it's a dropped connection, an underperforming switch, or a WiFi blind spot, we diagnose and resolve problems efficiently to minimize downtime. Our goal is to get your systems back online fast so your team can continue working without unnecessary interruptions."
+          },
+          {
+            "title": "A Long-Term Partnership",
+            "description": "Support & Maintenance isn't just about keeping your network running — it's about building trust and ensuring your technology supports your business goals. We grow with you, adjusting your network as your team expands, your devices increase, and your needs evolve. With Kingdom Design House as your networking partner, you gain peace of mind knowing your systems are always in capable hands."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Network Support Expertise",
+        "items": [
+          "Proactive Support - Monitoring and prevention before problems occur",
+          "Routine Updates & System Care - Regular maintenance and optimization",
+          "Responsive Troubleshooting - Quick diagnosis and resolution of issues",
+          "Long-Term Partnership - Growing with your business needs"
+        ]
+      }
+    },
+    "digital-marketing": {
+      "title": "Digital Marketing",
+      "mainContent": {
+        "title": "Useful content and a measurable inquiry path.",
+        "paragraphs": [
+          "We review crawlability, metadata, service content, internal links, and consent-aware measurement. Search rankings, AI citations, and commercial results are evaluated over time and are not guaranteed."
+        ]
+      },
+      "approach": {
+        "title": "Our Technical SEO Process",
+        "steps": [
+          {
+            "title": "Site Architecture & Crawlability",
+            "description": "We ensure your website has a logical, intuitive structure that both users and search engines can understand. From internal linking strategies to optimized sitemaps and clean URL structures, we make it easy for Google and Bing to crawl your site and understand your content."
+          },
+          {
+            "title": "Page Speed & Performance",
+            "description": "Search engines reward fast-loading websites. We optimize everything from image compression and caching to code minification and server response times. The result is a site that's lightning-fast — improving both rankings and user satisfaction."
+          },
+          {
+            "title": "Mobile Optimization",
+            "description": "With mobile traffic surpassing desktop, your website must perform flawlessly on every device. We design responsive frameworks and test across multiple screen sizes to ensure mobile-first indexing doesn't hurt your visibility."
+          },
+          {
+            "title": "On-Page Technical Elements",
+            "description": "From metadata and schema markup to header hierarchy and canonical tags, we fine-tune every element that affects how search engines interpret and present your site in results. These technical refinements improve click-through rates and ensure your content is showcased correctly."
+          },
+          {
+            "title": "Indexing & Error Resolution",
+            "description": "We monitor your site for crawl errors, broken links, and duplicate content issues that can undermine your rankings. Our team implements solutions quickly to keep your site clean, consistent, and fully indexable."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Digital Marketing Expertise",
+        "items": [
+          "Technical SEO - Site architecture, performance, and technical optimization",
+          "Content Strategy - Aligning messaging with target keywords for organic traffic",
+          "Analytics & Reporting - Tracking performance and measuring success",
+          "Continuous Optimization - Adapting strategies as search algorithms evolve"
+        ]
+      },
+      "buyerGuide": {
+        "heading": "Connect useful content to a measurable next step.",
+        "problem": "Traffic alone does not explain whether people can find your services or become customers. We review technical search foundations, service content, internal links, and inquiry measurement so you can see where the funnel needs work.",
+        "deliverables": [
+          "A technical and content audit with prioritized actions",
+          "Agreed improvements to metadata, indexing, internal links, and service content",
+          "Consent-aware conversion measurement and a reporting framework tied to inquiries"
+        ],
+        "boundaries": "Search rankings, inclusion in AI answers, and inquiry volumes are not guaranteed. Media spend, paid campaign management, large content programs, and social publishing require an explicit scope. Account access and historical Search Console and GA4 data are dependencies.",
+        "pricingBasis": "SEO setup is part of the relevant published Web package scope. Ongoing marketing work depends on the audit, pages, content production, and reporting cadence; a support price is not an unlimited marketing retainer.",
+        "proof": [
+          {
+            "href": "/guides/custom-ai-assistant-vs-chatbot/",
+            "label": "Assistant comparison guide",
+            "detail": "Useful buyer education connected to a relevant service and inquiry path."
+          }
+        ],
+        "faqs": [
+          [
+            "Do you guarantee a first-page ranking?",
+            "No. Search platforms decide what to index and show. We focus on useful content and technical foundations that can be reviewed."
+          ],
+          [
+            "How do you measure success?",
+            "Review search impressions and clicks, then confirmed inquiries, qualified conversations, consultations, proposals, and revenue. Keep engagement separate from leads."
+          ],
+          [
+            "Can you optimize for AI search?",
+            "We apply conventional SEO: accessible text, internal links, accurate metadata, and structured data that matches visible content. Inclusion in AI answers is not guaranteed."
+          ],
+          [
+            "Do I need paid ads?",
+            "Not necessarily. We first assess whether organic demand and the existing website support your goals. Paid campaigns are a separate decision and scope."
+          ],
+          [
+            "When should we review progress?",
+            "Review the funnel weekly and compare 28-day search periods. Evaluate inquiry quality and commercial outcomes after 60–90 days before expanding content."
+          ]
+        ],
+        "cta": "Discuss your organic acquisition goals",
+        "starter": "I want to understand how service content and inquiry tracking could help my business.",
+        "related": [
+          {
+            "href": "/web-group/services/support/",
+            "label": "Website support"
+          },
+          {
+            "href": "/locations/freeport-ny/",
+            "label": "Freeport and regional coverage"
+          }
+        ]
+      }
+    },
+    "support": {
+      "title": "Website Support",
+      "mainContent": {
+        "title": "Plan ongoing care around the website you operate.",
+        "paragraphs": [
+          "Start with an access and dependency review, then agree on maintenance, content changes, monitoring, and service hours. New features and emergency work are assessed separately."
+        ]
+      },
+      "approach": {
+        "title": "What Our Website Support Covers",
+        "steps": [
+          {
+            "title": "Ongoing Technical Monitoring",
+            "description": "We continuously monitor uptime, page speed, and core functionality to catch issues before they impact users or lead flow."
+          },
+          {
+            "title": "Updates & Security Patching",
+            "description": "We apply framework, plugin, and dependency updates with a maintenance workflow that prioritizes stability and security."
+          },
+          {
+            "title": "Content & Page Edits",
+            "description": "Need copy updates, image changes, or new sections? We handle day-to-day maintenance requests quickly so your site stays current."
+          },
+          {
+            "title": "Performance Improvements",
+            "description": "We identify bottlenecks and optimize assets, scripts, and layout behavior to improve load speed and user experience."
+          },
+          {
+            "title": "Support Planning",
+            "description": "We align your maintenance roadmap to releases, campaigns, and business priorities so your website supports ongoing growth."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Long-Term Benefits of Website Maintenance",
+        "items": [
+          "Reliable Uptime - Keep your site available for leads and customers",
+          "Stronger Security - Reduce risk with consistent updates and monitoring",
+          "Faster Site Performance - Improve user experience across devices",
+          "Lower Long-Term Cost - Prevent larger issues with proactive maintenance"
+        ]
+      },
+      "buyerGuide": {
+        "heading": "Keep your website useful after launch.",
+        "problem": "Broken forms, outdated content, plugin changes, and slow pages can interrupt the customer journey. We start with an audit and agree on routine maintenance, update priorities, and a process for reporting issues.",
+        "deliverables": [
+          "An agreed maintenance scope and access inventory",
+          "Scheduled updates, content changes, or performance work within the selected plan",
+          "Checks of key inquiry paths, reporting, and handoff notes for changes"
+        ],
+        "boundaries": "Response times, service hours, backups, and monitoring must be agreed in writing. Support does not promise uninterrupted uptime or unlimited development. Emergency recovery, major redesigns, hosting, licenses, and new integrations may require separate work.",
+        "pricingBasis": "Published Web support prices are $150, $250, and $500 per month for the corresponding package scope. Existing websites are assessed before recommending a plan. Setup totals below apply to website projects, not automatically to support-only work.",
+        "proof": [
+          {
+            "href": "/case-studies/dermcare/",
+            "label": "DermCare Management portfolio",
+            "detail": "Modular content and responsive templates illustrate a maintainable structure; no ongoing support contract or uptime result is asserted."
+          }
+        ],
+        "faqs": [
+          [
+            "Can you support a site you did not build?",
+            "We review its framework, hosting, dependencies, access, and existing issues before confirming scope."
+          ],
+          [
+            "Are content edits included?",
+            "The plan defines the kinds and volume of edits included. Larger content changes and new features are estimated separately."
+          ],
+          [
+            "Is support available 24/7?",
+            "Service hours, response targets, and any emergency arrangements must be explicitly agreed."
+          ],
+          [
+            "Will you check our contact form?",
+            "Key inquiry paths can be included in the maintenance checklist with safe test procedures and delivery checks."
+          ],
+          [
+            "Can we add features later?",
+            "Yes. We assess new features separately and agree on cost, schedule, and acceptance checks."
+          ]
+        ],
+        "cta": "Discuss website support",
+        "starter": "I need help maintaining an existing website. What access and details do you need?",
+        "related": [
+          {
+            "href": "/web-group/services/web-development/",
+            "label": "Development for new features"
+          },
+          {
+            "href": "/web-group/services/digital-marketing/",
+            "label": "Organic content and measurement"
+          }
+        ]
+      }
+    },
+    "ai-consulting": {
+      "title": "AI Consulting",
+      "mainContent": {
+        "title": "Understanding AI for Real-World Business",
+        "paragraphs": [
+          "Artificial Intelligence isn't just a buzzword — it's a set of tools and techniques that can fundamentally change how businesses operate. At <strong>Kingdom Design House</strong>, our consulting services focus on helping you cut through the hype and uncover practical AI applications that align with your specific business goals."
+        ]
+      },
+      "approach": {
+        "title": "Our AI Consulting Process",
+        "steps": [
+          {
+            "title": "Strategic Assessment",
+            "description": "We begin with an in-depth review of your workflows, data, and current technology stack. Many companies already have the raw ingredients for AI success — data stored in CRMs, customer support logs, or operational systems. We identify how these assets can be leveraged and what AI technologies are best suited for them."
+          },
+          {
+            "title": "Building an AI Roadmap",
+            "description": "Once opportunities are clear, we design a step-by-step roadmap for implementation. This includes selecting the right models, outlining integration paths, and defining clear metrics for success. Whether your focus is automation, predictive analytics, or improved customer engagement, our roadmap ensures you know what to do now and what to scale later."
+          },
+          {
+            "title": "Collaborative Guidance",
+            "description": "AI Consulting at Kingdom Design House is a partnership. We work closely with your team to answer questions, train staff, and provide clarity around costs, benefits, and risks. The result is not just a recommendation but a clear, actionable plan that brings AI from idea to reality."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "AI Consulting Expertise",
+        "items": [
+          "Strategic Assessment - In-depth review of workflows, data, and technology stack",
+          "AI Roadmap Development - Step-by-step implementation planning with clear metrics",
+          "Collaborative Guidance - Partnership approach with training and support",
+          "Practical AI Applications - Focus on real-world business solutions"
+        ]
+      }
+    },
+    "ai-development": {
+      "title": "AI Development",
+      "mainContent": {
+        "title": "Build an assistant around an approved workflow.",
+        "paragraphs": [
+          "Define the knowledge sources, permissions, integration requirements, representative test questions, and a human fallback. Retrieval and generated answers still require review; ongoing usage and evaluation are part of the operating plan."
+        ]
+      },
+      "approach": {
+        "title": "Our AI Development Process",
+        "steps": [
+          {
+            "title": "Custom-Built AI Applications",
+            "description": "No two businesses are alike, which means no two AI solutions should be either. We develop tools that handle your unique needs — from AI chatbots that answer customer inquiries with precision, to recommendation engines that personalize offerings, to knowledge systems that help employees find information instantly."
+          },
+          {
+            "title": "The Power of RAG (Retrieval-Augmented Generation)",
+            "description": "One standout technique we use is RAG, which blends large language models with your company's proprietary data. RAG retrieves context from approved documents for the model to use. Retrieval can miss information, and generated answers may still be incorrect. We define evaluation questions and a human fallback."
+          },
+          {
+            "title": "Testing & Deployment",
+            "description": "We rigorously test every AI system before deployment, evaluating accuracy, scalability, and usability. Once live, we integrate the solution into your existing workflows with minimal disruption. The result is a system that doesn't just function — it enhances the way your business operates daily."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "AI Development Expertise",
+        "items": [
+          "Custom-Built AI Applications - Tailored solutions for unique business needs",
+          "RAG Implementation - Retrieval-Augmented Generation with proprietary data",
+          "Testing & Deployment - Rigorous evaluation and seamless integration",
+          "Workflow Enhancement - AI systems that improve daily operations"
+        ]
+      },
+      "buyerGuide": {
+        "heading": "Start with a business task, then choose the AI.",
+        "problem": "When staff repeatedly answer the same questions or transfer information between tools, an assistant may help. We scope the knowledge sources, actions, permissions, handoff, and failure cases before building a prototype.",
+        "deliverables": [
+          "A workflow map, approved knowledge sources, and success and failure criteria",
+          "A prototype assistant or integration with scoped permissions and a human fallback",
+          "Evaluation examples, integration checks, deployment notes, and an update process"
+        ],
+        "boundaries": "AI responses can be incomplete or incorrect. Human review is required for consequential decisions. Model usage, hosting, vector storage, external licenses, data cleanup, and ongoing evaluation are scoped separately. Do not use the public demo for sensitive records or patient information.",
+        "pricingBasis": "Published AI setup totals start at $4,000 with support from $300 per month. The final scope depends on retrieval sources, integrations, actions, evaluation, and operating requirements. Third-party usage charges are separate and vary with traffic and configuration.",
+        "proof": [
+          {
+            "href": "/ai-group/solutions/ai-lead-assistant/",
+            "label": "Jarvis lead assistant",
+            "detail": "A working KDH assistant with retrieval, structured inquiry extraction, Contact fallback, and a HubSpot handoff implemented in this repository."
+          },
+          {
+            "href": "/case-studies/iin/",
+            "label": "IIN contribution overview",
+            "detail": "Professional integration and enrollment workflow experience; not an AI deployment claim or verified KDH agency engagement."
+          }
+        ],
+        "faqs": [
+          [
+            "How is a custom assistant different from a basic chatbot?",
+            "A fixed flow suits predictable questions. A custom assistant can retrieve approved knowledge and connect to tools, but needs more evaluation, maintenance, and oversight."
+          ],
+          [
+            "Can it connect to our CRM?",
+            "We scope supported APIs, field mapping, permissions, retries, and failure handling. Jarvis has an implemented HubSpot handoff; your integration requires its own scope and verification."
+          ],
+          [
+            "Will it always answer correctly?",
+            "No. We test representative questions, provide a human fallback, and define tasks the assistant must not perform."
+          ],
+          [
+            "What costs continue after launch?",
+            "Support, model usage, hosting, retrieval storage, integration subscriptions, and content updates may continue. We identify these in the proposal rather than promise a fixed usage bill."
+          ],
+          [
+            "Can I try an example?",
+            "Use the Jarvis demo for business questions and avoid sensitive information. It is a working assistant and may create a follow-up inquiry if you provide project and contact details."
+          ]
+        ],
+        "cta": "Scope your AI assistant or workflow",
+        "starter": "I want to automate a business workflow. How do we check whether an AI assistant is a good fit?",
+        "related": [
+          {
+            "href": "/ai-group/solutions/ai-lead-assistant/",
+            "label": "Try the lead assistant"
+          },
+          {
+            "href": "/guides/custom-ai-assistant-vs-chatbot/",
+            "label": "Custom assistant vs chatbot"
+          }
+        ]
+      }
+    },
+    "ai-support": {
+      "title": "AI Support & Maintenance Services",
+      "mainContent": {
+        "title": "AI Support and Maintenance for Production Systems",
+        "paragraphs": [
+          "Our AI support and maintenance services keep production AI systems accurate, fast, and aligned with your real business data as operations evolve.",
+          "We monitor performance, retrain where needed, and maintain integrations so your AI tools remain reliable for customer-facing and internal workflows."
+        ]
+      },
+      "approach": {
+        "title": "Our AI Support Services",
+        "steps": [
+          {
+            "title": "Continuous Monitoring & Fine-Tuning",
+            "description": "We track your AI's performance to ensure accuracy, relevance, and speed. If responses drift or performance dips, we adjust models, retrain systems, and refine outputs so your AI remains reliable. This prevents \"model decay\" — a common issue where AI quality diminishes over time."
+          },
+          {
+            "title": "Updating With New Data",
+            "description": "Your business doesn't stand still, and neither should your AI. We continually feed new data into your models — from updated product catalogs to recent customer interactions — so your AI reflects the current state of your business, not last year's information."
+          },
+          {
+            "title": "Advisory & Feature Expansion",
+            "description": "Beyond maintenance, we act as advisors for expanding your AI capabilities. Whether it's integrating additional features like voice interfaces, analytics dashboards, or workflow automation, we help you extend the value of your initial AI investment."
+          }
+        ]
+      },
+      "expertise": {
+        "title": "AI Support Benefits",
+        "items": [
+          "Continuous Monitoring - Track performance and prevent model decay",
+          "Data Updates - Keep AI current with latest business information",
+          "Feature Expansion - Advisory services for growing AI capabilities",
+          "Future-Proof Systems - AI that stays sharp, relevant, and ahead of the curve"
+        ]
+      }
+    }
+  },
+  "services": {
+    "AI Group": {
+      "basePath": "/ai-group/services",
+      "description": "Intelligent automation and AI-powered solutions",
+      "services": [
+        {
+          "name": "AI Development",
+          "slug": "ai-development",
+          "description": "Custom AI solutions and development"
+        },
+        {
+          "name": "AI Consulting",
+          "slug": "ai-consulting",
+          "description": "Strategic AI implementation and planning"
+        },
+        {
+          "name": "AI Support",
+          "slug": "ai-support",
+          "description": "Ongoing AI system maintenance and optimization"
+        }
+      ]
+    },
+    "Web Group": {
+      "basePath": "/web-group/services",
+      "description": "Modern web development and digital solutions",
+      "services": [
+        {
+          "name": "Web Development",
+          "slug": "web-development",
+          "description": "Custom web applications and platforms"
+        },
+        {
+          "name": "Web Design",
+          "slug": "web-design",
+          "description": "Beautiful, user-centered design solutions"
+        },
+        {
+          "name": "Digital Marketing",
+          "slug": "digital-marketing",
+          "description": "SEO, content, and growth strategies"
+        },
+        {
+          "name": "Support",
+          "slug": "support",
+          "description": "Website maintenance and technical support"
+        }
+      ]
+    },
+    "Network Group": {
+      "basePath": "/network-group/services",
+      "description": "Enterprise networking and infrastructure",
+      "services": [
+        {
+          "name": "Network Design",
+          "slug": "network-design",
+          "description": "Custom network architecture and planning"
+        },
+        {
+          "name": "Network Optimization",
+          "slug": "network-optimization",
+          "description": "Performance tuning and enhancement"
+        },
+        {
+          "name": "Network Support",
+          "slug": "network-support",
+          "description": "Network monitoring and maintenance"
+        }
+      ]
+    }
+  },
+  "pricing": {
+    "web": {
+      "plans": [
+        {
+          "title": "Starter",
+          "description": "Perfect for small businesses or personal brands looking to establish a solid online presence.",
+          "setupPrice": 2500,
+          "features": [
+            "Up to 5 pages",
+            "Basic SEO",
+            "Site branding",
+            "Contact form"
+          ],
+          "monthlySupport": 150,
+          "supportFeatures": [
+            "Basic content updates",
+            "Reporting & analyzes",
+            "Results Driven Approach"
+          ]
+        },
+        {
+          "title": "Growth",
+          "description": "Ideal for small-mid size businesses that need more customization and advanced features not available in Starter",
+          "setupPrice": 3800,
+          "features": [
+            "Up to 10 pages",
+            "Custom branding",
+            "SEO for 10 pages",
+            "Lead generation forms",
+            "CRM integration"
+          ],
+          "monthlySupport": 250,
+          "supportFeatures": [
+            "Full site maintenance",
+            "Local SEO growth",
+            "Reporting & analyzes"
+          ]
+        },
+        {
+          "title": "Scale",
+          "description": "Designed for businesses looking for comprehensive, custom solutions and long-term growth.",
+          "setupPrice": 5500,
+          "features": [
+            "Up to 15 pages",
+            "Custom design (custom tailored)",
+            "Web animations",
+            "Advanced SEO setup",
+            "Content marketing",
+            "CRM integration"
+          ],
+          "monthlySupport": 500,
+          "supportFeatures": [
+            "Full site maintenance",
+            "Advanced SEO",
+            "Content marketing",
+            "Search-friendly content structure",
+            "Back linking",
+            "Internal Linking"
+          ]
+        }
+      ]
+    },
+    "network": {
+      "plans": [
+        {
+          "title": "Starter",
+          "description": "Perfect for small offices (5-15 devices) looking to establish a reliable network foundation.",
+          "setupPrice": 2750,
+          "priceRange": "$2,000 - $3,500",
+          "features": [
+            "Small office (5-15 devices)",
+            "1 router, 1-2 switches",
+            "1-2 access points",
+            "Basic firewall",
+            "Up to 8-12 data drops",
+            "Minimal wiring",
+            "Basic security setup"
+          ],
+          "monthlySupport": 200,
+          "supportFeatures": [
+            "Basic monitoring",
+            "Performance reports",
+            "Security updates"
+          ]
+        },
+        {
+          "title": "Growth",
+          "description": "Ideal for growing businesses (15-30 devices) that need advanced network features and optimization.",
+          "setupPrice": 6500,
+          "priceRange": "$5,000 - $8,000",
+          "features": [
+            "15-30 devices",
+            "Mesh Wi-Fi",
+            "Managed switches with VLANs",
+            "Robust firewall + VPN",
+            "Better cabling coverage",
+            "Power over Ethernet (PoE)",
+            "More access points"
+          ],
+          "monthlySupport": 350,
+          "supportFeatures": [
+            "Advanced monitoring",
+            "Performance optimization",
+            "Security management",
+            "Support within agreed service hours"
+          ]
+        },
+        {
+          "title": "Scale",
+          "description": "Designed for established businesses requiring comprehensive network solutions and maximum uptime.",
+          "setupPrice": 12500,
+          "priceRange": "$10,000 - $15,000+",
+          "features": [
+            "Full office coverage",
+            "Redundancy",
+            "Zero-trust setups",
+            "Cloud backups",
+            "Advanced endpoint protection",
+            "High throughput routing",
+            "Multisite connectivity"
+          ],
+          "monthlySupport": 600,
+          "supportFeatures": [
+            "Monitoring within agreed support scope",
+            "Proactive maintenance",
+            "Advanced security",
+            "Performance optimization",
+            "Compliance management",
+            "Priority support"
+          ]
+        }
+      ]
+    },
+    "ai": {
+      "plans": [
+        {
+          "title": "Starter",
+          "description": "Perfect for businesses looking to explore AI capabilities with basic automation.",
+          "setupPrice": 4000,
+          "features": [
+            "AI consultation",
+            "Basic chatbot setup",
+            "Simple automation",
+            "Initial training"
+          ],
+          "monthlySupport": 300,
+          "supportFeatures": [
+            "Basic monitoring",
+            "Performance reports",
+            "Simple updates"
+          ]
+        },
+        {
+          "title": "Growth",
+          "description": "Ideal for businesses ready to implement advanced AI solutions and RAG systems.",
+          "setupPrice": 6000,
+          "features": [
+            "Advanced AI consultation",
+            "RAG implementation",
+            "Custom AI applications",
+            "Data integration",
+            "Advanced training"
+          ],
+          "monthlySupport": 500,
+          "supportFeatures": [
+            "Advanced monitoring",
+            "Model fine-tuning",
+            "Data updates",
+            "Performance optimization"
+          ]
+        },
+        {
+          "title": "Scale",
+          "description": "Designed for enterprises requiring comprehensive AI solutions and custom development.",
+          "setupPrice": 8000,
+          "features": [
+            "Enterprise AI strategy",
+            "Custom RAG systems",
+            "Advanced AI applications",
+            "Full data integration",
+            "Custom development",
+            "API integrations"
+          ],
+          "monthlySupport": 800,
+          "supportFeatures": [
+            "Monitoring within agreed support scope",
+            "Continuous optimization",
+            "Advanced analytics",
+            "Custom feature development",
+            "Priority support",
+            "Strategic consultation"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "frontend/pages/about.js": "32f4ae46d923752aca0e72e34d0e39380adf0af40966938c5c97b374bc4544e3",
+  "jest.config.js": "fb9e4987711f3765b7cb98951ecc998ab556c27e9840074f8989bbb7e2e5c2ed",
+  "frontend/__tests__/about-experience.frontend.test.js": "a93c39ee97cbfd3fb1480afa7bd52f9cdcaf1f3a1664458b3d0ef3ed51d73ab4",
+  "frontend/components/Organisms/UIUXExperience.js": "44eca7964dea3623c74c721aa588c1cbf7608d1d31381c0ef2592e485bec1370",
+  "frontend/styles/UIUXExperience.module.scss": "7236184fb578be3c44ba837f94e52dd4d61115d767b335cbe2d5d2ab97f34661"
+}

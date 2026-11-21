@@ -2,7 +2,7 @@ export const caseStudySummaries = [
   {
     slug: 'iin',
     title: 'Institute for Integrative Nutrition',
-    description: 'A wellness education experience designed around intuitive program discovery, accessible content, and clear enrollment pathways.',
+    description: 'Professional contributions to engineering and enrollment workflows. The relationship is not presented as a verified KDH agency engagement.',
     imageSrc: '/images/iin_pic.png',
     imageAlt: 'Institute for Integrative Nutrition office and branding',
     href: '/case-studies/iin/'
@@ -10,7 +10,7 @@ export const caseStudySummaries = [
   {
     slug: 'northwell',
     title: 'Northwell Health',
-    description: 'An education-focused healthcare experience built around accessible content, intuitive navigation, and a scalable responsive structure.',
+    description: 'Paul Solomon’s professional employment experience as a Northwell Health Software Engineer, including patient dashboard and provider discovery contributions.',
     imageSrc: '/images/northwell_edu.jpg',
     imageAlt: 'Northwell Health facility at sunset',
     href: '/case-studies/northwell/'

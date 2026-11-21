@@ -10,7 +10,7 @@ import { LayoutProvider } from '../contexts/LayoutContext';
 import { pageData, defaultPageValues } from '../data/site/pageRouting';
 import { getLayoutPageInfo } from '../utils/pageRouting';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, groupName }) => {
   const router = useRouter();
   const pageInfo = getLayoutPageInfo(router.pathname, pageData, defaultPageValues);
   const showBreadcrumbs = router.pathname !== '/';
@@ -19,9 +19,9 @@ const Layout = ({ children }) => {
     <SiteDataProvider>
       <LayoutProvider>
         <div className="layout">
-          {pageInfo.isGroupPage || pageInfo.isServicesPage ? (
+          {groupName || pageInfo.isGroupPage || pageInfo.isServicesPage ? (
             <NavbarGroup
-              groupName={pageInfo.groupName}
+              groupName={groupName || pageInfo.groupName}
               servicesPage={pageInfo.servicesPage}
             />
           ) : (

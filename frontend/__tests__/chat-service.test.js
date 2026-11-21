@@ -76,4 +76,21 @@ describe('Vercel chat service', () => {
       { role: 'assistant', content: 'We can help.' },
     ]);
   });
+  test('only the owning CRM handler can confirm acceptance and includes approved context', async () => {
+    fetch.mockResolvedValue({ ok: true, json: async () => ({ response: 'Thanks', structuredInfo: { email: 'person@example.com', service_requested: 'AI Development' } }) });
+    syncLead.mockResolvedValue({ status: 200, body: { success: true, hubspotLead: { success: true, contactId: 'private-crm-id' }, operations: { contact: 'updated' } } });
+    const result = await processChat(request(), { message: 'My project', conversationId: 'conversation-1', service: 'ai-development', cta: 'assistant-demo', sourcePath: '/ai-group/?email=secret@example.com', attributionSource: 'google' });
+    expect(result.body.leadCreated).toBe(true);
+    expect(syncLead).toHaveBeenCalledWith(expect.objectContaining({ conversation_id: 'conversation-1', cta: 'assistant-demo', sourcePath: '/ai-group/', attributionSource: 'google' }));
+    expect(JSON.stringify(syncLead.mock.calls)).not.toContain('secret@example.com');
+  });
+
+  test('does not trust an upstream CRM success flag when no inquiry qualifies', async () => {
+    fetch.mockResolvedValue({ ok: true, json: async () => ({ response: 'Hello', leadCreated: true, hubspotLead: { success: true }, structuredInfo: {} }) });
+    const result = await processChat(request(), { message: 'What do you do?' });
+    expect(result.body.leadCreated).toBe(false);
+    expect(result.body.hubspotLead).toBeNull();
+    expect(syncLead).not.toHaveBeenCalled();
+  });
+
 });

@@ -3,12 +3,13 @@ import { createEditorialCaseStudy } from './factory';
 export const dermCareData = createEditorialCaseStudy({
   seo: {
     title: 'DermCare Management Case Study | Kingdom Design House',
-    description: 'Explore how Kingdom Design House delivered a comprehensive web solution for DermCare Management, including web design, development, and branding.',
+    description: 'Review the DermCare Management portfolio contribution: service navigation, physician-focused content, and responsive templates.',
     canonical: '/case-studies/dermcare/',
     keywords: 'case study, web design, development, dermatology, healthcare, DermCare',
     ogImage: '/images/dermcare.png'
   },
   client: 'DermCare|Management',
+  relationship: 'Portfolio contribution · Engagement relationship not independently verified',
   industry: 'Healthcare · Dermatology',
   services: 'Brand · UX/UI · Development',
   focus: 'Physician support · Growth',
