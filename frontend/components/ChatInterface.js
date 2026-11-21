@@ -23,7 +23,7 @@ export default function ChatInterface({ isOpen, onClose, context = {}, starter =
   const inFlight = useRef(false);
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
-  const messagesEndRef = useRef(null);
+  const messagesRef = useRef(null);
 
   useEffect(() => {
     conversationIdRef.current = sessionRead(ID_KEY) || newSessionId();
@@ -40,14 +40,16 @@ export default function ChatInterface({ isOpen, onClose, context = {}, starter =
 
   useEffect(() => {
     if (hydrated) sessionWrite(HISTORY_KEY, JSON.stringify(messages.slice(-60)));
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, [messages, hydrated]);
+    const conversation = messagesRef.current;
+    // Scroll only the conversation; scrolling an element into view can move the page.
+    conversation?.scrollTo({ top: conversation.scrollHeight, behavior: 'smooth' });
+  }, [messages, hydrated, isOpen]);
 
   useEffect(() => {
     if (!isOpen || !dialogRef.current) return;
     const dialog = dialogRef.current;
     dialog.showModal(); // Native modal supplies inert background and keyboard focus containment.
-    inputRef.current?.focus();
+    inputRef.current?.focus({ preventScroll: true });
     const priorOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => { if (dialog.open) dialog.close(); document.body.style.overflow = priorOverflow; };
@@ -80,7 +82,7 @@ export default function ChatInterface({ isOpen, onClose, context = {}, starter =
     } finally {
       inFlight.current = false;
       setIsLoading(false);
-      inputRef.current?.focus();
+      inputRef.current?.focus({ preventScroll: true });
     }
   };
 
@@ -95,7 +97,7 @@ export default function ChatInterface({ isOpen, onClose, context = {}, starter =
         </div>
         <button className={styles.chatInterface__close} onClick={onClose} aria-label="Close chat">✕</button>
       </div>
-      <div className={styles.chatInterface__messages} role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions">
+      <div ref={messagesRef} className={styles.chatInterface__messages} role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions">
         {messages.map((message, index) => <div key={index} className={`${styles.chatInterface__message} ${styles[`chatInterface__message--${message.role === 'user' ? 'user' : 'assistant'}`]}`}>
           <div className={styles.chatInterface__message__content}>
             {message.role === 'assistant' ? renderFormattedResponse(formatResponse(message.content)) : message.content}
@@ -104,9 +106,8 @@ export default function ChatInterface({ isOpen, onClose, context = {}, starter =
           {message.leadError && <p role="status">Your inquiry could not be saved. Please use Contact below.</p>}
         </div>)}
         {isLoading && <p role="status">Jarvis is responding…</p>}
-        <div ref={messagesEndRef} />
       </div>
-      {starter && <button type="button" className={styles.starter} onClick={() => { setInputMessage(starter); inputRef.current?.focus(); }}>Start with: {starter}</button>}
+      {starter && <button type="button" className={styles.starter} onClick={() => { setInputMessage(starter); inputRef.current?.focus({ preventScroll: true }); }}>Start with: {starter}</button>}
       <p className={styles.fallback}><Link href={contactHref(fallback)} onClick={() => { trackAcquisition('service_cta_click', fallback); onClose(); }}>Prefer a person? Send a Contact inquiry</Link></p>
       <form className={styles.chatInterface__input} onSubmit={event => { event.preventDefault(); sendMessage(); }}>
         <input type="text" name="website" value={honeypot} onChange={event => setHoneypot(event.target.value)} hidden tabIndex="-1" autoComplete="off" />

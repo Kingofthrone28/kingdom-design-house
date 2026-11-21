@@ -192,8 +192,26 @@
 @media (max-width: $breakpoint-md) {
   .hero {
     min-height: 100vh;
+    min-height: 100svh;
+    // Keep the centered content clear of the fixed navigation and separator.
+    padding: calc(104px + env(safe-area-inset-top)) 0 $spacing-3xl;
+
+    &__container {
+      width: 100%;
+      flex-shrink: 0;
+    }
 
     &__logo {
+      flex-shrink: 0;
+
+      &__image {
+        width: clamp(180px, 50vw, 240px);
+        max-height: none;
+      }
+
+      &__image img {
+        height: auto;
+      }
 
       &__kingdom {
         font-size: $font-5xl;
@@ -210,7 +228,7 @@
     }
 
     &__headline {
-      margin-bottom: $spacing-5xl;
+      margin-bottom: $spacing-lg;
     }
   }
 }

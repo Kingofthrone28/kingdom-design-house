@@ -23,7 +23,8 @@
   }
 
   &__modal {
-    position: relative;
+    position: fixed;
+    inset: 0;
     background-color: $primary-white;
     border-radius: $radius-lg;
     box-shadow: $shadow-xl;

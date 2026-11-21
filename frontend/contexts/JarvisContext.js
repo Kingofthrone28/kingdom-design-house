@@ -29,7 +29,7 @@ export function JarvisProvider({ children }) {
     openRef.current = false;
     setOpen(false);
     // Focus restoration runs after the dialog stops being modal.
-    requestAnimationFrame(() => triggerRef.current?.isConnected && triggerRef.current.focus());
+    requestAnimationFrame(() => triggerRef.current?.isConnected && triggerRef.current.focus({ preventScroll: true }));
   };
   return <JarvisContext.Provider value={{ openJarvis, closeJarvis, isOpen }}>
     {children}
