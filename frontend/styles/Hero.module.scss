@@ -66,7 +66,7 @@
   }
 
   &__container {
-    max-width: $breakpoint-xl;
+    max-width: $breakpoint-md;
     margin: 0 auto;
     padding: 0 $spacing-lg;
     text-align: center;
@@ -118,11 +118,12 @@
 
     &__main,
     &__sub {
-      font-size: $font-6xl;
+      font-size: $font-5xl;
       font-weight: $font-regular;
       color: $primary-white;
       margin: 0;
       line-height: 1.1;
+      text-transform: uppercase;
 
       @media (max-width: $breakpoint-md) {
         font-size: $font-4xl;

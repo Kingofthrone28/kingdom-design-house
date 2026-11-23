@@ -7,11 +7,15 @@ import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recapt
 import { getContactFormData } from '../data/siteData';
 import { handleFormSubmission } from '../utils/formSubmissionService';
 import styles from '../styles/ContactForm.module.scss';
+import processStyles from '../styles/ProcessSteps.module.scss';
 import Button from './Atoms/Button';
 import PhoneIcon from './Atoms/PhoneIcon';
 import EmailIcon from './Atoms/EmailIcon';
 
-const ContactFormInner = () => {
+const ContactFormInner = ({ embedded = false }) => {
+  const Heading = embedded ? 'h2' : 'h1';
+  const SectionHeading = embedded ? 'h3' : 'h2';
+  const DetailHeading = embedded ? 'h4' : 'h3';
   const router = useRouter();
   const context = useMemo(() => inquiryContext(router.query), [router.query]);
   const submissionRef = useRef({ id: null, pending: false, delivered: false });
@@ -185,13 +189,20 @@ const ContactFormInner = () => {
   };
 
   return (
-    <section className={styles.contactForm}>
+    <section
+      id={embedded ? 'contact-team' : undefined}
+      aria-labelledby={embedded ? 'contact-team-title' : undefined}
+      className={`${styles.contactForm} ${embedded ? styles['contactForm--embedded'] : ''}`}
+    >
       <div className={styles.contactForm__container}>
         {/* Header */}
         <div className={styles.contactForm__header}>
-          <h1 className={styles.contactForm__title}>
-            {formConfig.title}
-          </h1>
+          <Heading
+            id={embedded ? 'contact-team-title' : undefined}
+            className={embedded ? processStyles.processSteps__title : styles.contactForm__title}
+          >
+            {embedded ? <>Not sure where to start? <span className={processStyles.processSteps__title__highlight}>Contact our team</span></> : formConfig.title}
+          </Heading>
           <p className={styles.contactForm__subtitle}>
             {formConfig.subtitle}
           </p>
@@ -200,7 +211,7 @@ const ContactFormInner = () => {
         <div className={styles.contactForm__content}>
           {/* Contact Information */}
           <div className={styles.contactForm__info}>
-            <h2 className={styles.contactForm__sectionTitle}>Get In Touch</h2>
+            <SectionHeading className={styles.contactForm__sectionTitle}>Get In Touch</SectionHeading>
             <p className={styles.contactForm__sectionDescription}>
               We're here to help you succeed. Reach out to us through any of these channels.
             </p>
@@ -214,7 +225,7 @@ const ContactFormInner = () => {
                     {method.type === 'location' && <span>📍</span>}
                   </div>
                   <div className={styles.contactForm__methodDetails}>
-                    <h3 className={styles.contactForm__methodLabel}>{method.label}</h3>
+                    <DetailHeading className={styles.contactForm__methodLabel}>{method.label}</DetailHeading>
                     {method.action ? (
                       <a 
                         href={method.action} 
@@ -236,7 +247,7 @@ const ContactFormInner = () => {
             </div>
 
             <div className={styles.contactForm__hours}>
-              <h3 className={styles.contactForm__hoursTitle}>{formConfig.businessHours.title}</h3>
+              <DetailHeading className={styles.contactForm__hoursTitle}>{formConfig.businessHours.title}</DetailHeading>
               <div className={styles.contactForm__hoursList}>
                 {formConfig.businessHours.hours.map((hour, index) => (
                   <div key={index} className={styles.contactForm__hourItem}>
@@ -250,7 +261,7 @@ const ContactFormInner = () => {
 
           {/* Contact Form */}
           <div className={styles.contactForm__formSection}>
-            <h2 className={styles.contactForm__sectionTitle}>Send Us a Message</h2>
+            <SectionHeading className={styles.contactForm__sectionTitle}>Send Us a Message</SectionHeading>
             
             {submitStatus && (
               <div role="status" className={`${styles.contactForm__status} ${styles[`contactForm__status--${submitStatus.type}`]}`}>
@@ -291,12 +302,12 @@ const ContactFormInner = () => {
 };
 
 // Wrapper component with reCAPTCHA provider
-const ContactForm = () => {
+const ContactForm = ({ embedded = false }) => {
   const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
   if (!recaptchaSiteKey) {
     console.warn('reCAPTCHA site key not found. Form will work without reCAPTCHA protection.');
-    return <ContactFormInner />;
+    return <ContactFormInner embedded={embedded} />;
   }
 
   return (
@@ -309,7 +320,7 @@ const ContactForm = () => {
         nonce: undefined,
       }}
     >
-      <ContactFormInner />
+      <ContactFormInner embedded={embedded} />
     </GoogleReCaptchaProvider>
   );
 };

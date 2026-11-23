@@ -268,6 +268,73 @@
   }
 }
 
+.contactForm.contactForm--embedded {
+  background: $primary-beige;
+  min-height: auto;
+  padding: $spacing-4xl 0;
+  scroll-margin-top: 100px;
+
+  .contactForm__container {
+    gap: $spacing-2xl;
+  }
+
+  .contactForm__header {
+    margin-bottom: 0;
+
+    > h2 {
+      color: $primary-black;
+    }
+  }
+
+  .contactForm__subtitle {
+    margin-top: $spacing-lg;
+    color: $primary-black;
+  }
+
+  .contactForm__info,
+  .contactForm__formSection {
+    background: linear-gradient(135deg, $primary-dark-gray 0%, $primary-black 100%);
+    color: $primary-white;
+  }
+
+  .contactForm__content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $spacing-xl;
+  }
+
+  .contactForm__info,
+  .contactForm__formSection,
+  .contactForm__methodDetails,
+  .formField {
+    min-width: 0;
+  }
+
+  .contactForm__formRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .formField__input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .contactForm__methodValue {
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: $breakpoint-lg) {
+    .contactForm__content,
+    .contactForm__formRow {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-3xl 0;
+    scroll-margin-top: 80px;
+  }
+}
+
 // Responsive design
 @media (max-width: $breakpoint-lg) {
   .contactForm {

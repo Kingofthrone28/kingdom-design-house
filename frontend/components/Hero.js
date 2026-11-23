@@ -68,12 +68,6 @@ const Hero = ({ pageHeadline = null, tagline, ctaLabel = 'Book a free consultati
         <InquiryCTA cta="hero" label={ctaLabel} starter="I would like to discuss a website, business application, or AI automation project." />
       </div>
 
-      {/* CTA Button */}
-      
-        <Button href="/case-studies/" variant="secondary" size="large">
-          Discover Our Work
-        </Button>
-
       {/* Diagonal Separator */}
       <div className={styles.hero__separator}/>
     </section>

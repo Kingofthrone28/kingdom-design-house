@@ -7,6 +7,7 @@ import OurGroups from '../components/OurGroups';
 import FeaturedProjects from '../components/Organisms/FeaturedProjects';
 import ProcessSteps from '../components/ProcessSteps';
 import PricingTeaser from '../components/Organisms/PricingTeaser';
+import ContactForm from '../components/ContactForm';
 import ChatJarvis from '../components/ChatJarvis';
 import WhyChooseUs from '../components/WhyChooseUs';
 import { pageSeoData } from '../lib/seo';
@@ -25,6 +26,7 @@ export default function Home() {
         <OurGroups />
         <ProcessSteps />
         <PricingTeaser />
+        <ContactForm embedded />
       </Layout>
     </>
   );

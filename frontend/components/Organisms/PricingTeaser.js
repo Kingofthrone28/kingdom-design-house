@@ -51,6 +51,7 @@ export default function PricingTeaser() {
           </Link>
         </div>
       </div>
+      <div className={styles.divider} aria-hidden="true" />
     </section>
   );
 }
