@@ -19,7 +19,7 @@ const OurGroups = ({ groupIntent = null }) => {
       <div className={styles.ourGroups__container}>
         <div className={styles.ourGroups__header}>
           <h2 className={styles.ourGroups__title}>
-            Our <span className={styles.ourGroups__title__highlight}>Groups</span>
+            {/* Our <span className={styles.ourGroups__title__highlight}>Groups</span> */}
             {groupIntent && (
               <>
                 <br />
@@ -29,7 +29,7 @@ const OurGroups = ({ groupIntent = null }) => {
               </>
             )}
           </h2>
-          <p className={styles.ourGroups__subtext}>Our groups are designed to help you grow your business and achieve your goals. Whether you're looking to start a new business, expand your existing business, or just need some help, you have a choice between our groups below to take you to the next level.</p>
+          {/* <p className={styles.ourGroups__subtext}>Our groups are designed to help you grow your business and achieve your goals. Whether you're looking to start a new business, expand your existing business, or just need some help, you have a choice between our groups below to take you to the next level.</p> */}
         </div>
 
         <div className={styles.ourGroups__grid}>

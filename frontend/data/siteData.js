@@ -6,7 +6,7 @@ export const siteData = {
   company: {
     name: "Kingdom Design House",
     tagline: "Websites, business applications, and AI automation. Based in Freeport, serving Long Island and NYC.",
-    description: "We solve business problems so you don't have to."
+    description: "We Build Real AI Automation. Intelligent Agents & Websites through Results,"
   },
   
   contact: {
@@ -180,20 +180,20 @@ export const siteData = {
   hero: {
     // Default/homepage headline
     headline: {
-      main: "WE SOLVE BUSINESS",
-      highlight: "PROBLEMS",
-      sub: "SO YOU",
-      subHighlight: "DON'T HAVE TO"
+      main: "We Build Real",
+      highlight: "AI Automation.",
+      sub: "Intelligent Agents & Websites",
+      subHighlight: "through Results,"
     }
   },
 
   // Page-specific headlines for unique H1s
   pageHeadlines: {
   "home": {
-    "main": "WE SOLVE BUSINESS",
-    "highlight": "PROBLEMS",
-    "sub": "SO YOU",
-    "subHighlight": "DON'T HAVE TO"
+    "main": "We Build Real",
+    "highlight": "AI Automation.",
+    "sub": "Intelligent Agents & Websites",
+    "subHighlight": "through Results,"
   },
   "about": {
     "main": "ABOUT",

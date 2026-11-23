@@ -12,14 +12,39 @@
   min-height: 400px;
   box-shadow: inset 1px 16px 65px -36px #000000;
 
-  > p{
+  &__grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+    gap: $spacing-2xl;
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+    box-sizing: border-box;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__chat {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__subtext {
     color: $primary-black;
     font-size: $font-sm;
     font-weight: $font-semibold;
-    line-height: 1.5rem;;
+    line-height: 1.5rem;
     font-style: italic;
-    max-width: 300px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 340px;
+    box-sizing: border-box;
     text-align: left;
     box-shadow: $shadow-lg;
     margin: 20px auto;
@@ -28,8 +53,42 @@
     border-radius: 30px;
   }
 
+  &__questions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    width: 100%;
+    max-width: 340px;
+  }
+
+  &__question {
+    width: 100%;
+    border: 1px solid rgba($primary-black, 0.12);
+    border-radius: $radius-xl;
+    padding: $spacing-md;
+    background: rgba($primary-black, 0.08);
+    color: $primary-black;
+    font: inherit;
+    font-size: $font-sm;
+    line-height: 1.5;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background: $primary-yellow;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary-black;
+      outline-offset: 3px;
+    }
+  }
+
   &__container {
     position: relative;
+    max-width: 100%;
+    box-sizing: border-box;
     border-radius: 5%;
     z-index: 2;
     display: flex;
@@ -39,6 +98,9 @@
     background: $primary-black;
     
     img{
+      max-width: 100%;
+      height: auto;
+      box-sizing: border-box;
       border-radius: 20%;
       object-fit: contain;
       padding: 10px;

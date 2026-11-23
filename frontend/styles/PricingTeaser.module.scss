@@ -1,0 +1,121 @@
+@import 'variables';
+
+.teaser {
+  padding: $spacing-4xl 0;
+  background: $primary-cream;
+  scroll-margin-top: 100px;
+}
+
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 $spacing-lg;
+  color: $primary-dark-gray;
+  font-size: $font-sm;
+  font-weight: $font-bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin-bottom: $spacing-lg;
+
+  h2 {
+    color: $primary-black;
+  }
+}
+
+.description {
+  max-width: 780px;
+  margin: 0 auto $spacing-2xl;
+  color: $primary-dark-gray;
+  font-size: $font-xl;
+  line-height: 1.65;
+}
+
+.groups {
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: $radius-lg;
+  background: rgba($primary-black, 0.05);
+
+  button {
+    color: $primary-black;
+
+    &:hover {
+      background: rgba($primary-black, 0.08);
+    }
+
+    &[aria-pressed='true'] {
+      background: $primary-yellow;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary-black;
+      outline-offset: 2px;
+    }
+  }
+}
+
+.selection {
+  max-width: 600px;
+  margin: $spacing-xl auto 0;
+}
+
+.groupDescription {
+  min-height: 5em;
+  margin: 0 0 $spacing-lg;
+  color: $primary-dark-gray;
+  font-size: $font-base;
+  line-height: 1.65;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-xl;
+  border-radius: $radius-lg;
+  background: $primary-yellow;
+  color: $primary-black;
+  font-weight: $font-bold;
+  line-height: 1.5;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: $primary-faded-yellow;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $primary-black;
+    outline-offset: 4px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .teaser {
+    padding: $spacing-3xl 0;
+    scroll-margin-top: 80px;
+  }
+
+  .container {
+    padding: 0 $spacing-md;
+  }
+
+  .description {
+    font-size: $font-lg;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta {
+    transition: none;
+  }
+}

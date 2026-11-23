@@ -13,7 +13,7 @@
   &__title {
     font-size: $font-4xl;
     font-weight: 700;
-    text-align: center;
+    text-align:left;
     margin-top: $spacing-md;
     margin-bottom: $spacing-md;
     color: $primary-white;
@@ -37,12 +37,9 @@
 
   &__description {
     font-size: $font-lg;
-    text-align: center;
+    text-align: left;
     color: $primary-white;
     margin-bottom: $spacing-3xl;
-    max-width: 600px; // Keep as fixed value for readability
-    margin-left: auto;
-    margin-right: auto;
     line-height: 1.6;
   }
 
@@ -249,5 +246,35 @@
         color: $primary-cream;
       }
     }
+  }
+}
+
+.videoShowcase--embedded {
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+
+  .videoShowcase__container {
+    padding: 0;
+  }
+
+  .videoShowcase__title,
+  .videoShowcase__description {
+    color: $primary-black;
+  }
+
+  .videoShowcase__description {
+    margin-bottom: $spacing-lg;
+  }
+
+  .videoShowcase__grid {
+    margin-bottom: 0;
+  }
+
+  .videoShowcase__featuredInfo {
+    position: static;
+    display: block;
+    background: $primary-black;
+    padding: $spacing-lg;
   }
 }
